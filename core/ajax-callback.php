@@ -2,7 +2,7 @@
 /**
  * This file contains the ajax callback function
  * 
- * @package teachpress\core
+ * @package teachcorses\core
  * @license http://www.gnu.org/licenses/gpl-2.0.html GPLv2 or later
  */
 
@@ -13,7 +13,7 @@
 function tc_ajax_callback () {
     
     // Check permissions
-    if ( is_user_logged_in() && current_user_can('use_teachpress') ) {
+    if ( is_user_logged_in() && current_user_can('use_teachcorses') ) {
         
         /**
          * Getting author's publications (for show_authors.php)

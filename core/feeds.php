@@ -1,7 +1,7 @@
 <?php
 /**
  * This file contains the feed constructors
- * @package teachpress/core
+ * @package teachcorses/core
  * @license http://www.gnu.org/licenses/gpl-2.0.html GPLv2 or later
  */
 
@@ -56,7 +56,7 @@ function tc_pub_rss_feed_func () {
 
         // prepare author name
         if ( $row['type'] === 'collection' || ( $row['author'] === '' && $row['editor'] !== '' ) ) {
-            $all_authors = str_replace(' and ', ', ', tc_HTML::convert_special_chars( $row['editor'] ) ) . ' (' . __('Ed.','teachpress') . ')';
+            $all_authors = str_replace(' and ', ', ', tc_HTML::convert_special_chars( $row['editor'] ) ) . ' (' . __('Ed.','teachcorses') . ')';
         }
         else {
             $all_authors = str_replace(' and ', ', ', tc_HTML::convert_special_chars( $row['author'] ) );
@@ -69,7 +69,7 @@ function tc_pub_rss_feed_func () {
             'editor_name'       => 'simple',
             'editor_separator'  => ',',
             'style'             => 'simple',
-            'meta_label_in'     => __('In','teachpress') . ': ',
+            'meta_label_in'     => __('In','teachcorses') . ': ',
             'use_span'          => false
         );
         echo '
@@ -128,13 +128,13 @@ function tc_export_feed_func() {
         header("Content-Disposition: attachment; filename=" . $filename . ".bib");
         tc_Export::get_publication_by_key($key);
     }
-    elseif ( is_user_logged_in() && current_user_can('use_teachpress') ) {
+    elseif ( is_user_logged_in() && current_user_can('use_teachcorses') ) {
         $type = isset ( $_GET['type'] ) ? htmlspecialchars($_GET['type']) : '';
         $course_id = isset ( $_GET['course_id'] ) ? intval($_GET['course_id']) : 0;
         $user_id = isset ( $_GET['tc_user'] ) ? intval($_GET['tc_user']) : 0;
         $format = isset ( $_GET['tc_format'] ) ?  htmlspecialchars($_GET['tc_format']) : '';
         $sel = isset ( $_GET['tc_sel'] ) ?  htmlspecialchars($_GET['tc_sel']) : '';
-        $filename = 'teachpress_course_' . $course_id . '_' . date('dmY');
+        $filename = 'teachcorses_course_' . $course_id . '_' . date('dmY');
 
         // Export courses
         if ( $type === "xls" && $course_id != 0 ) {
@@ -151,12 +151,12 @@ function tc_export_feed_func() {
 
         // Export publication lists
         if ( $type === 'pub' ) {
-            $filename = 'teachpress_pub_' . date('dmY');
+            $filename = 'teachcorses_pub_' . date('dmY');
             $encoding = ( get_tc_option('convert_bibtex') == '1' ) ? 'Cp1252' : 'UTF-8';
             if ( $format === 'bib' ) {
                 header('Content-Type: text/plain; charset=utf-8' );
                 header("Content-Disposition: attachment; filename=" . $filename . ".bib");
-                echo '% This file was created with teachPress ' . get_tc_version() . chr(13) . chr(10);
+                echo '% This file was created with teachCorses ' . get_tc_version() . chr(13) . chr(10);
                 echo '% Encoding: ' . $encoding . chr(13) . chr(10) . chr(13) . chr(10);
                 if ( $sel == '' ) {
                     tc_Export::get_publications($user_id);

@@ -1,14 +1,14 @@
 <?php
 /**
  * This file contains all functions of the tc_icons class
- * @package teachpress\core\icons
+ * @package teachcorses\core\icons
  * @license http://www.gnu.org/licenses/gpl-2.0.html GPLv2 or later
  * @since 7.0
  */
 
 /**
  * This class contains some function around icon usage
- * @package teachpress\core\icons
+ * @package teachcorses\core\icons
  * @since 7.0
  */
 class tc_Icons {

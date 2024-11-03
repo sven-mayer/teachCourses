@@ -2,7 +2,7 @@
 /**
  * This file contains all deprecated functions
  * 
- * @package teachpress\core\deprecated
+ * @package teachcorses\core\deprecated
  * @license http://www.gnu.org/licenses/gpl-2.0.html GPLv2 or later
  * @since 5.0.0
  */
@@ -16,12 +16,12 @@
  * @todo Delete function
 */
 function tc_date_shortcode($attr) {
-    trigger_error( __('The shortcode [tpdate] is deprecated since teachpress 5.0.0. Use [tpcourseinfo] instead.','teachpress') );
+    trigger_error( __('The shortcode [tpdate] is deprecated since teachcorses 5.0.0. Use [tpcourseinfo] instead.','teachcorses') );
     return tc_courseinfo_shortcode($attr);
 }
 
 /** 
- * teachPress Admin Page Menu
+ * teachCorses Admin Page Menu
  * @param int $number_entries       Number of all available entries
  * @param int $entries_per_page     Number of entries per page
  * @param int $current_page         current displayed page
@@ -34,7 +34,7 @@ function tc_date_shortcode($attr) {
  * @todo Delete function
 */
 function tc_admin_page_menu ($number_entries, $entries_per_page, $current_page, $entry_limit, $page_link = '', $link_attributes = '', $type = 'top') {
-    trigger_error( __('The function tc_admin_page_menu() is deprecated since teachpress 5.0.0. Use tc_page_menu() instead.','teachpress') );
+    trigger_error( __('The function tc_admin_page_menu() is deprecated since teachcorses 5.0.0. Use tc_page_menu() instead.','teachcorses') );
     return tc_page_menu(array('number_entries' => $number_entries,
                               'entries_per_page' => $entries_per_page,
                               'current_page' => $current_page,
@@ -54,7 +54,7 @@ function tc_admin_page_menu ($number_entries, $entries_per_page, $current_page, 
  * @todo Delete function
  */
 function get_tc_course ( $id, $output_type = OBJECT) {
-    trigger_error( __('get_tc_course() is deprecated since teachpress 5.0.0. Use tc_courses::get_course() instead.','teachpress') );
+    trigger_error( __('get_tc_course() is deprecated since teachcorses 5.0.0. Use tc_courses::get_course() instead.','teachcorses') );
     return tc_Courses::get_course($id, $output_type);
 }
 
@@ -67,7 +67,7 @@ function get_tc_course ( $id, $output_type = OBJECT) {
  * @todo Delete function
  */
 function get_tc_courses ( $args = array() ) {
-    trigger_error( __('get_tc_courses() is deprecated since teachpress 5.0.0. Use tc_courses::get_courses() instead.','teachpress') );
+    trigger_error( __('get_tc_courses() is deprecated since teachcorses 5.0.0. Use tc_courses::get_courses() instead.','teachcorses') );
     return tc_Courses::get_courses($args);
 }
 
@@ -81,7 +81,7 @@ function get_tc_courses ( $args = array() ) {
  * @todo Delete function
  */
 function get_tc_course_free_places($course_id, $places) {
-    trigger_error( __('get_tc_course_free_places() is deprecated since teachpress 5.0.0. tc_courses::get_free_places() instead.','teachpress') );
+    trigger_error( __('get_tc_course_free_places() is deprecated since teachcorses 5.0.0. tc_courses::get_free_places() instead.','teachcorses') );
     return tc_Courses::get_free_places($course_id, $places);
 }
 
@@ -94,7 +94,7 @@ function get_tc_course_free_places($course_id, $places) {
  * @todo Delete function
  */
 function get_tc_tags( $args = array() ) {
-    trigger_error( __('get_tc_tags() is deprecated since teachpress 5.0.0. Use tc_tags::get_tags() instead.','teachpress') );
+    trigger_error( __('get_tc_tags() is deprecated since teachcorses 5.0.0. Use tc_tags::get_tags() instead.','teachcorses') );
     return tc_Tags::get_tags($args);
 }
 
@@ -106,7 +106,7 @@ function get_tc_tags( $args = array() ) {
  * @todo Delete function
  */
 function get_tc_tag_cloud ( $args = array() ) {
-    trigger_error( __('get_tc_tag_cloud() is deprecated since teachpress 5.0.0. Use tc_tags::get_tag_cloud() instead.','teachpress') );
+    trigger_error( __('get_tc_tag_cloud() is deprecated since teachcorses 5.0.0. Use tc_tags::get_tag_cloud() instead.','teachcorses') );
     return tc_Tags::get_tag_cloud($args);
 }
 
@@ -120,7 +120,7 @@ function get_tc_tag_cloud ( $args = array() ) {
  * @todo Delete function
  */
 function get_tc_publication ($id, $output_type = OBJECT) {
-    trigger_error( __('get_tc_publication() is deprecated since teachpress 5.0.0. Use tc_publications::get_publication() instead.','teachpress') );
+    trigger_error( __('get_tc_publication() is deprecated since teachcorses 5.0.0. Use tc_publications::get_publication() instead.','teachcorses') );
     return tc_Publications::get_publication($id, $output_type);
 }
 
@@ -134,7 +134,7 @@ function get_tc_publication ($id, $output_type = OBJECT) {
  * @todo Delete function
 */
 function get_tc_publications($args = array(), $count = false) {
-    trigger_error( __('get_tc_publications() is deprecated since teachpress 5.0.0. Use tc_publications::get_publications() instead.','teachpress') );
+    trigger_error( __('get_tc_publications() is deprecated since teachcorses 5.0.0. Use tc_publications::get_publications() instead.','teachcorses') );
     return tc_Publications::get_publications($args, $count);
 }
 
@@ -148,7 +148,7 @@ function get_tc_publications($args = array(), $count = false) {
  * @todo Delete function
  */
 function tc_is_user_subscribed ($course_id, $consider_childcourses = false) {
-    trigger_error( __('tc_is_user_subscribed() is deprecated since teachpress 5.0.0. Use tc_courses::is_student_subscribed() instead.','teachpress') );
+    trigger_error( __('tc_is_user_subscribed() is deprecated since teachcorses 5.0.0. Use tc_courses::is_student_subscribed() instead.','teachcorses') );
     return tc_Courses::is_student_subscribed($course_id, $consider_childcourses);
 }
 
@@ -163,6 +163,6 @@ function tc_is_user_subscribed ($course_id, $consider_childcourses = false) {
  * @todo Delete function
  */
 function tc_check_bookmark ($pub_id, $user_id) {
-    trigger_error( __('tc_check_bookmark() is deprecated since teachpress 5.0.0. Use tc_bookmarks::bookmark_exists() instead.','teachpress') );
+    trigger_error( __('tc_check_bookmark() is deprecated since teachcorses 5.0.0. Use tc_bookmarks::bookmark_exists() instead.','teachcorses') );
     return tc_Bookmarks::bookmark_exists($pub_id, $user_id);
 }

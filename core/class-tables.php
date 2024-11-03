@@ -1,21 +1,21 @@
 <?php
 /**
- * This file contains all functions for creating a database for teachpress
+ * This file contains all functions for creating a database for teachcorses
  * 
- * @package teachpress\core\installation
+ * @package teachcorses\core\installation
  * @license http://www.gnu.org/licenses/gpl-2.0.html GPLv2 or later
  * @since 5.0.0
  */
 
 /**
- * This class contains all functions for creating a database for teachpress
- * @package teachpress\core\installation
+ * This class contains all functions for creating a database for teachcorses
+ * @package teachcorses\core\installation
  * @since 5.0.0
  */
 class tc_Tables {
     
     /**
-     * Install teachPress database tables
+     * Install teachCorses database tables
      * @since 5.0.0
      */
     public static function create() {
@@ -62,7 +62,7 @@ class tc_Tables {
     }
     
       /**
-     * Remove teachPress database tables
+     * Remove teachCorses database tables
      * @since 5.0.0
      */
     public static function remove() {
@@ -117,7 +117,7 @@ class tc_Tables {
     }
 
     /**
-     * Create table teachpress_courses
+     * Create table teachcorses_courses
      * @param string $charset_collate
      * @since 5.0.0
      */
@@ -216,7 +216,7 @@ class tc_Tables {
     }
     
     /**
-     * Create table teachpress_course_meta
+     * Create table teachcorses_course_meta
      * @param string $charset_collate
      * @since 5.0.0
      */
@@ -243,7 +243,7 @@ class tc_Tables {
     }
     
     /**
-     * Create table teachpress_stud
+     * Create table teachcorses_stud
      * @param string $charset_collate
      * @since 5.0.0
      */
@@ -271,7 +271,7 @@ class tc_Tables {
     }
     
     /**
-     * Create table teachpress_stud_meta
+     * Create table teachcorses_stud_meta
      * @param string $charset_collate
      * @since 5.0.0
      */
@@ -298,7 +298,7 @@ class tc_Tables {
     }
     
     /**
-     * Create table teachpress_signup
+     * Create table teachcorses_signup
      * @param string $charset_collate
      * @since 5.0.0
      */
@@ -328,7 +328,7 @@ class tc_Tables {
     }
     
     /**
-     * Create table teachpress_artefacts
+     * Create table teachcorses_artefacts
      * @param string $charset_collate
      * @since 5.0.0
      */
@@ -362,7 +362,7 @@ class tc_Tables {
     }
     
     /**
-     * Create table teachpress_assessments
+     * Create table teachcorses_assessments
      * @param string $charset_collate
      * @since 5.0.0
      */
@@ -398,7 +398,7 @@ class tc_Tables {
     }
     
     /**
-     * Create table teachpress_settings
+     * Create table teachcorses_settings
      * @param string $charset_collate
      * @since 5.0.0
      */
@@ -454,22 +454,22 @@ class tc_Tables {
         
         // Register example meta data fields
         // course_of_studies
-        $value = 'name = {course_of_studies}, title = {' . __('Course of studies','teachpress') . '}, type = {SELECT}, required = {false}, min = {false}, max = {false}, step = {false}, visibility = {admin}';
-        $wpdb->query("INSERT INTO " . TEACHPRESS_SETTINGS . " (`variable`, `value`, `category`) VALUES ('course_of_studies', '$value', 'teachpress_stud')"); 
+        $value = 'name = {course_of_studies}, title = {' . __('Course of studies','teachcorses') . '}, type = {SELECT}, required = {false}, min = {false}, max = {false}, step = {false}, visibility = {admin}';
+        $wpdb->query("INSERT INTO " . TEACHPRESS_SETTINGS . " (`variable`, `value`, `category`) VALUES ('course_of_studies', '$value', 'teachcorses_stud')"); 
         // birthday
-        $value = 'name = {birthday}, title = {' . __('Birthday','teachpress') . '}, type = {DATE}, required = {false}, min = {false}, max = {false}, step = {false}, visibility = {normal}';
-        $wpdb->query("INSERT INTO " . TEACHPRESS_SETTINGS . " (`variable`, `value`, `category`) VALUES ('birthday', '$value', 'teachpress_stud')"); 
+        $value = 'name = {birthday}, title = {' . __('Birthday','teachcorses') . '}, type = {DATE}, required = {false}, min = {false}, max = {false}, step = {false}, visibility = {normal}';
+        $wpdb->query("INSERT INTO " . TEACHPRESS_SETTINGS . " (`variable`, `value`, `category`) VALUES ('birthday', '$value', 'teachcorses_stud')"); 
         // semester_number
-        $value = 'name = {semester_number}, title = {' . __('Semester number','teachpress') . '}, type = {INT}, required = {false}, min = {1}, max = {99}, step = {1}, visibility = {normal}';
-        $wpdb->query("INSERT INTO " . TEACHPRESS_SETTINGS . " (`variable`, `value`, `category`) VALUES ('semester_number', '$value', 'teachpress_stud')"); 
+        $value = 'name = {semester_number}, title = {' . __('Semester number','teachcorses') . '}, type = {INT}, required = {false}, min = {1}, max = {99}, step = {1}, visibility = {normal}';
+        $wpdb->query("INSERT INTO " . TEACHPRESS_SETTINGS . " (`variable`, `value`, `category`) VALUES ('semester_number', '$value', 'teachcorses_stud')"); 
         // matriculation_number
-        $value = 'name = {matriculation_number}, title = {' . __('Matriculation number','teachpress') . '}, type = {INT}, required = {false}, min = {1}, max = {1000000}, step = {1}, visibility = {admin}';
-        $wpdb->query("INSERT INTO " . TEACHPRESS_SETTINGS . " (`variable`, `value`, `category`) VALUES ('matriculation_number', '$value', 'teachpress_stud')"); 
+        $value = 'name = {matriculation_number}, title = {' . __('Matriculation number','teachcorses') . '}, type = {INT}, required = {false}, min = {1}, max = {1000000}, step = {1}, visibility = {admin}';
+        $wpdb->query("INSERT INTO " . TEACHPRESS_SETTINGS . " (`variable`, `value`, `category`) VALUES ('matriculation_number', '$value', 'teachcorses_stud')"); 
        
     }
     
     /**
-     * Create table teachpress_pub
+     * Create table teachcorses_pub
      * @param string $charset_collate
      * @since 5.0.0
      */
@@ -540,7 +540,7 @@ class tc_Tables {
     }
     
     /**
-     * Create table teachpress_pub_meta
+     * Create table teachcorses_pub_meta
      * @param string $charset_collate
      * @since 5.0.0
      */
@@ -650,7 +650,7 @@ class tc_Tables {
     }
     
     /**
-     * Create table teachpress_tags
+     * Create table teachcorses_tags
      * @param string $charset_collate
      * @since 5.0.0
      */
@@ -675,7 +675,7 @@ class tc_Tables {
     }
     
     /**
-     * Create table teachpress_relation
+     * Create table teachcorses_relation
      * @param string $charset_collate
      * @since 5.0.0
      */
@@ -702,7 +702,7 @@ class tc_Tables {
     }
     
     /**
-     * Create table teachpress_user
+     * Create table teachcorses_user
      * @param string $charset_collate
      * @since 5.0.0
      */
@@ -729,7 +729,7 @@ class tc_Tables {
     }
     
     /**
-     * Create table teachpress_authors
+     * Create table teachcorses_authors
      * @param string $charset_collate
      * @since 5.0.0
      */
@@ -755,7 +755,7 @@ class tc_Tables {
     }
     
     /**
-     * Create table teachpress_rel_pub_auth
+     * Create table teachcorses_rel_pub_auth
      * @param string $charset_collate
      * @since 5.0.0
      */
@@ -791,11 +791,11 @@ class tc_Tables {
         // 
         global $wp_roles;
         $role = $wp_roles->get_role('administrator');
-        if ( !$role->has_cap('use_teachpress') ) {
-            $wp_roles->add_cap('administrator', 'use_teachpress');
+        if ( !$role->has_cap('use_teachcorses') ) {
+            $wp_roles->add_cap('administrator', 'use_teachcorses');
         }
-        if ( !$role->has_cap('use_teachpress_courses') ) {
-            $wp_roles->add_cap('administrator', 'use_teachpress_courses');
+        if ( !$role->has_cap('use_teachcorses_courses') ) {
+            $wp_roles->add_cap('administrator', 'use_teachcorses_courses');
         }
     }
     

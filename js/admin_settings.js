@@ -1,7 +1,7 @@
 /**
  * This file contains js functions for admin/settings UI
  * 
- * @package teachpress
+ * @package teachcorses
  * @subpackage js
  * @license http://www.gnu.org/licenses/gpl-2.0.html GPLv2 or later
  */

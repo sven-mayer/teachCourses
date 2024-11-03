@@ -1,7 +1,7 @@
 <?php
 /**
- * teachPress template file
- * @package teachpress\core\templates
+ * teachCorses template file
+ * @package teachcorses\core\templates
  * @license http://www.gnu.org/licenses/gpl-2.0.html GPLv2 or later
  * @since 6.0.0
  */
@@ -9,12 +9,12 @@
 class tc_Template_Orig_S implements tc_Publication_Template {
     
     public function get_settings() {
-        return array ('name'                => 'teachPress original small',
+        return array ('name'                => 'teachCorses original small',
                       'description'         => 'The original 1-line style template for publication lists.',
                       'author'              => 'Michael Winkler',
                       'version'             => '1.2',
                       'button_separator'    => ' | ',
-                      'citation_style'      => 'teachPress_small'
+                      'citation_style'      => 'teachCorses_small'
         );
     }
     
@@ -25,7 +25,7 @@ class tc_Template_Orig_S implements tc_Publication_Template {
      * @return string
      */
     public function get_body ($content, $args = array() ) {
-        return '<table class="teachpress_publication_list">' . $content . '</table>';
+        return '<table class="teachcorses_publication_list">' . $content . '</table>';
     }
     
     /**
@@ -83,7 +83,7 @@ class tc_Template_Orig_S implements tc_Publication_Template {
         // $s .= '<span class="tc_pub_year_simple"> (' . $interface->get_year() . ')</span>: ';
         $s .= '<span class="tc_pub_title_simple">' . $interface->get_title() . '</span>. ';
         $s .= '<span class="tc_pub_additional_simple">' . $interface->get_meta() . '</span> ';
-        $s .= '<span class="tc_pub_menu_simple">(' . __('Type','teachpress') . ': ' . $interface->get_type() . ' | ' . $interface->get_menu_line() . ')</span>';
+        $s .= '<span class="tc_pub_menu_simple">(' . __('Type','teachcorses') . ': ' . $interface->get_type() . ' | ' . $interface->get_menu_line() . ')</span>';
         $s .= $interface->get_infocontainer();
         $s .= $interface->get_images('bottom');
         $s .= '</td>';

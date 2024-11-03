@@ -1,7 +1,7 @@
 <?php
 /**
- * teachPress template file
- * @package teachpress\core\templates
+ * teachCorses template file
+ * @package teachcorses\core\templates
  * @license http://www.gnu.org/licenses/gpl-2.0.html GPLv2 or later
  * @since 6.0.0
  */
@@ -12,12 +12,12 @@ class tc_Template_2016 implements tc_Publication_Template {
      * @return array
      */
     public function get_settings() {
-        return array ('name'                => 'teachPress 2016',
+        return array ('name'                => 'teachCorses 2016',
                       'description'         => 'A new 4 line style template for publication lists.',
                       'author'              => 'Michael Winkler',
                       'version'             => '1.2',
                       'button_separator'    => ' | ',
-                      'citation_style'      => 'teachPress'
+                      'citation_style'      => 'teachCorses'
         );
     }
     
@@ -28,7 +28,7 @@ class tc_Template_2016 implements tc_Publication_Template {
      * @return string
      */
     public function get_body ($content, $args = array() ) {
-        return '<table class="teachpress_publication_list">' . $content . '</table>';
+        return '<table class="teachcorses_publication_list">' . $content . '</table>';
     }
     
     /**

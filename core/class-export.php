@@ -2,14 +2,14 @@
 /**
  * This file contains all general functions for the export system
  * 
- * @package teachpress\core\export
+ * @package teachcorses\core\export
  * @license http://www.gnu.org/licenses/gpl-2.0.html GPLv2 or later
  */
 
 /**
- * teachPress export class
+ * teachCorses export class
  *
- * @package teachpress\core\export
+ * @package teachcorses\core\export
  * @since 3.0.0
  */
 class tc_Export {
@@ -27,18 +27,18 @@ class tc_Export {
         echo '<table border="1" cellpadding="5" cellspacing="0">';
         echo '<thead>';
         echo '<tr>';
-        echo '<th>' . __('Last name','teachpress') . '</th>';
-        echo '<th>' . __('First name','teachpress') . '</th>';
-        echo '<th>' . __('User account','teachpress') . '</th>';
+        echo '<th>' . __('Last name','teachcorses') . '</th>';
+        echo '<th>' . __('First name','teachcorses') . '</th>';
+        echo '<th>' . __('User account','teachcorses') . '</th>';
         echo '<th>' . __('E-Mail') . '</th>';
-        $fields = get_tc_options('teachpress_stud','`setting_id` ASC');
+        $fields = get_tc_options('teachcorses_stud','`setting_id` ASC');
         foreach ( $fields as $field ) {
             $data = tc_DB_Helpers::extract_column_data($field->value);
             if ( $data['visibility'] === 'admin') {
                 echo '<th>' . stripslashes(utf8_decode($data['title'])) . '</th>';
             }
         }
-        echo '<th>' . __('Registered at','teachpress') . '</th>';
+        echo '<th>' . __('Registered at','teachcorses') . '</th>';
         echo '</tr>';
         echo '</thead>';  
         echo '<tbody>';
@@ -77,7 +77,7 @@ class tc_Export {
         // check capabilities
         $capability = tc_Courses::get_capability($course_id, $current_user->ID);
         if ( $capability !== 'owner' && $capability !== 'approved' ) {
-            echo __('Access denied','teachpress');
+            echo __('Access denied','teachcorses');
             return;
         }
 
@@ -97,36 +97,36 @@ class tc_Export {
         echo '<table border="1" cellspacing="0" cellpadding="5">';
         echo '<thead>';
         echo '<tr>';
-        echo '<th>' . __('Lecturer','teachpress') . '</th>';
+        echo '<th>' . __('Lecturer','teachcorses') . '</th>';
         echo '<td>' . stripslashes(utf8_decode($data['lecturer'])) . '</td>';
-        echo '<th>' . __('Date','teachpress') . '</th>';
+        echo '<th>' . __('Date','teachcorses') . '</th>';
         echo '<td>' . $data['date'] . '</td>';
-        echo '<th>' . __('Room','teachpress') . '</th>';
+        echo '<th>' . __('Room','teachcorses') . '</th>';
         echo '<td>' . stripslashes(utf8_decode($data['room'])) . '</td>';
         echo '</tr>';
         echo '<tr>';
-        echo '<th>' . __('Places','teachpress') . '</th>';
+        echo '<th>' . __('Places','teachcorses') . '</th>';
         echo '<td>' . $data['places'] . '</td>';
-        echo '<th>' . __('free places','teachpress') . '</th>';
+        echo '<th>' . __('free places','teachcorses') . '</th>';
         $free_places = tc_Courses::get_free_places($data["course_id"], $data["places"]);
         echo '<td>' . $free_places . '</td>';
         echo '<td>&nbsp;</td>';
         echo '<td>&nbsp;</td>';
         echo '</tr>';
         echo '<tr>';
-        echo '<th>' . __('Comment','teachpress') . '</th>';
+        echo '<th>' . __('Comment','teachcorses') . '</th>';
         echo '<td colspan="5">' . stripslashes(utf8_decode($data['comment'])) . '</td>';
         echo '</tr>';
         echo '</thead>';
         echo '</table>';
 
-        echo '<h3>' . __('Registered participants','teachpress') . '</h3>'; 
+        echo '<h3>' . __('Registered participants','teachcorses') . '</h3>'; 
         self::get_course_registration_table($course_id, $option, 0);
-        echo '<h3>' . __('Waiting list','teachpress') . '</h3>'; 
+        echo '<h3>' . __('Waiting list','teachcorses') . '</h3>'; 
         self::get_course_registration_table($course_id, $option, 1);
 
         global $tc_version;
-        echo '<p style="font-size:11px; font-style:italic;">' . __('Created on','teachpress') . ': ' . date("d.m.Y") . ' | teachPress ' . $tc_version . '</p>';
+        echo '<p style="font-size:11px; font-style:italic;">' . __('Created on','teachcorses') . ': ' . date("d.m.Y") . ' | teachCorses ' . $tc_version . '</p>';
     }
 
     /**
@@ -141,7 +141,7 @@ class tc_Export {
         // check capabilities
         $capability = tc_Courses::get_capability($course_id, $current_user->ID);
         if ( $capability !== 'owner' && $capability !== 'approved' ) {
-            echo __('Access denied','teachpress');
+            echo __('Access denied','teachcorses');
             return;
         }
         
@@ -149,7 +149,7 @@ class tc_Export {
         $option['regnum'] = get_tc_option('regnum');
         $option['studies'] = get_tc_option('studies');
         $row = tc_Courses::get_signups( array('course_id' => $course_id, 'waitinglist' => 0, 'output_type' => ARRAY_A, 'order' => 'st.lastname ASC') );
-        $fields = get_tc_options('teachpress_stud','`setting_id` ASC');
+        $fields = get_tc_options('teachcorses_stud','`setting_id` ASC');
         
         $extra_headlines = '';
         foreach ( $fields as $field ) {
@@ -159,7 +159,7 @@ class tc_Export {
             }
         }
 
-        $headline = '"' . __('Last name','teachpress') . '";"' . __('First name','teachpress') . '";"' . __('User account','teachpress') . '";"' . __('E-Mail') . '";' . $extra_headlines . '"' . __('Registered at','teachpress') . '";"' . __('Record-ID','teachpress') . '";"' . __('Waiting list','teachpress') . '"' . "\r\n";
+        $headline = '"' . __('Last name','teachcorses') . '";"' . __('First name','teachcorses') . '";"' . __('User account','teachcorses') . '";"' . __('E-Mail') . '";' . $extra_headlines . '"' . __('Registered at','teachcorses') . '";"' . __('Record-ID','teachcorses') . '";"' . __('Waiting list','teachcorses') . '"' . "\r\n";
         $headline = tc_Export::decode($headline);
         echo $headline;
         foreach($row as $row) {
@@ -267,11 +267,11 @@ class tc_Export {
             'editor_name'       => 'initials',
             'editor_separator'  => ';',
             'style'             => 'simple',
-            'meta_label_in'     => __('In','teachpress') . ': ',
+            'meta_label_in'     => __('In','teachcorses') . ': ',
             'use_span'          => false
         );
         if ( $row['type'] === 'collection' || $row['type'] === 'periodical' || ( $row['author'] === '' && $row['editor'] !== '' ) ) {
-            $all_authors = tc_Bibtex::parse_author($row['editor'], ';', $settings['editor_name'] ) . ' (' . __('Ed.','teachpress') . ')';
+            $all_authors = tc_Bibtex::parse_author($row['editor'], ';', $settings['editor_name'] ) . ' (' . __('Ed.','teachcorses') . ')';
         }
         else {
             $all_authors = tc_Bibtex::parse_author($row['author'], ';', $settings['author_name'] );
@@ -296,11 +296,11 @@ class tc_Export {
             'editor_name'       => 'initials',
             'editor_separator'  => ';',
             'style'             => 'simple',
-            'meta_label_in'     => __('In','teachpress') . ': ',
+            'meta_label_in'     => __('In','teachcorses') . ': ',
             'use_span'          => false
         );
         if ( $row['type'] === 'collection' || $row['type'] === 'periodical' || ( $row['author'] === '' && $row['editor'] !== '' ) ) {
-            $all_authors = tc_Bibtex::parse_author($row['editor'], ';', $settings['editor_name'] ) . ' (' . __('Ed.','teachpress') . ')';
+            $all_authors = tc_Bibtex::parse_author($row['editor'], ';', $settings['editor_name'] ) . ' (' . __('Ed.','teachcorses') . ')';
         }
         else {
             $all_authors = tc_Bibtex::parse_author($row['author'], ';', $settings['author_name'] );

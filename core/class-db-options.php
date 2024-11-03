@@ -1,14 +1,14 @@
 <?php
 /**
  * This file contains the database access class for options
- * @package teachpress
+ * @package teachcorses
  * @subpackage core
  * @license http://www.gnu.org/licenses/gpl-2.0.html GPLv2 or later
  */
 
 /**
  * Contains all functions for getting, adding and deleting of plugin options
- * @package teachpress
+ * @package teachcorses
  * @subpackage database
  * @since 5.0.0
  */
@@ -74,7 +74,7 @@ class tc_Options {
 }
 
 /** 
- * Returns a teachPress option
+ * Returns a teachCorses option
  * @param string $var           sem, db-version, sign_out, login, regnum, studies, termnumber, birthday
  * @param string $category      system,... default: system
  * @return string

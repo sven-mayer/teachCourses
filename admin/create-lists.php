@@ -2,7 +2,7 @@
 /**
  * This file contains all functions for displaying the create_lists page in admin menu
  * 
- * @package teachpress\admin\courses
+ * @package teachcorses\admin\courses
  * @license http://www.gnu.org/licenses/gpl-2.0.html GPLv2 or later
  */
 
@@ -28,27 +28,27 @@ function tc_lists_page() {
     echo '<form id="einzel" name="einzel" method="post">';
 
     if ( $create === '' ) {
-        echo '<a href="admin.php?page=teachpress/teachpress.php&amp;course_id=' . $course_id . '&amp;sem=' . $sem . '&amp;search=' . $search . '&amp;redirect=' . $redirect . '&amp;action=enrollments" class="button-secondary" title="' . __('back to the course','teachpress') . '">&larr; ' . __('Back','teachpress') . '</a>';
+        echo '<a href="admin.php?page=teachcorses/teachcorses.php&amp;course_id=' . $course_id . '&amp;sem=' . $sem . '&amp;search=' . $search . '&amp;redirect=' . $redirect . '&amp;action=enrollments" class="button-secondary" title="' . __('back to the course','teachcorses') . '">&larr; ' . __('Back','teachcorses') . '</a>';
     }
     else {
-        echo '<a href="admin.php?page=teachpress/teachpress.php&amp;course_id=' . $course_id . '&amp;sem=' . $sem . '&amp;search=' . $search . '&amp;redirect=' . $redirect . '&amp;action=list" class="button-secondary" title="' . __('back to the course','teachpress') . '">&larr; ' . __('Back','teachpress') . '</a>';
+        echo '<a href="admin.php?page=teachcorses/teachcorses.php&amp;course_id=' . $course_id . '&amp;sem=' . $sem . '&amp;search=' . $search . '&amp;redirect=' . $redirect . '&amp;action=list" class="button-secondary" title="' . __('back to the course','teachcorses') . '">&larr; ' . __('Back','teachcorses') . '</a>';
         
     }
 
     if ( $create === '' ) { ?>
-   <h2><?php _e('Create attendance list','teachpress'); ?></h2>
+   <h2><?php _e('Create attendance list','teachcorses'); ?></h2>
    <table class="form-table" style="width:600px;">
       <thead>
        <tr>
-         <th><label for="sort"><?php _e('Sort after','teachpress'); ?></label></th>
+         <th><label for="sort"><?php _e('Sort after','teachcorses'); ?></label></th>
          <th>
             <select name="sort" id="sort">
-               <option value="1"><?php _e('Last name','teachpress'); ?></option>
+               <option value="1"><?php _e('Last name','teachcorses'); ?></option>
             </select>
          </th>
       </tr>
       <tr>
-         <th style="width:160px;"><label for="number"><?php _e('Number of free columns','teachpress'); ?></label></th>
+         <th style="width:160px;"><label for="number"><?php _e('Number of free columns','teachcorses'); ?></label></th>
          <th>
             <select name="number" id="number">
                <?php
@@ -64,11 +64,11 @@ function tc_lists_page() {
          </th>
       </tr>
       <tr>
-         <th><label for="extra_fields"><?php _e('Additional columns','teachpress'); ?></label></th>
+         <th><label for="extra_fields"><?php _e('Additional columns','teachcorses'); ?></label></th>
          <th>
              <select name="extra_fields[]" id="extra_fields" multiple="multiple" style="min-height: 200px;">
                 <?php
-                $fields = get_tc_options('teachpress_stud','`setting_id` ASC');
+                $fields = get_tc_options('teachcorses_stud','`setting_id` ASC');
                 foreach ($fields as $row) {
                     $data = tc_DB_Helpers::extract_column_data($row->value);
                     echo '<option value="' . $row->variable . '">' . $data['title'] . '</option>';
@@ -79,7 +79,7 @@ function tc_lists_page() {
       </tr>
       </thead>
    </table>
-   <p><input name="create" type="submit" class="button-primary" value="<?php _e('Create','teachpress'); ?>"/></p>
+   <p><input name="create" type="submit" class="button-primary" value="<?php _e('Create','teachcorses'); ?>"/></p>
     <?php
     }
     else {
@@ -115,11 +115,11 @@ function tc_create_attendance_list($course_id, $number, $extra_fields) {
     echo '<div style="width:700px; padding-bottom:10px;">';
     echo '<table border="1" cellspacing="0" cellpadding="0" class="tc_print">';
     echo '<tr>';
-    echo '<th>' . __('Lecturer','teachpress') . '</th>';
+    echo '<th>' . __('Lecturer','teachcorses') . '</th>';
     echo '<td>' . $row->lecturer . '</td>';
-    echo '<th>' . __('Date','teachpress') . '</th>';
+    echo '<th>' . __('Date','teachcorses') . '</th>';
     echo '<td>' . $row->date . '</td>';
-    echo '<th>' . __('Room','teachpress') . '</th>';
+    echo '<th>' . __('Room','teachcorses') . '</th>';
     echo '<td>' . $row->room . '</td>';
     echo '</tr>';
     echo '</table>';        
@@ -129,11 +129,11 @@ function tc_create_attendance_list($course_id, $number, $extra_fields) {
     echo '<thead>';
     echo '<tr style="border-collapse: collapse; border: 1px solid black;">';
     echo '<th width="20" height="100">&nbsp;</th>';
-    echo '<th width="250">' . __('Name','teachpress') . '</th>';
-    echo '<th width="125">' . __('User account','teachpress') . '</th>';
+    echo '<th width="250">' . __('Name','teachcorses') . '</th>';
+    echo '<th width="125">' . __('User account','teachcorses') . '</th>';
     $max = count($extra_fields);
     for ($i = 0; $i < $max; $i++) {
-        $field_values = get_tc_option($extra_fields[$i], 'teachpress_stud');
+        $field_values = get_tc_option($extra_fields[$i], 'teachcorses_stud');
         $data = tc_DB_Helpers::extract_column_data($field_values);
         echo '<th>' . $data['title'] . '</th>';
     }

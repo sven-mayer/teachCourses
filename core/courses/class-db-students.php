@@ -1,14 +1,14 @@
 <?php
 /**
  * This file contains the database access class for students
- * @package teachpress
+ * @package teachcorses
  * @subpackage core
  * @license http://www.gnu.org/licenses/gpl-2.0.html GPLv2 or later
  */
 
 /**
  * Contains functions for getting, adding and deleting students
- * @package teachpress
+ * @package teachcorses
  * @subpackage database
  * @since 5.0.0
  */
@@ -129,7 +129,7 @@ class tc_Students {
     }
     
     /**
-     * Returns an array|object with ID and user_login of WordPress users, which are not registered in teachPress 
+     * Returns an array|object with ID and user_login of WordPress users, which are not registered in teachCorses 
      * @param string $output_type   ARRAY_A, ARRAY_N or OBJECT, default is ARRAY_A
      * @return array|object
      * @since 5.0.0
@@ -200,7 +200,7 @@ class tc_Students {
         
         $wpdb->update( TEACHPRESS_STUD, array( 'firstname' => $data['firstname'], 'lastname' => $data['lastname'], 'userlogin' => $data['userlogin'], 'email' => $data['email'] ), array( 'wp_id' => $wp_id ), array( '%s', '%s', '%s', '%s' ), array( '%d' ) );
         if ($show_message === true) {
-            return '<div class="teachpress_message_success">' . __('Changes in your profile successful.','teachpress') . '</div>';
+            return '<div class="teachcorses_message_success">' . __('Changes in your profile successful.','teachcorses') . '</div>';
         }
     }
     

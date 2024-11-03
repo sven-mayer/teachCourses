@@ -1,7 +1,7 @@
 <?php
 /**
  * This file contains the database helper class
- * @package teachpress
+ * @package teachcorses
  * @subpackage core
  * @license http://www.gnu.org/licenses/gpl-2.0.html GPLv2 or later
  * @since 8.0.0
@@ -9,7 +9,7 @@
 
 /**
  * Contains database helper functions
- * @package teachpress
+ * @package teachcorses
  * @subpackage database
  * @since 5.0.0
  */
@@ -146,7 +146,7 @@ class tc_DB_Helpers {
     }
     
     /**
-     * Register a new table column in teachpress
+     * Register a new table column in teachcorses
      * @param string $table
      * @param string $column
      * @param array $data

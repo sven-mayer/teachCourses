@@ -1,14 +1,14 @@
 <?php
 /**
  * This file contains the database access class for courses
- * @package teachpress
+ * @package teachcorses
  * @subpackage core
  * @license http://www.gnu.org/licenses/gpl-2.0.html GPLv2 or later
  */
 
 /**
  * Contains functions for getting, adding and deleting of courses
- * @package teachpress
+ * @package teachcorses
  * @subpackage database
  * @since 5.0.0
  */
@@ -377,7 +377,7 @@ class tc_Courses {
         }
         // test if creation was successful
         if ( $data['rel_page'] === false ) {
-            get_tc_message(__('Error while adding new related content.','teachpress'), 'red');
+            get_tc_message(__('Error while adding new related content.','teachcorses'), 'red');
         }
         // create sub courses
         if ( $sub['number'] !== 0 ) {
@@ -447,7 +447,7 @@ class tc_Courses {
             self::handle_changes_of_free_places($course_id, $data['places'], $old_places);
         }
         
-        // Handle capabilities for old existing courses (added before teachpress 5.0)
+        // Handle capabilities for old existing courses (added before teachcorses 5.0)
         if ( self::is_owner($course_id) === false ) {
             self::add_capability($course_id, $current_user->ID, 'owner');
         }
@@ -575,7 +575,7 @@ class tc_Courses {
             $limit = " LIMIT $limit";
         }
 
-        $fields = get_tc_options('teachpress_stud','`setting_id` ASC');
+        $fields = get_tc_options('teachcorses_stud','`setting_id` ASC');
         $selects = '';
         $joins = '';
         $where = '';

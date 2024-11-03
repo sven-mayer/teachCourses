@@ -11,7 +11,7 @@ class tc_Tags_Page {
         echo '<div class="wrap" style="max-width:900px;">';
         echo '<h2>' . __('Tags') . '</h2>';
         echo '<form id="form1" name="form1" method="get" action="' . esc_url($_SERVER['REQUEST_URI']) . '">';
-        echo '<input name="page" type="hidden" value="teachpress/tags.php" />';
+        echo '<input name="page" type="hidden" value="teachcorses/tags.php" />';
 
         tc_Tags_Page::get_page();
 
@@ -32,23 +32,23 @@ class tc_Tags_Page {
         
         // Delete tags - part 1
         if ( $action === 'delete' ) {
-            echo '<div class="teachpress_message teachpress_message_orange">
-                <p class="teachpress_message_headline">' . __('Do you want to delete the selected items?','teachpress') . '</p>
-                <p><input name="delete_ok" type="submit" class="button-secondary" value="' . __('Delete','teachpress') . '"/>
-                <a href="admin.php?page=' . $page . '&search=' . $search . '&amp;limit=' . $curr_page . '"> ' . __('Cancel','teachpress') . '</a></p>
+            echo '<div class="teachcorses_message teachcorses_message_orange">
+                <p class="teachcorses_message_headline">' . __('Do you want to delete the selected items?','teachcorses') . '</p>
+                <p><input name="delete_ok" type="submit" class="button-secondary" value="' . __('Delete','teachcorses') . '"/>
+                <a href="admin.php?page=' . $page . '&search=' . $search . '&amp;limit=' . $curr_page . '"> ' . __('Cancel','teachcorses') . '</a></p>
                 </div>';
         }
         
         // delete tags - part 2
         if ( isset($_GET['delete_ok']) ) {
             tc_Tags::delete_tags($checkbox);
-            get_tc_message( __('Removing successful','teachpress') );
+            get_tc_message( __('Removing successful','teachcorses') );
         }
         if ( isset( $_GET['tc_edit_tag_submit'] )) {
             $name = htmlspecialchars($_GET['tc_edit_tag_name']);
             $tag_id = intval($_GET['tc_edit_tag_id']);
             tc_Tags::edit_tag($tag_id, $name);
-            get_tc_message( __('Tag saved','teachpress') );
+            get_tc_message( __('Tag saved','teachcorses') );
         }
     }
 
@@ -78,7 +78,7 @@ class tc_Tags_Page {
         $checkbox = isset( $_GET['checkbox'] ) ? $_GET['checkbox'] : array();
         $filter = isset( $_GET['filter'] ) ? htmlspecialchars($_GET['filter']) : '';
         $only_zero = ( $filter === 'only_zero' ) ? true : false;
-        $page = 'teachpress/tags.php';
+        $page = 'teachcorses/tags.php';
         if ( empty ( $per_page) || $per_page < 1 ) {
             $per_page = $screen->get_option( 'per_page', 'default' );
         }
@@ -111,10 +111,10 @@ class tc_Tags_Page {
         // Search box
         tc_HTML::line('<div id="tc_searchbox">');
         if ( $search != "" ) { 
-            tc_HTML::line('<a href="admin.php?page=teachpress/tags.php" class="tc_search_cancel" title="' . __('Cancel the search','teachpress') . '">X</a>');
+            tc_HTML::line('<a href="admin.php?page=teachcorses/tags.php" class="tc_search_cancel" title="' . __('Cancel the search','teachcorses') . '">X</a>');
         }
         tc_HTML::line('<input type="search" name="search" id="pub_search_field" value="' . stripslashes($search) . '"/>');
-        tc_HTML::line('<input type="submit" name="button" id="button" value="' . __('Search','teachpress') . '" class="button-secondary"/>');
+        tc_HTML::line('<input type="submit" name="button" id="button" value="' . __('Search','teachcorses') . '" class="button-secondary"/>');
         tc_HTML::line('</div>');
         
         // Table actions
@@ -122,14 +122,14 @@ class tc_Tags_Page {
         tc_HTML::line('<div class="alignleft actions">');
         
         tc_HTML::line('<select name="action">');
-        tc_HTML::line('<option value="">- ' . __('Bulk actions','teachpress') . '-</option>');
-        tc_HTML::line('<option value="delete">'  . __('Delete','teachpress') . '</option>');
+        tc_HTML::line('<option value="">- ' . __('Bulk actions','teachcorses') . '-</option>');
+        tc_HTML::line('<option value="delete">'  . __('Delete','teachcorses') . '</option>');
         tc_HTML::line('</select>');
         
         tc_HTML::line('<select name="filter">');
-        tc_HTML::line('<option>- ' . __('Select filter','teachpress') . ' -</option>');
+        tc_HTML::line('<option>- ' . __('Select filter','teachcorses') . ' -</option>');
         $selected = ( $only_zero === true ) ? 'selected="selected"' : '';
-        tc_HTML::line('<option value="only_zero"' . $selected . '>' . __('Occurence = 0','teachpress') . '</option>');
+        tc_HTML::line('<option value="only_zero"' . $selected . '>' . __('Occurence = 0','teachcorses') . '</option>');
         tc_HTML::line('</select>');
         
         tc_HTML::line('<input name="OK" value="OK" type="submit" class="button-secondary"/>');
@@ -150,16 +150,16 @@ class tc_Tags_Page {
         tc_HTML::line('<table border="0" cellspacing="0" cellpadding="0" class="widefat">');
         tc_HTML::line('<thead>');
         tc_HTML::line('<tr>');
-        $onclick = "teachpress_checkboxes('checkbox[]','tc_check_all');";
+        $onclick = "teachcorses_checkboxes('checkbox[]','tc_check_all');";
         tc_HTML::line('<td class="check-column"><input name="tc_check_all" id="tc_check_all" type="checkbox" value="" onclick="' . $onclick . '" /></td>');
-        tc_HTML::line('<th>' . __('Name','teachpress') . '</th>');
+        tc_HTML::line('<th>' . __('Name','teachcorses') . '</th>');
         tc_HTML::line('<th>' . __('ID') . '</th>');
-        tc_HTML::line('<th>' . __('Number','teachpress') . '</th>');
+        tc_HTML::line('<th>' . __('Number','teachcorses') . '</th>');
         tc_HTML::line('</tr>');
         tc_HTML::line('</thead>');
         
         if ( $test === 0 ) {
-            tc_HTML::line('<tr><td colspan="4"><strong>' . __('Sorry, no entries matched your criteria.','teachpress') . '</strong></td></tr>');
+            tc_HTML::line('<tr><td colspan="4"><strong>' . __('Sorry, no entries matched your criteria.','teachcorses') . '</strong></td></tr>');
         }
         else {
             $link = 'admin.php?page=' . $page . '&amp;search=' . $search . '&amp;limit=' . $curr_page . '&amp;action=delete&amp;filter=' . $filter;
@@ -190,10 +190,10 @@ class tc_Tags_Page {
         } 
         else {
             if ($test === 1) {
-               echo $test . ' ' . __('entry','teachpress');
+               echo $test . ' ' . __('entry','teachcorses');
             }
             else {
-               echo $test . ' ' . __('entries','teachpress');
+               echo $test . ' ' . __('entries','teachcorses');
             }
         }
         tc_HTML::div_close('tablenav-pages');
@@ -229,11 +229,11 @@ class tc_Tags_Page {
             }
             tc_HTML::line('<th class="check-column"><input name="checkbox[]" class="tc_checkbox" ' . $checked . ' type="checkbox" value="' . $row['tag_id'] . '"></th>');
             tc_HTML::line('<td id="tc_tag_row_' . $row['tag_id'] . '">');
-            tc_HTML::line( '<a onclick="teachpress_editTags(' . "'" . $row['tag_id'] . "'" . ')" class="teachpress_link" title="' . __('Click to edit','teachpress') . '" style="cursor:pointer;"><strong>' . stripslashes($row['name']) . '</strong></a><input type="hidden" id="tc_tag_row_name_' . $row['tag_id'] . '" value="' . stripslashes($row['name']) . '"/>');
+            tc_HTML::line( '<a onclick="teachcorses_editTags(' . "'" . $row['tag_id'] . "'" . ')" class="teachcorses_link" title="' . __('Click to edit','teachcorses') . '" style="cursor:pointer;"><strong>' . stripslashes($row['name']) . '</strong></a><input type="hidden" id="tc_tag_row_name_' . $row['tag_id'] . '" value="' . stripslashes($row['name']) . '"/>');
             
             // Row actions
             tc_HTML::line( '<div class="tc_row_actions">');
-            tc_HTML::line( '<a onclick="teachpress_editTags(' . "'" . $row['tag_id'] . "'" . ')" class="teachpress_link" title="' . __('Click to edit','teachpress') . '" style="cursor:pointer;">' . __('Edit', 'teachpress') . '</a> | <a href="admin.php?page=publications.php&amp;tag=' . $row['tag_id'] . '" title="' . __('Show all publications which have a relationship to this tag','teachpress') . '">' . __('Publications','teachpress') . '</a> | <a class="tc_row_delete" href="' . $link . '&amp;checkbox%5B%5D=' . $row['tag_id'] . '" title="' . __('Delete','teachpress') . '">' . __('Delete', 'teachpress') . '</a>');
+            tc_HTML::line( '<a onclick="teachcorses_editTags(' . "'" . $row['tag_id'] . "'" . ')" class="teachcorses_link" title="' . __('Click to edit','teachcorses') . '" style="cursor:pointer;">' . __('Edit', 'teachcorses') . '</a> | <a href="admin.php?page=publications.php&amp;tag=' . $row['tag_id'] . '" title="' . __('Show all publications which have a relationship to this tag','teachcorses') . '">' . __('Publications','teachcorses') . '</a> | <a class="tc_row_delete" href="' . $link . '&amp;checkbox%5B%5D=' . $row['tag_id'] . '" title="' . __('Delete','teachcorses') . '">' . __('Delete', 'teachcorses') . '</a>');
             tc_HTML::line('</div>');
             // END Row actions
             
@@ -259,7 +259,7 @@ class tc_Tags_Page {
         }
 
         $args = array(
-            'label' => __('Items per page', 'teachpress'),
+            'label' => __('Items per page', 'teachcorses'),
             'default' => 50,
             'option' => 'tc_tags_per_page'
         );

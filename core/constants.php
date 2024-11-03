@@ -7,143 +7,143 @@ global $wpdb;
 
 if ( !defined('TEACHPRESS_ARTEFACTS') ) {
     /**
-     * This constant defines the table name for teachpress_artefacts.
+     * This constant defines the table name for teachcorses_artefacts.
      * @since 5.0.0
     */
-    define('TEACHPRESS_ARTEFACTS', $wpdb->prefix . 'teachpress_artefacts');}
+    define('TEACHPRESS_ARTEFACTS', $wpdb->prefix . 'teachcorses_artefacts');}
 
 if ( !defined('TEACHPRESS_ASSESSMENTS') ) {
     /**
-     * This constant defines the table name for teachpress_assessments.
+     * This constant defines the table name for teachcorses_assessments.
      * @since 5.0.0
     */
-    define('TEACHPRESS_ASSESSMENTS', $wpdb->prefix . 'teachpress_assessments');}
+    define('TEACHPRESS_ASSESSMENTS', $wpdb->prefix . 'teachcorses_assessments');}
 
 if ( !defined('TEACHPRESS_STUD') ) {
     /**
-     * This constant defines the table name for teachpress_stud.
+     * This constant defines the table name for teachcorses_stud.
      * @since 5.0.0
     */
-    define('TEACHPRESS_STUD', $wpdb->prefix . 'teachpress_stud');}
+    define('TEACHPRESS_STUD', $wpdb->prefix . 'teachcorses_stud');}
 
 if ( !defined('TEACHPRESS_STUD_META') ) {
     /**
-     * This constant defines the table name for teachpress_stud_meta.
+     * This constant defines the table name for teachcorses_stud_meta.
      * @since 5.0.0
     */
-    define('TEACHPRESS_STUD_META', $wpdb->prefix . 'teachpress_stud_meta');}
+    define('TEACHPRESS_STUD_META', $wpdb->prefix . 'teachcorses_stud_meta');}
 
 if ( !defined('TEACHPRESS_COURSES') ) {
     /**
-     * This constant defines the table name for teachpress_courses.
+     * This constant defines the table name for teachcorses_courses.
      * @since 5.0.0
     */
-    define('TEACHPRESS_COURSES', $wpdb->prefix . 'teachpress_courses');}
+    define('TEACHPRESS_COURSES', $wpdb->prefix . 'teachcorses_courses');}
 
 if ( !defined('TEACHPRESS_COURSE_META') ) {
     /**
-     * This constant defines the table name for teachpress_course_meta.
+     * This constant defines the table name for teachcorses_course_meta.
      * @since 5.0.0
     */
-    define('TEACHPRESS_COURSE_META', $wpdb->prefix . 'teachpress_course_meta');}
+    define('TEACHPRESS_COURSE_META', $wpdb->prefix . 'teachcorses_course_meta');}
 
 if ( !defined('TEACHPRESS_COURSE_CAPABILITIES') ) {
     /**
-     * This constant defines the table name for teachpress_course_cababilities.
+     * This constant defines the table name for teachcorses_course_cababilities.
      * @since 5.0.0
     */
-    define('TEACHPRESS_COURSE_CAPABILITIES', $wpdb->prefix . 'teachpress_course_capabilities');}
+    define('TEACHPRESS_COURSE_CAPABILITIES', $wpdb->prefix . 'teachcorses_course_capabilities');}
 
 if ( !defined('TEACHPRESS_COURSE_DOCUMENTS') ) {
     /**
-     * This constant defines the table name for teachpress_course_documents.
+     * This constant defines the table name for teachcorses_course_documents.
      * @since 5.0.0
     */
-    define('TEACHPRESS_COURSE_DOCUMENTS', $wpdb->prefix . 'teachpress_course_documents');}
+    define('TEACHPRESS_COURSE_DOCUMENTS', $wpdb->prefix . 'teachcorses_course_documents');}
 
 if ( !defined('TEACHPRESS_SIGNUP') ) {
     /**
-     * This constant defines the table name for teachpress_signups.
+     * This constant defines the table name for teachcorses_signups.
      * @since 5.0.0
     */
-    define('TEACHPRESS_SIGNUP', $wpdb->prefix . 'teachpress_signup');}
+    define('TEACHPRESS_SIGNUP', $wpdb->prefix . 'teachcorses_signup');}
 
 if ( !defined('TEACHPRESS_SETTINGS') ) {
     /**
-     * This constant defines the table name for teachpress_settings.
+     * This constant defines the table name for teachcorses_settings.
      * @since 5.0.0
     */
-    define('TEACHPRESS_SETTINGS', $wpdb->prefix . 'teachpress_settings');}
+    define('TEACHPRESS_SETTINGS', $wpdb->prefix . 'teachcorses_settings');}
 
 if ( !defined('TEACHPRESS_PUB') ) {
     /**
-     * This constant defines the table name for teachpress_pub.
+     * This constant defines the table name for teachcorses_pub.
      * @since 5.0.0
     */
-    define('TEACHPRESS_PUB', $wpdb->prefix . 'teachpress_pub');}
+    define('TEACHPRESS_PUB', $wpdb->prefix . 'teachcorses_pub');}
 
 if ( !defined('TEACHPRESS_PUB_META') ) {
     /**
-     * This constant defines the table name for teachpress_pub_meta.
+     * This constant defines the table name for teachcorses_pub_meta.
      * @since 5.0.0
     */
-    define('TEACHPRESS_PUB_META', $wpdb->prefix . 'teachpress_pub_meta');}
+    define('TEACHPRESS_PUB_META', $wpdb->prefix . 'teachcorses_pub_meta');}
 
 if ( !defined('TEACHPRESS_PUB_CAPABILITIES') ) {
     /**
-     * This constant defines the table name for teachpress_course_cababilites.
+     * This constant defines the table name for teachcorses_course_cababilites.
      * @since 6.0.0
     */
-    define('TEACHPRESS_PUB_CAPABILITIES', $wpdb->prefix . 'teachpress_pub_capabilities');}
+    define('TEACHPRESS_PUB_CAPABILITIES', $wpdb->prefix . 'teachcorses_pub_capabilities');}
 
 if ( !defined('TEACHPRESS_PUB_DOCUMENTS') ) {
     /**
-     * This constant defines the table name for teachpress_course_documents.
+     * This constant defines the table name for teachcorses_course_documents.
      * @since 6.0.0
     */
-    define('TEACHPRESS_PUB_DOCUMENTS', $wpdb->prefix . 'teachpress_pub_documents');}
+    define('TEACHPRESS_PUB_DOCUMENTS', $wpdb->prefix . 'teachcorses_pub_documents');}
 
 if ( !defined('TEACHPRESS_PUB_IMPORTS') ) {
     /**
-     * This constant defines the table name for teachpress_pub_imports.
+     * This constant defines the table name for teachcorses_pub_imports.
      * @since 6.0.0
     */
-    define('TEACHPRESS_PUB_IMPORTS', $wpdb->prefix . 'teachpress_pub_imports');}    
+    define('TEACHPRESS_PUB_IMPORTS', $wpdb->prefix . 'teachcorses_pub_imports');}    
     
 if ( !defined('TEACHPRESS_TAGS') ) {
     /**
-     * This constant defines the table name for teachpress_tags.
+     * This constant defines the table name for teachcorses_tags.
      * @since 5.0.0
     */
-    define('TEACHPRESS_TAGS', $wpdb->prefix . 'teachpress_tags');}
+    define('TEACHPRESS_TAGS', $wpdb->prefix . 'teachcorses_tags');}
 
 if ( !defined('TEACHPRESS_RELATION') ) {
     /**
-     * This constant defines the table name for teachpress_relation. This is the relationship tags to publications.
+     * This constant defines the table name for teachcorses_relation. This is the relationship tags to publications.
      * @since 5.0.0
     */
-    define('TEACHPRESS_RELATION', $wpdb->prefix . 'teachpress_relation');}
+    define('TEACHPRESS_RELATION', $wpdb->prefix . 'teachcorses_relation');}
 
 if ( !defined('TEACHPRESS_USER') ) {
     /**
-     * This constant defines the table name for teachpress_user. This is the relationship publications to users.
+     * This constant defines the table name for teachcorses_user. This is the relationship publications to users.
      * @since 5.0.0
     */
-    define('TEACHPRESS_USER', $wpdb->prefix . 'teachpress_user');}
+    define('TEACHPRESS_USER', $wpdb->prefix . 'teachcorses_user');}
 
 if ( !defined('TEACHPRESS_AUTHORS') ) {
     /**
-     * This constant defines the table name for teachpress_authors.
+     * This constant defines the table name for teachcorses_authors.
      * @since 5.0.0
     */
-    define('TEACHPRESS_AUTHORS', $wpdb->prefix . 'teachpress_authors');}
+    define('TEACHPRESS_AUTHORS', $wpdb->prefix . 'teachcorses_authors');}
 
 if ( !defined('TEACHPRESS_REL_PUB_AUTH') ) {
     /**
-     * This constant defines the table name for teachpress_rel_pub_auth. This is the relationship publications to authors.
+     * This constant defines the table name for teachcorses_rel_pub_auth. This is the relationship publications to authors.
      * @since 5.0.0
     */
-    define('TEACHPRESS_REL_PUB_AUTH', $wpdb->prefix . 'teachpress_rel_pub_auth');}
+    define('TEACHPRESS_REL_PUB_AUTH', $wpdb->prefix . 'teachcorses_rel_pub_auth');}
 
 if ( !defined('TEACHPRESS_TIME_LIMIT') ) {
     /**

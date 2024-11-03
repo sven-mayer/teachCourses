@@ -1,17 +1,17 @@
 teachCourses
 ==========
 
-teachCourses is a clone of the deprecated course model of teachPress, a plugin for WordPress to add a course management system. You can use it with WordPress 3.9.0 or higher.
+teachCourses is a clone of the deprecated course model of teachCorses, a plugin for WordPress to add a course management system. You can use it with WordPress 3.9.0 or higher.
 
 
 Pre-Releases and the offical versions are available in the Release-Section:
-https://github.com/winkm89/teachPress/releases
+https://github.com/winkm89/teachCorses/releases
 
 ## Features
 * Course management with integrated modules for enrollments, assessments and documents
 * XLS/CSV export for course lists
-* Many shortcodes for an easy using of publication lists, publication searches, enrollments and course overviews
-* Dymamic meta data system for courses, students and publications
+* Many shortcodes for an easy using of pcourse overviews
+* Dymamic meta data system for courses
 
 ## Supported Languages
 * English

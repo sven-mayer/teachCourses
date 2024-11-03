@@ -2,13 +2,13 @@
 /**
  * This file contains general core functions
  * 
- * @package teachpress\core
+ * @package teachcorses\core
  * @license http://www.gnu.org/licenses/gpl-2.0.html GPLv2 or later
  * @since 5.0.0
  */
 
 /** 
- * teachPress Page Menu
+ * teachCorses Page Menu
  *      
  * @param array $atts {
  *      @type int number_entries       Number of all available entries
@@ -57,22 +57,22 @@ function tc_page_menu ($atts) {
     }
     
     // Defaults
-    $page_input = ' <input name="' . $limit_name . '" type="text" size="2" value="' .  $current_page . '" style="text-align:center;" /> ' . __('of','teachpress') . ' ' . $num_pages . ' ';
-    $entries = '<span class="displaying-num">' . $number_entries . ' ' . __('entries','teachpress') . '</span> ';
+    $page_input = ' <input name="' . $limit_name . '" type="text" size="2" value="' .  $current_page . '" style="text-align:center;" /> ' . __('of','teachcorses') . ' ' . $num_pages . ' ';
+    $entries = '<span class="displaying-num">' . $number_entries . ' ' . __('entries','teachcorses') . '</span> ';
     $back_links = '<a class="page-numbers button disabled">&laquo;</a> <a class="page-numbers button disabled">&lsaquo;</a> ';
     $next_links = '<a class="page-numbers button disabled">&rsaquo;</a> <a class="page-numbers button disabled">&raquo;</a> ';
 
     // first page / previous page
     if ( $entry_limit != 0 ) {
-        $first_page = '<a href="' . $page_link . '=1&amp;' . $atts['link_attributes'] . '" title="' . __('first page','teachpress') . '" class="page-numbers button">&laquo;</a>';
-        $prev_page = ' <a href="' . $page_link . '=' . ($current_page - 1) . '&amp;' . $atts['link_attributes'] . '" title="' . __('previous page','teachpress') . '" class="page-numbers button">&lsaquo;</a> ';
+        $first_page = '<a href="' . $page_link . '=1&amp;' . $atts['link_attributes'] . '" title="' . __('first page','teachcorses') . '" class="page-numbers button">&laquo;</a>';
+        $prev_page = ' <a href="' . $page_link . '=' . ($current_page - 1) . '&amp;' . $atts['link_attributes'] . '" title="' . __('previous page','teachcorses') . '" class="page-numbers button">&lsaquo;</a> ';
         $back_links = $first_page . $prev_page;
     }
 
     // next page/ last page
     if ( ( $entry_limit + $entries_per_page ) <= ($number_entries)) { 
-        $next_page = '<a href="' . $page_link . '=' . ($current_page + 1) . '&amp;' . $atts['link_attributes'] . '" title="' . __('next page','teachpress') . '" class="page-numbers button">&rsaquo;</a>';
-        $last_page = ' <a href="' . $page_link . '=' . $num_pages . '&amp;' . $atts['link_attributes'] . '" title="' . __('last page','teachpress') . '" class="page-numbers button">&raquo;</a> ';
+        $next_page = '<a href="' . $page_link . '=' . ($current_page + 1) . '&amp;' . $atts['link_attributes'] . '" title="' . __('next page','teachcorses') . '" class="page-numbers button">&rsaquo;</a>';
+        $last_page = ' <a href="' . $page_link . '=' . $num_pages . '&amp;' . $atts['link_attributes'] . '" title="' . __('last page','teachcorses') . '" class="page-numbers button">&raquo;</a> ';
         $next_links = $next_page . $last_page;
     }
 
@@ -81,7 +81,7 @@ function tc_page_menu ($atts) {
         return $atts['before'] . '<div class="' . $atts['class'] . '">' . $entries . $back_links . $page_input . $next_links . '</div>' . $atts['after'];
     }
     
-    return $atts['before'] . '<div class="' . $atts['class'] . '">' . $entries . $back_links . $current_page . ' ' . __('of','teachpress') . ' ' . $num_pages . ' ' . $next_links . '</div>' . $atts['after'];
+    return $atts['before'] . '<div class="' . $atts['class'] . '">' . $entries . $back_links . $current_page . ' ' . __('of','teachcorses') . ' ' . $num_pages . ' ' . $next_links . '</div>' . $atts['after'];
 
 }
 
@@ -93,7 +93,7 @@ function tc_page_menu ($atts) {
  * @since 5.0.0
 */ 
 function get_tc_message($message, $color = 'green') {
-    tc_HTML::line('<div class="teachpress_message teachpress_message_' . esc_attr( $color ) . '">');
+    tc_HTML::line('<div class="teachcorses_message teachcorses_message_' . esc_attr( $color ) . '">');
     tc_HTML::line('<strong>' . $message . '</strong>');
     tc_HTML::line('</div>');
 }
@@ -254,7 +254,7 @@ function get_tc_var_types($type) {
 }
 
 /** 
- * Define who can use teachPress
+ * Define who can use teachCorses
  * @param array $roles
  * @param string $capability
  * @since 1.0
@@ -362,7 +362,7 @@ function tc_convert_input_to_string($input, $type = 'string') {
 }
 
 /**
- * Writes data for the teachPress tinyMCE plugin in Javascript objects
+ * Writes data for the teachCorses tinyMCE plugin in Javascript objects
  * @since 5.0.0
  */
 function tc_write_data_for_tinymce () {
@@ -388,14 +388,14 @@ function tc_write_data_for_tinymce () {
     
     // List of semester/term
     $semester_list = array();
-    $semester_list[] = array( 'text' => __('Default','teachpress') , 'value' => '' );
+    $semester_list[] = array( 'text' => __('Default','teachcorses') , 'value' => '' );
     foreach ($semester as $sem) { 
         $semester_list[] = array( 'text' => stripslashes($sem->value) , 'value' => stripslashes($sem->value) );
     }
     
     // List of publication users
     $pub_user_list = array();
-    $pub_user_list[] = array( 'text' => __('All','teachpress') , 'value' => '' );
+    $pub_user_list[] = array( 'text' => __('All','teachcorses') , 'value' => '' );
     $pub_users = tc_Publications::get_pub_users();
     foreach ($pub_users as $row) { 
         $user_data = get_userdata($row->user);
@@ -406,7 +406,7 @@ function tc_write_data_for_tinymce () {
     
     // List of publication tags
     $pub_tag_list = array();
-    $pub_tag_list[] = array( 'text' => __('All','teachpress'), 'value' => null );
+    $pub_tag_list[] = array( 'text' => __('All','teachcorses'), 'value' => null );
     $pub_tags = tc_Tags::get_tags(array( 'group_by' => true ));
     foreach($pub_tags as $pub_tag){
 	$pub_tag_list[] = array( 'text' => $pub_tag->name, 'value' => intval($pub_tag->tag_id) );
@@ -433,15 +433,15 @@ function tc_write_data_for_tinymce () {
     // Write javascript
     ?>
     <script type="text/javascript">
-        var teachpress_courses = <?php echo json_encode($course_list); ?>;
-        var teachpress_semester = <?php echo json_encode($semester_list); ?>;
-        var teachpress_pub_user = <?php echo json_encode($pub_user_list); ?>;
-        var teachpress_pub_types = <?php echo json_encode($pub_type_list); ?>;
-        var teachpress_pub_tags = <?php echo json_encode($pub_tag_list) ?>;
-        var teachpress_pub_templates = <?php echo json_encode($pub_templates_list); ?>;
-        var teachpress_editor_url = '<?php echo admin_url( 'admin-ajax.php' ) . '?action=teachpressdocman&post_id=' . $post_id; ?>';
-        var teachpress_cookie_path = '<?php echo SITECOOKIEPATH; ?>';
-        var teachpress_file_link_css_class = '<?php echo TEACHPRESS_FILE_LINK_CSS_CLASS; ?>';
+        var teachcorses_courses = <?php echo json_encode($course_list); ?>;
+        var teachcorses_semester = <?php echo json_encode($semester_list); ?>;
+        var teachcorses_pub_user = <?php echo json_encode($pub_user_list); ?>;
+        var teachcorses_pub_types = <?php echo json_encode($pub_type_list); ?>;
+        var teachcorses_pub_tags = <?php echo json_encode($pub_tag_list) ?>;
+        var teachcorses_pub_templates = <?php echo json_encode($pub_templates_list); ?>;
+        var teachcorses_editor_url = '<?php echo admin_url( 'admin-ajax.php' ) . '?action=teachcorsesdocman&post_id=' . $post_id; ?>';
+        var teachcorses_cookie_path = '<?php echo SITECOOKIEPATH; ?>';
+        var teachcorses_file_link_css_class = '<?php echo TEACHPRESS_FILE_LINK_CSS_CLASS; ?>';
     </script>
     <?php
 }

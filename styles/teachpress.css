@@ -4,16 +4,16 @@
 .tc_postcontent_right {float: right; margin-right: -300px; width: 280px;}
 
 /* Help section */
-a.teachpress_delete {color:#a00; text-decoration:none; font-size:12px; font-weight:bold;}
-a.teachpress_delete:hover {text-decoration:underline; color:red;}
+a.teachcorses_delete {color:#a00; text-decoration:none; font-size:12px; font-weight:bold;}
+a.teachcorses_delete:hover {text-decoration:underline; color:red;}
 .tc_print th {border:1px solid black; padding:5px 5px 5px 5px;}
 .tc_print td {border:1px solid black; padding:5px 5px 5px 5px;}
-.teachpress_message {background-color: #fff; box-shadow: 0 1px 1px 0 rgba(0,0,0,.1); padding: 10px 12px; margin: 5px 0 15px 0;}
-.teachpress_message_green {border-left: 4px solid #7ad03a;}
-.teachpress_message_red {border-left: 4px solid red;}
-.teachpress_message_orange {border-left: 4px solid orange;}
-.teachpress_message_headline {font-weight:bold; font-size:1.1em;}
-.teachpress_message_text {padding-left:10px;}
+.teachcorses_message {background-color: #fff; box-shadow: 0 1px 1px 0 rgba(0,0,0,.1); padding: 10px 12px; margin: 5px 0 15px 0;}
+.teachcorses_message_green {border-left: 4px solid #7ad03a;}
+.teachcorses_message_red {border-left: 4px solid red;}
+.teachcorses_message_orange {border-left: 4px solid orange;}
+.teachcorses_message_headline {font-weight:bold; font-size:1.1em;}
+.teachcorses_message_text {padding-left:10px;}
 
 /* others */
 h3.tc_postbox {padding: 8px 12px; margin: 0; line-height: 1.4; cursor:default !important; font-size: 14px; border-bottom: 1px solid #eee;}
@@ -22,7 +22,7 @@ td.tc_course_child {padding-left:25px; background: url(../images/child.png) no-r
 .tc_checkbox {margin-left:8px; padding-left:7px; text-align:left;}
 .tc_actions {padding: 0 0 10px 0;}
 .tc_bookmarks_checked {color:#bbb;}
-.teachpress_cloud a {text-decoration: none; padding-left: 2px;}
+.teachcorses_cloud a {text-decoration: none; padding-left: 2px;}
 .tc_open_readme{cursor: pointer; font-weight: bold;}
 .options_for_number{display: none;}
 #tc_searchbox {float:right; padding-bottom: 5px;}

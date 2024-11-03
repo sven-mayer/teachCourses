@@ -15,20 +15,20 @@
 #enrollments .tc_user_menu {padding:5px;}
 
 /* table for user's old enrollments / table fo results */ 
-#enrollments .teachpress_enr_old, #enrollments .teachpress_enr_results {border-collapse: collapse; border-bottom: 1px solid #ededed; font-size:11px; width: 100%}
-#enrollments .teachpress_enr_old th, #enrollments .teachpress_enr_results th{padding:5px; color:#333333; background-repeat:repeat-x; margin:5px; border-collapse: collapse; border-bottom: 1px solid #ededed; font-size:12px; font-weight:bold;}
-#enrollments .teachpress_enr_old tr, #enrollments .teachpress_enr_results tr {padding:5px; background-color:#FFFFFF; color:#000000; margin:5px; border-collapse: collapse; border-bottom: 1px solid #ededed; font-size:12px;}
-#enrollments .teachpress_enr_old td, #enrollments .teachpress_enr_results td {padding:5px; margin:5px; border-collapse: collapse; border-bottom: 1px solid #ededed;}
+#enrollments .teachcorses_enr_old, #enrollments .teachcorses_enr_results {border-collapse: collapse; border-bottom: 1px solid #ededed; font-size:11px; width: 100%}
+#enrollments .teachcorses_enr_old th, #enrollments .teachcorses_enr_results th{padding:5px; color:#333333; background-repeat:repeat-x; margin:5px; border-collapse: collapse; border-bottom: 1px solid #ededed; font-size:12px; font-weight:bold;}
+#enrollments .teachcorses_enr_old tr, #enrollments .teachcorses_enr_results tr {padding:5px; background-color:#FFFFFF; color:#000000; margin:5px; border-collapse: collapse; border-bottom: 1px solid #ededed; font-size:12px;}
+#enrollments .teachcorses_enr_old td, #enrollments .teachcorses_enr_results td {padding:5px; margin:5px; border-collapse: collapse; border-bottom: 1px solid #ededed;}
 
 /* table for current enrollments */
-#enrollments .teachpress_enr {font-size:13px; border:none;}
-#enrollments .teachpress_enr td {border:none; padding:5px; margin:5px;}
-#enrollments .teachpress_course_group {padding-bottom:10px;}
-#enrollments .teachpress_course_name {font-size:15px; font-weight:bold;}
+#enrollments .teachcorses_enr {font-size:13px; border:none;}
+#enrollments .teachcorses_enr td {border:none; padding:5px; margin:5px;}
+#enrollments .teachcorses_course_group {padding-bottom:10px;}
+#enrollments .teachcorses_course_name {font-size:15px; font-weight:bold;}
 
 /* table for edit userdata */
-#enrollments .teachpress_enr_edit {border:1px solid silver;}
-#enrollments .teachpress_enr_edit td {padding:5px;}
+#enrollments .teachcorses_enr_edit {border:1px solid silver;}
+#enrollments .teachcorses_enr_edit td {padding:5px;}
 
 /* table for course results */
 tr.tc_course_result td {font-weight: bold;}
@@ -37,24 +37,24 @@ tr.tc_course_result td {font-weight: bold;}
 h3.tc_enrollments {color:#005A46;}
 .waitinglist {font-size:10px; color:#FF0000; padding-left:5px;}
 .einschreibefrist {font-size:10px; color:#FF0000;}
-.teachpress_active_tab{font-weight: bold}
-.teachpress_message {border:1px solid #f90; border-left-width:0.9em; font-weight:bold; margin:1em; padding:.5em 1em;}
-.teachpress_message_error {border:1px solid #FF0000; border-left-width:0.9em; font-weight:bold; margin:1em; padding:.5em 1em;}
-.teachpress_message_success {border:1px solid #00FF00; border-left-width:0.9em; font-weight:bold; margin:1em; padding:.5em 1em;}
-.teachpress_message_info {border:1px solid #f90; border-left-width:0.9em; font-weight:bold; margin:1em; padding:.5em 1em;}
+.teachcorses_active_tab{font-weight: bold}
+.teachcorses_message {border:1px solid #f90; border-left-width:0.9em; font-weight:bold; margin:1em; padding:.5em 1em;}
+.teachcorses_message_error {border:1px solid #FF0000; border-left-width:0.9em; font-weight:bold; margin:1em; padding:.5em 1em;}
+.teachcorses_message_success {border:1px solid #00FF00; border-left-width:0.9em; font-weight:bold; margin:1em; padding:.5em 1em;}
+.teachcorses_message_info {border:1px solid #f90; border-left-width:0.9em; font-weight:bold; margin:1em; padding:.5em 1em;}
 
 /********************************************************************************************/
 /* publication lists for the following shortcodes: [tpcloud] [tplist] [tpsinlge] [tpsearch] */
 /********************************************************************************************/
 
 /* container */
-.teachpress_publication_list {width:100%; border:none; border-spacing: 0;}
-.teachpress_publication_list td, .teachpress_course_list td {padding:5px;}
+.teachcorses_publication_list {width:100%; border:none; border-spacing: 0;}
+.teachcorses_publication_list td, .teachcorses_course_list td {padding:5px;}
 
 /* filter and search field */
-.teachpress_filter {text-align:center; padding-top:5px;}
-.teachpress_filter select.block {display: block; width: 100%; margin-bottom:8px; margin-top:5px;}
-.teachpress_cloud {text-align:center;}
+.teachcorses_filter {text-align:center; padding-top:5px;}
+.teachcorses_filter select.block {display: block; width: 100%; margin-bottom:8px; margin-top:5px;}
+.teachcorses_cloud {text-align:center;}
 input.tc_search_button {border: 1px solid silver; padding:6px 6px; font-size:0.9em; font-weight: bold; border-radius: 3px; -moz-border-radius: 3px; -webkit-border-radius: 3px; background:transparent; margin:0 0 0 6px; cursor:pointer;  background: #008bd2; color: #FFFFFF;}
 input.tc_search_button:hover {background:#ECECEC; color:#333333;}
 a.tc_search_reset {background:transparent; cursor:pointer; border:none; font-weight: bold; padding:3px 6px; text-decoration: none; font-size:13px; color:#000;}
@@ -62,10 +62,10 @@ a.tc_search_reset:hover {color:red;}
 #tc_search_input_field {width: 60%;}
 
 /* active tags */
-.teachpress_cloud a.teachpress_cloud_active {color:#008bd2; font-weight:bold;}
-.teachpress_cloud a.teachpress_cloud_active:hover {color:#008bd2; font-weight:bold; text-decoration:underline;}
-.teachpress_cloud a {color:#AAAAAA; text-decoration:none; box-shadow: none;}
-.teachpress_cloud a:hover {color:#AAAAAA; text-decoration:underline;}
+.teachcorses_cloud a.teachcorses_cloud_active {color:#008bd2; font-weight:bold;}
+.teachcorses_cloud a.teachcorses_cloud_active:hover {color:#008bd2; font-weight:bold; text-decoration:underline;}
+.teachcorses_cloud a {color:#AAAAAA; text-decoration:none; box-shadow: none;}
+.teachcorses_cloud a:hover {color:#AAAAAA; text-decoration:underline;}
 
 /* table nav */
 .tablenav {padding-top:5px; margin:6px 0 4px; height:30px; vertical-align:middle; width:100%;}
@@ -109,7 +109,7 @@ li.tc_cite_entry {font-size:0.9rem;}
 /* course overview, shortcode: [tpcourselist] */
 /**********************************************/
 #tpcourselist h3 {}
-#tpcourselist table.teachpress_course_list {border:none; width:100%;}
+#tpcourselist table.teachcorses_course_list {border:none; width:100%;}
 .tc_course_headline{font-weight: bold; font-size: 1.2em;}
 .tc_auswahl {margin:3px; padding:3px;}
 .tc_lvs_name {font-size:14px;}

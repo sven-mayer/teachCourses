@@ -2,7 +2,7 @@
 /**
  * This file contains all functions for displaying the mail page in admin menu
  * 
- * @package teachpress\admin\courses
+ * @package teachcorses\admin\courses
  * @license http://www.gnu.org/licenses/gpl-2.0.html GPLv2 or later
  */
 
@@ -30,7 +30,7 @@ function tc_show_mail_page() {
     if ( $course_id !== 0 ) {
         $capability = tc_Courses::get_capability($course_id, $current_user->ID);
         if ( $capability !== 'owner' && $capability !== 'approved' ) {
-            echo __('Access denied','teachpress');
+            echo __('Access denied','teachcorses');
             return;
         }
     }
@@ -52,18 +52,18 @@ function tc_show_mail_page() {
     <div class="wrap">
         <?php
         if ( isset( $_GET['course_id'] ) ) {
-            $return_url = "admin.php?page=teachpress/teachpress.php&amp;course_id=$course_id&amp;sem=$sem&amp;search=$search&amp;redirect=$redirect&amp;action=enrollments";
+            $return_url = "admin.php?page=teachcorses/teachcorses.php&amp;course_id=$course_id&amp;sem=$sem&amp;search=$search&amp;redirect=$redirect&amp;action=enrollments";
         }
         if ( isset( $_GET['student_id'] ) ) {
-            $return_url = "admin.php?page=teachpress/students.php&amp;student_id=$student_id&amp;search=$search&amp;students_group=$students_group&amp;limit=$limit";
+            $return_url = "admin.php?page=teachcorses/students.php&amp;student_id=$student_id&amp;search=$search&amp;students_group=$students_group&amp;limit=$limit";
         }
         ?>
-        <p><a href="<?php echo $return_url; ?>" class="button-secondary">&larr; <?php _e('Back','teachpress'); ?></a></p>
-        <h2><?php _e('Writing an E-Mail','teachpress'); ?></h2>
+        <p><a href="<?php echo $return_url; ?>" class="button-secondary">&larr; <?php _e('Back','teachcorses'); ?></a></p>
+        <h2><?php _e('Writing an E-Mail','teachcorses'); ?></h2>
         <form name="form_mail" method="post" action="<?php echo $return_url; ?>">
         <table class="form-table">
             <tr>
-            <th scope="row" style="width: 65px;"><label for="mail_from"><?php _e('From','teachpress'); ?></label</th>
+            <th scope="row" style="width: 65px;"><label for="mail_from"><?php _e('From','teachcorses'); ?></label</th>
             <td>
                 <select name="from" id="mail_from">
                     <option value="currentuser"><?php echo $current_user->display_name . ' (' . $current_user->user_email . ')'; ?></option>
@@ -74,22 +74,22 @@ function tc_show_mail_page() {
             <tr>
                 <th scope="row" style="width: 65px;">
                     <select name="recipients_option" id="mail_recipients_option">
-                        <option value="To"><?php _e('To','teachpress'); ?></option>
-                        <option value="Bcc"><?php _e('Bcc','teachpress'); ?></option>
+                        <option value="To"><?php _e('To','teachcorses'); ?></option>
+                        <option value="Bcc"><?php _e('Bcc','teachcorses'); ?></option>
                     </select>
                 </th>
                 <td>
                     <?php
                     if( !isset( $_GET['single'] ) ) {
-                        $link = "admin.php?page=teachpress/teachpress.php&amp;course_id=$course_id&amp;sem=$sem&amp;search=$search&amp;action=mail&amp;type=course";
+                        $link = "admin.php?page=teachcorses/teachcorses.php&amp;course_id=$course_id&amp;sem=$sem&amp;search=$search&amp;action=mail&amp;type=course";
                         if ($group == "wtl") {
-                            echo '<p><strong><a href="' . $link . '">' . __('All', 'teachpress') . '</a> | <a href="' . $link . '&amp;group=reg">' . __('Only participants', 'teachpress') . '</a> | ' . __('Only waitinglist','teachpress') . '</strong><p>';
+                            echo '<p><strong><a href="' . $link . '">' . __('All', 'teachcorses') . '</a> | <a href="' . $link . '&amp;group=reg">' . __('Only participants', 'teachcorses') . '</a> | ' . __('Only waitinglist','teachcorses') . '</strong><p>';
                         }
                         elseif ( $group == "reg" ) {
-                            echo '<p><strong><a href="' . $link . '">' . __('All', 'teachpress') . '</a> | ' . __('Only participants', 'teachpress') . ' | <a href="' . $link . '&amp;group=wtl">' . __('Only waitinglist','teachpress') . '</a></strong><p>';
+                            echo '<p><strong><a href="' . $link . '">' . __('All', 'teachcorses') . '</a> | ' . __('Only participants', 'teachcorses') . ' | <a href="' . $link . '&amp;group=wtl">' . __('Only waitinglist','teachcorses') . '</a></strong><p>';
                         }
                         else {
-                            echo '<p><strong>' . __('All', 'teachpress') . ' | <a href="' . $link . '&amp;group=reg">' . __('Only participants', 'teachpress') . '</a> | <a href="' . $link . '&amp;group=wtl">' . __('Only waitinglist','teachpress') . '</a></strong><p>';
+                            echo '<p><strong>' . __('All', 'teachcorses') . ' | <a href="' . $link . '&amp;group=reg">' . __('Only participants', 'teachcorses') . '</a> | <a href="' . $link . '&amp;group=wtl">' . __('Only waitinglist','teachcorses') . '</a></strong><p>';
                         }
                     }
                     
@@ -107,7 +107,7 @@ function tc_show_mail_page() {
                 </td>
             </tr>
             <tr>
-                <th scope="row" style="width: 65px;"><label for="mail_subject"><?php _e('Subject','teachpress'); ?></label></th>
+                <th scope="row" style="width: 65px;"><label for="mail_subject"><?php _e('Subject','teachcorses'); ?></label></th>
                 <td><input name="subject" id="mail_subject" type="text" style="width: 580px;"/></td>
             </tr>
         </table>
@@ -115,12 +115,12 @@ function tc_show_mail_page() {
         <textarea name="text" id="mail_text" style="width: 685px;" rows="15"></textarea>
         <table>
             <tr>
-                <td><input type="checkbox" name="backup_mail" id="backup_mail" title="<?php _e('Send me the e-mail as separate copy','teachpress'); ?>" value="backup" checked="checked" /></td>
-                <td><label for="backup_mail"><?php _e('Send me the e-mail as separate copy','teachpress'); ?></label></td>
+                <td><input type="checkbox" name="backup_mail" id="backup_mail" title="<?php _e('Send me the e-mail as separate copy','teachcorses'); ?>" value="backup" checked="checked" /></td>
+                <td><label for="backup_mail"><?php _e('Send me the e-mail as separate copy','teachcorses'); ?></label></td>
             </tr>
         </table>
         <br />
-        <input type="submit" class="button-primary" name="send_mail" value="<?php _e('Send','teachpress'); ?>"/>
+        <input type="submit" class="button-primary" name="send_mail" value="<?php _e('Send','teachcorses'); ?>"/>
         <script type="text/javascript" charset="utf-8" src="<?php echo plugins_url( 'js/admin_mail.js', dirname( __FILE__ ) ); ?>"></script>
         </form>
     </div>

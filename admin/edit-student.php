@@ -2,7 +2,7 @@
 /**
  * This file contains all functions for displaying the show/edit student pages in admin menu
  * 
- * @package teachpress\admin\students
+ * @package teachcorses\admin\students
  * @license http://www.gnu.org/licenses/gpl-2.0.html GPLv2 or later
  */
 
@@ -35,18 +35,18 @@ class tc_Student_Page {
         
         // for waitinglists only
         if ( $mode === 'wtl' && count($row) !== 0 ) {
-            echo '<h3>' . __('Waiting list','teachpress') . '</h3>';
+            echo '<h3>' . __('Waiting list','teachcorses') . '</h3>';
         }
         
         echo '<table cellpadding="5" class="widefat">';
         echo '<thead>';
         echo '<tr>';
         echo '<th>&nbsp;</th>';
-        echo '<th>' . __('Enrollment-Nr.','teachpress') . '</th>';
-        echo '<th>' . __('Registered at','teachpress') . '</th>';
-        echo '<th>' . __('Course','teachpress') . '</th>';
+        echo '<th>' . __('Enrollment-Nr.','teachcorses') . '</th>';
+        echo '<th>' . __('Registered at','teachcorses') . '</th>';
+        echo '<th>' . __('Course','teachcorses') . '</th>';
         echo '<th>' . __('Type') . '</th>';
-        echo '<th>' . __('Date','teachpress') . '</th>';
+        echo '<th>' . __('Date','teachcorses') . '</th>';
         echo '</tr>';
         echo '</thead>';    
         echo '<tbody>';
@@ -56,7 +56,7 @@ class tc_Student_Page {
             self::get_signups_table_rows($row); 
         }
         else {
-            echo '<tr><td colspan="6"><strong>' . __('Sorry, no entries matched your criteria.','teachpress') . '</strong></td></tr>';
+            echo '<tr><td colspan="6"><strong>' . __('Sorry, no entries matched your criteria.','teachcorses') . '</strong></td></tr>';
         }
         
         echo '</tbody>';
@@ -113,36 +113,36 @@ class tc_Student_Page {
         // Event handler
         if ( isset( $_GET['delete'] )) {
              tc_Courses::delete_signup($_GET['checkbox']);
-             $message = __('Enrollment deleted','teachpress');
+             $message = __('Enrollment deleted','teachcorses');
              get_tc_message($message);
         }
         
         // back button
-        echo '<p><a href="admin.php?page=teachpress/students.php&amp;search=' . $search . '&amp;limit=' . $curr_page . $url_parameter . '" class="button-secondary" title="' . __('Back','teachpress') . '">&larr; ' . __('Back','teachpress') . ' </a></p>';
+        echo '<p><a href="admin.php?page=teachcorses/students.php&amp;search=' . $search . '&amp;limit=' . $curr_page . $url_parameter . '" class="button-secondary" title="' . __('Back','teachcorses') . '">&larr; ' . __('Back','teachcorses') . ' </a></p>';
 
         // start form
         echo '<form name="edit_student" method="get" action="admin.php">';
-        echo '<input name="page" type="hidden" value="teachpress/students.php" />';
+        echo '<input name="page" type="hidden" value="teachcorses/students.php" />';
         echo '<input name="action" type="hidden" value="show" />';
         echo '<input name="student_id" type="hidden" value="' . $student . '" />';
         echo '<input name="search" type="hidden" value="' . $search . '" />';
         echo '<input name="limit" type="hidden" value="' . $curr_page . '" />';
-        echo '<h1>' . stripslashes($row3['firstname']) . ' ' . stripslashes($row3['lastname']) . ' <span class="tc_break">|</span> <small><a href="admin.php?page=teachpress/students.php&amp;student_id=' . $student . '&amp;search=' . $search . '&amp;limit=' . $curr_page . $url_parameter . '&amp;action=edit' . '" id="daten_aendern">' . __('Edit','teachpress') . '</a></small></h1>';
+        echo '<h1>' . stripslashes($row3['firstname']) . ' ' . stripslashes($row3['lastname']) . ' <span class="tc_break">|</span> <small><a href="admin.php?page=teachcorses/students.php&amp;student_id=' . $student . '&amp;search=' . $search . '&amp;limit=' . $curr_page . $url_parameter . '&amp;action=edit' . '" id="daten_aendern">' . __('Edit','teachcorses') . '</a></small></h1>';
         echo '<div style="width:55%; padding-bottom:10px;">';
         echo '<table border="0" cellpadding="0" cellspacing="5" class="widefat">';
         echo '<thead>';
         echo '<tr>';
-        echo '<td width="130"><strong>' . __('WordPress User-ID','teachpress') . '</strong></td>';
+        echo '<td width="130"><strong>' . __('WordPress User-ID','teachcorses') . '</strong></td>';
         echo '<td style="vertical-align:middle;">' . $row3['wp_id'] . '</td>';
         echo '</tr>';
         echo '<tr>';
         echo '<tr>';
-        echo '<td width="130"><strong>' . __('User account','teachpress') . '</strong></td>';
+        echo '<td width="130"><strong>' . __('User account','teachcorses') . '</strong></td>';
         echo '<td style="vertical-align:middle;">' . $row3['userlogin'] . '</td>';
         echo '</tr>';
         echo '<tr>';
         echo '<td><strong>' . __('E-Mail') . '</strong></td>';
-        echo '<td style="vertical-align:middle;"><a href="admin.php?page=teachpress/teachpress.php&amp;student_id=' . $row3['wp_id'] . '&amp;search=' . $search . '&amp;limit=' . $curr_page . $url_parameter . '&amp;action=mail&amp;single=' . $row3['email'] . '" title="' . __('Send E-Mail to','teachpress') . ' ' . $row3['firstname'] . ' ' . $row3['lastname'] . '">' . $row3['email'] . '</a></td>';
+        echo '<td style="vertical-align:middle;"><a href="admin.php?page=teachcorses/teachcorses.php&amp;student_id=' . $row3['wp_id'] . '&amp;search=' . $search . '&amp;limit=' . $curr_page . $url_parameter . '&amp;action=mail&amp;single=' . $row3['email'] . '" title="' . __('Send E-Mail to','teachcorses') . ' ' . $row3['firstname'] . ' ' . $row3['lastname'] . '">' . $row3['email'] . '</a></td>';
         echo '</tr>';
         foreach ($fields as $row) {
             $data = tc_DB_Helpers::extract_column_data($row['value']);
@@ -161,14 +161,14 @@ class tc_Student_Page {
         echo '</table>';
         echo '</div>';
         
-        echo '<h3>' . __('Signups','teachpress') . '</h3>';
+        echo '<h3>' . __('Signups','teachcorses') . '</h3>';
         self::get_signups_table($student, 'reg');
         self::get_signups_table($student, 'wtl');
         
         echo '<table border="0" cellspacing="0" cellpadding="7" id="einzel_optionen">';
         echo '<tr>';
-        echo '<td>' . __('Delete enrollment','teachpress') . '</td>';
-        echo '<td> <input name="delete" type="submit" value="' . __('Delete','teachpress') . '" id="teachpress_search_delete" class="button-secondary"/></td>';
+        echo '<td>' . __('Delete enrollment','teachcorses') . '</td>';
+        echo '<td> <input name="delete" type="submit" value="' . __('Delete','teachcorses') . '" id="teachcorses_search_delete" class="button-secondary"/></td>';
         echo '</tr>';
         echo '</table>';
         
@@ -205,8 +205,8 @@ class tc_Student_Page {
         }
 
         echo '<div class="wrap">';
-        echo '<p><a href="admin.php?page=teachpress/students.php&amp;student_id=' . $student . '&amp;search=' . $search . '&amp;limit=' . $entry_limit . $url_parameter . '&amp;action=show" class="button-secondary" title="' . __('Back','teachpress') . '">&larr; ' . __('Back','teachpress') . ' </a></p>';
-        echo '<h2>' . __('Edit Student','teachpress') . '</h2>';
+        echo '<p><a href="admin.php?page=teachcorses/students.php&amp;student_id=' . $student . '&amp;search=' . $search . '&amp;limit=' . $entry_limit . $url_parameter . '&amp;action=show" class="button-secondary" title="' . __('Back','teachcorses') . '">&larr; ' . __('Back','teachcorses') . ' </a></p>';
+        echo '<h2>' . __('Edit Student','teachcorses') . '</h2>';
         echo tc_registration_form($student, 'admin');
         echo '</div>';
     }

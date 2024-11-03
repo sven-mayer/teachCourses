@@ -1,4 +1,4 @@
-=== teachPress ===
+=== teachCorses ===
 Contributors: Michael Winkler
 Tags: publications, enrollments, education, courses, BibTeX, bibliography
 License: GPLv2 or later
@@ -8,10 +8,10 @@ Tested up to: 5.9
 Requires PHP: 5.4
 Stable tag: 8.1.5
 
-Manage your courses and publications with teachPress 
+Manage your courses and publications with teachCorses 
 
 == Description ==
-This plugin unites a course management system (with modules for enrollments, documents and assessments) and a powerful BibTeX compatible publication management. Both modules can be operated independently. teachPress is optimized for the needs of professorships and research groups. You can use it with WordPress 3.9.0 or higher.
+This plugin unites a course management system (with modules for enrollments, documents and assessments) and a powerful BibTeX compatible publication management. Both modules can be operated independently. teachCorses is optimized for the needs of professorships and research groups. You can use it with WordPress 3.9.0 or higher.
 
 = Features: =
 * BibTeX compatible multi user publication management
@@ -36,13 +36,13 @@ This plugin unites a course management system (with modules for enrollments, doc
 
 (o) Incomplete language files
 
-= Start with teachPress =
-The following article describes the fist steps for [starting with teachPress](https://github.com/winkm89/teachPress/wiki/Start-with-teachPress).
+= Start with teachCorses =
+The following article describes the fist steps for [starting with teachCorses](https://github.com/winkm89/teachCorses/wiki/Start-with-teachCorses).
 
 = Further information = 
-* [Wiki/Documentation](https://github.com/winkm89/teachPress/wiki) 
-* [teachPress on GitHub](https://github.com/winkm89/teachPress)  
-* [Developer blog](https://mtrv.wordpress.com/teachpress/) 
+* [Wiki/Documentation](https://github.com/winkm89/teachCorses/wiki) 
+* [teachCorses on GitHub](https://github.com/winkm89/teachCorses)  
+* [Developer blog](https://mtrv.wordpress.com/teachcorses/) 
 
 == Screenshots ==
 1. Publication overview screen
@@ -54,7 +54,7 @@ The following article describes the fist steps for [starting with teachPress](ht
 == Frequently Asked Questions ==
 
 = How can I find the documentation for the shortcodes? =
-All parameters of the shortcodes are described in the [teachPress shortcode reference](https://github.com/winkm89/teachPress/wiki#shortcodes)
+All parameters of the shortcodes are described in the [teachCorses shortcode reference](https://github.com/winkm89/teachCorses/wiki#shortcodes)
 
 = How can I hide the tags, when I use the [tpcloud] shortcode? =
 Use the shortcode with the following parameters: [tc_cloud show_tags_as="none"]
@@ -66,9 +66,9 @@ An example: [tplist image="left" image_size="70"]. Important: You must specify b
 Write a long course desciption as normal WordPress pages and add this page as related content to the course.
 
 = How can I protect course documents? =
-The plugin saves course documents in your WordPress upload directory under /teachpress/*course_id*. You can add a protection for this directory with a .htaccess file without influence to your normal media files.
+The plugin saves course documents in your WordPress upload directory under /teachcorses/*course_id*. You can add a protection for this directory with a .htaccess file without influence to your normal media files.
 
-[More FAQs are available on GitHub](https://github.com/winkm89/teachPress/wiki/FAQ)
+[More FAQs are available on GitHub](https://github.com/winkm89/teachCorses/wiki/FAQ)
 
 == Credits ==
 
@@ -114,8 +114,8 @@ Use at your own risk. No warranty expressed or implied is provided.
 **For updates:**
 
 1. Download the plugin.
-2. Delete all files in the 'plugins/teachpress/' directory.
-3. Upload all files to the 'plugins/teachpress/' directory.
+2. Delete all files in the 'plugins/teachcorses/' directory.
+3. Upload all files to the 'plugins/teachcorses/' directory.
 4. Go in the backend to Courses->Settings and click on "Update to ....".
 
 == Upgrade Notice ==
@@ -124,7 +124,7 @@ Use at your own risk. No warranty expressed or implied is provided.
 Please note that custom publication templates now requires the method get_image()!
 
 = 6.0.1 =
-Please note the [teachPress 6.0 Upgrade Information](https://mtrv.wordpress.com/2016/12/30/teachpress-6-0-upgrade-information/)
+Please note the [teachCorses 6.0 Upgrade Information](https://mtrv.wordpress.com/2016/12/30/teachcorses-6-0-upgrade-information/)
 
 == Changelog ==
 
@@ -135,7 +135,7 @@ Please note the [teachPress 6.0 Upgrade Information](https://mtrv.wordpress.com/
 * Bugfix: Add issue as default field for new publication
 
 = 8.1.4 (08.02.2022) =
-* Bugfix: Fix a variable declaration to block-scoped in teachpress_pub_showhide()
+* Bugfix: Fix a variable declaration to block-scoped in teachcorses_pub_showhide()
 
 = 8.1.3 (07.02.2022) =
 * New: Accept several tgid as $_GET input for a publication list (#191)
@@ -145,13 +145,13 @@ Please note the [teachPress 6.0 Upgrade Information](https://mtrv.wordpress.com/
 * Changed: New style of volume/number/issue fields in publication entries. We switch from 8(3) to vol. 8, no. 3
 * Changed: Show date instead of year in publication import if it's available
 * Bugfix: Fix some problems with pagination and losing filter values in the backend publications overview
-* Note: Considering that 99,9% of all users using the publication management only, I've decided to split the course system from the publication management during this year. So teachPress will be a publication management only plugin in future.
+* Note: Considering that 99,9% of all users using the publication management only, I've decided to split the course system from the publication management during this year. So teachCorses will be a publication management only plugin in future.
 
 = 8.1.1 (23.01.2022) = 
 * New: Consider annote fields in the bibtex import and save it as comments
 * Changed: Increase max size for bibtex keys from 50 to 100 chars
 * Changed: Larger input fields for series, bibtex_key, crossref
-* Bugfix: Set ROW_FORMAT=DYNAMIC for the tables teachpress_pub, teachpress_author, teachpress_tags during installation to fix installation problems
+* Bugfix: Set ROW_FORMAT=DYNAMIC for the tables teachcorses_pub, teachcorses_author, teachcorses_tags during installation to fix installation problems
 
 = 8.1.0 (29.11.2021) = 
 * New: Bookmarks can be added/deleted to all users without restriction (#181)
@@ -181,7 +181,7 @@ Please note the [teachPress 6.0 Upgrade Information](https://mtrv.wordpress.com/
 * New: [tpcloud, tplist, tpsearch]: "plain" option added for "show_tags_as" parameter. This display tags for each publications without links and filter
 
 = 8.0.0 (15.08.2021) =
-* New: New default publication template teachPress 2021 added (mobile friendly flexible layout) (#161)
+* New: New default publication template teachCorses 2021 added (mobile friendly flexible layout) (#161)
 * New: Flexible publication type registration added (#150)
 * New: Multi value publication filters for the backend added (#148)
 * New: Publication import: Option for direct import over NCBI PubMed API added (#168) (Thanks to Johan Hattne)
@@ -329,8 +329,8 @@ Please note the [teachPress 6.0 Upgrade Information](https://mtrv.wordpress.com/
 * Bugfix: Fix for displaying editors as authors for periodical in RTF and text exports
 * Bugfix: [tpcloud]: Fix align setting for the "show all" button
 * Bugfix: [tpsingle]: Fix for displaying editors as authors for collections and periodical
-* Bugfix: [template: teachPress original small]: Remove annoying extra space in bibliographic template (#54)
-* Bugfix: [template: teachPress original small]: Years were displayed twice in publication lists (#10)
+* Bugfix: [template: teachCorses original small]: Remove annoying extra space in bibliographic template (#54)
+* Bugfix: [template: teachCorses original small]: Years were displayed twice in publication lists (#10)
 * Bugfix: Fixed missing tables in tc_tables::remove()
 
 = 6.0.3 - (17.02.2017) =
@@ -370,4 +370,4 @@ Please note the [teachPress 6.0 Upgrade Information](https://mtrv.wordpress.com/
 * Bugfix: Fixed a optical sort order problem with assessments
 * Bugfix: Inproceeding renamed to Inproceedings because the singular form doesn't exist
 
-[Older entries](https://github.com/winkm89/teachPress/wiki/Changelog)
+[Older entries](https://github.com/winkm89/teachCorses/wiki/Changelog)

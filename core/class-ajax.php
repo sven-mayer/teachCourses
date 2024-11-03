@@ -1,14 +1,14 @@
 <?php
 /**
  * This file contains all functions which are used in ajax calls
- * @package teachpress\core\ajax
+ * @package teachcorses\core\ajax
  * @license http://www.gnu.org/licenses/gpl-2.0.html GPLv2 or later
  * @since 5.0.0
  */
 
 /**
  * This class contains all functions which are used in ajax calls
- * @package teachpress\core\ajax
+ * @package teachcorses\core\ajax
  * @since 5.0.0
  */
 class tc_Ajax {
@@ -61,7 +61,7 @@ class tc_Ajax {
     }
     
     /**
-     * Gets the artefact info screen. The info screen is used in the assessment menu of teachPress.
+     * Gets the artefact info screen. The info screen is used in the assessment menu of teachCorses.
      * @param int $artefact_id      The artefact ID
      * @since 5.0.0
      * @access public
@@ -72,7 +72,7 @@ class tc_Ajax {
         echo '<html>';
         echo '<head>';
         echo '<meta charset="utf-8">';
-	echo '<title>teachPress - Assessment details</title>';
+	echo '<title>teachCorses - Assessment details</title>';
         echo '</head>';
         echo '<body>';
         echo '<div id="content">';
@@ -80,11 +80,11 @@ class tc_Ajax {
         echo '<input name="tc_artefact_id" type="hidden" value="' . $artefact_id . '"/>';
         echo '<table class="form-table">';
         echo '<tr>';
-        echo '<td>' . __('Title','teachpress') . '</td>';
+        echo '<td>' . __('Title','teachcorses') . '</td>';
         echo '<td><input name="tc_artefact_title" cols="50" value="' . stripslashes($artefact['title']) . '"/></td>';
         echo '</tr>';
         echo '</table>';
-        echo '<p><input name="tc_save_artefact" type="submit" class="button-primary" value="' . __('Save') . '"/> <input name="tc_delete_artefact" type="submit" class="button-secondary" value="' . __('Delete','teachpress') . '"/></p>';
+        echo '<p><input name="tc_save_artefact" type="submit" class="button-primary" value="' . __('Save') . '"/> <input name="tc_delete_artefact" type="submit" class="button-secondary" value="' . __('Delete','teachcorses') . '"/></p>';
         echo '</form>';
         echo '</div>';
         echo '</body>';
@@ -111,12 +111,12 @@ class tc_Ajax {
             return;
         }
 
-        $artefact['title'] = ( $artefact['title'] == '' ) ? __('Complete Course','teachpress') : $artefact['title'];
+        $artefact['title'] = ( $artefact['title'] == '' ) ? __('Complete Course','teachcorses') : $artefact['title'];
         echo '<!doctype html>';
         echo '<html>';
         echo '<head>';
         echo '<meta charset="utf-8">';
-	echo '<title>teachPress - Assessment details</title>';
+	echo '<title>teachCorses - Assessment details</title>';
         echo '</head>';
         echo '<body>';
         echo '<div id="content">';
@@ -124,39 +124,39 @@ class tc_Ajax {
         echo '<input name="tc_assessment_id" type="hidden" value="' . $assessment_id . '"/>';
         echo '<table class="form-table">';
         echo '<tr>';
-        echo '<td>' . __('Name','teachpress') . '</td>';
+        echo '<td>' . __('Name','teachcorses') . '</td>';
         echo '<td>' . stripslashes($student['firstname']) . ' ' . stripslashes($student['lastname']) . '</td>';
         echo '</tr>';
         echo '<tr>';
-        echo '<td>' . __('Artefact','teachpress') . '</td>';
+        echo '<td>' . __('Artefact','teachcorses') . '</td>';
         echo '<td>' . stripslashes($artefact['title'])  . '</td>';
         echo '</tr>';
         echo '<tr>';
-        echo '<td>' . __('Type','teachpress') . '</td>';
+        echo '<td>' . __('Type','teachcorses') . '</td>';
         echo '<td>' . tc_Admin::get_assessment_type_field('tc_type', $assessment['type']) . '</td>';
         echo '</tr>';
         echo '<tr>';
-        echo '<td>' . __('Value/Grade','teachpress') . '</td>';
+        echo '<td>' . __('Value/Grade','teachcorses') . '</td>';
         echo '<td><input name="tc_value" type="text" size="50" value="' . $assessment['value'] . '" /></td>';
         echo '</tr>';
         echo '<tr>';
-        echo '<td>' . __('Comment','teachpress') . '</td>';
+        echo '<td>' . __('Comment','teachcorses') . '</td>';
         echo '<td><textarea name="tc_comment" rows="4" cols="50">' . stripslashes($assessment['comment']) . '</textarea></td>';
         echo '</tr>';
         echo '<tr>';
-        echo '<td>' . __('Has passed','teachpress') . '</td>';
+        echo '<td>' . __('Has passed','teachcorses') . '</td>';
         echo '<td>' . tc_Admin::get_assessment_passed_field('tc_passed', $assessment['passed']) . '</td>';
         echo '</tr>';
         echo '<tr>';
-        echo '<td>' . __('Date','teachpress') . '</td>';
+        echo '<td>' . __('Date','teachcorses') . '</td>';
         echo '<td>' . $assessment['exam_date'] . '</td>';
         echo '</tr>';
         echo '<tr>';
-        echo '<td>' . __('Examiner','teachpress') . '</td>';
+        echo '<td>' . __('Examiner','teachcorses') . '</td>';
         echo '<td>' . stripslashes($examiner->display_name) . '</td>';
         echo '</tr>';
         echo '</table>';
-        echo '<p><input name="tc_save_assessment" type="submit" class="button-primary" value="' . __('Save') . '"/> <input name="tc_delete_assessment" type="submit" class="button-secondary" value="' . __('Delete','teachpress') . '"/></p>';
+        echo '<p><input name="tc_save_assessment" type="submit" class="button-primary" value="' . __('Save') . '"/> <input name="tc_delete_assessment" type="submit" class="button-secondary" value="' . __('Delete','teachcorses') . '"/></p>';
         echo '</form>';
         echo '</div>';
         echo '</body>';
@@ -164,7 +164,7 @@ class tc_Ajax {
     }
     
     /**
-     * Gets a list of publications of a single author. This function is used for teachpress/admin/show_authors.php
+     * Gets a list of publications of a single author. This function is used for teachcorses/admin/show_authors.php
      * @param int $author_id        The authur ID
      * @since 5.0.0
      * @access public
@@ -175,12 +175,12 @@ class tc_Ajax {
         echo '<ol>';
         foreach ( $pubs as $pub) {
             echo '<li style="padding-left:10px;">';
-            echo '<a target="_blank" title="' . __('Edit publication','teachpress') .'" href="admin.php?page=teachpress/addpublications.php&pub_id=' . $pub['pub_id'] . '">' . tc_HTML::prepare_title($pub['title'], 'decode') . '</a>, ' . stripslashes($pub['type']) . ', ' . $pub['year'];
+            echo '<a target="_blank" title="' . __('Edit publication','teachcorses') .'" href="admin.php?page=teachcorses/addpublications.php&pub_id=' . $pub['pub_id'] . '">' . tc_HTML::prepare_title($pub['title'], 'decode') . '</a>, ' . stripslashes($pub['type']) . ', ' . $pub['year'];
             if ( $pub['is_author'] == 1 ) {
-                echo ' (' . __('as author','teachpress') . ')';
+                echo ' (' . __('as author','teachcorses') . ')';
             }
             if ( $pub['is_editor'] == 1 ) {
-                echo ' (' . __('as editor','teachpress') . ')';
+                echo ' (' . __('as editor','teachcorses') . ')';
             }
             echo '</li>';
         }
@@ -209,15 +209,15 @@ class tc_Ajax {
         echo '<html>';
         echo '<head>';
         echo '<meta charset="utf-8">';
-	echo '<title>teachPress - cite publication</title>';
+	echo '<title>teachCorses - cite publication</title>';
         echo '</head>';
         echo '<body>';
         echo '<div class="content">';
         echo '<div class="wrap">';
-        echo '<h3 class="nav-tab-wrapper"><a class="nav-tab nav-tab-active tc_cite_text" id="tc_cite_text_' . $cite_id . '" pub_id="' . $cite_id . '">' . __('Text','teachpress') . '</a> <a class="nav-tab tc_cite_bibtex" id="tc_cite_bibtex_' . $cite_id . '" pub_id="' . $cite_id . '">' . __('BibTeX','teachpress') . '</a></h3>';
+        echo '<h3 class="nav-tab-wrapper"><a class="nav-tab nav-tab-active tc_cite_text" id="tc_cite_text_' . $cite_id . '" pub_id="' . $cite_id . '">' . __('Text','teachcorses') . '</a> <a class="nav-tab tc_cite_bibtex" id="tc_cite_bibtex_' . $cite_id . '" pub_id="' . $cite_id . '">' . __('BibTeX','teachcorses') . '</a></h3>';
         echo '<form name="form_cite" method="post">';
         echo '<input name="tc_cite_id" type="hidden" value="' . '"/>';
-        echo '<textarea name="tc_cite_full" id="tc_cite_full_' . $cite_id . '" class="tc_cite_full" rows="7" style="width:100%; border-top:none;" title="' . __('Publication entry','teachpress') . '">' . tc_Export::text_row($publication) . '</textarea>';
+        echo '<textarea name="tc_cite_full" id="tc_cite_full_' . $cite_id . '" class="tc_cite_full" rows="7" style="width:100%; border-top:none;" title="' . __('Publication entry','teachcorses') . '">' . tc_Export::text_row($publication) . '</textarea>';
         echo '</form>';
         echo '</div>';
         echo '</div>';
@@ -285,7 +285,7 @@ class tc_Ajax {
         echo '<html>';
         echo '<head>';
         echo '<meta charset="utf-8">';
-	echo '<title>teachPress - Meta Field Screen</title>';
+	echo '<title>teachCorses - Meta Field Screen</title>';
         echo '</head>';
         echo '<body>';
         echo '<div id="content">';
@@ -296,8 +296,8 @@ class tc_Ajax {
         // field name
         if ( $meta_field_id === 0 ) {
             echo '<tr>';
-            echo '<td><label for="field_name">' . __('Field name','teachpress') . '</label></td>';
-            echo '<td><input name="field_name" type="text" id="field_name" size="30" title="' . __('Allowed chars','teachpress') . ': A-Z,a-z,0-9,_" value="' . $data['name'] . '"/></td>';
+            echo '<td><label for="field_name">' . __('Field name','teachcorses') . '</label></td>';
+            echo '<td><input name="field_name" type="text" id="field_name" size="30" title="' . __('Allowed chars','teachcorses') . ': A-Z,a-z,0-9,_" value="' . $data['name'] . '"/></td>';
             echo '</tr>';
         }
         else {
@@ -306,14 +306,14 @@ class tc_Ajax {
         
         // label
         echo '<tr>';
-        echo '<td><label for="field_label">' . __('Label','teachpress') . '</label></td>';
-        echo '<td><input name="field_label" type="text" id="field_label" size="30" title="' . __('The visible name of the field','teachpress') . '" value="' . $data['title'] . '" /></td>';
+        echo '<td><label for="field_label">' . __('Label','teachcorses') . '</label></td>';
+        echo '<td><input name="field_label" type="text" id="field_label" size="30" title="' . __('The visible name of the field','teachcorses') . '" value="' . $data['title'] . '" /></td>';
         echo '</tr>';
         
         // field type
         $field_types = array('TEXT', 'TEXTAREA', 'INT', 'DATE', 'SELECT', 'CHECKBOX', 'RADIO');
         echo '<tr>';
-        echo '<td><label for="field_type">' . __('Field type','teachpress') . '</label></td>';
+        echo '<td><label for="field_type">' . __('Field type','teachcorses') . '</label></td>';
         echo '<td>';
         echo '<select name="field_type" id="field_type">';
         foreach ( $field_types as $type ) {
@@ -327,41 +327,41 @@ class tc_Ajax {
         // min
         $min = ( $data['min'] === 'false' ) ? '' : intval($min);
         echo '<tr>';
-        echo '<td><label for="number_min">' . __('Min','teachpress') . ' (' . __('Only for INT fields','teachpress') . ')</label></td>';
+        echo '<td><label for="number_min">' . __('Min','teachcorses') . ' (' . __('Only for INT fields','teachcorses') . ')</label></td>';
         echo '<td><input name="number_min" id="number_min" type="number" size="10" value="' . $min . '"/></td>';
         echo '</tr>';
         
         // max
         $max = ( $data['max'] === 'false' ) ? '' : intval($max);
         echo '<tr>';
-        echo '<td><label for="number_max">' . __('Max','teachpress') . ' (' . __('Only for INT fields','teachpress') . ')</label></td>';
+        echo '<td><label for="number_max">' . __('Max','teachcorses') . ' (' . __('Only for INT fields','teachcorses') . ')</label></td>';
         echo '<td><input name="number_max" id="number_max" type="number" size="10" value="' . $max . '"/></td>';
         echo '</tr>';
         
         // step
         $step = ( $data['step'] === 'false' ) ? '' : intval($step);
         echo '<tr>';
-        echo '<td><label for="number_step">' . __('Step','teachpress') . ' (' . __('Only for INT fields','teachpress') . ')</label></td>';
+        echo '<td><label for="number_step">' . __('Step','teachcorses') . ' (' . __('Only for INT fields','teachcorses') . ')</label></td>';
         echo '<td><input name="number_step" id="number_step" type="text" size="10" value="' . $step . '"/></td>';
         echo '</tr>';
         
         // visibility
         echo '<tr>';
-        echo '<td><label for="visibility">' . __('Visibility','teachpress') . '</label></td>';
+        echo '<td><label for="visibility">' . __('Visibility','teachcorses') . '</label></td>';
         echo '<td>';
         echo '<select name="visibility" id="visibility">';
         
         // normal
         $vis_normal = ( $data['visibility'] === 'normal' ) ? 'selected="selected"' : '';
-        echo '<option value="normal" ' . $vis_normal . '>' . __('Normal','teachpress') . '</option>';
+        echo '<option value="normal" ' . $vis_normal . '>' . __('Normal','teachcorses') . '</option>';
 
         // admin
         $vis_admin = ( $data['visibility'] === 'admin' ) ? 'selected="selected"' : '';
-        echo '<option value="admin" ' . $vis_admin . '>' . __('Admin','teachpress') . '</option>';
+        echo '<option value="admin" ' . $vis_admin . '>' . __('Admin','teachcorses') . '</option>';
 
         // hidden
         $vis_hidden = ( $data['visibility'] === 'hidden' ) ? 'selected="selected"' : '';
-        echo '<option value="hidden" ' . $vis_hidden . '>' . __('Hidden','teachpress') . '</option>';
+        echo '<option value="hidden" ' . $vis_hidden . '>' . __('Hidden','teachcorses') . '</option>';
         
         echo '</select>';
         echo '</td>';
@@ -370,11 +370,11 @@ class tc_Ajax {
         // required
         $req = ( $data['required'] === 'true' ) ? 'checked="checked"' : '';
         echo '<tr>';
-        echo '<td colspan="2"><input type="checkbox" name="is_required" id="is_required" ' . $req . '/> <label for="is_required">' . __('Required field','teachpress') . '</label></td>';
+        echo '<td colspan="2"><input type="checkbox" name="is_required" id="is_required" ' . $req . '/> <label for="is_required">' . __('Required field','teachcorses') . '</label></td>';
         echo '</tr>';
            
         echo '</table>';
-        echo '<p><input type="submit" name="add_field" class="button-primary" value="' . __('Save','teachpress') . '"/></p>';
+        echo '<p><input type="submit" name="add_field" class="button-primary" value="' . __('Save','teachcorses') . '"/></p>';
         echo '</form>';
         echo '</div>';
         echo '</body>';

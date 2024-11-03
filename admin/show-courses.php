@@ -2,7 +2,7 @@
 /**
  * This file contains all functions for displaying the show_courses page in admin menu
  * 
- * @package teachpress\admin\courses
+ * @package teachcorses\admin\courses
  * @license http://www.gnu.org/licenses/gpl-2.0.html GPLv2 or later
  */
 
@@ -13,15 +13,15 @@ function tc_show_course_page_help () {
     $screen = get_current_screen();  
     $screen->add_help_tab( array(
         'id'        => 'tc_show_course_help',
-        'title'     => __('Display courses','teachpress'),
+        'title'     => __('Display courses','teachcorses'),
         'content'   => '<p><strong>' . __('Shortcodes') . '</strong></p>
-                        <p>' . __('You can use courses in a page or article with the following shortcodes:','teachpress') . '</p>
-                        <p>' . __('For course informations','teachpress') . ': <strong>[tpcourseinfo id="x"]</strong> ' . __('x = Course-ID','teachpress') . '</p>
-                        <p>' . __('For course documents','teachpress') . ': <strong>[tpcoursedocs id="x"]</strong> ' . __('x = Course-ID','teachpress') . '</p>
-                        <p>' . __('For the course list','teachpress') . ': <strong>[tpcourselist]</strong></p>
-                        <p>' . __('For the enrollment system','teachpress') . ': <strong>[tpenrollments]</strong></p>
-                        <p><strong>' . __('More information','teachpress') . '</strong></p>
-                        <p><a href="https://github.com/winkm89/teachPress/wiki#shortcodes" target="_blank" title="teachPress Shortcode Reference (engl.)">teachPress Shortcode Reference (engl.)</a></p>',
+                        <p>' . __('You can use courses in a page or article with the following shortcodes:','teachcorses') . '</p>
+                        <p>' . __('For course informations','teachcorses') . ': <strong>[tpcourseinfo id="x"]</strong> ' . __('x = Course-ID','teachcorses') . '</p>
+                        <p>' . __('For course documents','teachcorses') . ': <strong>[tpcoursedocs id="x"]</strong> ' . __('x = Course-ID','teachcorses') . '</p>
+                        <p>' . __('For the course list','teachcorses') . ': <strong>[tpcourselist]</strong></p>
+                        <p>' . __('For the enrollment system','teachcorses') . ': <strong>[tpenrollments]</strong></p>
+                        <p><strong>' . __('More information','teachcorses') . '</strong></p>
+                        <p><a href="https://github.com/winkm89/teachCorses/wiki#shortcodes" target="_blank" title="teachCorses Shortcode Reference (engl.)">teachCorses Shortcode Reference (engl.)</a></p>',
     ) );
 }
 
@@ -38,7 +38,7 @@ function tc_show_course_page_screen_options() {
     }
 
     $args = array(
-        'label' => __('Items per page', 'teachpress'),
+        'label' => __('Items per page', 'teachcorses'),
         'default' => 50,
         'option' => 'tc_courses_per_page'
     );
@@ -63,7 +63,7 @@ function tc_show_courses_page() {
         $options['recipients'] = isset ( $_POST['recipients_option'] ) ? htmlspecialchars($_POST['recipients_option']) : '';
         $attachments = isset ( $_POST['attachments'] ) ? $_POST['attachments'] : '';
         $ret = tc_Mail::sendMail($from, $to, $subject, $text, $options, $attachments);
-        $message = ( $ret === true ) ? __('E-Mail sent','teachpress') : __('Error: E-Mail could not sent','teachpress');
+        $message = ( $ret === true ) ? __('E-Mail sent','teachcorses') : __('Error: E-Mail could not sent','teachcorses');
         get_tc_message($message);
     }
 
@@ -109,22 +109,22 @@ class tc_Courses_Page {
         ?> 
 
         <div class="wrap">
-            <h2><?php _e('Courses','teachpress'); ?> <a href="admin.php?page=teachpress/add_course.php" class="add-new-h2"><?php _e('Add new','teachpress'); ?></a></h2>
+            <h2><?php _e('Courses','teachcorses'); ?> <a href="admin.php?page=teachcorses/add_course.php" class="add-new-h2"><?php _e('Add new','teachcorses'); ?></a></h2>
         <form id="showcourse" name="showcourse" method="get" action="<?php echo esc_url($_SERVER['REQUEST_URI']); ?>">
-        <input name="page" type="hidden" value="teachpress/teachpress.php" />
+        <input name="page" type="hidden" value="teachcorses/teachcorses.php" />
            <?php 	
            // delete a course, part 1
            if ( $bulk === 'delete' ) {
-                echo '<div class="teachpress_message">
-                <p class="teachpress_message_headline">' . __('Do you want to delete the selected items?','teachpress') . '</p>
-                <p><input name="delete_ok" type="submit" class="button-primary" value="' . __('Delete','teachpress') . '"/>
-                <a href="admin.php?page=teachpress/teachpress.php&sem=' . $sem . '&search=' . $search . '" class="button-secondary"> ' . __('Cancel','teachpress') . '</a></p>
+                echo '<div class="teachcorses_message">
+                <p class="teachcorses_message_headline">' . __('Do you want to delete the selected items?','teachcorses') . '</p>
+                <p><input name="delete_ok" type="submit" class="button-primary" value="' . __('Delete','teachcorses') . '"/>
+                <a href="admin.php?page=teachcorses/teachcorses.php&sem=' . $sem . '&search=' . $search . '" class="button-secondary"> ' . __('Cancel','teachcorses') . '</a></p>
                 </div>';
            }
            // delete a course, part 2
            if ( isset($_GET['delete_ok']) ) {
                 tc_Courses::delete_courses($current_user->ID, $checkbox);
-                $message = __('Removing successful','teachpress');
+                $message = __('Removing successful','teachcorses');
                 get_tc_message($message);
            }
            // copy a course, part 1
@@ -134,51 +134,51 @@ class tc_Courses_Page {
            // copy a course, part 2
            if ( isset($_GET['copy_ok']) ) {
                 tc_copy_course::init($checkbox, $copysem);
-                $message = __('Copying successful','teachpress');
+                $message = __('Copying successful','teachcorses');
                 get_tc_message($message);
            }
            ?>
             <div id="tc_searchbox"> 
                 <?php if ($search != '') { ?>
-                <a href="admin.php?page=teachpress/teachpress.php" class="tc_search_cancel" title="<?php _e('Cancel the search','teachpress'); ?>">X</a>
+                <a href="admin.php?page=teachcorses/teachcorses.php" class="tc_search_cancel" title="<?php _e('Cancel the search','teachcorses'); ?>">X</a>
                 <?php } ?>
                 <input type="search" name="search" id="pub_search_field" value="<?php echo stripslashes($search); ?>"/></td>
-                <input type="submit" name="pub_search_button" id="pub_search_button" value="<?php _e('Search','teachpress'); ?>" class="button-secondary"/>
+                <input type="submit" name="pub_search_button" id="pub_search_button" value="<?php _e('Search','teachcorses'); ?>" class="button-secondary"/>
             </div>
             <div class="tablenav" style="padding-bottom:5px;">
                 <div class="alignleft actions">
                     <select name="bulk" id="bulk">
-                         <option>- <?php _e('Bulk actions','teachpress'); ?> -</option>
-                         <option value="copy"><?php _e('copy','teachpress'); ?></option>
-                         <option value="delete"><?php _e('Delete','teachpress'); ?></option>
+                         <option>- <?php _e('Bulk actions','teachcorses'); ?> -</option>
+                         <option value="copy"><?php _e('copy','teachcorses'); ?></option>
+                         <option value="delete"><?php _e('Delete','teachcorses'); ?></option>
                     </select>
-                    <input type="submit" name="teachpress_submit" id="doaction" value="<?php _e('OK','teachpress'); ?>" class="button-secondary"/>
+                    <input type="submit" name="teachcorses_submit" id="doaction" value="<?php _e('OK','teachcorses'); ?>" class="button-secondary"/>
                 </div>
                 <div class="alignleft actions">
                     <select name="sem" id="sem">
-                         <option value=""><?php _e('All terms','teachpress'); ?></option>
+                         <option value=""><?php _e('All terms','teachcorses'); ?></option>
                          <?php
                          foreach ($terms as $row) { 
                               $current = ( $row->value == $sem ) ? 'selected="selected"' : '';
                               echo '<option value="' . $row->value . '" ' . $current . '>' . stripslashes($row->value) . '</option>';
                          } ?> 
                     </select>
-                   <input type="submit" name="start" value="<?php _e('Show','teachpress'); ?>" id="teachpress_submit" class="button-secondary"/>
+                   <input type="submit" name="start" value="<?php _e('Show','teachcorses'); ?>" id="teachcorses_submit" class="button-secondary"/>
                 </div>
              </div>
             <table class="widefat">
                <thead>
                <tr>
-                   <td class="check-column"><input name="tc_check_all" id="tc_check_all" type="checkbox" value="" onclick="teachpress_checkboxes('checkbox[]','tc_check_all');" /></td>
-                   <th><?php _e('Name','teachpress'); ?></th>
+                   <td class="check-column"><input name="tc_check_all" id="tc_check_all" type="checkbox" value="" onclick="teachcorses_checkboxes('checkbox[]','tc_check_all');" /></td>
+                   <th><?php _e('Name','teachcorses'); ?></th>
                    <th><?php _e('ID'); ?></th>
                    <th><?php _e('Type'); ?></th>
-                   <th><?php _e('Lecturer','teachpress'); ?></th>
-                   <th><?php _e('Date','teachpress'); ?></th>
-                   <th colspan="2" align="center" style="text-align:center;"><?php _e('Places','teachpress'); ?></th>
-                   <th colspan="2" align="center" style="text-align:center;"><?php _e('Enrollments','teachpress'); ?></th>
-                   <th><?php _e('Term','teachpress'); ?></th>
-                   <th><?php _e('Visibility','teachpress'); ?></th>
+                   <th><?php _e('Lecturer','teachcorses'); ?></th>
+                   <th><?php _e('Date','teachcorses'); ?></th>
+                   <th colspan="2" align="center" style="text-align:center;"><?php _e('Places','teachcorses'); ?></th>
+                   <th colspan="2" align="center" style="text-align:center;"><?php _e('Enrollments','teachcorses'); ?></th>
+                   <th><?php _e('Term','teachcorses'); ?></th>
+                   <th><?php _e('Visibility','teachcorses'); ?></th>
                </tr>
                </thead>
                <tbody>
@@ -218,7 +218,7 @@ class tc_Courses_Page {
                 ) );
         // if the query is empty
         if ( count($row) === 0 ) { 
-            echo '<tr><td colspan="13"><strong>' . __('Sorry, no entries matched your criteria.','teachpress') . '</strong></td></tr>';
+            echo '<tr><td colspan="13"><strong>' . __('Sorry, no entries matched your criteria.','teachcorses') . '</strong></td></tr>';
             return;
         }
            
@@ -329,19 +329,19 @@ class tc_Courses_Page {
         $edit_link = '';
         $capability = tc_Courses::get_capability($course['course_id'], $user_ID);
         if ( $capability === 'owner' || $capability === 'approved' ) {
-            $edit_link = '| <a href="admin.php?page=teachpress/teachpress.php&amp;course_id=' . $course['course_id'] . '&amp;sem=' . $static['sem'] . '&amp;search=' . $static['search'] . '&amp;action=edit&amp;ref=overview" title="' . __('Edit','teachpress') . '">' . __('Edit','teachpress') . '</a>';
+            $edit_link = '| <a href="admin.php?page=teachcorses/teachcorses.php&amp;course_id=' . $course['course_id'] . '&amp;sem=' . $static['sem'] . '&amp;search=' . $static['search'] . '&amp;action=edit&amp;ref=overview" title="' . __('Edit','teachcorses') . '">' . __('Edit','teachcorses') . '</a>';
         }
         if ( $capability === 'owner' ) {
-            $delete_link = '| <a class="tc_row_delete" href="admin.php?page=teachpress/teachpress.php&amp;sem=' . $static['sem'] . '&amp;search=' . $static['search'] . '&amp;checkbox%5B%5D=' . $course['course_id'] . '&amp;bulk=delete" title="' . __('Delete','teachpress') . '">' . __('Delete','teachpress') . '</a>';
+            $delete_link = '| <a class="tc_row_delete" href="admin.php?page=teachcorses/teachcorses.php&amp;sem=' . $static['sem'] . '&amp;search=' . $static['search'] . '&amp;checkbox%5B%5D=' . $course['course_id'] . '&amp;bulk=delete" title="' . __('Delete','teachcorses') . '">' . __('Delete','teachcorses') . '</a>';
         }
         
         // complete the row
         $a1 = '<tr' . $static['tr_class'] . '>
             <th class="check-column"><input name="checkbox[]" type="checkbox" value="' . $course['course_id'] . '"' . $check . '/></th>
             <td' . $class . '>
-                <a href="admin.php?page=teachpress/teachpress.php&amp;course_id=' . $course['course_id'] . '&amp;sem=' . $static['sem'] . '&amp;search=' . $static['search'] . '&amp;action=show" class="teachpress_link" title="' . __('Click to show','teachpress') . '"><strong>' . $course['name'] . '</strong></a>
+                <a href="admin.php?page=teachcorses/teachcorses.php&amp;course_id=' . $course['course_id'] . '&amp;sem=' . $static['sem'] . '&amp;search=' . $static['search'] . '&amp;action=show" class="teachcorses_link" title="' . __('Click to show','teachcorses') . '"><strong>' . $course['name'] . '</strong></a>
                 <div class="tc_row_actions">
-                    <a href="admin.php?page=teachpress/teachpress.php&amp;course_id=' . $course['course_id'] . '&amp;sem=' . $static['sem'] . '&amp;search=' . $static['search'] . '&amp;action=show" title="' . __('Show','teachpress') . '">' . __('Show','teachpress') . '</a> ' . $edit_link . $delete_link . '
+                    <a href="admin.php?page=teachcorses/teachcorses.php&amp;course_id=' . $course['course_id'] . '&amp;sem=' . $static['sem'] . '&amp;search=' . $static['search'] . '&amp;action=show" title="' . __('Show','teachcorses') . '">' . __('Show','teachcorses') . '</a> ' . $edit_link . $delete_link . '
                 </div>
             </td>
             <td>' . $course['course_id'] . '</td>
@@ -355,17 +355,17 @@ class tc_Courses_Page {
                     <td>' . $course['end'] . '</td>';
         } 
         else {
-            $a2 = '<td colspan="2" style="text-align:center;">' . __('none','teachpress') . '</td>';
+            $a2 = '<td colspan="2" style="text-align:center;">' . __('none','teachcorses') . '</td>';
         }
         $a3 = '<td>' . $course['semester'] . '</td>';
         if ( $course['visible'] == 1 ) {
-            $a4 = '<td>' . __('normal','teachpress') . '</td>';
+            $a4 = '<td>' . __('normal','teachcorses') . '</td>';
         }
         elseif ( $course['visible'] == 2 ) {
-            $a4 = '<td>' . __('extend','teachpress') . '</td>';
+            $a4 = '<td>' . __('extend','teachcorses') . '</td>';
         }
         else {
-            $a4 = '<td>' . __('invisible','teachpress') . '</td>';
+            $a4 = '<td>' . __('invisible','teachcorses') . '</td>';
         }
         $a5 = '</tr>';
         // Return
@@ -384,10 +384,10 @@ class tc_Courses_Page {
      */
     public static function get_copy_course_form($terms, $sem, $search) {
         ?>
-        <div class="teachpress_message">
-            <p class="teachpress_message_headline"><?php _e('Copy courses','teachpress'); ?></p>
-            <p class="teachpress_message_text"><?php _e('Select the term, in which you will copy the selected courses.','teachpress'); ?></p>
-            <p class="teachpress_message_text">
+        <div class="teachcorses_message">
+            <p class="teachcorses_message_headline"><?php _e('Copy courses','teachcorses'); ?></p>
+            <p class="teachcorses_message_text"><?php _e('Select the term, in which you will copy the selected courses.','teachcorses'); ?></p>
+            <p class="teachcorses_message_text">
             <select name="copysem" id="copysem">
                 <?php
                 foreach ($terms as $term) { 
@@ -395,8 +395,8 @@ class tc_Courses_Page {
                     echo '<option value="' . $term->value . '" ' . $current . '>' . stripslashes($term->value) . '</option>';
                 } ?> 
             </select>
-            <input name="copy_ok" type="submit" class="button-primary" value="<?php _e('copy','teachpress'); ?>"/>
-            <a href="<?php echo 'admin.php?page=teachpress/teachpress.php&sem=' . $sem . '&search=' . $search . ''; ?>" class="button-secondary"> <?php _e('Cancel','teachpress'); ?></a>
+            <input name="copy_ok" type="submit" class="button-primary" value="<?php _e('copy','teachcorses'); ?>"/>
+            <a href="<?php echo 'admin.php?page=teachcorses/teachcorses.php&sem=' . $sem . '&search=' . $search . ''; ?>" class="button-secondary"> <?php _e('Cancel','teachcorses'); ?></a>
             </p>
         </div>
         <?php

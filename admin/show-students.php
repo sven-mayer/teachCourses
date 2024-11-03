@@ -2,7 +2,7 @@
 /**
  * This file contains all functions for displaying the show_students page in admin menu
  * 
- * @package teachpress\admin\students
+ * @package teachcorses\admin\students
  * @license http://www.gnu.org/licenses/gpl-2.0.html GPLv2 or later
  */
 
@@ -15,7 +15,7 @@ function tc_students_page() {
     $search = isset ( $_GET['search'] ) ? htmlspecialchars($_GET['search']) : ''; 
     $action = isset ($_GET['action']) ? $_GET['action'] : '';
     $student = isset ( $_GET['student_id'] ) ? intval($_GET['student_id']) : 0;
-    $fields = get_tc_options('teachpress_stud','`setting_id` ASC', ARRAY_A);
+    $fields = get_tc_options('teachcorses_stud','`setting_id` ASC', ARRAY_A);
 
     // Page menu
     $page_settings['entries_per_page'] = 50;
@@ -41,11 +41,11 @@ function tc_students_page() {
         $text = isset ( $_POST['text'] ) ? htmlspecialchars($_POST['text']) : '';
         $attachments = isset ( $_POST['attachments'] ) ? $_POST['attachments'] : '';
         tc_Mail::sendMail($from, $to, $subject, $text, $recipients_option, $attachments);
-        get_tc_message( __('E-Mail sent','teachpress') );
+        get_tc_message( __('E-Mail sent','teachcorses') );
     }
     
     // field options
-    $fields = get_tc_options('teachpress_stud','`setting_id` ASC', ARRAY_A);
+    $fields = get_tc_options('teachcorses_stud','`setting_id` ASC', ARRAY_A);
     $visible_fields = array();
     $select_fields = array();
     foreach ($fields as $row) {
@@ -101,11 +101,11 @@ class tc_Students_Page {
         $selects = false;
         $max = count($select_fields);
         for ($i = 0; $i < $max; $i++) {
-            $meta_field = get_tc_option($select_fields[$i], 'teachpress_stud');
+            $meta_field = get_tc_option($select_fields[$i], 'teachcorses_stud');
             $meta_field_options = tc_DB_Helpers::extract_column_data($meta_field);
             
-            echo '<select name="' . $select_fields[$i] . '" title="' . __('Select','teachpress') . ': ' . $meta_field_options['title'] . '">';
-            echo '<option value="">- ' . __('All','teachpress') . ' -</option>';
+            echo '<select name="' . $select_fields[$i] . '" title="' . __('Select','teachcorses') . ': ' . $meta_field_options['title'] . '">';
+            echo '<option value="">- ' . __('All','teachcorses') . ' -</option>';
             $options = get_tc_options($select_fields[$i]);
             $search = ( !empty($meta_search) ) ? $meta_search[$select_fields[$i]] : '';
             
@@ -118,7 +118,7 @@ class tc_Students_Page {
         }
             
         if ( $selects === true ) {
-            echo ' <input name="anzeigen" type="submit" id="teachpress_search_senden" value="' . __('Show','teachpress') . '" class="button-secondary"/>';
+            echo ' <input name="anzeigen" type="submit" id="teachcorses_search_senden" value="' . __('Show','teachcorses') . '" class="button-secondary"/>';
         }
     }
     
@@ -135,27 +135,27 @@ class tc_Students_Page {
      * @since 5.0.0
      */
     public static function get_page ($bulk, $search, $meta_search, $fields, $visible_fields, $select_fields, $page_settings, $url_parameter) {
-        $page = 'teachpress/students.php';
+        $page = 'teachcorses/students.php';
         $checkbox = isset ( $_GET['checkbox'] ) ? $_GET['checkbox'] : '';
         ?>
         <div class="wrap">
-        <h2><?php _e('Students','teachpress'); ?> <a class="add-new-h2" href="admin.php?page=teachpress/students.php&amp;action=add"><?php _e('Add student','teachpress'); ?></a></h2>
+        <h2><?php _e('Students','teachcorses'); ?> <a class="add-new-h2" href="admin.php?page=teachcorses/students.php&amp;action=add"><?php _e('Add student','teachcorses'); ?></a></h2>
         <form name="search" method="get" action="admin.php">
         <input name="page" type="hidden" value="<?php echo $page; ?>" />
         <?php
         // Delete students part 1
         if ( $bulk === "delete" ) {
-            echo '<div class="teachpress_message">
-            <p class="teachpress_message_headline">' . __('Do you want to delete the selected items?','teachpress') . '</p>
-            <p><input name="delete_ok" type="submit" class="button-primary" value="' . __('Delete','teachpress') . '"/>
-            <a href="admin.php?page=teachpress/students.php&amp;search=' . $search . '&amp;limit=' . $page_settings['entry_limit'] . $url_parameter . '" class="button-secondary"> ' . __('Cancel','teachpress') . '</a></p>
+            echo '<div class="teachcorses_message">
+            <p class="teachcorses_message_headline">' . __('Do you want to delete the selected items?','teachcorses') . '</p>
+            <p><input name="delete_ok" type="submit" class="button-primary" value="' . __('Delete','teachcorses') . '"/>
+            <a href="admin.php?page=teachcorses/students.php&amp;search=' . $search . '&amp;limit=' . $page_settings['entry_limit'] . $url_parameter . '" class="button-secondary"> ' . __('Cancel','teachcorses') . '</a></p>
             </div>';
         }
         
         // Delete students part 2
         if ( isset($_GET['delete_ok']) ) {
             tc_Students::delete_student($checkbox);
-            $message = __('Removing successful','teachpress');
+            $message = __('Removing successful','teachcorses');
             get_tc_message($message);
         }
         
@@ -171,17 +171,17 @@ class tc_Students_Page {
         ?>
         <div id="tc_searchbox">  
             <?php if ($search != "") { ?>
-            <a href="admin.php?page=teachpress/students.php" class="tc_search_cancel" title="<?php _e('Cancel the search','teachpress'); ?>">X</a>
+            <a href="admin.php?page=teachcorses/students.php" class="tc_search_cancel" title="<?php _e('Cancel the search','teachcorses'); ?>">X</a>
             <?php } ?>
             <input name="search" type="search" value="<?php echo stripslashes($search); ?>"/></td>
-            <input name="go" type="submit" value="<?php _e('Search','teachpress'); ?>" id="teachpress_search_senden" class="button-secondary"/>
+            <input name="go" type="submit" value="<?php _e('Search','teachcorses'); ?>" id="teachcorses_search_senden" class="button-secondary"/>
         </div>
         <div class="tablenav" style="padding-bottom:5px;">
             <select name="bulk" id="bulk">
-                <option>- <?php _e('Bulk actions','teachpress'); ?> -</option>
-                <option value="delete"><?php _e('Delete','teachpress'); ?></option>
+                <option>- <?php _e('Bulk actions','teachcorses'); ?> -</option>
+                <option value="delete"><?php _e('Delete','teachcorses'); ?></option>
             </select>
-            <input type="submit" name="teachpress_submit" value="<?php _e('OK','teachpress'); ?>" id="doaction" class="button-secondary"/>
+            <input type="submit" name="teachcorses_submit" value="<?php _e('OK','teachcorses'); ?>" id="doaction" class="button-secondary"/>
             <?php 
             tc_Students_Page::get_filter($select_fields, $meta_search);
             // Page Menu
@@ -198,12 +198,12 @@ class tc_Students_Page {
         <thead>
         <tr>
             <td class="check-column">
-                <input name="tc_check_all" id="tc_check_all" type="checkbox" value="" onclick="teachpress_checkboxes('checkbox[]','tc_check_all');" />
+                <input name="tc_check_all" id="tc_check_all" type="checkbox" value="" onclick="teachcorses_checkboxes('checkbox[]','tc_check_all');" />
             </td>
             <?php
-            echo '<th>' . __('Last name','teachpress') . '</th>';
-            echo '<th>' . __('First name','teachpress') . '</th>'; 
-            echo '<th>' . __('User account','teachpress') . '</th>'; 
+            echo '<th>' . __('Last name','teachcorses') . '</th>';
+            echo '<th>' . __('First name','teachcorses') . '</th>'; 
+            echo '<th>' . __('User account','teachcorses') . '</th>'; 
             echo '<th>' . __('E-Mail') . '</th>';
             foreach ($fields as $row) {
                 $data = tc_DB_Helpers::extract_column_data($row['value']);
@@ -235,10 +235,10 @@ class tc_Students_Page {
             } 
             else {
                 if ($number_entries == 1) {
-                    echo $number_entries . ' ' . __('entry','teachpress');
+                    echo $number_entries . ' ' . __('entry','teachcorses');
                 }
                 else {
-                    echo $number_entries . ' ' . __('entries','teachpress');
+                    echo $number_entries . ' ' . __('entries','teachcorses');
                 }
             }?>
             </div>
@@ -262,7 +262,7 @@ class tc_Students_Page {
     public static function get_table_row ($students, $bulk, $checkbox, $search, $curr_page, $visible_fields, $url_parameter) {
         // Show students
         if ( count($students) === 0) { 
-            echo '<tr><td colspan="9"><strong>' . __('Sorry, no entries matched your criteria.','teachpress') . '</strong></td></tr>';
+            echo '<tr><td colspan="9"><strong>' . __('Sorry, no entries matched your criteria.','teachcorses') . '</strong></td></tr>';
             return;
         }
 
@@ -279,11 +279,11 @@ class tc_Students_Page {
                 } 
             }
             echo '/></th>';
-            $link_name = ( $row3['lastname'] !== '' ) ? stripslashes($row3['lastname']) : '[' . __('empty','teachpress') . ']';
-            echo '<td><a href="admin.php?page=teachpress/students.php&amp;student_id=' . $row3['wp_id'] . '&amp;search=' . $search . '&amp;limit=' . $curr_page . $url_parameter . '&amp;action=show" class="teachpress_link" title="' . __('Click to edit','teachpress') . '"><strong>' . $link_name . '</strong></a></td>';
+            $link_name = ( $row3['lastname'] !== '' ) ? stripslashes($row3['lastname']) : '[' . __('empty','teachcorses') . ']';
+            echo '<td><a href="admin.php?page=teachcorses/students.php&amp;student_id=' . $row3['wp_id'] . '&amp;search=' . $search . '&amp;limit=' . $curr_page . $url_parameter . '&amp;action=show" class="teachcorses_link" title="' . __('Click to edit','teachcorses') . '"><strong>' . $link_name . '</strong></a></td>';
             echo '<td>' . stripslashes($row3['firstname']) . '</td>';
             echo '<td>' . stripslashes($row3['userlogin']) . '</td>';
-            echo '<td><a href="admin.php?page=teachpress/teachpress.php&amp;student_id=' . $row3['wp_id'] . '&amp;search=' . $search . '&amp;limit=' . $curr_page . $url_parameter . '&amp;action=mail&amp;single=' . $row3['email'] . '" title="' . __('Send E-Mail','teachpress') . '">' . $row3['email'] . '</a></td>';
+            echo '<td><a href="admin.php?page=teachcorses/teachcorses.php&amp;student_id=' . $row3['wp_id'] . '&amp;search=' . $search . '&amp;limit=' . $curr_page . $url_parameter . '&amp;action=mail&amp;single=' . $row3['email'] . '" title="' . __('Send E-Mail','teachcorses') . '">' . $row3['email'] . '</a></td>';
             $max2 = count($visible_fields);
             for ( $i = 0; $i < $max2; $i++ ) {
                 $value = '';

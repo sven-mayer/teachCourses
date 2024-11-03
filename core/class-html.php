@@ -1,14 +1,14 @@
 <?php
 /**
  * This file contains all functions of the tc_html class
- * @package teachpress\core\html
+ * @package teachcorses\core\html
  * @license http://www.gnu.org/licenses/gpl-2.0.html GPLv2 or later
  * @since 5.0.10
  */
 
 /**
  * This class contains some HTML formatting functions
- * @package teachpress\core\html
+ * @package teachcorses\core\html
  * @since 5.0.10
  */
 class tc_HTML {

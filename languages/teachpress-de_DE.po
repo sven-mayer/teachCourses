@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: teachPress v5.0.13\n"
+"Project-Id-Version: teachCorses v5.0.13\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-04-25 14:25+0000\n"
 "PO-Revision-Date: 2022-01-30 15:26+0000\n"
@@ -99,7 +99,7 @@ msgstr "Bild hinzufügen"
 msgid "Add image"
 msgstr "Bild hinzufügen"
 
-#: teachpress.php:135 teachpress.php:136 teachpress.php:186 teachpress.php:187
+#: teachcorses.php:135 teachcorses.php:136 teachcorses.php:186 teachcorses.php:187
 #: admin/add-course.php:115 admin/add-publication.php:121
 #: admin/settings.php:583 admin/settings.php:583 admin/show-courses.php:112
 #: admin/show-publications.php:428 admin/show-single-course.php:852
@@ -196,10 +196,10 @@ msgstr "Alle Nutzer"
 
 #: admin/add-course.php:41
 msgid ""
-"All users, which have the minimum user role for using teachpress, can see, "
+"All users, which have the minimum user role for using teachcorses, can see, "
 "edit or delete the course or course data."
 msgstr ""
-"Alle Nutzer, welche die nötige Berechtigungsstufe haben, um teachPress "
+"Alle Nutzer, welche die nötige Berechtigungsstufe haben, um teachCorses "
 "nutzen zu können, können die Veranstaltung oder die entsprechenden Daten "
 "sehen, bearbeiten oder löschen."
 
@@ -282,7 +282,7 @@ msgstr "Autor(en)"
 msgid "Author/Editor Format"
 msgstr "Autor/Herausgeber Format"
 
-#: teachpress.php:200 teachpress.php:201 admin/class-authors-page.php:100
+#: teachcorses.php:200 teachcorses.php:201 admin/class-authors-page.php:100
 msgid "Authors"
 msgstr "Autoren"
 
@@ -538,7 +538,7 @@ msgstr "Veranstaltungen kopieren"
 msgid "Copying successful"
 msgstr "Kopiervorgang erfolgreich"
 
-#: teachpress.php:126 teachpress.php:127 admin/edit-student.php:47
+#: teachcorses.php:126 teachcorses.php:127 admin/edit-student.php:47
 #: admin/show-single-course.php:763
 msgid "Course"
 msgstr "Veranstaltung"
@@ -753,7 +753,7 @@ msgid "Display publications"
 msgstr "Anzeige von Publikationen"
 
 #: admin/settings.php:975
-msgid "Do you really want to delete all teachpress database tables?"
+msgid "Do you really want to delete all teachcorses database tables?"
 msgstr "Möchtest du wirklich alle Daten des Plugins aus der Datenbank löschen?"
 
 #: admin/settings.php:887
@@ -1060,58 +1060,58 @@ msgstr "Generiere BibTeX-Schlüssel"
 
 #: core/deprecated.php:57
 msgid ""
-"get_tc_course() is deprecated since teachpress 5.0.0. Use tc_courses::"
+"get_tc_course() is deprecated since teachcorses 5.0.0. Use tc_courses::"
 "get_course() instead."
 msgstr ""
-"get_tc_course() is deprecated since teachpress 5.0.0. Use tc_courses::"
+"get_tc_course() is deprecated since teachcorses 5.0.0. Use tc_courses::"
 "get_course() instead."
 
 #: core/deprecated.php:84
 msgid ""
-"get_tc_course_free_places() is deprecated since teachpress 5.0.0. tc_courses:"
+"get_tc_course_free_places() is deprecated since teachcorses 5.0.0. tc_courses:"
 ":get_free_places() instead."
 msgstr ""
-"get_tc_course_free_places() is deprecated since teachpress 5.0.0. tc_courses:"
+"get_tc_course_free_places() is deprecated since teachcorses 5.0.0. tc_courses:"
 ":get_free_places() instead."
 
 #: core/deprecated.php:70
 msgid ""
-"get_tc_courses() is deprecated since teachpress 5.0.0. Use tc_courses::"
+"get_tc_courses() is deprecated since teachcorses 5.0.0. Use tc_courses::"
 "get_courses() instead."
 msgstr ""
-"get_tc_courses() is deprecated since teachpress 5.0.0. Use tc_courses::"
+"get_tc_courses() is deprecated since teachcorses 5.0.0. Use tc_courses::"
 "get_courses() instead."
 
 #: core/deprecated.php:123
 msgid ""
-"get_tc_publication() is deprecated since teachpress 5.0.0. Use "
+"get_tc_publication() is deprecated since teachcorses 5.0.0. Use "
 "tc_publications::get_publication() instead."
 msgstr ""
-"get_tc_publication() is deprecated since teachpress 5.0.0. Use "
+"get_tc_publication() is deprecated since teachcorses 5.0.0. Use "
 "tc_publications::get_publication() instead."
 
 #: core/deprecated.php:137
 msgid ""
-"get_tc_publications() is deprecated since teachpress 5.0.0. Use "
+"get_tc_publications() is deprecated since teachcorses 5.0.0. Use "
 "tc_publications::get_publications() instead."
 msgstr ""
-"get_tc_publications() is deprecated since teachpress 5.0.0. Use "
+"get_tc_publications() is deprecated since teachcorses 5.0.0. Use "
 "tc_publications::get_publications() instead."
 
 #: core/deprecated.php:109
 msgid ""
-"get_tc_tag_cloud() is deprecated since teachpress 5.0.0. Use tc_tags::"
+"get_tc_tag_cloud() is deprecated since teachcorses 5.0.0. Use tc_tags::"
 "get_tag_cloud() instead."
 msgstr ""
-"get_tc_tag_cloud() is deprecated since teachpress 5.0.0. Use tc_tags::"
+"get_tc_tag_cloud() is deprecated since teachcorses 5.0.0. Use tc_tags::"
 "get_tag_cloud() instead."
 
 #: core/deprecated.php:97
 msgid ""
-"get_tc_tags() is deprecated since teachpress 5.0.0. Use tc_tags::get_tags() "
+"get_tc_tags() is deprecated since teachcorses 5.0.0. Use tc_tags::get_tags() "
 "instead."
 msgstr ""
-"get_tc_tags() is deprecated since teachpress 5.0.0. Use tc_tags::get_tags() "
+"get_tc_tags() is deprecated since teachcorses 5.0.0. Use tc_tags::get_tags() "
 "instead."
 
 #: admin/add-course.php:41 admin/add-course.php:395
@@ -1169,8 +1169,8 @@ msgid "http://mtrv.wordpress.com/"
 msgstr "http://mtrv.wordpress.com/"
 
 #. URI of the plugin
-msgid "http://mtrv.wordpress.com/teachpress/"
-msgstr "http://mtrv.wordpress.com/teachpress/"
+msgid "http://mtrv.wordpress.com/teachcorses/"
+msgstr "http://mtrv.wordpress.com/teachcorses/"
 
 #: admin/class-authors-page.php:152
 msgid "ID"
@@ -1178,11 +1178,11 @@ msgstr "ID"
 
 #: admin/import-publications.php:200
 msgid ""
-"If the bibtex key is similar with a publication in the database, teachPress "
+"If the bibtex key is similar with a publication in the database, teachCorses "
 "updates this publication with the import information."
 msgstr ""
 "Wenn der BibTeX-Schlüssel mit dem einer Publikation in der Datenbank "
-"übereinstimmt, wird teachPress diese Publikation mit den Daten aus dem "
+"übereinstimmt, wird teachCorses diese Publikation mit den Daten aus dem "
 "Import aktualisieren."
 
 #: admin/add-publication.php:742
@@ -1212,10 +1212,10 @@ msgstr ""
 #: admin/add-course.php:21
 msgid ""
 "If you have a course without enrollments, so add no dates in the fields "
-"start and end. teachPress will be deactivate the enrollments automatically."
+"start and end. teachCorses will be deactivate the enrollments automatically."
 msgstr ""
 "Wenn es zu einer Veranstaltung keine Einschreibung geben soll, dann lasse "
-"einfach die Felder Beginn und Ende so wie sie sind. teachPress deaktiviert "
+"einfach die Felder Beginn und Ende so wie sie sind. teachCorses deaktiviert "
 "die Einschreibungen dann automatisch."
 
 #: admin/show-single-course.php:584
@@ -1329,14 +1329,14 @@ msgstr "Integriert"
 
 #: admin/settings.php:381
 msgid ""
-"Integrated - teachPress deactivates the own registration and uses all "
+"Integrated - teachCorses deactivates the own registration and uses all "
 "available data from WordPress. This is usefull, if most of your users has "
 "not an acount in your blog."
 msgstr ""
-"Integriert - teachPress deaktiviert die eigene Registrierung und nutzt alle "
+"Integriert - teachCorses deaktiviert die eigene Registrierung und nutzt alle "
 "verfügbaren Daten von WordPress. Dies wird empfohlen, wenn viele Nutzer noch "
 "keinen Account im Blog haben, denn hier entfällt die seperate Registrierung "
-"in teachPress."
+"in teachCorses."
 
 #: admin/add-course.php:34 admin/add-course.php:385 admin/show-courses.php:368
 #: admin/show-single-course.php:979
@@ -1894,7 +1894,7 @@ msgstr "Publikation hinzugefügt"
 msgid "Publication entry"
 msgstr "Publikationseintrag"
 
-#: teachpress.php:170 teachpress.php:171 admin/add-publication.php:208
+#: teachcorses.php:170 teachcorses.php:171 admin/add-publication.php:208
 #: admin/class-authors-page.php:337 admin/class-tags-page.php:236
 #: admin/import-publications.php:36 admin/settings.php:122
 #: admin/settings.php:123 core/shortcodes.php:458
@@ -1984,8 +1984,8 @@ msgid "Releated Page for &laquo;all books&raquo; link:"
 msgstr "Verlinkte Seite für  &laquo;Alle Bücher&raquo; Link:"
 
 #: admin/settings.php:417
-msgid "Remove teachPress from database"
-msgstr "teachPress aus der Datenbank löschen"
+msgid "Remove teachCorses from database"
+msgstr "teachCorses aus der Datenbank löschen"
 
 #: core/class-document-manager.php:311
 msgid "Removing failed"
@@ -2095,21 +2095,21 @@ msgstr "User auswählen"
 
 #: admin/settings.php:331
 msgid ""
-"Select which style sheet you will use. teachpress_front.css is the "
-"teachPress default style. If you have created your own style in the default "
+"Select which style sheet you will use. teachcorses_front.css is the "
+"teachCorses default style. If you have created your own style in the default "
 "style sheet of your theme, you can activate this here."
 msgstr ""
-"Wähle welches Design genutzt werden soll. teachPress_front.css steht für das "
-"Standard-Design von teachPress. Wenn du dein eigenes Design für "
+"Wähle welches Design genutzt werden soll. teachCorses_front.css steht für das "
+"Standard-Design von teachCorses. Wenn du dein eigenes Design für "
 "Publikationlisten etc. über die Standard-CSS-Datei deines Theme erstellt "
 "hast, dann kannst du dieses hier aktivieren und entsprechend das Standard-"
 "Design ausschalten."
 
 #: admin/settings.php:231
 msgid ""
-"Select which userrole your users must have to use the teachPress backend."
+"Select which userrole your users must have to use the teachCorses backend."
 msgstr ""
-"Wähle, welche Nutzerrollen Zugriff auf den teachPress Verwaltungsbereich "
+"Wähle, welche Nutzerrollen Zugriff auf den teachCorses Verwaltungsbereich "
 "haben."
 
 #: admin/add-publication.php:450
@@ -2262,10 +2262,10 @@ msgstr "Standard"
 
 #: admin/settings.php:381
 msgid ""
-"Standard - teachPress has a separate registration. This is usefull if you "
+"Standard - teachCorses has a separate registration. This is usefull if you "
 "have an auto login for WordPress or most of your users are registered in "
 "your blog, for example in a network."
-msgstr "Standard - teachPress nutzt eine eigene Registrierung."
+msgstr "Standard - teachCorses nutzt eine eigene Registrierung."
 
 #: admin/add-course.php:199 admin/show-single-course.php:929
 msgid "Start"
@@ -2299,7 +2299,7 @@ msgstr "Begrenztes Einschreiben"
 msgid "Student added"
 msgstr "Student hinzugefügt"
 
-#: teachpress.php:142 teachpress.php:143 admin/settings.php:119
+#: teachcorses.php:142 teachcorses.php:143 admin/settings.php:119
 #: admin/show-students.php:142
 msgid "Students"
 msgstr "Studenten"
@@ -2321,34 +2321,34 @@ msgid "Tag saved"
 msgstr "Tag gespeichert"
 
 #. Name of the plugin
-msgid "teachPress"
-msgstr "teachPress"
+msgid "teachCorses"
+msgstr "teachCorses"
 
 #: core/publications/class-books-widget.php:22
-msgid "teachPress books"
-msgstr "teachPress books"
+msgid "teachCorses books"
+msgstr "teachCorses books"
 
-#: teachpress.php:228
-msgid "teachPress Settings"
-msgstr "teachPress Einstellungen"
+#: teachcorses.php:228
+msgid "teachCorses Settings"
+msgstr "teachCorses Einstellungen"
 
 #: admin/settings.php:103
-msgid "teachPress settings"
-msgstr "teachPress Einstellungen"
+msgid "teachCorses settings"
+msgstr "teachCorses Einstellungen"
 
 #: admin/settings.php:283
-msgid "teachPress version"
-msgstr "teachPress Version"
+msgid "teachCorses version"
+msgstr "teachCorses Version"
 
 #: admin/settings.php:964
-msgid "teachPress wants to fill up the new database. This can take some time."
+msgid "teachCorses wants to fill up the new database. This can take some time."
 msgstr ""
-"teachPress wird nun die neuen Datenbanken befüllen. Dies kann einige Zeit in "
+"teachCorses wird nun die neuen Datenbanken befüllen. Dies kann einige Zeit in "
 "Anspruch nehmen."
 
 #: admin/settings.php:322 admin/settings.php:326
-msgid "teachpress_front.css"
-msgstr "teachpress_front.css"
+msgid "teachcorses_front.css"
+msgstr "teachcorses_front.css"
 
 #: core/publications/default-publication-types.php:128
 msgid "Technical Manual"
@@ -2437,10 +2437,10 @@ msgstr "Das Ende des Einschreibezeitraums"
 
 #: core/deprecated.php:37
 msgid ""
-"The function tc_admin_page_menu() is deprecated since teachpress 5.0.0. Use "
+"The function tc_admin_page_menu() is deprecated since teachcorses 5.0.0. Use "
 "tc_page_menu() instead."
 msgstr ""
-"Die Funktion tc_admin_page_menu() ist veraltet seit teachpress 5.0.0. Bitte "
+"Die Funktion tc_admin_page_menu() ist veraltet seit teachcorses 5.0.0. Bitte "
 "nutze tc_page_menu()."
 
 #: admin/add-publication.php:767
@@ -2456,9 +2456,9 @@ msgid "The lecturer(s) of the course"
 msgstr "Dozent(en) der Veranstaltung"
 
 #: admin/add-students.php:44
-msgid "The Menu shows all your blog users who has no teachPress account"
+msgid "The Menu shows all your blog users who has no teachCorses account"
 msgstr ""
-"Die Liste zeigt alle Nutzer, die noch keinen teachPress account besitzen"
+"Die Liste zeigt alle Nutzer, die noch keinen teachCorses account besitzen"
 
 #: admin/add-publication.php:694
 msgid "The name of a series"
@@ -2527,10 +2527,10 @@ msgstr ""
 
 #: core/deprecated.php:19
 msgid ""
-"The shortcode [tpdate] is deprecated since teachpress 5.0.0. Use "
+"The shortcode [tpdate] is deprecated since teachcorses 5.0.0. Use "
 "[tpcourseinfo] instead."
 msgstr ""
-"Der Shortcode [tpdate] ist veraltet seit teachpress 5.0.0. Bitte nutze "
+"Der Shortcode [tpdate] ist veraltet seit teachcorses 5.0.0. Bitte nutze "
 "[tpcourseinfo]."
 
 #: admin/add-course.php:199
@@ -2608,18 +2608,18 @@ msgstr "bis"
 
 #: core/deprecated.php:166
 msgid ""
-"tc_check_bookmark() is deprecated since teachpress 5.0.0. Use tc_bookmarks::"
+"tc_check_bookmark() is deprecated since teachcorses 5.0.0. Use tc_bookmarks::"
 "bookmark_exists() instead."
 msgstr ""
-"tc_check_bookmark() ist veraltet seit teachpress 5.0.0. Bitte nutze "
+"tc_check_bookmark() ist veraltet seit teachcorses 5.0.0. Bitte nutze "
 "tc_bookmarks::bookmark_exists()."
 
 #: core/deprecated.php:151
 msgid ""
-"tc_is_user_subscribed() is deprecated since teachpress 5.0.0. Use tc_courses:"
+"tc_is_user_subscribed() is deprecated since teachcorses 5.0.0. Use tc_courses:"
 ":is_student_subscribed() instead."
 msgstr ""
-"tc_is_user_subscribed() is deprecated since teachpress 5.0.0. Use tc_courses:"
+"tc_is_user_subscribed() is deprecated since teachcorses 5.0.0. Use tc_courses:"
 ":is_student_subscribed() instead."
 
 #: admin/settings.php:446
@@ -2694,10 +2694,10 @@ msgstr "Existierende Inhalte nutzen"
 #: admin/import-publications.php:18
 msgid ""
 "Use the file upload or add your BibTeX entries directly in the textfield. "
-"Restrictions: teachPress can't convert not numeric month and day attributes."
+"Restrictions: teachCorses can't convert not numeric month and day attributes."
 msgstr ""
 "Nutze den Datei-Upload oder füge die BibTeX-Einträge in das Textfeld ein. "
-"Beachte: teachPress kann keine nicht-numerischen Monats- oder Tagesangaben "
+"Beachte: teachCorses kann keine nicht-numerischen Monats- oder Tagesangaben "
 "konvertieren."
 
 #: admin/settings.php:472
@@ -2769,9 +2769,9 @@ msgstr "Warnung: Falsche Veranstaltungs-ID"
 
 #. Description of the plugin
 msgid ""
-"With teachPress you can easy manage courses, enrollments and publications."
+"With teachCorses you can easy manage courses, enrollments and publications."
 msgstr ""
-"Mit teachPress lassen sich auf einfache Weise Publikationen, Veranstaltungen "
+"Mit teachCorses lassen sich auf einfache Weise Publikationen, Veranstaltungen "
 "und Einschreibungen verwalten."
 
 #: admin/add-course.php:378
@@ -2911,7 +2911,7 @@ msgstr "Deine Daten"
 msgid "Your enrollments"
 msgstr "Deine Einschreibungen"
 
-#: teachpress.php:179 teachpress.php:180 admin/show-publications.php:427
+#: teachcorses.php:179 teachcorses.php:180 admin/show-publications.php:427
 msgid "Your publications"
 msgstr "Eigene Publikationen"
 

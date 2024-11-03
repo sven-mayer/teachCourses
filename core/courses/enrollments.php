@@ -1,14 +1,14 @@
 <?php
 /**
- * This file contains frontend functions for the enrollment forms of teachpress
+ * This file contains frontend functions for the enrollment forms of teachcorses
  * 
- * @package teachpress\core\enrollments
+ * @package teachcorses\core\enrollments
  * @license http://www.gnu.org/licenses/gpl-2.0.html GPLv2 or later
  */
 
 /**
  * This class contains all special functions for the shortcode [tpenrollments]
- * @package teachpress\core\enrollments
+ * @package teachcorses\core\enrollments
  * @since 5.0.0
  */
 class tc_Enrollments {
@@ -33,9 +33,9 @@ class tc_Enrollments {
             $code = self::add_signup($checkbox[$n], $user_id);
             self::send_notification($code, $user_id, $row->name);
             $message = self::get_signup_message($code);
-            if ($code === 201) { $class = 'teachpress_message_success'; }
-            elseif ($code === 202) { $class = 'teachpress_message_info'; }
-            else { $class = 'teachpress_message_error'; }
+            if ($code === 201) { $class = 'teachcorses_message_success'; }
+            elseif ($code === 202) { $class = 'teachcorses_message_info'; }
+            else { $class = 'teachcorses_message_error'; }
             $return .= '<div class="' . $class . '">&quot;' . stripslashes($row->name) . '&quot;: ' . $message . '</div>';
         }
         return $return;
@@ -128,13 +128,13 @@ class tc_Enrollments {
         );
         $ret = tc_Students::add_student($user_id, $data);
         if ( $data['firstname'] === '' && $data['lastname'] === '' ) {
-            return '<div class="teachpress_message_error"><strong>' . __('Error: Please enter your first- and lastname','teachpress') . '</strong></div>';
+            return '<div class="teachcorses_message_error"><strong>' . __('Error: Please enter your first- and lastname','teachcorses') . '</strong></div>';
         }
         if ( $ret === false ) {
-            return '<div class="teachpress_message_error"><strong>' . __('Error: User already exist','teachpress') . '</strong></div>';
+            return '<div class="teachcorses_message_error"><strong>' . __('Error: User already exist','teachcorses') . '</strong></div>';
         }
         tc_DB_Helpers::prepare_meta_data( $user_id, $fields, $post, 'students' );
-        return '<div class="teachpress_message_success"><strong>' . __('Registration successful','teachpress') . '</strong></div>';
+        return '<div class="teachcorses_message_success"><strong>' . __('Registration successful','teachcorses') . '</strong></div>';
     }
 
     /**
@@ -146,19 +146,19 @@ class tc_Enrollments {
     public static function get_signup_message($code) {
         switch ($code) {
         case 0:
-            return __('Warning: Wrong course_id','teachpress');
+            return __('Warning: Wrong course_id','teachcorses');
         case 101:
-            return __('You are already registered for this course.','teachpress');
+            return __('You are already registered for this course.','teachcorses');
         case 102:
-            return __('Registration is not possible, because you are already registered in the waitinglist.','teachpress');
+            return __('Registration is not possible, because you are already registered in the waitinglist.','teachcorses');
         case 103:
-            return __('Registration is not possible, because you are already registered for an other course of this course group.','teachpress');
+            return __('Registration is not possible, because you are already registered for an other course of this course group.','teachcorses');
         case 104:
-            return __('No free places available.','teachpress');
+            return __('No free places available.','teachcorses');
         case 201:
-            return __('Registration was successful.','teachpress');
+            return __('Registration was successful.','teachcorses');
         case 202:
-            return __('For this course there are no more free places available. You are automatically signed up in a waiting list.','teachpress');
+            return __('For this course there are no more free places available. You are automatically signed up in a waiting list.','teachcorses');
         default:
             return false;
         }
@@ -192,7 +192,7 @@ class tc_Enrollments {
             // End transaction
             $wpdb->query("COMMIT");
         }	
-        return '<div class="teachpress_message_success">' . __('You are signed out successful','teachpress') . '</div>';
+        return '<div class="teachcorses_message_success">' . __('You are signed out successful','teachcorses') . '</div>';
     }
     
     /**
@@ -263,20 +263,20 @@ class tc_Enrollments {
         $day = ( $value != '' ) ? $b[0][2] : '01';
         $month = ( $value != '' ) ? $b[0][1] : '01';
         $year = ( $value != '' ) ? $b[0][0] : '19xx';
-        $months = array ( __('Jan','teachpress'), __('Feb','teachpress'), __('Mar','teachpress'), __('Apr','teachpress'), __('May','teachpress'), __('Jun','teachpress'), __('Jul','teachpress'), __('Aug','teachpress'), __('Sep','teachpress'), __('Oct','teachpress'), __('Nov','teachpress'), __('Dec','teachpress') );
+        $months = array ( __('Jan','teachcorses'), __('Feb','teachcorses'), __('Mar','teachcorses'), __('Apr','teachcorses'), __('May','teachcorses'), __('Jun','teachcorses'), __('Jul','teachcorses'), __('Aug','teachcorses'), __('Sep','teachcorses'), __('Oct','teachcorses'), __('Nov','teachcorses'), __('Dec','teachcorses') );
         $return = '';
         $return .= '<tr>';
         $return .= '<td><b>' . stripslashes($label) . '</b></td>';
         $return .= '<td>';
         $return .= '<input name="' . $field_name . '_day" id="' . $field_name . '_day" type="text" title="Day" size="2" value="' . $day . '"/>';
-        $return .= '<select name="' . $field_name . '_month" id="' . $field_name . '_month" title="' . __('Month','teachpress') . '">';
+        $return .= '<select name="' . $field_name . '_month" id="' . $field_name . '_month" title="' . __('Month','teachcorses') . '">';
         for ( $i = 1; $i <= 12; $i++ ) {
             $m = ( $i < 10 ) ? '0' . $i : $i;
             $selected = ($month == $m) ? 'selected="selected"' : '';
             $return .= '<option value="' . $m . '" ' . $selected . '>' . $months[$i-1] . '</option>';
         }
         $return .= '</select>';
-        $return .= '<input name="' . $field_name . '_year" id="' . $field_name . '_year" type="text" title="' . __('Year','teachpress') . '" size="4" value="' . $year . '"/>';
+        $return .= '<input name="' . $field_name . '_year" id="' . $field_name . '_year" type="text" title="' . __('Year','teachcorses') . '" size="4" value="' . $year . '"/>';
         $return .= '</td>';
         $return .= '</tr>';
         return $return;
@@ -367,7 +367,7 @@ class tc_Enrollments {
         $return .= '<td><select name="' . $field_name . '" id="' . $field_name . '" ' . $disabled . ' ' . $required . '>';
         $options = $wpdb->get_results("SELECT * FROM " . TEACHPRESS_SETTINGS . " WHERE `category` = '" . esc_sql($field_name) . "' ORDER BY value ASC");
         if ( $value == '' ) {
-            $return .= '<option value="">- ' . __('Please select','teachpress') . ' -</option>';
+            $return .= '<option value="">- ' . __('Please select','teachcorses') . ' -</option>';
         }
         foreach ($options as $opt) {
             $selected = ( $value == $opt->value ) ? 'selected="selected"' : '';
@@ -424,16 +424,16 @@ class tc_Enrollments {
     public static function get_menu ($tab, $user) {
         $url = self::get_url();
         // Create Tabs
-        $tab1 = ( $tab === '' || $tab === 'current' ) ? '<span class="teachpress_active_tab">' . __('Current enrollments','teachpress') . '</span>' : '<a href="' . $url . 'current">' . __('Current enrollments','teachpress') . '</a>';
+        $tab1 = ( $tab === '' || $tab === 'current' ) ? '<span class="teachcorses_active_tab">' . __('Current enrollments','teachcorses') . '</span>' : '<a href="' . $url . 'current">' . __('Current enrollments','teachcorses') . '</a>';
         
-        $tab2 = ( $tab === 'old' ) ? '<span class="teachpress_active_tab">' . __('Your enrollments','teachpress') . '</span>' : '<a href="' . $url . 'old">' . __('Your enrollments','teachpress') . '</a>';
+        $tab2 = ( $tab === 'old' ) ? '<span class="teachcorses_active_tab">' . __('Your enrollments','teachcorses') . '</span>' : '<a href="' . $url . 'old">' . __('Your enrollments','teachcorses') . '</a>';
         
-        $tab3 = ( $tab === 'results' ) ? '<span class="teachpress_active_tab">' . __('Your results','teachpress') . '</span>' : '<a href="' . $url . 'results">' . __('Your results','teachpress') . '</a>';
+        $tab3 = ( $tab === 'results' ) ? '<span class="teachcorses_active_tab">' . __('Your results','teachcorses') . '</span>' : '<a href="' . $url . 'results">' . __('Your results','teachcorses') . '</a>';
         
-        $tab4 = ( $tab === 'data' ) ? '<span class="teachpress_active_tab">' . __('Your data','teachpress') . '</span>' : '<a href="' . $url . 'data">' . __('Your data','teachpress') . '</a>';
+        $tab4 = ( $tab === 'data' ) ? '<span class="teachcorses_active_tab">' . __('Your data','teachcorses') . '</span>' : '<a href="' . $url . 'data">' . __('Your data','teachcorses') . '</a>';
         
         $rtn = '<div class="tc_user_menu">
-                   <h4>' . __('Hello','teachpress') . ', ' . stripslashes($user['firstname']) . ' ' . stripslashes($user['lastname']) . '</h4>'
+                   <h4>' . __('Hello','teachcorses') . ', ' . stripslashes($user['firstname']) . ' ' . stripslashes($user['lastname']) . '</h4>'
                 . '<p>' . $tab1 . ' | ' . $tab2 . ' | ' . $tab3 . ' | ' . $tab4 . '</p></div>'; 
         return $rtn;
     }
@@ -469,20 +469,20 @@ class tc_Enrollments {
      * @since 5.0.0
      */
     private static function create_signups_table ($user_id, $row, $is_sign_out) {
-        $rtn = '<table class="teachpress_enr_old">';
+        $rtn = '<table class="teachcorses_enr_old">';
         $rtn .= '<tr>';
         if ( $is_sign_out === true ) {
             $rtn .= '<th width="15">&nbsp;</th>';
         }
-        $rtn .= '<th>' . __('Name','teachpress') . '</th>
+        $rtn .= '<th>' . __('Name','teachcorses') . '</th>
                 <th>' . __('Type') . '</th>
-                <th>' . __('Date','teachpress') . '</th>
-                <th>' . __('Room','teachpress') . '</th>
-                <th>' . __('Term','teachpress') . '</th>
+                <th>' . __('Date','teachcorses') . '</th>
+                <th>' . __('Room','teachcorses') . '</th>
+                <th>' . __('Term','teachcorses') . '</th>
                </tr>';
         // If there is nothing
         if ( count($row) === 0 ) {
-            return '<tr><td colspan="6">' . __('No enrollments','teachpress') . '</td></tr>'
+            return '<tr><td colspan="6">' . __('No enrollments','teachcorses') . '</td></tr>'
                     . '</table>';
         }
         // Select all courses where user is registered
@@ -516,7 +516,7 @@ class tc_Enrollments {
      * @access private
      */
     private static function get_old_tab ($user_id, $is_sign_out, $settings) { 
-        $rtn = '<p><strong>' . __('Signed up for','teachpress') . '</strong></p>';
+        $rtn = '<p><strong>' . __('Signed up for','teachcorses') . '</strong></p>';
         
         // signups
         $row1 = tc_Students::get_signups( array(
@@ -534,12 +534,12 @@ class tc_Enrollments {
         );
         
         if ( count($row2) !== 0 ) {
-            $rtn .= '<p><strong>' . __('Waiting list','teachpress') . '</strong></p>';
+            $rtn .= '<p><strong>' . __('Waiting list','teachcorses') . '</strong></p>';
             $rtn .= self::create_signups_table($user_id, $row2, $is_sign_out);
         }
         
         if ($is_sign_out === true) {
-            $rtn .= '<p><input name="austragen" type="submit" value="' . __('unsubscribe','teachpress') . '" id="austragen" /></p>';
+            $rtn .= '<p><input name="austragen" type="submit" value="' . __('unsubscribe','teachcorses') . '" id="austragen" /></p>';
         }
         
         return $rtn;
@@ -576,7 +576,7 @@ class tc_Enrollments {
         $assessment = tc_Assessments::get_assessments($user_id, '', $course_id);
         $rtn = '';
         $parent_name = '';
-        $rtn .= '<a href="' . $url . 'results" class="teachpress_enr_button">&larr; ' . __('Back','teachpress') . '</a>';
+        $rtn .= '<a href="' . $url . 'results" class="teachcorses_enr_button">&larr; ' . __('Back','teachcorses') . '</a>';
         
         // Handle course name
         if ( $course_data["parent"] != 0 ) {
@@ -588,9 +588,9 @@ class tc_Enrollments {
         // Main Course Result
         $rtn .= '<table class="">';
         if ( count($assessment) !== 0 ) {
-            $passed = ( $assessment[0]['passed'] == 1 ) ? __('passed','teachpress') : __('not passed','teachpress');
+            $passed = ( $assessment[0]['passed'] == 1 ) ? __('passed','teachcorses') : __('not passed','teachcorses');
             $rtn .= '<tr class="tc_course_result">'
-                    . '<td class="title">' . __('Course result','teachpress') . '</td>'
+                    . '<td class="title">' . __('Course result','teachcorses') . '</td>'
                     . '<td>' . stripslashes($assessment[0]['comment']) . '</td>'
                     . '<td>' . stripslashes($assessment[0]['value']) . '</td>'
                     . '<td>' . $passed . '</td>'
@@ -603,7 +603,7 @@ class tc_Enrollments {
             $x = 1;
             foreach ($assessments as $inner_row) {
                 $title = ( $x === 1 ) ? stripslashes($row['title']) : '';
-                $passed = ( $inner_row['passed'] == 1 ) ? __('passed','teachpress') : __('not passed','teachpress');
+                $passed = ( $inner_row['passed'] == 1 ) ? __('passed','teachcorses') : __('not passed','teachcorses');
                 $rtn .= '<tr class="tc_assessment_result">'
                         . '<td class="title">' . $title . '</td>'
                         . '<td>' . stripslashes($inner_row['comment']) . '</td>'
@@ -616,7 +616,7 @@ class tc_Enrollments {
         // Print message if there are no results
         if ( count($artefacts) === 0 && count($assessment) === 0 ) {
             $rtn .= '<tr>'
-                    . '<td colspan="4"><b>' . __('No results available','teachpress') . '</b></td>'
+                    . '<td colspan="4"><b>' . __('No results available','teachcorses') . '</b></td>'
                     . '</tr>';
         }
         $rtn .= '</table>';
@@ -632,12 +632,12 @@ class tc_Enrollments {
      * @access private
      */
     private static function get_results_overview($user_id, $url, $settings) {
-        $rtn = '<table class="teachpress_enr_results">'
+        $rtn = '<table class="teachcorses_enr_results">'
                 . '<tr>'
-                . '<th>' . __('Name','teachpress') . '</th>'
+                . '<th>' . __('Name','teachcorses') . '</th>'
                 . '<th>' . __('Type') . '</th>'
-                . '<th>' . __('Term','teachpress') . '</th>'
-                . '<th>' . __('Result','teachpress') . '</th>'
+                . '<th>' . __('Term','teachcorses') . '</th>'
+                . '<th>' . __('Result','teachcorses') . '</th>'
                 . '<th></th>'
                 . '</tr>';
         $courses = tc_Students::get_signups( array(
@@ -646,7 +646,7 @@ class tc_Enrollments {
                 'order' => $settings['order_signups']) 
         );
         if ( count($courses) === 0 ) {
-            $rtn .= '<tr><td>' . __('No results available','teachpress') . '</td></tr>';
+            $rtn .= '<tr><td>' . __('No results available','teachcorses') . '</td></tr>';
         }
         foreach ($courses as $row) {
             // read assessment
@@ -664,7 +664,7 @@ class tc_Enrollments {
             $rtn .= '<td>' . stripslashes($row->type) . '</td>';
             $rtn .= '<td>' . stripslashes($row->semester) . '</td>';
             $rtn .= '<td>' . stripslashes($result) . '</td>';
-            $rtn .= '<td><a href="' . $url . 'results&amp;course_id=' . $row->course_id . '">' . __('Show details','teachpress') . '</a></td>';
+            $rtn .= '<td><a href="' . $url . 'results&amp;course_id=' . $row->course_id . '">' . __('Show details','teachcorses') . '</a></td>';
             $rtn .= '</tr>';
         }
         $rtn .= '</table>';
@@ -734,7 +734,7 @@ class tc_Enrollments {
             $rtn .= self::load_course_entry($row, $settings, $user_exists);	
         }	
         if ( $user_exists === true ) {
-            $rtn .= '<input name="einschreiben" type="submit" value="' . __('Sign up','teachpress') . '" />';
+            $rtn .= '<input name="einschreiben" type="submit" value="' . __('Sign up','teachcorses') . '" />';
         }
         return $rtn;
     }
@@ -762,9 +762,9 @@ class tc_Enrollments {
         }
         
         // build course string
-        $rtn = '<div class="teachpress_course_group">';
-        $rtn .= '<div class="teachpress_course_name">' . $course_name . '</div>';
-        $rtn .= '<table class="teachpress_enr" width="100%" border="0">';
+        $rtn = '<div class="teachcorses_course_group">';
+        $rtn .= '<div class="teachcorses_course_name">' . $course_name . '</div>';
+        $rtn .= '<table class="teachcorses_enr" width="100%" border="0">';
         $rtn .= self::create_course_entry($row, $settings['date_format'], $user_exists);
         foreach ( $childs as $child ) {
             $rtn .= self::create_course_entry($child, $settings['date_format'], $user_exists, $row->name);
@@ -804,25 +804,25 @@ class tc_Enrollments {
         $checkbox_label = stripslashes($row->type);
         if ( $user_exists === true ) {
             if ($date1 != '0000-00-00 00:00:00' && current_time('mysql') >= $date1 && current_time('mysql') <= $date2) {
-               $checkbox = '<input type="checkbox" name="checkbox[]" value="' . $row->course_id . '" title="' . stripslashes($row->name) . ' ' . __('Select','teachpress') . '" id="checkbox_' . $row->course_id . '"/>';
+               $checkbox = '<input type="checkbox" name="checkbox[]" value="' . $row->course_id . '" title="' . stripslashes($row->name) . ' ' . __('Select','teachcorses') . '" id="checkbox_' . $row->course_id . '"/>';
                $checkbox_label = '<label for="checkbox_' . $row->course_id . '" style="line-height:normal;">' . stripslashes($row->type) . '</label>';
             } 
         }
         
         // display configs
-        $display_free_places = ( $date1 != '0000-00-00 00:00:00' ) ? $free_places . ' ' . __('of','teachpress') . ' ' .  $row->places : '&nbsp;';
-        $waitinglist_info = ( $row->waitinglist == 1 && $free_places == 0 ) ? __('Possible to subscribe in the waiting list','teachpress') : '&nbsp;';
-        $registration_period = ($date1 != '0000-00-00 00:00:00') ? __('Registration period','teachpress') . ': ' . date( $date_format, strtotime($row->start) ) . ' ' . __('to','teachpress') . ' ' . date( $date_format, strtotime($row->end) ) : '&nbsp;';
+        $display_free_places = ( $date1 != '0000-00-00 00:00:00' ) ? $free_places . ' ' . __('of','teachcorses') . ' ' .  $row->places : '&nbsp;';
+        $waitinglist_info = ( $row->waitinglist == 1 && $free_places == 0 ) ? __('Possible to subscribe in the waiting list','teachcorses') : '&nbsp;';
+        $registration_period = ($date1 != '0000-00-00 00:00:00') ? __('Registration period','teachcorses') . ': ' . date( $date_format, strtotime($row->start) ) . ' ' . __('to','teachcorses') . ' ' . date( $date_format, strtotime($row->end) ) : '&nbsp;';
         $additional_info = ( $parent_name != '' ) ? stripslashes(nl2br($row->comment)) . ' ' : '';
         
         // Row 1
         $rtn = '<tr>';
         $rtn .= '<td rowspan="3" width="25" style="border-bottom:1px solid silver; border-collapse: collapse;">' . $checkbox . '</td>';
         $rtn .= '<td colspan="2">&nbsp;</td>';
-        $rtn .= '<td align="center"><strong>' . __('Date(s)','teachpress') . '</strong></td>';
+        $rtn .= '<td align="center"><strong>' . __('Date(s)','teachcorses') . '</strong></td>';
         $rtn .= '<td align="center">';
         if ($date1 != '0000-00-00 00:00:00') {
-            $rtn .= '<strong>' . __('free places','teachpress') . '</strong>';
+            $rtn .= '<strong>' . __('free places','teachcorses') . '</strong>';
         }
         $rtn .= '</td>';
         $rtn .= '</tr>';
@@ -857,12 +857,12 @@ class tc_Enrollments {
             // Send user an E-Mail and return a message
             $to = $wpdb->get_var("SELECT `email` FROM " . TEACHPRESS_STUD . " WHERE `wp_id` = '" . intval($wp_id) . "'");
             if ( $code == 201 ) {
-                $subject = '[' . get_bloginfo('name') . '] ' . __('Registration','teachpress');
-                $message = __('Your Registration for the following course was successful:','teachpress') . chr(13) . chr(10);
+                $subject = '[' . get_bloginfo('name') . '] ' . __('Registration','teachcorses');
+                $message = __('Your Registration for the following course was successful:','teachcorses') . chr(13) . chr(10);
             }
             else {
-                $subject = '[' . get_bloginfo('name') . '] ' . __('Waiting list','teachpress');
-                $message = __('You are signed up in the waitinglist for the following course:','teachpress') . chr(13) . chr(10);
+                $subject = '[' . get_bloginfo('name') . '] ' . __('Waiting list','teachcorses');
+                $message = __('You are signed up in the waitinglist for the following course:','teachcorses') . chr(13) . chr(10);
             }
             $message = $message . stripslashes($name);
             $headers = 'From: ' . get_bloginfo('name') . ' ' . utf8_decode(chr(60)) .  get_bloginfo('admin_email') . utf8_decode(chr(62)) . "\r\n";
@@ -890,29 +890,29 @@ class tc_Enrollments {
 function tc_registration_form ($user_input, $mode = 'register') {
     $user = ( $mode !== 'register' ) ? tc_Students::get_student($user_input) : '';
     $user_meta = ( $mode !== 'register' ) ? tc_Students::get_student_meta($user_input) : array( array('meta_key' => '', 'meta_value' => '') );
-    $fields = get_tc_options('teachpress_stud','`setting_id` ASC', ARRAY_A);
+    $fields = get_tc_options('teachcorses_stud','`setting_id` ASC', ARRAY_A);
     $rtn = '';
     $rtn .= '<form id="tc_registration_form" method="post">';
-    $rtn .= '<div id="teachpress_registration">';
+    $rtn .= '<div id="teachcorses_registration">';
     if ( $mode === 'register' ) {
-        $rtn .= '<p style="text-align:left; color:#FF0000;">' . __('Please fill in the following registration form and sign up in the system. You can edit your data later.','teachpress') . '</p>';
+        $rtn .= '<p style="text-align:left; color:#FF0000;">' . __('Please fill in the following registration form and sign up in the system. You can edit your data later.','teachcorses') . '</p>';
     }
     
     $rtn .= '<table border="0" cellpadding="0" cellspacing="5" style="text-align:left; padding:5px;">';
     
     // Show default fields
     if ( $mode === 'admin' ) {
-        $rtn .= tc_Enrollments::get_form_text_field('wp_id', __('WordPress User-ID','teachpress'), $user['wp_id'], true);
+        $rtn .= tc_Enrollments::get_form_text_field('wp_id', __('WordPress User-ID','teachcorses'), $user['wp_id'], true);
     }
     
     $firstname = ( $mode === 'register' ) ? '' : stripslashes($user['firstname']);
-    $rtn .= tc_Enrollments::get_form_text_field('firstname', __('First name','teachpress'), $firstname, false, true);
+    $rtn .= tc_Enrollments::get_form_text_field('firstname', __('First name','teachcorses'), $firstname, false, true);
  
     $lastname = ( $mode === 'register' ) ? '' : stripslashes($user['lastname']);
-    $rtn .= tc_Enrollments::get_form_text_field('lastname', __('Last name','teachpress'), $lastname, false, true);
+    $rtn .= tc_Enrollments::get_form_text_field('lastname', __('Last name','teachcorses'), $lastname, false, true);
     
     $userlogin = ( is_array( $user_input ) ) ? $user_input['userlogin'] : $user['userlogin'];
-    $rtn .= tc_Enrollments::get_form_text_field('userlogin', __('User account','teachpress'), $userlogin, true);
+    $rtn .= tc_Enrollments::get_form_text_field('userlogin', __('User account','teachcorses'), $userlogin, true);
     
     $readonly = !isset($user['email']) ? false : true;
     $email = isset($user['email']) ? stripslashes($user['email']) : '';
@@ -960,7 +960,7 @@ function tc_registration_form ($user_input, $mode = 'register') {
     $rtn .= '</table>';
     
     $name = ( $mode === 'register' ) ? 'tc_add_user' : 'tc_change_user';
-    $rtn .= '<input name="' . $name . '" type="submit" class="button-primary" id="' . $name . '" value="' . __('Send','teachpress') . '" />
+    $rtn .= '<input name="' . $name . '" type="submit" class="button-primary" id="' . $name . '" value="' . __('Send','teachcorses') . '" />
              </div>
          </form>';
     return $rtn;
@@ -1005,9 +1005,9 @@ function tc_enrollments_shortcode($atts) {
     $user_email = $current_user->user_email;
     $user_login = $current_user->user_login;
 
-    // teachPress
+    // teachCorses
     $sem = ( $term != '' ) ? $term : get_tc_option('sem');
-    $fields = get_tc_options('teachpress_stud','`setting_id` ASC', ARRAY_A);
+    $fields = get_tc_options('teachcorses_stud','`setting_id` ASC', ARRAY_A);
 
     // Form   
     $checkbox = ( isset($_POST['checkbox']) ) ? $_POST['checkbox'] : '';
@@ -1015,7 +1015,7 @@ function tc_enrollments_shortcode($atts) {
     $tab = ( isset($_GET['tab']) ) ? $_GET['tab'] : '';
    
     $rtn = '<div id="enrollments">
-            <h2 class="tc_enrollments">' . __('Enrollments for the','teachpress') . ' ' . $sem . '</h2>
+            <h2 class="tc_enrollments">' . __('Enrollments for the','teachcorses') . ' ' . $sem . '</h2>
             <form name="anzeige" method="post" id="anzeige" action="' . esc_url($_SERVER['REQUEST_URI']) . '">';
     /*
      * actions

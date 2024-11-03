@@ -2,7 +2,7 @@
 /**
  * This file contains all functions for displaying the add_course page in admin menu
  * 
- * @package teachpress
+ * @package teachcorses
  * @subpackage admin
  * @license http://www.gnu.org/licenses/gpl-2.0.html GPLv2 or later
  */
@@ -14,32 +14,32 @@ function tc_add_course_page_help () {
     $screen = get_current_screen();  
     $screen->add_help_tab( array(
         'id'        => 'tc_add_course_help',
-        'title'     => __('Create a new course','teachpress'),
-        'content'   => '<p><strong>' . __('Course name','teachpress') . '</strong></p>
-                        <p>' . __('For child courses: The name of the parent course will be add automatically.','teachpress') . '</p>
-                        <p><strong>' . __('Enrollments','teachpress') . '</strong></p>
-                        <p>' . __('If you have a course without enrollments, so add no dates in the fields start and end. teachPress will be deactivate the enrollments automatically.','teachpress') . ' ' . __('Please note, that your local time is not the same as the server time. The current server time is:','teachpress') . ' <strong>' . current_time('mysql') . '</strong></p>
-                        <p><strong>' . __('Strict sign up','teachpress') . '</strong></p>
-                        <p>' . __('This is an option only for parent courses. If you activate it, subscribing is only possible for one of the child courses and not in all. This option has no influence on waiting lists.','teachpress') . '</p>
-                        <p><strong>' . __('Terms and course types','teachpress') . '</strong></p>
-                        <p><a href="options-general.php?page=teachpress/settings.php&amp;tab=courses">' . __('Add new course types and terms','teachpress') . '</a></p>'
+        'title'     => __('Create a new course','teachcorses'),
+        'content'   => '<p><strong>' . __('Course name','teachcorses') . '</strong></p>
+                        <p>' . __('For child courses: The name of the parent course will be add automatically.','teachcorses') . '</p>
+                        <p><strong>' . __('Enrollments','teachcorses') . '</strong></p>
+                        <p>' . __('If you have a course without enrollments, so add no dates in the fields start and end. teachCorses will be deactivate the enrollments automatically.','teachcorses') . ' ' . __('Please note, that your local time is not the same as the server time. The current server time is:','teachcorses') . ' <strong>' . current_time('mysql') . '</strong></p>
+                        <p><strong>' . __('Strict sign up','teachcorses') . '</strong></p>
+                        <p>' . __('This is an option only for parent courses. If you activate it, subscribing is only possible for one of the child courses and not in all. This option has no influence on waiting lists.','teachcorses') . '</p>
+                        <p><strong>' . __('Terms and course types','teachcorses') . '</strong></p>
+                        <p><a href="options-general.php?page=teachcorses/settings.php&amp;tab=courses">' . __('Add new course types and terms','teachcorses') . '</a></p>'
     ) );
     $screen->add_help_tab( array(
         'id'        => 'tc_add_course_help_2',
-        'title'     => __('Visibility','teachpress'),
-        'content'   => '<p>' . __('You can choice between the following visibiltiy options','teachpress') . ':</p>
+        'title'     => __('Visibility','teachcorses'),
+        'content'   => '<p>' . __('You can choice between the following visibiltiy options','teachcorses') . ':</p>
                         <ul style="list-style:disc; padding-left:40px;">
-                            <li><strong>' . __('normal','teachpress') . ':</strong> ' . __('The course is visible at the enrollment pages, if enrollments are justified. If it is a parent course, the course is visible at the frontend semester overview.','teachpress') . '</li>
-                            <li><strong>' . __('extend','teachpress') . ' (' . __('only for parent courses','teachpress') . '):</strong> ' . __('The same as normal, but in the frontend semester overview all sub-courses will also be displayed.','teachpress') . '</li>
-                            <li><strong>' . __('invisible','teachpress') . ':</strong> ' . __('The course is invisible.','teachpress') . '</li></ul>'
+                            <li><strong>' . __('normal','teachcorses') . ':</strong> ' . __('The course is visible at the enrollment pages, if enrollments are justified. If it is a parent course, the course is visible at the frontend semester overview.','teachcorses') . '</li>
+                            <li><strong>' . __('extend','teachcorses') . ' (' . __('only for parent courses','teachcorses') . '):</strong> ' . __('The same as normal, but in the frontend semester overview all sub-courses will also be displayed.','teachcorses') . '</li>
+                            <li><strong>' . __('invisible','teachcorses') . ':</strong> ' . __('The course is invisible.','teachcorses') . '</li></ul>'
     ) );
     $screen->add_help_tab( array(
         'id'        => 'tc_add_course_help_3',
-        'title'     => __('Capabilities','teachpress'),
-        'content'   => '<p>' . __('You can choice between the following capability options','teachpress') . ':</p>
+        'title'     => __('Capabilities','teachcorses'),
+        'content'   => '<p>' . __('You can choice between the following capability options','teachcorses') . ':</p>
                         <ul style="list-style:disc; padding-left:40px;">
-                            <li><strong>' . __('global','teachpress') . ':</strong> ' . __('All users, which have the minimum user role for using teachpress, can see, edit or delete the course or course data.','teachpress') . '</li>
-                            <li><strong>' . __('local','teachpress') . ':</strong> ' . __('You can select which users can see, edit or delete the course or course data.','teachpress') . '</li>
+                            <li><strong>' . __('global','teachcorses') . ':</strong> ' . __('All users, which have the minimum user role for using teachcorses, can see, edit or delete the course or course data.','teachcorses') . '</li>
+                            <li><strong>' . __('local','teachcorses') . ':</strong> ' . __('You can select which users can see, edit or delete the course or course data.','teachcorses') . '</li>
                             </ul>'
     ) );
 }
@@ -56,7 +56,7 @@ function tc_add_course_page_help () {
 function tc_add_course_page() {
 
    $current_user = wp_get_current_user();
-   $fields = get_tc_options('teachpress_courses','`setting_id` ASC', ARRAY_A);
+   $fields = get_tc_options('teachcorses_courses','`setting_id` ASC', ARRAY_A);
    $course_types = get_tc_options('course_type', '`value` ASC');
 
    $data['type'] = isset( $_POST['course_type'] ) ? htmlspecialchars($_POST['course_type']) : '';
@@ -98,7 +98,7 @@ function tc_add_course_page() {
    // If the user has no permissions to edit this course
    if ( $course_id !== 0 && ( $capability !== 'owner' && $capability !== 'approved' ) ) {
        echo '<div class="wrap">';
-       get_tc_message(__('You have no capabilities to edit this course','teachpress'), 'red');
+       get_tc_message(__('You have no capabilities to edit this course','teachcorses'), 'red');
        echo '</div>';
        return;
    }
@@ -106,13 +106,13 @@ function tc_add_course_page() {
    
    ?>
    <div class="wrap">
-       <h2><?php if ($course_id == 0) { _e('Create a new course','teachpress'); } else { _e('Edit Course','teachpress'); } ?></h2>
+       <h2><?php if ($course_id == 0) { _e('Create a new course','teachcorses'); } else { _e('Edit Course','teachcorses'); } ?></h2>
    <?php 
         // Add new course
         if ( isset($_POST['create']) ) {
              $course_id = tc_Courses::add_course($data, $sub);
              tc_DB_Helpers::prepare_meta_data($course_id, $fields, $_POST, 'courses');
-             $message = __('Course created successful.','teachpress') . ' <a href="admin.php?page=teachpress/teachpress.php&amp;course_id=' . $course_id . '&amp;action=show&amp;search=&amp;sem=' . get_tc_option('sem') . '">' . __('Show course','teachpress') . '</a> | <a href="admin.php?page=teachpress/add_course.php">' . __('Add new','teachpress') . '</a>';
+             $message = __('Course created successful.','teachcorses') . ' <a href="admin.php?page=teachcorses/teachcorses.php&amp;course_id=' . $course_id . '&amp;action=show&amp;search=&amp;sem=' . get_tc_option('sem') . '">' . __('Show course','teachcorses') . '</a> | <a href="admin.php?page=teachcorses/add_course.php">' . __('Add new','teachcorses') . '</a>';
              get_tc_message($message);
         }
 
@@ -136,7 +136,7 @@ function tc_add_course_page() {
         }
      ?>
      <form id="add_course" name="form1" method="post" action="<?php echo esc_url($_SERVER['REQUEST_URI']); ?>">
-     <input name="page" type="hidden" value="<?php if ($course_id != 0) {?>teachpress/teachpress.php<?php } else {?>teachpress/add_course.php<?php } ?>" />
+     <input name="page" type="hidden" value="<?php if ($course_id != 0) {?>teachcorses/teachcorses.php<?php } else {?>teachcorses/add_course.php<?php } ?>" />
      <input name="action" type="hidden" value="edit" />
      <input name="course_id" type="hidden" value="<?php echo $course_id; ?>" />
      <input name="sem" type="hidden" value="<?php echo $sem; ?>" />
@@ -149,8 +149,8 @@ function tc_add_course_page() {
            <div id="post-body-content">
                <div id="titlediv" style="padding-bottom: 15px;">
                    <div id="titlewrap">
-                      <label class="hide-if-no-js" style="display:none;" id="title-prompt-text" for="title"><?php _e('Course name','teachpress'); ?></label>
-                      <input type="text" name="post_title" title="<?php _e('Course name','teachpress'); ?>" size="30" tabindex="1" placeholder="<?php _e('Course name','teachpress'); ?>" value="<?php echo stripslashes($course_data["name"]); ?>" id="title" autocomplete="off" />
+                      <label class="hide-if-no-js" style="display:none;" id="title-prompt-text" for="title"><?php _e('Course name','teachcorses'); ?></label>
+                      <input type="text" name="post_title" title="<?php _e('Course name','teachcorses'); ?>" size="30" tabindex="1" placeholder="<?php _e('Course name','teachcorses'); ?>" value="<?php echo stripslashes($course_data["name"]); ?>" id="title" autocomplete="off" />
                    </div>
                </div>
                 <?php
@@ -194,12 +194,12 @@ class tc_Add_Course {
     public static function get_enrollments_box ($course_id, $course_data) {
         ?>
         <div class="postbox">
-             <h3 class="tc_postbox"><span><?php _e('Enrollments','teachpress'); ?></span></h3>
+             <h3 class="tc_postbox"><span><?php _e('Enrollments','teachcorses'); ?></span></h3>
              <div class="inside">
-                 <p><label for="start" title="<?php _e('The start date for the enrollment','teachpress'); ?>"><strong><?php _e('Start','teachpress'); ?></strong></label></p>
+                 <p><label for="start" title="<?php _e('The start date for the enrollment','teachcorses'); ?>"><strong><?php _e('Start','teachcorses'); ?></strong></label></p>
                 <?php 
                  if ($course_id === 0) {
-                    $meta = 'value="' . __('JJJJ-MM-TT','teachpress') . '" onblur="if(this.value==' . "'" . "'" . ') this.value=' . "'" . __('JJJJ-MM-TT','teachpress') . "'" . ';" onfocus="if(this.value==' . "'" . __('JJJJ-MM-TT','teachpress') . "'" . ') this.value=' . "'" . "'" . ';"';
+                    $meta = 'value="' . __('JJJJ-MM-TT','teachcorses') . '" onblur="if(this.value==' . "'" . "'" . ') this.value=' . "'" . __('JJJJ-MM-TT','teachcorses') . "'" . ';" onfocus="if(this.value==' . "'" . __('JJJJ-MM-TT','teachcorses') . "'" . ') this.value=' . "'" . "'" . ';"';
                     $hour = '00';
                     $minute = '00';
                  }	
@@ -210,8 +210,8 @@ class tc_Add_Course {
                     $minute = $date1[0][4]; 
                  }	
                  ?>
-                 <input name="start" type="text" id="start" title="<?php _e('Date','teachpress'); ?>" tabindex="14" size="15" <?php echo $meta; ?>/> <input name="start_hour" type="text" title="<?php _e('Hours','teachpress'); ?>" value="<?php echo $hour; ?>" size="2" tabindex="15" /> : <input name="start_minute" type="text" title="<?php _e('Minutes','teachpress'); ?>" value="<?php echo $minute; ?>" size="2" tabindex="16" />
-                 <p><label for="end" title="<?php _e('The end date for the enrollment','teachpress'); ?>"><strong><?php _e('End','teachpress'); ?></strong></label></p>
+                 <input name="start" type="text" id="start" title="<?php _e('Date','teachcorses'); ?>" tabindex="14" size="15" <?php echo $meta; ?>/> <input name="start_hour" type="text" title="<?php _e('Hours','teachcorses'); ?>" value="<?php echo $hour; ?>" size="2" tabindex="15" /> : <input name="start_minute" type="text" title="<?php _e('Minutes','teachcorses'); ?>" value="<?php echo $minute; ?>" size="2" tabindex="16" />
+                 <p><label for="end" title="<?php _e('The end date for the enrollment','teachcorses'); ?>"><strong><?php _e('End','teachcorses'); ?></strong></label></p>
                 <?php 
                  if ($course_id === 0) {
                       // same as for start
@@ -223,23 +223,23 @@ class tc_Add_Course {
                     $minute = $date1[0][4];
                  }
                  ?>
-                 <input name="end" type="text" id="end" title="<?php _e('Date','teachpress'); ?>" tabindex="17" size="15" <?php echo $meta; ?>/> <input name="end_hour" type="text" title="<?php _e('Hours','teachpress'); ?>" value="<?php echo $hour; ?>" size="2" tabindex="18" /> : <input name="end_minute" type="text" title="<?php _e('Minutes','teachpress'); ?>" value="<?php echo $minute; ?>" size="2" tabindex="19" />
-              <p><strong><?php _e('Options','teachpress'); ?></strong></p>
+                 <input name="end" type="text" id="end" title="<?php _e('Date','teachcorses'); ?>" tabindex="17" size="15" <?php echo $meta; ?>/> <input name="end_hour" type="text" title="<?php _e('Hours','teachcorses'); ?>" value="<?php echo $hour; ?>" size="2" tabindex="18" /> : <input name="end_minute" type="text" title="<?php _e('Minutes','teachcorses'); ?>" value="<?php echo $minute; ?>" size="2" tabindex="19" />
+              <p><strong><?php _e('Options','teachcorses'); ?></strong></p>
                <?php
                  $check = $course_data["waitinglist"] == 1 ? 'checked="checked"' : '';
                  ?>
-                  <p><input name="waitinglist" id="waitinglist" type="checkbox" value="1" tabindex="26" <?php echo $check; ?>/> <label for="waitinglist" title="<?php _e('Waiting list','teachpress'); ?>"><?php _e('Waiting list','teachpress'); ?></label></p>
+                  <p><input name="waitinglist" id="waitinglist" type="checkbox" value="1" tabindex="26" <?php echo $check; ?>/> <label for="waitinglist" title="<?php _e('Waiting list','teachcorses'); ?>"><?php _e('Waiting list','teachcorses'); ?></label></p>
                 <p>
                 <?php 
                  if ($course_data["parent"] != 0) {
                     $parent_data_strict = tc_Courses::get_course_data($course_data["parent"], 'strict_signup'); 
                     $check = $parent_data_strict == 1 ? 'checked="checked"' : '';
                     ?>
-                    <input name="strict_signup_2" id="strict_signup_2" type="checkbox" value="1" tabindex="27" <?php echo $check; ?> disabled="disabled" /> <label for="strict_signup_2" title="<?php _e('This is a child course. You can only change this option in the parent course','teachpress'); ?>"><?php _e('Strict sign up','teachpress'); ?></label></p>
+                    <input name="strict_signup_2" id="strict_signup_2" type="checkbox" value="1" tabindex="27" <?php echo $check; ?> disabled="disabled" /> <label for="strict_signup_2" title="<?php _e('This is a child course. You can only change this option in the parent course','teachcorses'); ?>"><?php _e('Strict sign up','teachcorses'); ?></label></p>
            <?php } else {
                     $check = $course_data["strict_signup"] == 1 ? 'checked="checked"' : '';
                     ?>
-                 <input name="strict_signup" id="strict_signup" type="checkbox" value="1" tabindex="27" <?php echo $check; ?> /> <label for="strict_signup" title="<?php _e('This is an option only for parent courses. If you activate it, subscribing is only possible for one of the child courses and not in all. This option has no influence on waiting lists.','teachpress'); ?>"><?php _e('Strict sign up','teachpress'); ?></label></p>
+                 <input name="strict_signup" id="strict_signup" type="checkbox" value="1" tabindex="27" <?php echo $check; ?> /> <label for="strict_signup" title="<?php _e('This is an option only for parent courses. If you activate it, subscribing is only possible for one of the child courses and not in all. This option has no influence on waiting lists.','teachcorses'); ?>"><?php _e('Strict sign up','teachcorses'); ?></label></p>
          <?php } ?>
              </div>
          </div>
@@ -259,18 +259,18 @@ class tc_Add_Course {
         $semester = get_tc_options('semester', '`setting_id` DESC');
         ?>
         <div class="postbox">
-        <h3 class="tc_postbox"><span><?php _e('General','teachpress'); ?></span></h3>
+        <h3 class="tc_postbox"><span><?php _e('General','teachcorses'); ?></span></h3>
         <div class="inside">
-            <p><label for="course_type" title="<?php _e('The course type','teachpress'); ?>"><strong><?php _e('Type'); ?></strong></label></p>
-            <select name="course_type" id="course_type" title="<?php _e('The course type','teachpress'); ?>" tabindex="2">
+            <p><label for="course_type" title="<?php _e('The course type','teachcorses'); ?>"><strong><?php _e('Type'); ?></strong></label></p>
+            <select name="course_type" id="course_type" title="<?php _e('The course type','teachcorses'); ?>" tabindex="2">
             <?php 
                 foreach ($course_types as $row) {
                     $check = $course_data["type"] == $row->value ? ' selected="selected"' : '';
                     echo '<option value="' . stripslashes($row->value) . '"' . $check . '>' . stripslashes($row->value) . '</option>';
                 } ?>
             </select>
-            <p><label for="semester" title="<?php _e('The term where the course will be happening','teachpress'); ?>"><strong><?php _e('Term','teachpress'); ?></strong></label></p>
-            <select name="semester" id="semester" title="<?php _e('The term where the course will be happening','teachpress'); ?>" tabindex="3">
+            <p><label for="semester" title="<?php _e('The term where the course will be happening','teachcorses'); ?>"><strong><?php _e('Term','teachcorses'); ?></strong></label></p>
+            <select name="semester" id="semester" title="<?php _e('The term where the course will be happening','teachcorses'); ?>" tabindex="3">
             <?php
             foreach ($semester as $sem) { 
                 if ($sem->value == $selected_sem && $course_id === 0) {
@@ -290,8 +290,8 @@ class tc_Add_Course {
             echo tc_Admin::get_form_field(
                 array(
                     'name' => 'lecturer',
-                    'title' => __('The lecturer(s) of the course','teachpress'),
-                    'label' => __('Lecturer','teachpress'),
+                    'title' => __('The lecturer(s) of the course','teachcorses'),
+                    'label' => __('Lecturer','teachcorses'),
                     'type' => 'input',
                     'value' => $course_data['lecturer'],
                     'tabindex' => 4,
@@ -302,8 +302,8 @@ class tc_Add_Course {
             echo tc_Admin::get_form_field(
                 array(
                     'name' => 'date',
-                    'title' => __('The date(s) for the course','teachpress'),
-                    'label' => __('Date','teachpress'),
+                    'title' => __('The date(s) for the course','teachcorses'),
+                    'label' => __('Date','teachcorses'),
                     'type' => 'input',
                     'value' => $course_data['date'],
                     'tabindex' => 5,
@@ -314,8 +314,8 @@ class tc_Add_Course {
             echo tc_Admin::get_form_field(
                 array(
                     'name' => 'room',
-                    'title' => __('The room or place for the course','teachpress'),
-                    'label' => __('Room','teachpress'),
+                    'title' => __('The room or place for the course','teachcorses'),
+                    'label' => __('Room','teachcorses'),
                     'type' => 'input',
                     'value' => $course_data['room'],
                     'tabindex' => 6,
@@ -323,37 +323,37 @@ class tc_Add_Course {
                     'style' => 'width:95%;') );
             
             ?>
-            <p><label for="places" title="<?php _e('The number of available places.','teachpress'); ?>"><strong><?php _e('Number of places','teachpress'); ?></strong></label></p>
-            <input name="places" type="text" id="places" title="<?php _e('The number of available places.','teachpress'); ?>" style="width:70px;" tabindex="7" value="<?php echo $course_data["places"]; ?>" />
+            <p><label for="places" title="<?php _e('The number of available places.','teachcorses'); ?>"><strong><?php _e('Number of places','teachcorses'); ?></strong></label></p>
+            <input name="places" type="text" id="places" title="<?php _e('The number of available places.','teachcorses'); ?>" style="width:70px;" tabindex="7" value="<?php echo $course_data["places"]; ?>" />
             <?php 
             if ($course_id != 0) {
                 $free_places = tc_Courses::get_free_places($course_data["course_id"], $course_data["places"]);
-                echo ' | ' . __('free places','teachpress') . ': ' . $free_places;
+                echo ' | ' . __('free places','teachcorses') . ': ' . $free_places;
             } 
             tc_Add_Course::get_parent_select_field($course_id, $course_data);
             ?>
             
-            <p><label for="comment" title="<?php _e('For parent courses the comment is showing in the overview and for child courses in the enrollments system.','teachpress'); ?>"><strong><?php _e('Comment or Description','teachpress'); ?></strong></label></p>
-            <textarea name="comment" rows="3" id="comment" title="<?php _e('For parent courses the comment is showing in the overview and for child courses in the enrollments system.','teachpress'); ?>" tabindex="9" style="width:95%;"><?php echo stripslashes($course_data["comment"]); ?></textarea>
-            <p><label for="rel_page" title="<?php _e('If you will connect a course with a page (it is used as link in the courses overview) so you can do this here','teachpress'); ?>"><strong><?php _e('Related content','teachpress'); ?></strong></label></p>
+            <p><label for="comment" title="<?php _e('For parent courses the comment is showing in the overview and for child courses in the enrollments system.','teachcorses'); ?>"><strong><?php _e('Comment or Description','teachcorses'); ?></strong></label></p>
+            <textarea name="comment" rows="3" id="comment" title="<?php _e('For parent courses the comment is showing in the overview and for child courses in the enrollments system.','teachcorses'); ?>" tabindex="9" style="width:95%;"><?php echo stripslashes($course_data["comment"]); ?></textarea>
+            <p><label for="rel_page" title="<?php _e('If you will connect a course with a page (it is used as link in the courses overview) so you can do this here','teachcorses'); ?>"><strong><?php _e('Related content','teachcorses'); ?></strong></label></p>
 
             <div id="rel_page_alternative" style="display:none;">
-                <?php _e('Select draft','teachpress');?>: 
-                <select name="rel_page_alter" id="rel_page_alter" title="<?php _e('If you will connect a course with a post or page (it is used as link in the courses overview) so you can do this here','teachpress'); ?>" tabindex="10">
+                <?php _e('Select draft','teachcorses');?>: 
+                <select name="rel_page_alter" id="rel_page_alter" title="<?php _e('If you will connect a course with a post or page (it is used as link in the courses overview) so you can do this here','teachcorses'); ?>" tabindex="10">
                     <?php
                     get_tc_wp_drafts($post_type, 'draft', 'post_date', 'DESC');
                     ?>
                 </select>
-                <a onclick="javascript:teachpress_switch_rel_page_container();" style="cursor:pointer;"><?php _e('Use existing content','teachpress');?></a>
+                <a onclick="javascript:teachcorses_switch_rel_page_container();" style="cursor:pointer;"><?php _e('Use existing content','teachcorses');?></a>
             </div>
             <div id="rel_page_original" style="display:block;">
-                <?php _e('Select related content','teachpress');?>: 
-                <select name="rel_page" id="rel_page" title="<?php _e('If you will connect a course with a post or page (it is used as link in the courses overview) so you can do this here','teachpress'); ?>" tabindex="10">
+                <?php _e('Select related content','teachcorses');?>: 
+                <select name="rel_page" id="rel_page" title="<?php _e('If you will connect a course with a post or page (it is used as link in the courses overview) so you can do this here','teachcorses'); ?>" tabindex="10">
                     <?php 
                     get_tc_wp_pages("menu_order","ASC",$course_data["rel_page"],$post_type,0,0); 
                     ?>
                 </select>
-                <a onclick="javascript:teachpress_switch_rel_page_container();" style="cursor:pointer;"><?php _e('Create from draft','teachpress');?></a>
+                <a onclick="javascript:teachcorses_switch_rel_page_container();" style="cursor:pointer;"><?php _e('Create from draft','teachcorses');?></a>
             </div>
         </div>
     </div>
@@ -370,19 +370,19 @@ class tc_Add_Course {
     public static function get_meta_box ($course_id, $course_data, $capability) {
         ?>
         <div class="postbox">
-             <h3 class="tc_postbox"><span><?php _e('Meta','teachpress'); ?></span></h3>
+             <h3 class="tc_postbox"><span><?php _e('Meta','teachcorses'); ?></span></h3>
              <div class="inside">
                 <?php if ($course_data["image_url"] != '') {
                     echo '<p><img name="tc_pub_image" src="' . $course_data["image_url"] . '" alt="' . $course_data["name"] . '" title="' . $course_data["name"] . '" style="max-width:100%;"/></p>';
                 } ?>
-                <p><label for="image_url" title="<?php _e('With the image field you can add an image to a course.','teachpress'); ?>"><strong><?php _e('Image URL','teachpress'); ?></strong></label></p>
-                <input name="image_url" id="image_url" class="upload" type="text" title="<?php _e('Image URL','teachpress'); ?>" style="width:90%;" tabindex="12" value="<?php echo $course_data["image_url"]; ?>"/>
-        <a class="upload_button_image" title="<?php _e('Add image','teachpress'); ?>" style="cursor:pointer;"><img src="images/media-button-image.gif" alt="<?php _e('Add Image','teachpress'); ?>" /></a>
-                <p><label for="visible" title="<?php _e('Here you can edit the visibility of a course in the enrollments.','teachpress'); ?>"><strong><?php _e('Visibility','teachpress'); ?></strong></label></p>
-                <select name="visible" id="visible" title="<?php _e('Here you can edit the visibility of a course in the enrollments.','teachpress'); ?>" tabindex="13">
-                    <option value="1"<?php if ( $course_data["visible"] == 1 && $course_id != 0 ) {echo ' selected="selected"'; } ?>><?php _e('normal','teachpress'); ?></option>
-                    <option value="2"<?php if ( $course_data["visible"] == 2 && $course_id != 0 ) {echo ' selected="selected"'; } ?>><?php _e('extend','teachpress'); ?></option>
-                    <option value="0"<?php if ( $course_data["visible"] == 0 && $course_id != 0 ) {echo ' selected="selected"'; } ?>><?php _e('invisible','teachpress'); ?></option>
+                <p><label for="image_url" title="<?php _e('With the image field you can add an image to a course.','teachcorses'); ?>"><strong><?php _e('Image URL','teachcorses'); ?></strong></label></p>
+                <input name="image_url" id="image_url" class="upload" type="text" title="<?php _e('Image URL','teachcorses'); ?>" style="width:90%;" tabindex="12" value="<?php echo $course_data["image_url"]; ?>"/>
+        <a class="upload_button_image" title="<?php _e('Add image','teachcorses'); ?>" style="cursor:pointer;"><img src="images/media-button-image.gif" alt="<?php _e('Add Image','teachcorses'); ?>" /></a>
+                <p><label for="visible" title="<?php _e('Here you can edit the visibility of a course in the enrollments.','teachcorses'); ?>"><strong><?php _e('Visibility','teachcorses'); ?></strong></label></p>
+                <select name="visible" id="visible" title="<?php _e('Here you can edit the visibility of a course in the enrollments.','teachcorses'); ?>" tabindex="13">
+                    <option value="1"<?php if ( $course_data["visible"] == 1 && $course_id != 0 ) {echo ' selected="selected"'; } ?>><?php _e('normal','teachcorses'); ?></option>
+                    <option value="2"<?php if ( $course_data["visible"] == 2 && $course_id != 0 ) {echo ' selected="selected"'; } ?>><?php _e('extend','teachcorses'); ?></option>
+                    <option value="0"<?php if ( $course_data["visible"] == 0 && $course_id != 0 ) {echo ' selected="selected"'; } ?>><?php _e('invisible','teachcorses'); ?></option>
                 </select>
                 <?php
                 $readonly = 'disabled="disabled"';
@@ -390,19 +390,19 @@ class tc_Add_Course {
                     $readonly = '';
                 }
                 ?>
-                <p><label for="use_capabilities"><strong><?php _e('Capabilities','teachpress'); ?></strong></label></p>
+                <p><label for="use_capabilities"><strong><?php _e('Capabilities','teachcorses'); ?></strong></label></p>
                 <select name="use_capabilities" <?php echo $readonly; ?>>
-                    <option value="0"<?php if ( $course_data["use_capabilities"] == 0 && $course_id != 0 ) {echo ' selected="selected"'; } ?>><?php _e('global','teachpress'); ?></option>
-                    <option value="1"<?php if ( $course_data["use_capabilities"] == 1 && $course_id != 0 ) {echo ' selected="selected"'; } ?>><?php _e('local','teachpress'); ?></option>
+                    <option value="0"<?php if ( $course_data["use_capabilities"] == 0 && $course_id != 0 ) {echo ' selected="selected"'; } ?>><?php _e('global','teachcorses'); ?></option>
+                    <option value="1"<?php if ( $course_data["use_capabilities"] == 1 && $course_id != 0 ) {echo ' selected="selected"'; } ?>><?php _e('local','teachcorses'); ?></option>
                 </select>
              </div>
              <div id="major-publishing-actions">
                  <div style="text-align: center;">
                     <?php if ($course_id != 0) {?>
-                        <input name="save" type="submit" id="teachpress_create" onclick="teachpress_validateForm('title','','R','lecturer','','R','platz','','NisNum');return document.teachpress_returnValue" value="<?php _e('Save'); ?>" class="button-primary"/>
+                        <input name="save" type="submit" id="teachcorses_create" onclick="teachcorses_validateForm('title','','R','lecturer','','R','platz','','NisNum');return document.teachcorses_returnValue" value="<?php _e('Save'); ?>" class="button-primary"/>
                     <?php } else { ?>
-                        <input type="reset" name="Reset" value="<?php _e('Reset','teachpress'); ?>" class="button-secondary" style="padding-right: 30px;"/> 
-                        <input name="create" type="submit" id="teachpress_create" onclick="teachpress_validateForm('title','','R','lecturer','','R','platz','','NisNum');return document.teachpress_returnValue" value="<?php _e('Create','teachpress'); ?>" class="button-primary"/>
+                        <input type="reset" name="Reset" value="<?php _e('Reset','teachcorses'); ?>" class="button-secondary" style="padding-right: 30px;"/> 
+                        <input name="create" type="submit" id="teachcorses_create" onclick="teachcorses_validateForm('title','','R','lecturer','','R','platz','','NisNum');return document.teachcorses_returnValue" value="<?php _e('Create','teachcorses'); ?>" class="button-primary"/>
                     <?php } ?>
                  </div>
              </div>
@@ -419,9 +419,9 @@ class tc_Add_Course {
     private static function get_parent_select_field ($course_id, $course_data) {
         $semester = get_tc_options('semester', '`setting_id` DESC');
         ?>
-        <p><label for="parent2" title="<?php _e('Here you can connect a course with a parent one. With this function you can create courses with an hierarchical order.','teachpress'); ?>"><strong><?php _e('Parent course','teachpress'); ?></strong></label></p>
-            <select name="parent2" id="parent2" title="<?php _e('Here you can connect a course with a parent one. With this function you can create courses with an hierarchical order.','teachpress'); ?>" onchange="teachpress_courseFields();" tabindex="8">
-                <option value="0"><?php _e('none','teachpress'); ?></option>
+        <p><label for="parent2" title="<?php _e('Here you can connect a course with a parent one. With this function you can create courses with an hierarchical order.','teachcorses'); ?>"><strong><?php _e('Parent course','teachcorses'); ?></strong></label></p>
+            <select name="parent2" id="parent2" title="<?php _e('Here you can connect a course with a parent one. With this function you can create courses with an hierarchical order.','teachcorses'); ?>" onchange="teachcorses_courseFields();" tabindex="8">
+                <option value="0"><?php _e('none','teachcorses'); ?></option>
                 <?php
                 foreach ( $semester as $row ) {
                     $courses = tc_Courses::get_courses( array('parent' => 0, 'semester' => $row->value) );
@@ -454,10 +454,10 @@ class tc_Add_Course {
     public static function get_subcourses_box ($course_types, $course_data) {
         ?>
         <div class="postbox">
-            <h3 class="tc_postbox"><span><?php _e('Sub courses','teachpress'); ?></span></h3>
+            <h3 class="tc_postbox"><span><?php _e('Sub courses','teachcorses'); ?></span></h3>
             <div class="inside">
-                <p><label for="sub_course_type" title="<?php _e('The course type','teachpress'); ?>"><strong><?php _e('Type'); ?></strong></label></p>
-                 <select name="sub_course_type" id="sub_course_type" title="<?php _e('The course type','teachpress'); ?>" tabindex="17">
+                <p><label for="sub_course_type" title="<?php _e('The course type','teachcorses'); ?>"><strong><?php _e('Type'); ?></strong></label></p>
+                 <select name="sub_course_type" id="sub_course_type" title="<?php _e('The course type','teachcorses'); ?>" tabindex="17">
                  <?php 
                      foreach ($course_types as $row) {
                          $check = $course_data["type"] == $row->value ? ' selected="selected"' : '';
@@ -469,8 +469,8 @@ class tc_Add_Course {
                 echo tc_Admin::get_form_field(
                     array(
                         'name' => 'sub_number',
-                        'title' => __('Number of sub courses','teachpress'),
-                        'label' => __('Number of sub courses','teachpress'),
+                        'title' => __('Number of sub courses','teachcorses'),
+                        'label' => __('Number of sub courses','teachcorses'),
                         'type' => 'input',
                         'value' => '0',
                         'tabindex' => 18,
@@ -481,8 +481,8 @@ class tc_Add_Course {
                 echo tc_Admin::get_form_field(
                     array(
                         'name' => 'sub_places',
-                        'title' => __('Number of places per course','teachpress'), 
-                        'label' => __('Number of places per course','teachpress'),
+                        'title' => __('Number of places per course','teachcorses'), 
+                        'label' => __('Number of places per course','teachcorses'),
                         'type' => 'input',
                         'value' => '0',
                         'tabindex' => 19,

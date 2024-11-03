@@ -1,14 +1,14 @@
 <?php
 /**
- * This file contains all functions of teachpress mail system
+ * This file contains all functions of teachcorses mail system
  * 
- * @package teachpress\core\mail
+ * @package teachcorses\core\mail
  * @license http://www.gnu.org/licenses/gpl-2.0.html GPLv2 or later
  */
 
 /**
- * teachPress E-Mail class
- * @package teachpress\core\mail
+ * teachCorses E-Mail class
+ * @package teachcorses\core\mail
  * @since 3.0.0
  */
 class tc_Mail {
