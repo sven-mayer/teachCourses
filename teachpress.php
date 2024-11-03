@@ -205,7 +205,6 @@ function tc_advanced_registration() {
  * @since 6.0.0
  */
 function tc_feed_init(){
-    add_feed('tc_pub_rss', 'tc_pub_rss_feed_func');
     add_feed('tc_pub_bibtex', 'tc_pub_bibtex_feed_func');
     add_feed('tc_export', 'tc_export_feed_func');
 }
