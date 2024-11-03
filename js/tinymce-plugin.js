@@ -14,7 +14,7 @@
      * @returns {string} 
      * @since 5.0.0
      */
-    function tp_stripslashes(str) {
+    function tc_stripslashes(str) {
         return (str + '')
           .replace(/\\(.?)/g, function(s, n1) {
             switch (n1) {
@@ -36,7 +36,7 @@
      * @returns {string}        The value of the cookie
      * @since 5.0.0
      */
-    function tp_getCookie(cname) {
+    function tc_getCookie(cname) {
         var name = cname + "=";
         var ca = document.cookie.split(';');
         for(var i=0; i<ca.length; i++) {
@@ -54,7 +54,7 @@
      * @param {int} exdays              The number of days, where the cookie will be expire
      * @since 5.0.0
      */
-    function tp_setCookie(cname, cvalue, exdays) {
+    function tc_setCookie(cname, cvalue, exdays) {
         var d = new Date();
         d.setTime(d.getTime() + (exdays*24*60*60*1000));
         var expires = "expires="+d.toUTCString();
@@ -78,7 +78,7 @@
                         editor.windowManager.open( {
                             url: teachpress_editor_url,
                             title: 'teachPress Document Manager',
-                            id: 'tp_document_manager',
+                            id: 'tc_document_manager',
                             inline: 1,
                             width: 950,
                             height: 560,
@@ -89,7 +89,7 @@
                                 onclick: function(){
                                     
                                     // read cookie
-                                    var data_store = tp_getCookie("teachpress_data_store");
+                                    var data_store = tc_getCookie("teachpress_data_store");
                                     
                                     // build insert string
                                     // alert(data_store);
@@ -118,7 +118,7 @@
                                             // console.log(data_inline[1]);
                                             
                                         }
-                                        insert = insert + '<a class="' + teachpress_file_link_css_class + '" href="' + file_url + '">' + tp_stripslashes(file_name) + '</a> ';
+                                        insert = insert + '<a class="' + teachpress_file_link_css_class + '" href="' + file_url + '">' + tc_stripslashes(file_name) + '</a> ';
                                         // console.log(insert);
                                     }
                                     
@@ -127,14 +127,14 @@
                                     editor.windowManager.close();
                                     
                                     // reset cookie
-                                    tp_setCookie("teachpress_data_store", "", 1);
+                                    tc_setCookie("teachpress_data_store", "", 1);
                                 }
                             },
                             {
                                 text: 'Close',
                                 onclick: function () {
                                     editor.windowManager.close();
-                                    tp_setCookie("teachpress_data_store", "", 1);
+                                    tc_setCookie("teachpress_data_store", "", 1);
                                 }
                             }
                                 
@@ -156,7 +156,7 @@
                                     body: [
                                         {
                                             type: 'listbox',
-                                            name: 'tp_image',
+                                            name: 'tc_image',
                                             label: 'Show images',
                                             'values': [
                                                 {text: 'none', value: 'none'},
@@ -167,13 +167,13 @@
                                         },
                                         {
                                             type: 'textbox',
-                                            name: 'tp_size',
+                                            name: 'tc_size',
                                             label: 'Image size in px',
                                             value: '0'
                                         },
                                         {
                                             type: 'listbox',
-                                            name: 'tp_headline',
+                                            name: 'tc_headline',
                                             label: 'Show headline',
                                             'values': [
                                                 {text: 'show', value: '1'},
@@ -182,7 +182,7 @@
                                         },
                                         {
                                             type: 'textbox',
-                                            name: 'tp_text',
+                                            name: 'tc_text',
                                             label: 'Custom text under the headline',
                                             value: '',
                                             multiline: true,
@@ -191,17 +191,17 @@
                                         },
                                         {
                                             type: 'listbox',
-                                            name: 'tp_term',
+                                            name: 'tc_term',
                                             label: 'Term',
-                                            'values': teachpress_semester // is written with tp_write_data_for_tinymce()
+                                            'values': teachpress_semester // is written with tc_write_data_for_tinymce()
                                         }
                                     ],
                                     onsubmit: function( e ) {
-                                        var image = e.data.tp_image;
-                                        var image_size = e.data.tp_size;
-                                        var headline = e.data.tp_headline;
-                                        var text = e.data.tp_text;
-                                        var term = e.data.tp_term;
+                                        var image = e.data.tc_image;
+                                        var image_size = e.data.tc_size;
+                                        var headline = e.data.tc_headline;
+                                        var text = e.data.tc_text;
+                                        var term = e.data.tc_term;
                                         
                                         image = (image === 'none') ? '' : 'image="' + image + '"';
                                         image_size = (image_size === '0') ? '' : 'image_size="' + image_size + '"';
@@ -225,26 +225,26 @@
                                     body: [
                                         {
                                             type: 'listbox',
-                                            name: 'tp_coure_id',
+                                            name: 'tc_coure_id',
                                             label: 'Select course',
                                             minWidth: 570,
-                                            'values': teachpress_courses //  is written by tp_write_data_for_tinymce()
+                                            'values': teachpress_courses //  is written by tc_write_data_for_tinymce()
                                         },
                                         {
                                             type: 'textbox',
-                                            name: 'tp_link_class',
+                                            name: 'tc_link_class',
                                             label: 'CSS class for links',
-                                            value: teachpress_file_link_css_class // is written by tp_write_data_for_tinymce()
+                                            value: teachpress_file_link_css_class // is written by tc_write_data_for_tinymce()
                                         },
                                         {
                                             type: 'textbox',
-                                            name: 'tp_date_format',
+                                            name: 'tc_date_format',
                                             label: 'Date format',
                                             value: 'd.m.Y'
                                         },
                                         {
                                             type: 'listbox',
-                                            name: 'tp_show_date',
+                                            name: 'tc_show_date',
                                             label: 'Show upload date for documents',
                                             'values': [
                                                 {text: 'Yes', value: '1'},
@@ -253,7 +253,7 @@
                                         },
                                         {
                                             type: 'listbox',
-                                            name: 'tp_numbered',
+                                            name: 'tc_numbered',
                                             label: 'Use a numbered list',
                                             'values': [
                                                 {text: 'Yes', value: '1'},
@@ -262,7 +262,7 @@
                                         },
                                         {
                                             type: 'listbox',
-                                            name: 'tp_headline',
+                                            name: 'tc_headline',
                                             label: 'Show headline',
                                             'values': [
                                                 {text: 'Yes', value: '1'},
@@ -271,12 +271,12 @@
                                         }
                                     ],
                                     onsubmit: function( e ) {
-                                        var id = e.data.tp_coure_id;
-                                        var link_class = e.data.tp_link_class;
-                                        var date_format = e.data.tp_date_format;
-                                        var show_date = e.data.tp_show_date;
-                                        var numbered = e.data.tp_numbered;
-                                        var headline = e.data.tp_headline;
+                                        var id = e.data.tc_coure_id;
+                                        var link_class = e.data.tc_link_class;
+                                        var date_format = e.data.tc_date_format;
+                                        var show_date = e.data.tc_show_date;
+                                        var numbered = e.data.tc_numbered;
+                                        var headline = e.data.tc_headline;
                                         
                                         id = (id === '0') ? '' : 'id="' + id + '"';
                                         link_class = (link_class === teachpress_file_link_css_class) ? '' : 'link_class="' + link_class + '"';
@@ -301,14 +301,14 @@
                                     body: [
                                         {
                                             type: 'listbox',
-                                            name: 'tp_coure_id',
+                                            name: 'tc_coure_id',
                                             label: 'Select course',
                                             minWidth: 570,
-                                            'values': teachpress_courses // is written by tp_write_data_for_tinymce()
+                                            'values': teachpress_courses // is written by tc_write_data_for_tinymce()
                                         },
                                         {
                                             type: 'listbox',
-                                            name: 'tp_show_meta',
+                                            name: 'tc_show_meta',
                                             label: 'Show meta data',
                                             'values': [
                                                 {text: 'Yes', value: '1'},
@@ -317,8 +317,8 @@
                                         }
                                     ],
                                     onsubmit: function( e ) {
-                                        var id = e.data.tp_coure_id;
-                                        var show_meta = e.data.tp_show_meta;
+                                        var id = e.data.tc_coure_id;
+                                        var show_meta = e.data.tc_show_meta;
                                         
                                         id = (id === '0') ? '' : 'id="' + id + '"';
                                         show_meta = (show_meta === '1') ? '' : 'show_meta="' + show_meta + '"';
@@ -339,20 +339,20 @@
                                     body: [
                                         {
                                             type: 'listbox',
-                                            name: 'tp_term',
+                                            name: 'tc_term',
                                             label: 'Term',
-                                            'values': teachpress_semester // is written by tp_write_data_for_tinymce()
+                                            'values': teachpress_semester // is written by tc_write_data_for_tinymce()
                                         },
                                         {
                                             type: 'textbox',
-                                            name: 'tp_date_format',
+                                            name: 'tc_date_format',
                                             label: 'Date format',
                                             value: 'd.m.Y H:i'
                                         }
                                     ],
                                     onsubmit: function( e ) {
-                                        var term = e.data.tp_term;
-                                        var date_format = e.data.tp_date_format;
+                                        var term = e.data.tc_term;
+                                        var date_format = e.data.tc_date_format;
                                         
                                         term = (term === '') ? '' : 'term="' + term + '"';
                                         date_format = (date_format === 'd.m.Y H:i') ? '' : 'date_format="' + date_format + '"';
@@ -381,31 +381,31 @@
                                         {
                                             title: 'Filter',
                                             type: 'form',
-                                            name: 'tp_filterform',
+                                            name: 'tc_filterform',
                                             items: [
                                                 {
                                                     type: 'listbox',
-                                                    name: 'tp_user',
+                                                    name: 'tc_user',
                                                     label: 'Select user',
-                                                    'values': teachpress_pub_user //  is written by tp_write_data_for_tinymce()
+                                                    'values': teachpress_pub_user //  is written by tc_write_data_for_tinymce()
                                                 },
                                                 {
                                                     type: 'listbox',
-                                                    name: 'tp_filter_type',
+                                                    name: 'tc_filter_type',
                                                     label: 'Only entries with type',
                                                     value: null,
                                                     values: teachpress_pub_types
                                                 },
                                                 {
                                                     type: 'listbox',
-                                                    name: 'tp_filter_tag',
+                                                    name: 'tc_filter_tag',
                                                     label: 'Only entries with tag',
                                                     value: null,
                                                     values: teachpress_pub_tags
                                                 },
                                                 {
                                                     type: 'textbox',
-                                                    name: 'tp_entries_per_page',
+                                                    name: 'tc_entries_per_page',
                                                     label: 'Entries per page',
                                                     value: '50'
                                                 }
@@ -416,11 +416,11 @@
                                         {
                                             title: 'Design',
                                             type: 'form',
-                                            name: 'tp_designform',
+                                            name: 'tc_designform',
                                             items: [
                                                 {
                                                     type: 'listbox',
-                                                    name: 'tp_headline',
+                                                    name: 'tc_headline',
                                                     label: 'Headline',
                                                     'values': [
                                                         {text: 'years', value: '1'},
@@ -432,7 +432,7 @@
                                                 },
                                                 {
                                                     type: 'listbox',
-                                                    name: 'tp_author_name',
+                                                    name: 'tc_author_name',
                                                     label: 'Style of the author names',
                                                     'values': [
                                                         {text: 'last (example: van der Vaart, Ludwig)', value: 'last'},
@@ -443,7 +443,7 @@
                                                 },
                                                 {
                                                     type: 'listbox',
-                                                    name: 'tp_editor_name',
+                                                    name: 'tc_editor_name',
                                                     label: 'Style of the editor names',
                                                     'values': [
                                                         {text: 'last (example: van der Vaart, Ludwig)', value: 'last'},
@@ -454,7 +454,7 @@
                                                 },
                                                 {
                                                     type: 'listbox',
-                                                    name: 'tp_style',
+                                                    name: 'tc_style',
                                                     label: 'Numeration of publication lists',
                                                     'values': [
                                                         {text: 'none', value: 'none'},
@@ -464,13 +464,13 @@
                                                 },
                                                 {
                                                     type: 'listbox',
-                                                    name: 'tp_template',
+                                                    name: 'tc_template',
                                                     label: 'Template',
-                                                    'values': teachpress_pub_templates  //  is written by tp_write_data_for_tinymce()
+                                                    'values': teachpress_pub_templates  //  is written by tc_write_data_for_tinymce()
                                                 },
                                                 {
                                                     type: 'listbox',
-                                                    name: 'tp_link_style',
+                                                    name: 'tc_link_style',
                                                     label: 'Style of publication links',
                                                     'values': [
                                                         {text: 'inline', value: 'inline'},
@@ -484,11 +484,11 @@
                                         {
                                             title: 'Images',
                                             type: 'form',
-                                            name: 'tp_imagesform',
+                                            name: 'tc_imagesform',
                                             items: [
                                                 {
                                                     type: 'listbox',
-                                                    name: 'tp_image',
+                                                    name: 'tc_image',
                                                     label: 'Show images',
                                                     'values': [
                                                         {text: 'none', value: 'none'},
@@ -499,13 +499,13 @@
                                                 },
                                                 {
                                                     type: 'textbox',
-                                                    name: 'tp_image_size',
+                                                    name: 'tc_image_size',
                                                     label: 'Image size in px',
                                                     value: '0'
                                                 },
                                                 {
                                                     type: 'listbox',
-                                                    name: 'tp_image_link',
+                                                    name: 'tc_image_link',
                                                     label: 'Image refers to',
                                                     'values': [
                                                         {text: 'none', value: 'none'},
@@ -519,23 +519,23 @@
                                         
                                     ],
                                     onsubmit: function( e ) {
-                                        var filterData = this.find('[name=tp_filterform]')[0].toJSON();
-                                        var designData = this.find('[name=tp_designform]')[0].toJSON();
-                                        var imageData = this.find('[name=tp_imagesform]')[0].toJSON();
+                                        var filterData = this.find('[name=tc_filterform]')[0].toJSON();
+                                        var designData = this.find('[name=tc_designform]')[0].toJSON();
+                                        var imageData = this.find('[name=tc_imagesform]')[0].toJSON();
                                         
-                                        var user = filterData.tp_user;
-                                        var entries_per_page = filterData.tp_entries_per_page;
-                                        var tag = filterData.tp_filter_tag;  
-                                        var type = filterData.tp_filter_type;
-                                        var headline = designData.tp_headline;
-                                        var image = imageData.tp_image;
-                                        var image_size = imageData.tp_image_size;
-                                        var image_link = imageData.tp_image_link;
-                                        var template = designData.tp_template;
-                                        var author_name = designData.tp_author_name;
-                                        var editor_name = designData.tp_editor_name;
-                                        var style = designData.tp_style;
-                                        var link_style = designData.tp_link_style;
+                                        var user = filterData.tc_user;
+                                        var entries_per_page = filterData.tc_entries_per_page;
+                                        var tag = filterData.tc_filter_tag;  
+                                        var type = filterData.tc_filter_type;
+                                        var headline = designData.tc_headline;
+                                        var image = imageData.tc_image;
+                                        var image_size = imageData.tc_image_size;
+                                        var image_link = imageData.tc_image_link;
+                                        var template = designData.tc_template;
+                                        var author_name = designData.tc_author_name;
+                                        var editor_name = designData.tc_editor_name;
+                                        var style = designData.tc_style;
+                                        var link_style = designData.tc_link_style;
                                         
                                         user = (user === '') ? '' : 'user="' + user + '"';
                                         entries_per_page = (entries_per_page === '50') ? '' : 'entries_per_page="' + entries_per_page + '"';
@@ -569,24 +569,24 @@
                                         {
                                             title: 'Filter',
                                             type: 'form',
-                                            name: 'tp_filterform',
+                                            name: 'tc_filterform',
                                             items: [
                                                 {
                                                     type: 'listbox',
-                                                    name: 'tp_user',
+                                                    name: 'tc_user',
                                                     label: 'Select user',
-                                                    'values': teachpress_pub_user // is written by tp_write_data_for_tinymce()
+                                                    'values': teachpress_pub_user // is written by tc_write_data_for_tinymce()
                                                 },
                                                 {
                                                     type: 'listbox',
-                                                    name: 'tp_filter_type',
+                                                    name: 'tc_filter_type',
                                                     label: 'Only entries with type',
                                                     value: null,
                                                     values: teachpress_pub_types
                                                 },
                                                 {
                                                     type: 'textbox',
-                                                    name: 'tp_entries_per_page',
+                                                    name: 'tc_entries_per_page',
                                                     label: 'Entries per page',
                                                     value: '50'
                                                 }
@@ -596,11 +596,11 @@
                                         {
                                             title: 'Design',
                                             type: 'form',
-                                            name: 'tp_designform',
+                                            name: 'tc_designform',
                                             items: [
                                                  {
                                                     type: 'listbox',
-                                                    name: 'tp_headline',
+                                                    name: 'tc_headline',
                                                     label: 'Headline',
                                                     'values': [
                                                         {text: 'years', value: '1'},
@@ -612,7 +612,7 @@
                                                 },
                                                 {
                                                     type: 'listbox',
-                                                    name: 'tp_author_name',
+                                                    name: 'tc_author_name',
                                                     label: 'Style of the author names',
                                                     'values': [
                                                         {text: 'last (example: van der Vaart, Ludwig)', value: 'last'},
@@ -623,7 +623,7 @@
                                                 },
                                                 {
                                                     type: 'listbox',
-                                                    name: 'tp_editor_name',
+                                                    name: 'tc_editor_name',
                                                     label: 'Style of the editor names',
                                                     'values': [
                                                         {text: 'last (example: van der Vaart, Ludwig)', value: 'last'},
@@ -634,7 +634,7 @@
                                                 },
                                                 {
                                                     type: 'listbox',
-                                                    name: 'tp_style',
+                                                    name: 'tc_style',
                                                     label: 'Numeration of publication lists',
                                                     'values': [
                                                         {text: 'none', value: 'none'},
@@ -644,13 +644,13 @@
                                                 },
                                                 {
                                                     type: 'listbox',
-                                                    name: 'tp_template',
+                                                    name: 'tc_template',
                                                     label: 'Template',
-                                                    'values': teachpress_pub_templates  //  is written by tp_write_data_for_tinymce()
+                                                    'values': teachpress_pub_templates  //  is written by tc_write_data_for_tinymce()
                                                 },
                                                 {
                                                     type: 'listbox',
-                                                    name: 'tp_link_style',
+                                                    name: 'tc_link_style',
                                                     label: 'Style of publication links',
                                                     'values': [
                                                         {text: 'inline', value: 'inline'},
@@ -663,29 +663,29 @@
                                         {
                                             title: 'Tag Cloud',
                                             type: 'form',
-                                            name: 'tp_tagcloudform',
+                                            name: 'tc_tagcloudform',
                                             items: [
                                                 {
                                                     type: 'textbox',
-                                                    name: 'tp_tag_limit',
+                                                    name: 'tc_tag_limit',
                                                     label: 'Number of tags',
                                                     value: '30'
                                                 },
                                                 {
                                                     type: 'textbox',
-                                                    name: 'tp_tag_minsize',
+                                                    name: 'tc_tag_minsize',
                                                     label: 'Min font size',
                                                     value: '11'
                                                 },
                                                  {
                                                     type: 'textbox',
-                                                    name: 'tp_tag_maxsize',
+                                                    name: 'tc_tag_maxsize',
                                                     label: 'Max font size',
                                                     value: '35'
                                                 },
                                                 {
                                                     type: 'listbox',
-                                                    name: 'tp_show_tags_as',
+                                                    name: 'tc_show_tags_as',
                                                     label: 'Show tag filter as',
                                                     'values': [
                                                         {text: 'cloud', value: 'cloud'},
@@ -697,11 +697,11 @@
                                         {
                                             title: 'Images',
                                             type: 'form',
-                                            name: 'tp_imagesform',
+                                            name: 'tc_imagesform',
                                             items: [
                                                 {
                                                     type: 'listbox',
-                                                    name: 'tp_image',
+                                                    name: 'tc_image',
                                                     label: 'Show images',
                                                     'values': [
                                                         {text: 'none', value: 'none'},
@@ -712,13 +712,13 @@
                                                 },
                                                 {
                                                     type: 'textbox',
-                                                    name: 'tp_image_size',
+                                                    name: 'tc_image_size',
                                                     label: 'Image size in px',
                                                     value: '0'
                                                 },
                                                 {
                                                     type: 'listbox',
-                                                    name: 'tp_image_link',
+                                                    name: 'tc_image_link',
                                                     label: 'Image refers to',
                                                     'values': [
                                                         {text: 'none', value: 'none'},
@@ -730,26 +730,26 @@
                                         }
                                     ],
                                     onsubmit: function( e ) {
-                                        var filterData = this.find('[name=tp_filterform]')[0].toJSON();
-                                        var designData = this.find('[name=tp_designform]')[0].toJSON();
-                                        var tagcloudData = this.find('[name=tp_tagcloudform]')[0].toJSON();
-                                        var imageData = this.find('[name=tp_imagesform]')[0].toJSON();
-                                        var user = filterData.tp_user;
-                                        var type = filterData.tp_filter_type;
-                                        var headline = designData.tp_headline;
-                                        var tag_minsize = tagcloudData.tp_tag_minsize;
-                                        var tag_maxsize = tagcloudData.tp_tag_maxsize;
-                                        var tag_limit = tagcloudData.tp_tag_limit;
-                                        var show_tags_as = tagcloudData.tp_show_tags_as;
-                                        var image = imageData.tp_image;
-                                        var image_size = imageData.tp_image_size;
-                                        var image_link = imageData.tp_image_link;
-                                        var author_name = designData.tp_author_name;
-                                        var editor_name = designData.tp_editor_name;
-                                        var style = designData.tp_style;
-                                        var template = designData.tp_template;
-                                        var link_style = designData.tp_link_style;
-                                        var entries_per_page = e.data.tp_entries_per_page;
+                                        var filterData = this.find('[name=tc_filterform]')[0].toJSON();
+                                        var designData = this.find('[name=tc_designform]')[0].toJSON();
+                                        var tagcloudData = this.find('[name=tc_tagcloudform]')[0].toJSON();
+                                        var imageData = this.find('[name=tc_imagesform]')[0].toJSON();
+                                        var user = filterData.tc_user;
+                                        var type = filterData.tc_filter_type;
+                                        var headline = designData.tc_headline;
+                                        var tag_minsize = tagcloudData.tc_tag_minsize;
+                                        var tag_maxsize = tagcloudData.tc_tag_maxsize;
+                                        var tag_limit = tagcloudData.tc_tag_limit;
+                                        var show_tags_as = tagcloudData.tc_show_tags_as;
+                                        var image = imageData.tc_image;
+                                        var image_size = imageData.tc_image_size;
+                                        var image_link = imageData.tc_image_link;
+                                        var author_name = designData.tc_author_name;
+                                        var editor_name = designData.tc_editor_name;
+                                        var style = designData.tc_style;
+                                        var template = designData.tc_template;
+                                        var link_style = designData.tc_link_style;
+                                        var entries_per_page = e.data.tc_entries_per_page;
                                         
                                         user = (user === '') ? '' : 'user="' + user + '"';
                                         type = (type === '0') ? '' : 'type="' + type + '"';
@@ -787,11 +787,11 @@
                                         {
                                             title: 'Filter',
                                             type: 'form',
-                                            name: 'tp_filterform',
+                                            name: 'tc_filterform',
                                             items: [
                                                  {
                                                     type: 'listbox',
-                                                    name: 'tp_as_filter',
+                                                    name: 'tc_as_filter',
                                                     label: 'Show all publications by default',
                                                     'values': [
                                                         {text: 'No', value: 'false'},
@@ -800,7 +800,7 @@
                                                 },
                                                 {
                                                     type: 'textbox',
-                                                    name: 'tp_entries_per_page',
+                                                    name: 'tc_entries_per_page',
                                                     label: 'Entries per page',
                                                     value: '20'
                                                 }
@@ -810,11 +810,11 @@
                                         {
                                             title: 'Design',
                                             type: 'form',
-                                            name: 'tp_designform',
+                                            name: 'tc_designform',
                                             items: [
                                                 {
                                                     type: 'listbox',
-                                                    name: 'tp_headline',
+                                                    name: 'tc_headline',
                                                     label: 'Headline',
                                                     'values': [
                                                         {text: 'years', value: '1'},
@@ -826,7 +826,7 @@
                                                 },
                                                 {
                                                     type: 'listbox',
-                                                    name: 'tp_author_name',
+                                                    name: 'tc_author_name',
                                                     label: 'Style of the author names',
                                                     'values': [
                                                         {text: 'last (example: van der Vaart, Ludwig)', value: 'last'},
@@ -837,7 +837,7 @@
                                                 },
                                                 {
                                                     type: 'listbox',
-                                                    name: 'tp_editor_name',
+                                                    name: 'tc_editor_name',
                                                     label: 'Style of the editor names',
                                                     'values': [
                                                         {text: 'last (example: van der Vaart, Ludwig)', value: 'last'},
@@ -848,7 +848,7 @@
                                                 },
                                                 {
                                                     type: 'listbox',
-                                                    name: 'tp_style',
+                                                    name: 'tc_style',
                                                     label: 'Numeration of publication lists',
                                                     'values': [
                                                         {text: 'none', value: 'none'},
@@ -858,13 +858,13 @@
                                                 },
                                                 {
                                                     type: 'listbox',
-                                                    name: 'tp_template',
+                                                    name: 'tc_template',
                                                     label: 'Template',
-                                                    'values': teachpress_pub_templates  //  is written by tp_write_data_for_tinymce()
+                                                    'values': teachpress_pub_templates  //  is written by tc_write_data_for_tinymce()
                                                 },
                                                 {
                                                     type: 'listbox',
-                                                    name: 'tp_link_style',
+                                                    name: 'tc_link_style',
                                                     label: 'Style of publication links',
                                                     'values': [
                                                         {text: 'inline', value: 'inline'},
@@ -874,7 +874,7 @@
                                                 },
                                                 {
                                                     type: 'textbox',
-                                                    name: 'tp_date_format',
+                                                    name: 'tc_date_format',
                                                     label: 'Date format',
                                                     value: 'd.m.Y'
                                                 }
@@ -884,11 +884,11 @@
                                         {
                                             title: 'Images',
                                             type: 'form',
-                                            name: 'tp_imagesform',
+                                            name: 'tc_imagesform',
                                             items: [
                                                 {
                                                     type: 'listbox',
-                                                    name: 'tp_image',
+                                                    name: 'tc_image',
                                                     label: 'Show images',
                                                     'values': [
                                                         {text: 'none', value: 'none'},
@@ -899,13 +899,13 @@
                                                 },
                                                 {
                                                     type: 'textbox',
-                                                    name: 'tp_image_size',
+                                                    name: 'tc_image_size',
                                                     label: 'Image size in px',
                                                     value: '0'
                                                 },
                                                 {
                                                     type: 'listbox',
-                                                    name: 'tp_image_link',
+                                                    name: 'tc_image_link',
                                                     label: 'Image refers to',
                                                     'values': [
                                                         {text: 'none', value: 'none'},
@@ -918,20 +918,20 @@
                                         // End Panels
                                     ],
                                     onsubmit: function( e ) {
-                                        var filterData = this.find('[name=tp_filterform]')[0].toJSON();
-                                        var designData = this.find('[name=tp_designform]')[0].toJSON();
-                                        var imageData = this.find('[name=tp_imagesform]')[0].toJSON();
-                                        var image = imageData.tp_image;
-                                        var image_size = imageData.tp_image_size;
-                                        var image_link = imageData.tp_image_link;
-                                        var author_name = designData.tp_author_name;
-                                        var editor_name = designData.tp_editor_name;
-                                        var style = designData.tp_style;
-                                        var template = designData.tp_template;
-                                        var link_style = designData.tp_link_style;
-                                        var entries_per_page = filterData.tp_entries_per_page;
-                                        var as_filter = filterData.tp_as_filter;
-                                        var date_format = designData.tp_date_format;
+                                        var filterData = this.find('[name=tc_filterform]')[0].toJSON();
+                                        var designData = this.find('[name=tc_designform]')[0].toJSON();
+                                        var imageData = this.find('[name=tc_imagesform]')[0].toJSON();
+                                        var image = imageData.tc_image;
+                                        var image_size = imageData.tc_image_size;
+                                        var image_link = imageData.tc_image_link;
+                                        var author_name = designData.tc_author_name;
+                                        var editor_name = designData.tc_editor_name;
+                                        var style = designData.tc_style;
+                                        var template = designData.tc_template;
+                                        var link_style = designData.tc_link_style;
+                                        var entries_per_page = filterData.tc_entries_per_page;
+                                        var as_filter = filterData.tc_as_filter;
+                                        var date_format = designData.tc_date_format;
                                         
                                         image = (image === 'none') ? '' : 'image="' + image + '"';
                                         image_size = (image_size === '0') ? '' : 'image_size="' + image_size + '"';

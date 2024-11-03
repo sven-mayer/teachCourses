@@ -9,13 +9,13 @@
 /**
  * Main controller for the show students page and all single student pages
  */
-function tp_students_page() { 
+function tc_students_page() { 
 
     $bulk = isset ( $_GET['bulk'] ) ? $_GET['bulk'] : '';
     $search = isset ( $_GET['search'] ) ? htmlspecialchars($_GET['search']) : ''; 
     $action = isset ($_GET['action']) ? $_GET['action'] : '';
     $student = isset ( $_GET['student_id'] ) ? intval($_GET['student_id']) : 0;
-    $fields = get_tp_options('teachpress_stud','`setting_id` ASC', ARRAY_A);
+    $fields = get_tc_options('teachpress_stud','`setting_id` ASC', ARRAY_A);
 
     // Page menu
     $page_settings['entries_per_page'] = 50;
@@ -40,16 +40,16 @@ function tp_students_page() {
         $subject = isset ( $_POST['subject'] ) ? htmlspecialchars($_POST['subject']) : '';
         $text = isset ( $_POST['text'] ) ? htmlspecialchars($_POST['text']) : '';
         $attachments = isset ( $_POST['attachments'] ) ? $_POST['attachments'] : '';
-        TP_Mail::sendMail($from, $to, $subject, $text, $recipients_option, $attachments);
-        get_tp_message( __('E-Mail sent','teachpress') );
+        tc_Mail::sendMail($from, $to, $subject, $text, $recipients_option, $attachments);
+        get_tc_message( __('E-Mail sent','teachpress') );
     }
     
     // field options
-    $fields = get_tp_options('teachpress_stud','`setting_id` ASC', ARRAY_A);
+    $fields = get_tc_options('teachpress_stud','`setting_id` ASC', ARRAY_A);
     $visible_fields = array();
     $select_fields = array();
     foreach ($fields as $row) {
-        $data = TP_DB_Helpers::extract_column_data($row['value']);
+        $data = tc_DB_Helpers::extract_column_data($row['value']);
         if ( $data['visibility'] === 'admin') {
             array_push($visible_fields, $row['variable']);
         }
@@ -72,16 +72,16 @@ function tp_students_page() {
 
     // Event handler
     if ( $action === 'show' ) {
-        TP_Student_Page::show_tab($student, $fields, $search, $page_settings['curr_page'], $url_parameter);
+        tc_Student_Page::show_tab($student, $fields, $search, $page_settings['curr_page'], $url_parameter);
     }
     elseif ( $action === 'edit' ) {
-        TP_Student_Page::edit_tab($student, $fields, $search, $page_settings['curr_page'], $url_parameter);
+        tc_Student_Page::edit_tab($student, $fields, $search, $page_settings['curr_page'], $url_parameter);
     }
     elseif ( $action === 'add' ) {
-        tp_add_student_page($fields);
+        tc_add_student_page($fields);
     }
     else {
-        TP_Students_Page::get_page($bulk, $search, $meta_search, $fields, $visible_fields, $select_fields, $page_settings, $url_parameter);
+        tc_Students_Page::get_page($bulk, $search, $meta_search, $fields, $visible_fields, $select_fields, $page_settings, $url_parameter);
     }
 }
 
@@ -89,7 +89,7 @@ function tp_students_page() {
  * This class contains all function for the show students page
  * @since 5.0.0
  */
-class TP_Students_Page {
+class tc_Students_Page {
     
     /**
      * Gets the filter for meta data
@@ -101,12 +101,12 @@ class TP_Students_Page {
         $selects = false;
         $max = count($select_fields);
         for ($i = 0; $i < $max; $i++) {
-            $meta_field = get_tp_option($select_fields[$i], 'teachpress_stud');
-            $meta_field_options = TP_DB_Helpers::extract_column_data($meta_field);
+            $meta_field = get_tc_option($select_fields[$i], 'teachpress_stud');
+            $meta_field_options = tc_DB_Helpers::extract_column_data($meta_field);
             
             echo '<select name="' . $select_fields[$i] . '" title="' . __('Select','teachpress') . ': ' . $meta_field_options['title'] . '">';
             echo '<option value="">- ' . __('All','teachpress') . ' -</option>';
-            $options = get_tp_options($select_fields[$i]);
+            $options = get_tc_options($select_fields[$i]);
             $search = ( !empty($meta_search) ) ? $meta_search[$select_fields[$i]] : '';
             
             foreach ( $options as $option ) {
@@ -154,24 +154,24 @@ class TP_Students_Page {
         
         // Delete students part 2
         if ( isset($_GET['delete_ok']) ) {
-            TP_Students::delete_student($checkbox);
+            tc_Students::delete_student($checkbox);
             $message = __('Removing successful','teachpress');
-            get_tp_message($message);
+            get_tc_message($message);
         }
         
         // Load data
-        $number_entries = TP_Students::get_students( array('search' => $search, 
+        $number_entries = tc_Students::get_students( array('search' => $search, 
                                                            'meta_search' => $meta_search, 
                                                            'output_type' => OBJECT, 
                                                            'count' => true ) );
-        $students = TP_Students::get_students( array('search' => $search, 
+        $students = tc_Students::get_students( array('search' => $search, 
                                                      'meta_search' => $meta_search, 
                                                      'limit' => $page_settings['entry_limit'] . ',' . $page_settings['entries_per_page'], 
                                                      'output_type' => ARRAY_A ) );
         ?>
-        <div id="tp_searchbox">  
+        <div id="tc_searchbox">  
             <?php if ($search != "") { ?>
-            <a href="admin.php?page=teachpress/students.php" class="tp_search_cancel" title="<?php _e('Cancel the search','teachpress'); ?>">X</a>
+            <a href="admin.php?page=teachpress/students.php" class="tc_search_cancel" title="<?php _e('Cancel the search','teachpress'); ?>">X</a>
             <?php } ?>
             <input name="search" type="search" value="<?php echo stripslashes($search); ?>"/></td>
             <input name="go" type="submit" value="<?php _e('Search','teachpress'); ?>" id="teachpress_search_senden" class="button-secondary"/>
@@ -183,7 +183,7 @@ class TP_Students_Page {
             </select>
             <input type="submit" name="teachpress_submit" value="<?php _e('OK','teachpress'); ?>" id="doaction" class="button-secondary"/>
             <?php 
-            TP_Students_Page::get_filter($select_fields, $meta_search);
+            tc_Students_Page::get_filter($select_fields, $meta_search);
             // Page Menu
             $args = array('number_entries' => $number_entries,
                       'entries_per_page' => $page_settings['entries_per_page'],
@@ -191,14 +191,14 @@ class TP_Students_Page {
                       'entry_limit' => $page_settings['entry_limit'],
                       'page_link' => "admin.php?page=$page&amp;",
                       'link_attributes' => "search=$search" . $url_parameter);
-            echo tp_page_menu($args);
+            echo tc_page_menu($args);
             ?>
         </div>
         <table class="widefat">
         <thead>
         <tr>
             <td class="check-column">
-                <input name="tp_check_all" id="tp_check_all" type="checkbox" value="" onclick="teachpress_checkboxes('checkbox[]','tp_check_all');" />
+                <input name="tc_check_all" id="tc_check_all" type="checkbox" value="" onclick="teachpress_checkboxes('checkbox[]','tc_check_all');" />
             </td>
             <?php
             echo '<th>' . __('Last name','teachpress') . '</th>';
@@ -206,7 +206,7 @@ class TP_Students_Page {
             echo '<th>' . __('User account','teachpress') . '</th>'; 
             echo '<th>' . __('E-Mail') . '</th>';
             foreach ($fields as $row) {
-                $data = TP_DB_Helpers::extract_column_data($row['value']);
+                $data = tc_DB_Helpers::extract_column_data($row['value']);
                 if ( $data['visibility'] === 'admin' ) {
                     echo '<th>' . $data['title'] . '</th>';
                 }
@@ -216,7 +216,7 @@ class TP_Students_Page {
         </thead>
         <tbody> 
         <?php
-        TP_Students_Page::get_table_row ($students, $bulk, $checkbox, $search, $page_settings['curr_page'], $visible_fields, $url_parameter);
+        tc_Students_Page::get_table_row ($students, $bulk, $checkbox, $search, $page_settings['curr_page'], $visible_fields, $url_parameter);
         ?> 
         </tbody>
         </table>
@@ -231,7 +231,7 @@ class TP_Students_Page {
                           'page_link' => "admin.php?page=$page&amp;",
                           'link_attributes' => "search=$search" . $url_parameter,
                           'mode' => 'bottom');
-                echo tp_page_menu($args);
+                echo tc_page_menu($args);
             } 
             else {
                 if ($number_entries == 1) {
@@ -268,7 +268,7 @@ class TP_Students_Page {
 
         $class_alternate = true;
         foreach( $students as $row3) { 
-            $student_meta = TP_Students::get_student_meta($row3['wp_id']);
+            $student_meta = tc_Students::get_student_meta($row3['wp_id']);
             $tr_class = ( $class_alternate === true ) ? 'class="alternate"' : '';
             $class_alternate = ( $class_alternate === true ) ? false : true;
             echo '<tr ' . $tr_class . '>';

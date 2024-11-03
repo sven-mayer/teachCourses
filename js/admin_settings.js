@@ -22,7 +22,7 @@ jQuery(document).ready(function($){
     });
     
     // Open about dialog
-    $( "#tp_open_readme" ).click(function() {
+    $( "#tc_open_readme" ).click(function() {
       $( "#dialog" ).dialog( "open" );
     });
     

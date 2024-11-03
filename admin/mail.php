@@ -11,7 +11,7 @@
  * 
  * @since 3.0.0
  */
-function tp_show_mail_page() {
+function tc_show_mail_page() {
 
     $current_user = wp_get_current_user();
 
@@ -28,7 +28,7 @@ function tp_show_mail_page() {
     
     // check capabilities
     if ( $course_id !== 0 ) {
-        $capability = TP_Courses::get_capability($course_id, $current_user->ID);
+        $capability = tc_Courses::get_capability($course_id, $current_user->ID);
         if ( $capability !== 'owner' && $capability !== 'approved' ) {
             echo __('Access denied','teachpress');
             return;
@@ -44,7 +44,7 @@ function tp_show_mail_page() {
         if ( $group === 'wtl' ) {
             $waitinglist = 1;		
         }
-        $mails = TP_Courses::get_signups(array('output_type' => ARRAY_A, 
+        $mails = tc_Courses::get_signups(array('output_type' => ARRAY_A, 
                                                 'course_id' => $course_id, 
                                                 'waitinglist' => $waitinglist ) );
     }

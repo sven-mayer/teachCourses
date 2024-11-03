@@ -12,7 +12,7 @@
  * @package teachpress\core\installation
  * @since 5.0.0
  */
-class TP_Tables {
+class tc_Tables {
     
     /**
      * Install teachPress database tables
@@ -433,7 +433,7 @@ class TP_Tables {
     public static function add_default_settings(){
         global $wpdb;
         $value = '[tpsingle [key]]<!--more-->' . "\n\n[tpabstract]\n\n[tplinks]\n\n[tpbibtex]";
-        $version = get_tp_version();
+        $version = get_tc_version();
         
         $wpdb->query("INSERT INTO " . TEACHPRESS_SETTINGS . " (`variable`, `value`, `category`) VALUES ('sem', 'Example term', 'system')");
         $wpdb->query("INSERT INTO " . TEACHPRESS_SETTINGS . " (`variable`, `value`, `category`) VALUES ('db-version', '$version', 'system')");

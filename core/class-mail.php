@@ -11,7 +11,7 @@
  * @package teachpress\core\mail
  * @since 3.0.0
  */
-class TP_Mail {
+class tc_Mail {
      
     /**
      * Send an e-mail
@@ -35,7 +35,7 @@ class TP_Mail {
         // Send mail
         // Use the normal wp_mail()
         // The "Return-Path" seems to be useless, I'm no sure why
-        if ( !defined('TP_MAIL_SYSTEM') ) {
+        if ( !defined('tc_MAIL_SYSTEM') ) {
             // Prepare header attributes
             if ( $from === 'currentuser' ) {
                 $headers[] = 'From: ' . $current_user->display_name . ' <' . $current_user->user_email . '>';
@@ -77,7 +77,7 @@ class TP_Mail {
             
             // Display errors
             if ( $ret !== true ) {
-                get_tp_message( htmlspecialchars($ret), 'red' );
+                get_tc_message( htmlspecialchars($ret), 'red' );
             }
             else {
                 // Send backup mail

@@ -11,7 +11,7 @@
  * @package teachpress\core\ajax
  * @since 5.0.0
  */
-class TP_Document_Manager {
+class tc_Document_Manager {
     
     /**
      * Inits the document manager
@@ -49,7 +49,7 @@ class TP_Document_Manager {
 
           'multipart_params'    => array(
             '_ajax_nonce' => wp_create_nonce('document-upload'),
-            'action'      => 'tp_document_upload',
+            'action'      => 'tc_document_upload',
             'course_id'   => $course_id
           ),
         );
@@ -73,30 +73,30 @@ class TP_Document_Manager {
                 </div>
             </div>
             <h3 id="document_headline"><?php _e('Documents','teachpress') ?></h3>
-            <div id="tp_add_headline">
+            <div id="tc_add_headline">
                 <?php _e('Add headline','teachpress'); ?>
-                <input id="tp_add_headline_name" name="tp_add_headline_name" type="text" value="" style="width: 400px;"/>
-                <a id="tp_add_headline_button" class="button-secondary"><?php _e('Add','teachpress'); ?></a>
+                <input id="tc_add_headline_name" name="tc_add_headline_name" type="text" value="" style="width: 400px;"/>
+                <a id="tc_add_headline_button" class="button-secondary"><?php _e('Add','teachpress'); ?></a>
             </div>
-            <ul class="tp_filelist" id="tp_sortable">
+            <ul class="tc_filelist" id="tc_sortable">
                 <?php
-                $documents = TP_Documents::get_documents($course_id);
+                $documents = tc_Documents::get_documents($course_id);
                 $upload_dir = wp_upload_dir();
                 foreach ($documents as $row) {
-                    $class = 'tp_file tp_file_headline';
+                    $class = 'tc_file tc_file_headline';
                     $size = '';
                     $checkbox = '';
-                    $name = '<span class="tp_file_name">' . stripslashes($row['name']) . '</span>';
+                    $name = '<span class="tc_file_name">' . stripslashes($row['name']) . '</span>';
                     if ( $row['path'] !== '' ) {
-                        $class = 'tp_file';
-                        $name = '<span class="tp_file_name"><i class="' . TP_Icons::get_class( $row['path'] ) . '"></i>' . stripslashes($row['name']) . '</span>';
-                        $size = '<span class="tp_file_size">' . tp_convert_file_size($row['size']) . '</span>';
+                        $class = 'tc_file';
+                        $name = '<span class="tc_file_name"><i class="' . tc_Icons::get_class( $row['path'] ) . '"></i>' . stripslashes($row['name']) . '</span>';
+                        $size = '<span class="tc_file_size">' . tc_convert_file_size($row['size']) . '</span>';
                     }
                     if ( $mode === 'tinyMCE' && $row['path'] !== '' ) {
-                        $checkbox = '<input type="checkbox" name="tp_file_checkbox[]" id="tp_file_checkbox_' . $row['doc_id'] . '" class="tp_file_checkbox" data_1="' . esc_js($row['name']) . '" data_2="' . esc_url($upload_dir['baseurl'] . $row['path']) . '" value="' . $row['doc_id'] . '" />';
-                        $name = '<label class="tp_file_label" for="tp_file_checkbox_' . $row['doc_id'] . '"><span class="tp_file_name">' . stripslashes($row['name']) . '</span></label>';
+                        $checkbox = '<input type="checkbox" name="tc_file_checkbox[]" id="tc_file_checkbox_' . $row['doc_id'] . '" class="tc_file_checkbox" data_1="' . esc_js($row['name']) . '" data_2="' . esc_url($upload_dir['baseurl'] . $row['path']) . '" value="' . $row['doc_id'] . '" />';
+                        $name = '<label class="tc_file_label" for="tc_file_checkbox_' . $row['doc_id'] . '"><span class="tc_file_name">' . stripslashes($row['name']) . '</span></label>';
                     }
-                    echo '<li class="' . $class . '" id="tp_file_' . $row['doc_id'] . '">' . $checkbox . $name . ' ' . $size . ' <span class="tp_file_actions"><a class="tp_file_view" href="' . $upload_dir['baseurl'] . $row['path'] . '" target="_blank">' . __('Show','teachpress') . '</a> | <a class="tp_file_edit" style="cursor:pointer;" document_id="' . $row['doc_id'] . '" >' . __('Edit','teachpress') . '</a> | <a class="tp_file_delete" style="cursor:pointer;" document_id="' . $row['doc_id'] . '" >' . __('Delete','teachpress') . '</a></span></li>';
+                    echo '<li class="' . $class . '" id="tc_file_' . $row['doc_id'] . '">' . $checkbox . $name . ' ' . $size . ' <span class="tc_file_actions"><a class="tc_file_view" href="' . $upload_dir['baseurl'] . $row['path'] . '" target="_blank">' . __('Show','teachpress') . '</a> | <a class="tc_file_edit" style="cursor:pointer;" document_id="' . $row['doc_id'] . '" >' . __('Edit','teachpress') . '</a> | <a class="tc_file_delete" style="cursor:pointer;" document_id="' . $row['doc_id'] . '" >' . __('Delete','teachpress') . '</a></span></li>';
                 }
                 ?>
             </ul>
@@ -152,11 +152,11 @@ class TP_Document_Manager {
                     $.get("<?php echo admin_url( 'admin-ajax.php' ) ;?>?action=teachpress&mimetype_input=" + file.name, 
                     function(text){
                         <?php if ( $mode === 'tinyMCE' ) { ?>
-                        $('.tp_filelist').append('<li class="tp_file" id="' + file.id + '"><input type="checkbox" name="tp_file_checkbox[]" id="tp_file_checkbox_' + file.id + '" disabled="disabled" class="tp_file_checkbox" data_1="' + file.name + '" data_2="" value=""/><label class="tp_file_label" for="tp_file_checkbox_' + file.id + '"><span class="tp_file_name"><i class="' + text + '"></i>' +
-                        file.name + '</span></label> (<span class="tp_file_size">' + plupload.formatSize(0) + '/</span>' + plupload.formatSize(file.size) + ') ' + '<div class="tp_fileprogress"></div></li>');
+                        $('.tc_filelist').append('<li class="tc_file" id="' + file.id + '"><input type="checkbox" name="tc_file_checkbox[]" id="tc_file_checkbox_' + file.id + '" disabled="disabled" class="tc_file_checkbox" data_1="' + file.name + '" data_2="" value=""/><label class="tc_file_label" for="tc_file_checkbox_' + file.id + '"><span class="tc_file_name"><i class="' + text + '"></i>' +
+                        file.name + '</span></label> (<span class="tc_file_size">' + plupload.formatSize(0) + '/</span>' + plupload.formatSize(file.size) + ') ' + '<div class="tc_fileprogress"></div></li>');
                         <?php } else { ?>
-                        $('.tp_filelist').append('<li class="tp_file" id="' + file.id + '"><span class="tp_file_name"><i class="' + text + '"></i>' +
-                        file.name + '</span> (<span class="tp_file_size">' + plupload.formatSize(0) + '/</span>' + plupload.formatSize(file.size) + ') ' + '<div class="tp_fileprogress"></div></li>');
+                        $('.tc_filelist').append('<li class="tc_file" id="' + file.id + '"><span class="tc_file_name"><i class="' + text + '"></i>' +
+                        file.name + '</span> (<span class="tc_file_size">' + plupload.formatSize(0) + '/</span>' + plupload.formatSize(file.size) + ') ' + '<div class="tc_fileprogress"></div></li>');
                         <?php } ?>
                         console.log(file);
                     });
@@ -170,8 +170,8 @@ class TP_Document_Manager {
 
             // while a file is uploaded
             uploader.bind('UploadProgress', function(up, file) {
-                $('#' + file.id + " .tp_fileprogress").width(file.percent + "%");
-                $('#' + file.id + " .tp_file_size").html(plupload.formatSize(parseInt(file.size * file.percent / 100)));
+                $('#' + file.id + " .tc_fileprogress").width(file.percent + "%");
+                $('#' + file.id + " .tc_file_size").html(plupload.formatSize(parseInt(file.size * file.percent / 100)));
             });
 
             // a file was uploaded
@@ -183,19 +183,19 @@ class TP_Document_Manager {
                 response_splitted[0] = parseInt(response_splitted[0]);
                 if ( isNaN( response_splitted[0] ) === true ) {
                     $('<div class="teachpress_message teachpress_message_red"><strong>' + response.response + '</strong></div>').prependTo(".wrap");
-                    $('#' + file.id + " .tp_fileprogress").css( "background-color", "red" );
+                    $('#' + file.id + " .tc_fileprogress").css( "background-color", "red" );
                     $('.teachpress_message').delay( 2400 ).fadeOut('slow');
                     return;
                 }
                 
                 // Change DOM and update values
-                $('#' + file.id + " .tp_fileprogress").width("0%");
-                $('<span class="tp_file_actions"><a class="tp_file_view" href="' + response_splitted[2] + '" target="_blank"><?php _e('Show','teachpress'); ?></a> | <a class="tp_file_edit" style="cursor:pointer;" document_id="' + response_splitted[0] + '" ><?php _e('Edit','teachpress'); ?></a> | <a class="tp_file_delete" style="cursor:pointer;" document_id="' + response_splitted[0] + '" ><?php _e('Delete','teachpress'); ?></a></span>').appendTo('#' + file.id);
-                $('#' + file.id).attr("id","tp_file_" + response_splitted[0]);
-                $('#tp_file_checkbox_' + file.id).attr("value",response_splitted[0]);
-                $('#tp_file_checkbox_' + file.id).attr("data_2",response_splitted[2]);
-                $('#tp_file_checkbox_' + file.id).attr('disabled', false);
-                $('#tp_file_checkbox_' + file.id).attr("id","tp_file_checkbox_" + response_splitted[0]);
+                $('#' + file.id + " .tc_fileprogress").width("0%");
+                $('<span class="tc_file_actions"><a class="tc_file_view" href="' + response_splitted[2] + '" target="_blank"><?php _e('Show','teachpress'); ?></a> | <a class="tc_file_edit" style="cursor:pointer;" document_id="' + response_splitted[0] + '" ><?php _e('Edit','teachpress'); ?></a> | <a class="tc_file_delete" style="cursor:pointer;" document_id="' + response_splitted[0] + '" ><?php _e('Delete','teachpress'); ?></a></span>').appendTo('#' + file.id);
+                $('#' + file.id).attr("id","tc_file_" + response_splitted[0]);
+                $('#tc_file_checkbox_' + file.id).attr("value",response_splitted[0]);
+                $('#tc_file_checkbox_' + file.id).attr("data_2",response_splitted[2]);
+                $('#tc_file_checkbox_' + file.id).attr('disabled', false);
+                $('#tc_file_checkbox_' + file.id).attr("id","tc_file_checkbox_" + response_splitted[0]);
                 
                 // Save new sort order
                 var data = $(this).sortable('serialize')+ '&action=teachpress';
@@ -210,7 +210,7 @@ class TP_Document_Manager {
         <script type="text/javascript" charset="utf-8">
         jQuery(document).ready(function($){
             // Drag & Drop sorting
-            $( '#tp_sortable' ).sortable({
+            $( '#tc_sortable' ).sortable({
                 placeholder: "ui-state-highlight",
                 opacity:.5,
                 update: function (event, ui) {
@@ -218,18 +218,18 @@ class TP_Document_Manager {
                     $.post( "<?php echo admin_url( 'admin-ajax.php' ) ;?>", data );
                 } 
             });
-            $( "#tp_sortable" ).disableSelection();
+            $( "#tc_sortable" ).disableSelection();
             
             // Add headlines
-            $("body").on("click", "#tp_add_headline_button", function() {
-                var value = $("#tp_add_headline_name").val();
+            $("body").on("click", "#tc_add_headline_button", function() {
+                var value = $("#tc_add_headline_name").val();
                 if ( value !== '' ) {
                     $.get("<?php echo admin_url( 'admin-ajax.php' ); ?>?action=teachpress&add_document=" + value + "&course_id=<?php echo $course_id; ?>", 
                     function(new_doc_id){
                         new_doc_id = parseInt(new_doc_id);
-                        $('.tp_filelist').append('<li class="tp_file tp_file_headline" id="tp_file_' + new_doc_id + '" document_id="' + new_doc_id + '"><span class="tp_file_name">' + value + '</span> ' + '</li>');
-                        $('<span class="tp_file_actions"><a class="tp_file_edit" style="cursor:pointer;" document_id="' + new_doc_id + '" ><?php _e('Edit','teachpress'); ?></a> | <a class="tp_file_delete" style="cursor:pointer;" document_id="' + new_doc_id + '" ><?php _e('Delete','teachpress'); ?></a></span>').appendTo('#tp_file_' + new_doc_id);
-                        $("#tp_add_headline_name").val('');
+                        $('.tc_filelist').append('<li class="tc_file tc_file_headline" id="tc_file_' + new_doc_id + '" document_id="' + new_doc_id + '"><span class="tc_file_name">' + value + '</span> ' + '</li>');
+                        $('<span class="tc_file_actions"><a class="tc_file_edit" style="cursor:pointer;" document_id="' + new_doc_id + '" ><?php _e('Edit','teachpress'); ?></a> | <a class="tc_file_delete" style="cursor:pointer;" document_id="' + new_doc_id + '" ><?php _e('Delete','teachpress'); ?></a></span>').appendTo('#tc_file_' + new_doc_id);
+                        $("#tc_add_headline_name").val('');
                         
                         // Save new sort order
                         var data = $(this).sortable('serialize')+ '&action=teachpress';
@@ -259,10 +259,10 @@ class TP_Document_Manager {
             }
             
             // Checkboxes for file inserts (tinyMCE Document Manager only)
-            $("body").on( "click", ".tp_file_checkbox", function() {
+            $("body").on( "click", ".tc_file_checkbox", function() {
                 var value = '';
-                // var tp_saved_cookie = getCookie("teachpress_data_store");
-                $(".tp_file_checkbox").each(function( index ) {
+                // var tc_saved_cookie = getCookie("teachpress_data_store");
+                $(".tc_file_checkbox").each(function( index ) {
                     if ( $(this).prop('checked') ) {
                         value = value + '[name = {"' + $(this).attr("data_1") + '"}, url = {"' + $(this).attr("data_2") + '"}]:::';
                     }
@@ -271,37 +271,37 @@ class TP_Document_Manager {
             });
             
             // Edit documents: add menu
-            $("body").on( "click", ".tp_file_edit", function() {
+            $("body").on( "click", ".tc_file_edit", function() {
                 var document_id = $(this).attr("document_id");
                 
                 $.get("<?php echo admin_url( 'admin-ajax.php' ); ?>?action=teachpress&get_document_name=" + document_id, 
                 function(text){
-                    $("#tp_file_" + document_id).append('<div id="tp_file_edit_' + document_id + '"><input id="tp_file_edit_text_' + document_id + '" type="text" value="' + text + '" style="width:75%;" /><p><a class="button-primary tp_file_edit_save" document_id="' + document_id + '"><?php _e('Save'); ?></a> <a class="button-secondary tp_file_edit_cancel" document_id="' + document_id + '"><?php _e('Cancel'); ?></a></p></div>');
+                    $("#tc_file_" + document_id).append('<div id="tc_file_edit_' + document_id + '"><input id="tc_file_edit_text_' + document_id + '" type="text" value="' + text + '" style="width:75%;" /><p><a class="button-primary tc_file_edit_save" document_id="' + document_id + '"><?php _e('Save'); ?></a> <a class="button-secondary tc_file_edit_cancel" document_id="' + document_id + '"><?php _e('Cancel'); ?></a></p></div>');
                 });
             });
             
             // Edit documents: cancel
-            $("body").on( "click", ".tp_file_edit_cancel", function() {
+            $("body").on( "click", ".tc_file_edit_cancel", function() {
                 var document_id = $(this).attr("document_id");
-                $("#tp_file_edit_" + document_id).remove();
+                $("#tc_file_edit_" + document_id).remove();
             });
             
             // Edit documents: save
-            $("body").on( "click", ".tp_file_edit_save", function() {
+            $("body").on( "click", ".tc_file_edit_save", function() {
                 var document_id = $(this).attr("document_id");
-                var value = $("#tp_file_edit_text_" + document_id).val();
+                var value = $("#tc_file_edit_text_" + document_id).val();
                 
                 $.post( "<?php echo admin_url( 'admin-ajax.php' ) ;?>", { change_document: document_id, new_document_name: value, action: 'teachpress' });
-                $("#tp_file_" + document_id + " .tp_file_name").text(value);
-                $('#tp_file_checkbox_' + document_id).attr("data_1",value);
-                $("#tp_file_edit_" + document_id).remove();
+                $("#tc_file_" + document_id + " .tc_file_name").text(value);
+                $('#tc_file_checkbox_' + document_id).attr("data_1",value);
+                $("#tc_file_edit_" + document_id).remove();
                 
             });
             
             // Delete documents
-            $("body").on( "click", ".tp_file_delete", function() {
+            $("body").on( "click", ".tc_file_delete", function() {
                 var document_id = $(this).attr("document_id");
-                $("#tp_file_" + document_id).remove().hide();
+                $("#tc_file_" + document_id).remove().hide();
                 $.get("<?php echo admin_url( 'admin-ajax.php' ) ;?>?action=teachpress&del_document=" + document_id, 
                 function(text){
                     if ( text.search('true') !== -1 ) {
@@ -345,7 +345,7 @@ class TP_Document_Manager {
                 decimalPoint = ',',
                 isRtl = 0;
             </script>
-            <link rel="stylesheet" id="teachpress-document-manager-css"  href="<?php echo plugins_url( 'styles/teachpress_document_manager.css', dirname( __FILE__ ) ) . '?ver=' . get_tp_version(); ?>" type="text/css" media="all" />
+            <link rel="stylesheet" id="teachpress-document-manager-css"  href="<?php echo plugins_url( 'styles/teachpress_document_manager.css', dirname( __FILE__ ) ) . '?ver=' . get_tc_version(); ?>" type="text/css" media="all" />
         </head>
         <?php
     }
@@ -357,14 +357,14 @@ class TP_Document_Manager {
      * @access private
      */
     private static function get_course_selector ($course_id) {
-        echo '<div id="tp_select_course">';
+        echo '<div id="tc_select_course">';
         echo '<select name="sel_course_id">';
         echo '<option value="">- ' . __('Select Course','teachpress') . ' -</option>';
         
         // List of courses
-        $semester = get_tp_options('semester', '`setting_id` DESC');
+        $semester = get_tc_options('semester', '`setting_id` DESC');
         foreach ( $semester as $row ) {
-            $courses = TP_Courses::get_courses( array('parent' => 0, 'semester' => $row->value) );
+            $courses = tc_Courses::get_courses( array('parent' => 0, 'semester' => $row->value) );
             if ( count($courses) !== 0 ) {
                 echo '<optgroup label="' . $row->value . '">';
             }
@@ -414,11 +414,11 @@ class TP_Document_Manager {
 
             // default
             if ( $post_id !== 0 && $course_id === 0 ) {
-                $course_id = intval (TP_Courses::is_used_as_related_content($post_id) );
+                $course_id = intval (tc_Courses::is_used_as_related_content($post_id) );
             }
             // For user's selection
             else if ( $course_id !== 0 ) {
-                $post_id = TP_Courses::get_course_data($course_id, 'rel_page');
+                $post_id = tc_Courses::get_course_data($course_id, 'rel_page');
             }
             
             echo '<body>';
@@ -428,13 +428,13 @@ class TP_Document_Manager {
             self::get_course_selector($course_id);
             
             if ( $course_id !== 0 ) { 
-                $capability = TP_Courses::get_capability($course_id, $current_user->ID);
+                $capability = tc_Courses::get_capability($course_id, $current_user->ID);
                 // check capabilities
                 if ( $capability !== 'owner' && $capability !== 'approved' ) {
-                    get_tp_message(__('You have no capabilities to use this course','teachpress'), 'red');
+                    get_tc_message(__('You have no capabilities to use this course','teachpress'), 'red');
                 }
                 else {
-                    TP_Document_Manager::init($course_id, 'tinyMCE');
+                    tc_Document_Manager::init($course_id, 'tinyMCE');
                 }
             } 
             

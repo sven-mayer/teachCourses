@@ -1,6 +1,6 @@
 <?php
 /**
- * This file contains all functions of the tp_html class
+ * This file contains all functions of the tc_html class
  * @package teachpress\core\html
  * @license http://www.gnu.org/licenses/gpl-2.0.html GPLv2 or later
  * @since 5.0.10
@@ -11,7 +11,7 @@
  * @package teachpress\core\html
  * @since 5.0.10
  */
-class TP_HTML {
+class tc_HTML {
     
     /**
      * Prints a simple text line with PHP_EOL at the end

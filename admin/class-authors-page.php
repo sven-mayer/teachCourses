@@ -4,7 +4,7 @@
  * @since 8.1
  * @license http://www.gnu.org/licenses/gpl-2.0.html GPLv2 or later
  */
-class TP_Authors_Page {
+class tc_Authors_Page {
     
     /**
      * Prints the page
@@ -21,7 +21,7 @@ class TP_Authors_Page {
         if ( isset( $_GET['action'] ) && $_GET['action'] !== '' ) {
             $action = htmlspecialchars($_GET['action']);
         }
-        TP_Authors_Page::get_page($action);
+        tc_Authors_Page::get_page($action);
     }
 
 
@@ -46,8 +46,8 @@ class TP_Authors_Page {
         }
         // delete tags - part 2
         if ( isset( $_GET['delete_ok'] ) ) {
-            TP_Authors::delete_authors($checkbox);
-            get_tp_message( __('Removing successful','teachpress') );
+            tc_Authors::delete_authors($checkbox);
+            get_tc_message( __('Removing successful','teachpress') );
         }
     }
     
@@ -75,7 +75,7 @@ class TP_Authors_Page {
             $per_page = $screen->get_option( 'per_page', 'default' );
         }
         // sorting
-        $option = get_user_meta($user, 'tp_authors_sorting', true);
+        $option = get_user_meta($user, 'tc_authors_sorting', true);
         $order = 'a.sort_name ASC, a.name ASC';
         
         if ( $option == 'firstname' ) {
@@ -105,9 +105,9 @@ class TP_Authors_Page {
         self::actions($action, $checkbox, $page, $search, $curr_page);
 
         // Searchbox
-        echo '<div id="tp_searchbox">';
+        echo '<div id="tc_searchbox">';
         if ($search != "") {
-            echo '<a href="admin.php?page=teachpress/authors.php" class="tp_search_cancel" title="' . __('Cancel the search','teachpress') . '">X</a>';
+            echo '<a href="admin.php?page=teachpress/authors.php" class="tc_search_cancel" title="' . __('Cancel the search','teachpress') . '">X</a>';
         }
         echo '<input type="search" name="search" id="pub_search_field" value="' . stripslashes($search) . '"/>';
         echo '<input type="submit" name="button" id="button" value="' . __('Search','teachpress') . '" class="button-secondary"/>';
@@ -128,7 +128,7 @@ class TP_Authors_Page {
         echo '</select>';
         echo '<input name="OK" value="OK" type="submit" class="button-secondary"/>';
         echo '</div>';
-        $test = TP_Authors::get_authors_occurence( array( 
+        $test = tc_Authors::get_authors_occurence( array( 
                     'count'         => true, 
                     'search'        => $search, 
                     'only_zero'     => $only_zero
@@ -140,26 +140,26 @@ class TP_Authors_Page {
                     'entry_limit'       => $entry_limit,
                     'page_link'         => "admin.php?page=$page&amp;",
                     'link_attributes'   => "search=$search");
-        echo tp_page_menu($args);
+        echo tc_page_menu($args);
         echo '</div>';
         // END Tablenav actions
 
         // Main table
         echo '<table class="widefat">';
-        echo '<thead id="tp_authors_table_header">';
-        echo '<td class="check-column"><input name="tp_check_all" id="tp_check_all" type="checkbox" value="" /></td>';
+        echo '<thead id="tc_authors_table_header">';
+        echo '<td class="check-column"><input name="tc_check_all" id="tc_check_all" type="checkbox" value="" /></td>';
         echo '<th>' . __('Name','teachpress') . '</th>';
         echo '<th>' . __('ID','teachpress') . '</th>';
         echo '<th>' . __('Number publications','teachpress') . '</th>';
         echo '</thead>';
-        echo '<tbody id="tp_authors_table_content">';
+        echo '<tbody id="tc_authors_table_content">';
         if ( intval($test) === 0 ) {
             echo '<tr><td colspan="4"><strong>' . __('Sorry, no entries matched your criteria.','teachpress') . '</strong></td></tr>';
             }
         else {
             
             $link = 'admin.php?page=' . $page . '&amp;search=' . $search . '&amp;limit=' . $curr_page . '&amp;action=delete&amp;filter=' . $filter;
-            $results = TP_Authors::get_authors_occurence(array(
+            $results = tc_Authors::get_authors_occurence(array(
                     'search'        => $search,
                     'limit'         => $entry_limit . ',' . $number_messages,
                     'order'         => $order,
@@ -183,7 +183,7 @@ class TP_Authors_Page {
                         'page_link'           => "admin.php?page=$page&amp;",
                         'link_attributes'     => "search=$search",
                         'mode'                => 'bottom');
-            echo tp_page_menu($args);
+            echo tc_page_menu($args);
         } 
         else {
            if ( $test === 1 ) {
@@ -230,48 +230,48 @@ class TP_Authors_Page {
                 $checked = in_array($row['author_id'], $checkbox ) ? 'checked="checked"' : '';
             }
             
-            TP_HTML::line('<tr class="' . $tr_class . '" id="resultbox_' . $row['author_id'] . '">');
-            TP_HTML::line('<th class="check-column"><input name="checkbox[]" class="tp_checkbox" type="checkbox" ' . $checked . ' value="' . $row['author_id'] . '"></th>');
-            TP_HTML::line('<td><a class="tp_show_pub_info" author_id="' . $row['author_id'] . '" title="' . __('Show publications','teachpress') . '" style_class="' . $tr_class . '" style="cursor:pointer;"><b>' . TP_Bibtex::parse_author_simple($row['name']) . '</b></a>');
+            tc_HTML::line('<tr class="' . $tr_class . '" id="resultbox_' . $row['author_id'] . '">');
+            tc_HTML::line('<th class="check-column"><input name="checkbox[]" class="tc_checkbox" type="checkbox" ' . $checked . ' value="' . $row['author_id'] . '"></th>');
+            tc_HTML::line('<td><a class="tc_show_pub_info" author_id="' . $row['author_id'] . '" title="' . __('Show publications','teachpress') . '" style_class="' . $tr_class . '" style="cursor:pointer;"><b>' . tc_Bibtex::parse_author_simple($row['name']) . '</b></a>');
             
             // Row actions
-            TP_HTML::line('<div class="tp_row_actions">');
-            TP_HTML::line('<a class="tp_row_delete" href="' . $link . '&amp;checkbox%5B%5D=' . $row['author_id'] . '" title="' . __('Delete','teachpress') . '">' . __('Delete', 'teachpress') . '</a>');
-            TP_HTML::line('</div>');
+            tc_HTML::line('<div class="tc_row_actions">');
+            tc_HTML::line('<a class="tc_row_delete" href="' . $link . '&amp;checkbox%5B%5D=' . $row['author_id'] . '" title="' . __('Delete','teachpress') . '">' . __('Delete', 'teachpress') . '</a>');
+            tc_HTML::line('</div>');
             // END Row actions
             
-            TP_HTML::line('</td>');
-            TP_HTML::line('<td>' . $row['author_id'] . '</td>');
-            TP_HTML::line('<td>' . $row['count'] . '</td>');
-            TP_HTML::line('<tr>');
+            tc_HTML::line('</td>');
+            tc_HTML::line('<td>' . $row['author_id'] . '</td>');
+            tc_HTML::line('<td>' . $row['count'] . '</td>');
+            tc_HTML::line('<tr>');
         }
     }
     
     /**
      * Adds the screen options (items per page, authors_sorting)
-     * @global string $tp_admin_show_authors_page
+     * @global string $tc_admin_show_authors_page
      * @since 8.1
      */
     public static function add_screen_options() {
-        global $tp_admin_show_authors_page;
+        global $tc_admin_show_authors_page;
         $screen = get_current_screen();
 
-        if( !is_object($screen) || $screen->id != $tp_admin_show_authors_page ) {
+        if( !is_object($screen) || $screen->id != $tc_admin_show_authors_page ) {
             return;
         }
 
         $args = array(
             'label' => __('Items per page', 'teachpress'),
             'default' => 50,
-            'option' => 'tp_authors_per_page'
+            'option' => 'tc_authors_per_page'
         );
         add_screen_option( 'per_page', $args );
 
         $args = array(
             'default' => 'lastname',
-            'option' => 'tp_authors_sorting'
+            'option' => 'tc_authors_sorting'
         );
-        add_screen_option( 'tp_authors_sorting', $args );
+        add_screen_option( 'tc_authors_sorting', $args );
     }
     
     /**
@@ -280,7 +280,7 @@ class TP_Authors_Page {
      */
     public static function print_screen_options() {
         $user = get_current_user_id();
-        $option = get_user_meta($user, 'tp_authors_sorting', true);
+        $option = get_user_meta($user, 'tc_authors_sorting', true);
         $value = ( $option ) ? $option : 'lastname';
         
         // Available options
@@ -293,8 +293,8 @@ class TP_Authors_Page {
             'label' => __('Last name', 'teachpress')
         );
         
-        $r = '<label for="tp_authors_sorting"><b>' . __('Sorting', 'teachpress') . '</b></label><br/>';
-        $r .= '<select name="tp_authors_sorting" id="tp_authors_sorting">';
+        $r = '<label for="tc_authors_sorting"><b>' . __('Sorting', 'teachpress') . '</b></label><br/>';
+        $r .= '<select name="tc_authors_sorting" id="tc_authors_sorting">';
         foreach ( $options as $row ) {
             $selected = ( $row['key'] == $value ) ? 'selected="selected"' : '';
             $r .= '<option value="' . $row['key'] . '" ' . $selected . '>' . $row['label'] . '</option>';
@@ -309,9 +309,9 @@ class TP_Authors_Page {
      * @since 8.1
      */
     public static function save_screen_options () {
-        $sorting = htmlspecialchars($_POST['tp_authors_sorting']);
+        $sorting = htmlspecialchars($_POST['tc_authors_sorting']);
         if ( $sorting === 'firstname' || $sorting === 'lastname' ) {
-            update_user_meta(get_current_user_id(), 'tp_authors_sorting', $sorting);
+            update_user_meta(get_current_user_id(), 'tc_authors_sorting', $sorting);
         }
     }
 
@@ -324,7 +324,7 @@ class TP_Authors_Page {
         ?>
         <script type="text/javascript" charset="utf-8">
             jQuery(document).ready(function($) {
-                $(".tp_show_pub_info").click( function(){
+                $(".tc_show_pub_info").click( function(){
                     var author_id = $(this).attr("author_id");
                     var tr_class = $(this).attr("style_class");
                     var tr = '#resultbox_' + author_id;

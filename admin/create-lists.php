@@ -12,7 +12,7 @@
  * @param $search
  * @param $sem
 */
-function tp_lists_page() {
+function tc_lists_page() {
    
     $course_id = isset( $_GET['course_id'] ) ? intval($_GET['course_id']) : '';
     $redirect = isset( $_GET['redirect'] ) ?  intval($_GET['redirect']) : 0;
@@ -68,9 +68,9 @@ function tp_lists_page() {
          <th>
              <select name="extra_fields[]" id="extra_fields" multiple="multiple" style="min-height: 200px;">
                 <?php
-                $fields = get_tp_options('teachpress_stud','`setting_id` ASC');
+                $fields = get_tc_options('teachpress_stud','`setting_id` ASC');
                 foreach ($fields as $row) {
-                    $data = TP_DB_Helpers::extract_column_data($row->value);
+                    $data = tc_DB_Helpers::extract_column_data($row->value);
                     echo '<option value="' . $row->variable . '">' . $data['title'] . '</option>';
                 }
                 ?>
@@ -83,7 +83,7 @@ function tp_lists_page() {
     <?php
     }
     else {
-        tp_create_attendance_list($course_id, $number, $extra_fields);
+        tc_create_attendance_list($course_id, $number, $extra_fields);
     }
 
     echo '</form>';
@@ -97,11 +97,11 @@ function tp_lists_page() {
  * @param string[] $extra_fields    An array of field_names which are available
  * @since 4.3.0
  */
-function tp_create_attendance_list($course_id, $number, $extra_fields) {
-    $row = TP_Courses::get_course($course_id);
+function tc_create_attendance_list($course_id, $number, $extra_fields) {
+    $row = tc_Courses::get_course($course_id);
     // define course name
     if ($row->parent != 0) {
-       $parent_name = TP_Courses::get_course_data($row->parent, 'name');
+       $parent_name = tc_Courses::get_course_data($row->parent, 'name');
        // if parent_name == child name
        if ($parent_name == $row->name) {
            $parent_name = "";
@@ -113,7 +113,7 @@ function tp_create_attendance_list($course_id, $number, $extra_fields) {
     
     echo '<h2>' . $parent_name . ' ' . $row->name . ' ' . $row->semester . '</h2>';
     echo '<div style="width:700px; padding-bottom:10px;">';
-    echo '<table border="1" cellspacing="0" cellpadding="0" class="tp_print">';
+    echo '<table border="1" cellspacing="0" cellpadding="0" class="tc_print">';
     echo '<tr>';
     echo '<th>' . __('Lecturer','teachpress') . '</th>';
     echo '<td>' . $row->lecturer . '</td>';
@@ -125,7 +125,7 @@ function tp_create_attendance_list($course_id, $number, $extra_fields) {
     echo '</table>';        
     echo '</div>';
     
-    echo '<table border="1" cellpadding="0" cellspacing="0" class="tp_print" width="100%">';
+    echo '<table border="1" cellpadding="0" cellspacing="0" class="tc_print" width="100%">';
     echo '<thead>';
     echo '<tr style="border-collapse: collapse; border: 1px solid black;">';
     echo '<th width="20" height="100">&nbsp;</th>';
@@ -133,8 +133,8 @@ function tp_create_attendance_list($course_id, $number, $extra_fields) {
     echo '<th width="125">' . __('User account','teachpress') . '</th>';
     $max = count($extra_fields);
     for ($i = 0; $i < $max; $i++) {
-        $field_values = get_tp_option($extra_fields[$i], 'teachpress_stud');
-        $data = TP_DB_Helpers::extract_column_data($field_values);
+        $field_values = get_tc_option($extra_fields[$i], 'teachpress_stud');
+        $data = tc_DB_Helpers::extract_column_data($field_values);
         echo '<th>' . $data['title'] . '</th>';
     }
     for ($i = 1; $i <= $number; $i++ ) {
@@ -148,7 +148,7 @@ function tp_create_attendance_list($course_id, $number, $extra_fields) {
     $count = 1;
     
     
-    $sql = TP_Courses::get_signups( array('course_id' => $course_id, 'order' => 'st.lastname', 'waitinglist' => 0, 'output_type' => ARRAY_A ) );
+    $sql = tc_Courses::get_signups( array('course_id' => $course_id, 'order' => 'st.lastname', 'waitinglist' => 0, 'output_type' => ARRAY_A ) );
     foreach($sql as $row3) {
         echo '<tr>';
         echo '<td>' . $count . '</td>';

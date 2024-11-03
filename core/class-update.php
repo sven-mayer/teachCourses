@@ -12,7 +12,7 @@
  * @package teachpress\core\update
  * @since 4.2.0
  */
-class TP_Update {
+class tc_Update {
     
     /**
      * Execute this function to start a database update
@@ -20,8 +20,8 @@ class TP_Update {
      */
     public static function force_update () {
         global $wpdb;
-        $db_version = get_tp_option('db-version');
-        $software_version = get_tp_version();
+        $db_version = get_tc_option('db-version');
+        $software_version = get_tc_version();
         $update_level = '0';
         
         // Fallback for very old teachPress systems
@@ -31,7 +31,7 @@ class TP_Update {
         
         // if is the current one
         if ( $db_version === $software_version ) {
-            get_tp_message( __('An update is not necessary.','teachpress') );
+            get_tc_message( __('An update is not necessary.','teachpress') );
             return;
         }
         
@@ -61,70 +61,70 @@ class TP_Update {
         
         // force updates to reach structure of teachPress 2.0.0
         if ( $db_version[0] === '0' || $db_version[0] === '1' ) {
-            TP_Update::upgrade_table_teachpress_ver($charset_collate);
-            TP_Update::upgrade_table_teachpress_beziehung($charset_collate);
-            TP_Update::upgrade_table_teachpress_kursbelegung($charset_collate);
-            TP_Update::upgrade_table_teachpress_einstellungen($charset_collate);
-            TP_Update::upgrade_table_teachpress_stud_to_20($charset_collate);
-            TP_Update::upgrade_table_teachpress_pub_to_04($charset_collate);
-            TP_Update::upgrade_table_teachpress_pub_to_20($charset_collate);
+            tc_Update::upgrade_table_teachpress_ver($charset_collate);
+            tc_Update::upgrade_table_teachpress_beziehung($charset_collate);
+            tc_Update::upgrade_table_teachpress_kursbelegung($charset_collate);
+            tc_Update::upgrade_table_teachpress_einstellungen($charset_collate);
+            tc_Update::upgrade_table_teachpress_stud_to_20($charset_collate);
+            tc_Update::upgrade_table_teachpress_pub_to_04($charset_collate);
+            tc_Update::upgrade_table_teachpress_pub_to_20($charset_collate);
             $update_level = '2';
         }
         
         // force updates to reach structure of teachPress 3.0.0
         if ( $db_version[0] === '2' || $update_level === '2' ) {
-            TP_Update::upgrade_to_30();
+            tc_Update::upgrade_to_30();
             $update_level = '3';
         }
         
         // force updates to reach structure of teachPress 3.1.0
         if ( $db_version[0] === '3' || $update_level === '3' ) {
-            TP_Update::upgrade_to_31($charset_collate);
+            tc_Update::upgrade_to_31($charset_collate);
             $update_level = '4';
         }
         
         // force updates to reach structure of teachPress 4.2.0
         if ( $db_version[0] === '4' || $update_level === '4' ) {
-            TP_Update::upgrade_to_40($charset_collate);
-            TP_Update::upgrade_to_41();
-            TP_Update::upgrade_to_42($charset_collate);
+            tc_Update::upgrade_to_40($charset_collate);
+            tc_Update::upgrade_to_41();
+            tc_Update::upgrade_to_42($charset_collate);
             $update_level = '5';
         }
         
         // force updates to reach structure of teachPress 5.0.0
         if ( $db_version[0] === '5' || $update_level === '5' ) {
-            TP_Update::upgrade_to_50($charset_collate);
+            tc_Update::upgrade_to_50($charset_collate);
             $update_level = '6';
         }
         
         // force updates to reach structure of teachPress 6.0.0
         if ( $db_version[0] === '6' || $update_level === '6' ) {
-            TP_Update::upgrade_to_60($charset_collate);
+            tc_Update::upgrade_to_60($charset_collate);
             $update_level = '7';
         }
         
         // force updates to reach structure of teachPress 7.0.0
         if ( $db_version[0] === '7' || $update_level === '7' ) {
-            TP_Update::upgrade_to_70();
-            TP_Update::upgrade_to_71();
+            tc_Update::upgrade_to_70();
+            tc_Update::upgrade_to_71();
             $update_level = '8';
         }
         
         // force updates to reach structure of teachPress 7.0.0
         if ( $db_version[0] === '8' || $update_level === '8' ) {
-            TP_Update::upgrade_to_80();
-            TP_Update::upgrade_to_81($charset_collate);
+            tc_Update::upgrade_to_80();
+            tc_Update::upgrade_to_81($charset_collate);
         }
         
         // Add teachPress options
-        TP_Update::add_options();
+        tc_Update::add_options();
         
         // Enable foreign key checks
         if ( TEACHPRESS_FOREIGN_KEY_CHECKS === false ) {
             $wpdb->query("SET foreign_key_checks = 1");
         }
         
-        TP_Update::finalize_update($software_version);
+        tc_Update::finalize_update($software_version);
    }
 
    /**
@@ -540,7 +540,7 @@ class TP_Update {
      */
     private static function upgrade_to_42 ($charset_collate) {
         global $wpdb;
-        // expand char limit for tp_settings::value
+        // expand char limit for tc_settings::value
         if ($wpdb->query("SHOW COLUMNS FROM " . TEACHPRESS_SETTINGS . " LIKE 'value'") == '1') {
             $wpdb->query("ALTER TABLE " . TEACHPRESS_SETTINGS . " CHANGE `value` `value` TEXT $charset_collate NULL DEFAULT NULL");
         }
@@ -553,17 +553,17 @@ class TP_Update {
      */
     private static function upgrade_to_50 ($charset_collate){
         global $wpdb;
-        $charset = TP_Tables::get_charset();
+        $charset = tc_Tables::get_charset();
         // add new tables
-        TP_Tables::add_table_artefacts($charset);
-        TP_Tables::add_table_assessments($charset);
-        TP_Tables::add_table_course_capabilities($charset);
-        TP_Tables::add_table_course_documents($charset);
-        TP_Tables::add_table_course_meta($charset);
-        TP_Tables::add_table_authors($charset);
-        TP_Tables::add_table_rel_pub_auth($charset);
-        TP_Tables::add_table_stud_meta($charset);
-        TP_Tables::add_table_pub_meta($charset);
+        tc_Tables::add_table_artefacts($charset);
+        tc_Tables::add_table_assessments($charset);
+        tc_Tables::add_table_course_capabilities($charset);
+        tc_Tables::add_table_course_documents($charset);
+        tc_Tables::add_table_course_meta($charset);
+        tc_Tables::add_table_authors($charset);
+        tc_Tables::add_table_rel_pub_auth($charset);
+        tc_Tables::add_table_stud_meta($charset);
+        tc_Tables::add_table_pub_meta($charset);
         
         // add column use_capabilities to table teachpress_courses
         if ($wpdb->query("SHOW COLUMNS FROM " . TEACHPRESS_COURSES . " LIKE 'use_capabilities'") == '0') { 
@@ -600,27 +600,27 @@ class TP_Update {
             $wpdb->query("ALTER TABLE " . TEACHPRESS_AUTHORS . " ADD `sort_name` VARCHAR( 500 ) NULL DEFAULT NULL AFTER `name`");
         }
         
-        // expand char limit for tp_settings::value
+        // expand char limit for tc_settings::value
         if ($wpdb->query("SHOW COLUMNS FROM " . TEACHPRESS_SETTINGS . " LIKE 'value'") == '1') {
             $wpdb->query("ALTER TABLE " . TEACHPRESS_SETTINGS . " CHANGE `value` `value` LONGTEXT $charset_collate NULL DEFAULT NULL");
         }
         
-        // expand char limit for tp_publications::author
+        // expand char limit for tc_publications::author
         if ($wpdb->query("SHOW COLUMNS FROM " . TEACHPRESS_PUB . " LIKE 'author'") == '1') {
             $wpdb->query("ALTER TABLE " . TEACHPRESS_PUB . " CHANGE `author` `author` VARCHAR (3000) $charset_collate NULL DEFAULT NULL");
         }
         
-        // expand char limit for tp_publications::editor
+        // expand char limit for tc_publications::editor
         if ($wpdb->query("SHOW COLUMNS FROM " . TEACHPRESS_PUB . " LIKE 'editor'") == '1') {
             $wpdb->query("ALTER TABLE " . TEACHPRESS_PUB . " CHANGE `editor` `editor` VARCHAR (3000) $charset_collate NULL DEFAULT NULL");
         }
         
-        // expand char limit for tp_publications::institution
+        // expand char limit for tc_publications::institution
         if ($wpdb->query("SHOW COLUMNS FROM " . TEACHPRESS_PUB . " LIKE 'institution'") == '1') {
             $wpdb->query("ALTER TABLE " . TEACHPRESS_PUB . " CHANGE `institution` `institution` VARCHAR (500) $charset_collate NULL DEFAULT NULL");
         }
         
-        // expand char limit for tp_publications::organization
+        // expand char limit for tc_publications::organization
         if ($wpdb->query("SHOW COLUMNS FROM " . TEACHPRESS_PUB . " LIKE 'organization'") == '1') {
             $wpdb->query("ALTER TABLE " . TEACHPRESS_PUB . " CHANGE `organization` `organization` VARCHAR (500) $charset_collate NULL DEFAULT NULL");
         }
@@ -634,12 +634,12 @@ class TP_Update {
      */
     private static function upgrade_to_60 ($charset_collate){
         global $wpdb;
-        $charset = TP_Tables::get_charset();
+        $charset = tc_Tables::get_charset();
         
         // add new tables
-        TP_Tables::add_table_pub_capabilities($charset);
-        TP_Tables::add_table_pub_documents($charset);
-        TP_Tables::add_table_pub_imports($charset);
+        tc_Tables::add_table_pub_capabilities($charset);
+        tc_Tables::add_table_pub_documents($charset);
+        tc_Tables::add_table_pub_imports($charset);
         
         // add column use_capabilities to table teachpress_courses
         if ($wpdb->query("SHOW COLUMNS FROM " . TEACHPRESS_PUB . " LIKE 'use_capabilities'") == '0') { 
@@ -651,7 +651,7 @@ class TP_Update {
             $wpdb->query("ALTER TABLE " . TEACHPRESS_PUB . " ADD `import_id` INT NULL DEFAULT NULL AFTER `use_capabilities`");
         }
         
-        // expand char limit for tp_publications::booktitle
+        // expand char limit for tc_publications::booktitle
         if ($wpdb->query("SHOW COLUMNS FROM " . TEACHPRESS_PUB . " LIKE 'booktitle'") == '1') {
             $wpdb->query("ALTER TABLE " . TEACHPRESS_PUB . " CHANGE `booktitle` `booktitle` VARCHAR (1000) $charset_collate NULL DEFAULT NULL");
         }
@@ -941,7 +941,7 @@ class TP_Update {
             
             // if element not exists
             if ( $check === NULL ){
-                $check = TP_Authors::add_author( $element, TP_Bibtex::get_lastname($element) );
+                $check = tc_Authors::add_author( $element, tc_Bibtex::get_lastname($element) );
             }
             
             // prepare relation
@@ -970,7 +970,7 @@ class TP_Update {
         }
         
         $relation = '';
-        get_tp_message( __('Step 1: Read data and add authors','teachpress') );
+        get_tc_message( __('Step 1: Read data and add authors','teachpress') );
         $pubs = $wpdb->get_results("SELECT pub_id, author, editor FROM " . TEACHPRESS_PUB . $limit, ARRAY_A);
         foreach ( $pubs as $row ) {
             if ( $row['author'] != '' ) {
@@ -982,9 +982,9 @@ class TP_Update {
         }
         $relation = substr($relation, 0, -2);
         $relation = str_replace(', ,', ',', $relation);
-        get_tp_message( __('Step 2: Add relations between authors and publications','teachpress') );
+        get_tc_message( __('Step 2: Add relations between authors and publications','teachpress') );
         $wpdb->query("INSERT INTO " . TEACHPRESS_REL_PUB_AUTH . " (`pub_id`, `author_id`, `is_author`, `is_editor`) VALUES $relation");
-        get_tp_message( __('Update successful','teachpress') );
+        get_tc_message( __('Update successful','teachpress') );
     }
     
     /**
@@ -996,7 +996,7 @@ class TP_Update {
         // Try to set the time limit for the script
         set_time_limit(TEACHPRESS_TIME_LIMIT);
         $relation = '';
-        get_tp_message( __('Step 1: Read and prepare data','teachpress') );
+        get_tc_message( __('Step 1: Read and prepare data','teachpress') );
         $students = $wpdb->get_results("SELECT wp_id, course_of_studies, birthday, semesternumber, matriculation_number FROM " . TEACHPRESS_STUD, ARRAY_A);
         foreach ( $students as $row ) {
             $relation .= "(" . $row['wp_id'] . ", 'course_of_studies', '" . $row['course_of_studies'] . "'), ";
@@ -1006,9 +1006,9 @@ class TP_Update {
         }
         
         $relation = substr($relation, 0, -2);
-        get_tp_message( __('Step 2: Insert data','teachpress') );
+        get_tc_message( __('Step 2: Insert data','teachpress') );
         $wpdb->query("INSERT INTO " . TEACHPRESS_STUD_META . " (`wp_id`, `meta_key`, `meta_value`) VALUES $relation");
-        get_tp_message( __('Update successful','teachpress') );
+        get_tc_message( __('Update successful','teachpress') );
     }
 
     /**
@@ -1091,8 +1091,8 @@ class TP_Update {
         }
         /**** since version 5.0.3 ****/
         // Fix an installer bug (wrong template for related content)
-        if ( get_tp_option('rel_content_template') == 'page' ) {
-            TP_Options::change_option('rel_content_template', '[tpsingle [key]]<!--more-->' . "\n\n[tpabstract]\n\n[tplinks]\n\n[tpbibtex]");
+        if ( get_tc_option('rel_content_template') == 'page' ) {
+            tc_Options::change_option('rel_content_template', '[tpsingle [key]]<!--more-->' . "\n\n[tpabstract]\n\n[tplinks]\n\n[tpbibtex]");
         }
     }
     
@@ -1105,6 +1105,6 @@ class TP_Update {
         global $wpdb;
         $version = htmlspecialchars( esc_sql( $version ) );
         $wpdb->query("UPDATE " . TEACHPRESS_SETTINGS . " SET `value` = '$version', `category` = 'system' WHERE `variable` = 'db-version'");
-        get_tp_message( __('Update successful','teachpress') );
+        get_tc_message( __('Update successful','teachpress') );
     }
 }

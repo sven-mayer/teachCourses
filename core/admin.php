@@ -11,7 +11,7 @@
  * @since 5.0.0
  * @package teachpress\core\admin
  */
-class TP_Admin {
+class tc_Admin {
     
     /**
      * Tests if the database needs an update. If this is available a message will be displayed.
@@ -20,20 +20,20 @@ class TP_Admin {
      * @since 5.0.0
      */
     public static function database_test($before = '', $after = '') {
-        $test = get_tp_option('db-version');
+        $test = get_tc_option('db-version');
         
         // Don't use !== operator here
         if ($test != '') {
-           $version = get_tp_version();
+           $version = get_tc_version();
            if ($test !== $version) {
                echo $before;
-               get_tp_message( __('A database update is necessary','teachpress') . '. <a href="options-general.php?page=teachpress/settings.php&up=1">' . __('Update to','teachpress') . ' ' . $version . '</a>.', 'orange' );
+               get_tc_message( __('A database update is necessary','teachpress') . '. <a href="options-general.php?page=teachpress/settings.php&up=1">' . __('Update to','teachpress') . ' ' . $version . '</a>.', 'orange' );
                echo $after;
            }
         }
         else {
             echo $before;
-            get_tp_message( '<a href="options-general.php?page=teachpress/settings.php&ins=1">' . __('Install database','teachpress') . '</a>', 'orange' );
+            get_tc_message( '<a href="options-general.php?page=teachpress/settings.php&ins=1">' . __('Install database','teachpress') . '</a>', 'orange' );
             echo $after;
         }
     }
@@ -101,7 +101,7 @@ class TP_Admin {
         $ro = ( $readonly === true ) ? 'readonly="true" ' : '' ;
         $rq = ( $required === true ) ? 'required="required"' : '';
         // extrakt checkbox_values
-        $array_checked = TP_Enrollments::extract_checkbox_data($checked);
+        $array_checked = tc_Enrollments::extract_checkbox_data($checked);
         $return .= '<p><label for="' . $field_name . '"><b>' . stripslashes($label) . '</b></label></p>';
         $i = 1;
         $max = count($options);
@@ -124,7 +124,7 @@ class TP_Admin {
      */
     public static function get_date_field ($field_name, $label, $value) {
         if ( $value != '' ) {
-            $b = tp_datesplit($value);
+            $b = tc_datesplit($value);
         }
         $day = ( $value != '' ) ? $b[0][2] : '01';
         $month = ( $value != '' ) ? $b[0][1] : '01';
@@ -220,7 +220,7 @@ class TP_Admin {
             $return .= '<option value="">- ' . __('none','teachpress') . ' -</option>';
         }
         foreach ($options as $opt) {
-            $return .= TP_Admin::get_select_option(stripslashes($opt->value), stripslashes($opt->value), $value);
+            $return .= tc_Admin::get_select_option(stripslashes($opt->value), stripslashes($opt->value), $value);
         }
         $return .= '</select>';
         return $return;
@@ -400,11 +400,11 @@ class TP_Admin {
     public static function display_meta_data($fields, $meta_input) {
     
         echo '<div class="postbox">';
-        echo '<h3 class="tp_postbox"><span>' . __('Custom meta data','teachpress') . '</span></h3>';
+        echo '<h3 class="tc_postbox"><span>' . __('Custom meta data','teachpress') . '</span></h3>';
     
         echo '<div class="inside">';   
         foreach ($fields as $row) {
-            $col_data = TP_DB_Helpers::extract_column_data($row['value']);
+            $col_data = tc_DB_Helpers::extract_column_data($row['value']);
             $required = ( $col_data['required'] === 'true' ) ? true : false;
             $value = '';
             foreach ( $meta_input as $row_meta ) {
@@ -414,28 +414,28 @@ class TP_Admin {
                 }
             }
             if ( $col_data['type'] === 'SELECT' ) {
-                echo TP_Admin::get_select_field($row['variable'], $col_data['title'], $value);
+                echo tc_Admin::get_select_field($row['variable'], $col_data['title'], $value);
             }
             elseif ( $col_data['type'] === 'DATE' ) {
-                echo TP_Admin::get_date_field($row['variable'], $col_data['title'], $value);
+                echo tc_Admin::get_date_field($row['variable'], $col_data['title'], $value);
             }
             elseif ( $col_data['type'] === 'RADIO' ) {
-                echo TP_Admin::get_radio_field($row['variable'], $col_data['title'], $value, false, $required);
+                echo tc_Admin::get_radio_field($row['variable'], $col_data['title'], $value, false, $required);
             }
             elseif ( $col_data['type'] === 'CHECKBOX' ) {
-                echo TP_Admin::get_checkbox_field($row['variable'], $col_data['title'], $value, false, $required);
+                echo tc_Admin::get_checkbox_field($row['variable'], $col_data['title'], $value, false, $required);
             }
             elseif ( $col_data['type'] === 'TEXTAREA' ) {
-                echo TP_Admin::get_textarea_field($row['variable'], $col_data['title'], $value);
+                echo tc_Admin::get_textarea_field($row['variable'], $col_data['title'], $value);
             }
             elseif ( $col_data['type'] === 'INT' ) {
                 $col_data['min'] = ( $col_data['min'] !== 'false' ) ? intval($col_data['min']) : 0;
                 $col_data['max'] = ( $col_data['max'] !== 'false' ) ? intval($col_data['max']) : 999;
                 $col_data['step'] = ( $col_data['step'] !== 'false' ) ? intval($col_data['step']) : 1;
-                echo TP_Admin::get_int_field($row['variable'], $col_data['title'], $value, $col_data['min'], $col_data['max'], $col_data['step'], false, $required);
+                echo tc_Admin::get_int_field($row['variable'], $col_data['title'], $value, $col_data['min'], $col_data['max'], $col_data['step'], false, $required);
             }
             else {
-                echo TP_Admin::get_text_field($row['variable'], $col_data['title'], $value);
+                echo tc_Admin::get_text_field($row['variable'], $col_data['title'], $value);
             }
         }
         echo '</div>';
@@ -447,7 +447,7 @@ class TP_Admin {
  * This class contains functions for copying courses via admin menu
  * @since 5.0.15
  */
-class tp_copy_course {
+class tc_copy_course {
     
     /**
      * This function copies courses
@@ -463,8 +463,8 @@ class tp_copy_course {
             $original_course_id = intval($checkbox[$i]);
             $new_courses[$i]['orig_id'] = $original_course_id;
             $new_courses[$i]['new_id'] = 0;
-            $new_courses[$i]['data'] = TP_Courses::get_course($original_course_id, ARRAY_A);
-            $new_courses[$i]['meta'] = TP_Courses::get_course_meta($original_course_id);
+            $new_courses[$i]['data'] = tc_Courses::get_course($original_course_id, ARRAY_A);
+            $new_courses[$i]['meta'] = tc_Courses::get_course_meta($original_course_id);
             $new_courses[$i]['orig_semester'] = $new_courses[$i]['data']['semester'];
             $new_courses[$i]['data']['semester'] = $copysem;
 
@@ -515,9 +515,9 @@ class tp_copy_course {
         $data['end'] = '00';
         
         // add data
-        $new_id = TP_Courses::add_course($data, array('number' => 0));
+        $new_id = tc_Courses::add_course($data, array('number' => 0));
         foreach ( $meta_data as $meta_row ) {
-            TP_Courses::add_course_meta($new_id, $meta_row['meta_key'], $meta_row['meta_value']);
+            tc_Courses::add_course_meta($new_id, $meta_row['meta_key'], $meta_row['meta_value']);
         }
         return $new_id;
     }
@@ -553,7 +553,7 @@ class tp_copy_course {
  * @param string $sort_order        Defalut is "ASC"
  * @since 5.0.0
  */
-function get_tp_wp_drafts($post_type, $post_status = 'publish', $sort_column = 'menu_order', $sort_order = 'ASC') {
+function get_tc_wp_drafts($post_type, $post_status = 'publish', $sort_column = 'menu_order', $sort_order = 'ASC') {
     global $wpdb;
     echo "\n\t<option value='0'>" . __('none','teachpress') . "</option>";
     $items = $wpdb->get_results( "SELECT `ID`, `post_title` FROM $wpdb->posts WHERE `post_type` = '" . esc_sql($post_type) . "' AND `post_status` = '" . esc_sql($post_status) . "' ORDER BY " . esc_sql($sort_column) . " " . esc_sql($sort_order) );
@@ -566,16 +566,16 @@ function get_tp_wp_drafts($post_type, $post_status = 'publish', $sort_column = '
  * This function handles document uploads in teachPress
  * @since 5.0.0
  */
-function tp_handle_document_uploads(){
+function tc_handle_document_uploads(){
     check_ajax_referer('document-upload');
     $course_id = ( isset ($_POST['course_id']) ) ? intval($_POST['course_id']) : 0;
-    $status = tp_handle_upload($_FILES['async-upload'], array('action' => 'tp_document_upload'), $course_id);
+    $status = tc_handle_upload($_FILES['async-upload'], array('action' => 'tc_document_upload'), $course_id);
     // print_r($status);
     if ( isset($status['error']) ) {
         echo htmlspecialchars($status['error']);
         exit;
     }
-    $doc_id = TP_Documents::add_document($status['filename'], $status['path'], $status['size'], $course_id);
+    $doc_id = tc_Documents::add_document($status['filename'], $status['path'], $status['size'], $course_id);
     $upload_dir = wp_upload_dir();
     echo $doc_id . ' | ' . $course_id . ' | ' . esc_url($upload_dir['baseurl'] . $status['path']);
     exit;
@@ -593,7 +593,7 @@ function tp_handle_document_uploads(){
  * @param int $course_id    ID of a teachPress course.
  * @return array On success, returns an associative array of file attributes. On failure, returns $overrides['upload_error_handler'](&$file, $message ) or array( 'error'=>$message ).
  */
-function tp_handle_upload( &$file, $overrides = false, $course_id = 0 ) {
+function tc_handle_upload( &$file, $overrides = false, $course_id = 0 ) {
 	// The default error handler.
 	if ( ! function_exists( 'wp_handle_upload_error' ) ) {
             /**
@@ -751,7 +751,7 @@ function tp_handle_upload( &$file, $overrides = false, $course_id = 0 ) {
  * @param int $level                Default is 0
  * @since 1.0.0
 */ 
-function get_tp_wp_pages($sort_column = "menu_order", $sort_order = "ASC", $selected = '', $post_type = 'page', $parent = 0, $level = 0 ) {
+function get_tc_wp_pages($sort_column = "menu_order", $sort_order = "ASC", $selected = '', $post_type = 'page', $parent = 0, $level = 0 ) {
     global $wpdb;
     if ( $level == 0 ) {
         $pad = isset ($pad) ? $pad : '';
@@ -782,7 +782,7 @@ function get_tp_wp_pages($sort_column = "menu_order", $sort_order = "ASC", $sele
                 $current = '';
             }	
             echo "\n\t<option value='$item->ID'$current>$pad " . get_the_title($item->ID) . "</option>";
-            get_tp_wp_pages( $sort_column, $sort_order, $selected, $post_type, $item->ID,  $level + 1 );
+            get_tc_wp_pages( $sort_column, $sort_order, $selected, $post_type, $item->ID,  $level + 1 );
         }
     } else {
         return false;
@@ -800,8 +800,8 @@ function get_tp_wp_pages($sort_column = "menu_order", $sort_order = "ASC", $sele
  * @return int
  * @since 4.2.0
  */
-function tp_add_publication_as_post ($title, $bibtex_key, $date, $post_type = 'post', $tags = '', $category = array()) {
-    $content = str_replace('[key]', 'key="' . $bibtex_key . '"', get_tp_option('rel_content_template') );
+function tc_add_publication_as_post ($title, $bibtex_key, $date, $post_type = 'post', $tags = '', $category = array()) {
+    $content = str_replace('[key]', 'key="' . $bibtex_key . '"', get_tc_option('rel_content_template') );
      
     $post_id = wp_insert_post(array(
       'post_title'      => $title,
@@ -823,19 +823,19 @@ function tp_add_publication_as_post ($title, $bibtex_key, $date, $post_type = 'p
  * @param string $value
  * @since 4.2.0
  */
-function tp_set_screen_option($status, $option, $value) {
-    // For custom values: tp_authors_sorting
-    if ( isset( $_POST['tp_authors_sorting'] ) ) {
-        TP_Authors_Page::save_screen_options();
+function tc_set_screen_option($status, $option, $value) {
+    // For custom values: tc_authors_sorting
+    if ( isset( $_POST['tc_authors_sorting'] ) ) {
+        tc_Authors_Page::save_screen_options();
     }
     
     // For default per_page values
-    if ( 'tp_pubs_per_page' == $option || 
-         'tp_tags_per_page' == $option || 
-         'tp_authors_per_page' == $option ||
-         'tp_authors_sorting' == $option ||
-         'tp_courses_per_page' == $option ) { 
+    if ( 'tc_pubs_per_page' == $option || 
+         'tc_tags_per_page' == $option || 
+         'tc_authors_per_page' == $option ||
+         'tc_authors_sorting' == $option ||
+         'tc_courses_per_page' == $option ) { 
         return $value; 
     }
 }
-add_filter('set-screen-option', 'tp_set_screen_option', 10, 3);
+add_filter('set-screen-option', 'tc_set_screen_option', 10, 3);

@@ -9,10 +9,10 @@
  * Generate RSS feed for publications
  * @since 6.0.0
  */
-function tp_pub_rss_feed_func () {
+function tc_pub_rss_feed_func () {
     $id = isset($_GET['id']) ? intval($_GET['id']) : 0;
     $tag = isset($_GET['tag']) ? intval($_GET['tag']) : 0;
-    $url = (isset($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'] . esc_url($_SERVER['REQUEST_URI']);
+    $url = (isset($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HTtc_HOST'] . esc_url($_SERVER['REQUEST_URI']);
     header("Content-Type: application/xml;");
     echo '<?xml version="1.0" encoding="'.get_option('blog_charset').'"?'.'>' . chr(13) . chr(10);
     echo '<rss version="2.0"
@@ -34,7 +34,7 @@ function tp_pub_rss_feed_func () {
             <copyright>' . get_bloginfo('name') . '</copyright>
             <pubDate>' . date('r') . '</pubDate>
             <dc:creator>' . get_bloginfo('name') . '</dc:creator>' . chr(13) . chr(10);
-    $row = TP_Publications::get_publications(
+    $row = tc_Publications::get_publications(
                 array('user' => $id, 
                       'tag' => $tag,
                       'limit' => '0,30',
@@ -56,14 +56,14 @@ function tp_pub_rss_feed_func () {
 
         // prepare author name
         if ( $row['type'] === 'collection' || ( $row['author'] === '' && $row['editor'] !== '' ) ) {
-            $all_authors = str_replace(' and ', ', ', TP_HTML::convert_special_chars( $row['editor'] ) ) . ' (' . __('Ed.','teachpress') . ')';
+            $all_authors = str_replace(' and ', ', ', tc_HTML::convert_special_chars( $row['editor'] ) ) . ' (' . __('Ed.','teachpress') . ')';
         }
         else {
-            $all_authors = str_replace(' and ', ', ', TP_HTML::convert_special_chars( $row['author'] ) );
+            $all_authors = str_replace(' and ', ', ', tc_HTML::convert_special_chars( $row['author'] ) );
         }
 
-        $row['title'] = TP_HTML::convert_special_chars($row['title']);
-        $item_link = str_replace( array("\r\n", "\r", "\n"), ',', TP_HTML::convert_special_chars($item_link) );
+        $row['title'] = tc_HTML::convert_special_chars($row['title']);
+        $item_link = str_replace( array("\r\n", "\r", "\n"), ',', tc_HTML::convert_special_chars($item_link) );
         $item_link1 = explode(',', $item_link);
         $settings = array(
             'editor_name'       => 'simple',
@@ -74,8 +74,8 @@ function tp_pub_rss_feed_func () {
         );
         echo '
             <item>
-               <title><![CDATA[' . TP_HTML::prepare_title($row['title'], 'replace') . ']]></title>
-               <description><![CDATA[' . TP_HTML_Publication_Template::get_publication_meta_row($row, $settings) . ']]></description>
+               <title><![CDATA[' . tc_HTML::prepare_title($row['title'], 'replace') . ']]></title>
+               <description><![CDATA[' . tc_HTML_Publication_Template::get_publication_meta_row($row, $settings) . ']]></description>
                <link><![CDATA[' . $item_link1[0] . ']]></link>
                <dc:creator>' . stripslashes($all_authors) . '</dc:creator>
                <guid isPermaLink="false">' . get_bloginfo('url') . '?publication=' . $row['pub_id'] . '</guid>
@@ -90,23 +90,23 @@ function tp_pub_rss_feed_func () {
  * Generates the BibTeX publication feed
  * @since 6.0.0
  */
-function tp_pub_bibtex_feed_func () {
+function tc_pub_bibtex_feed_func () {
     $id = isset( $_GET['id'] ) ? intval($_GET['id']) : 0;
     $tag = isset( $_GET['tag'] ) ? intval($_GET['tag']) : 0;
     $use_bibtool = isset( $_GET['use_bibtool'] ) ? true : false;
     header('Content-Type: text/plain; charset=utf-8;');
-    $convert_bibtex = ( get_tp_option('convert_bibtex') == '1' ) ? true : false;
-    $row = TP_Publications::get_publications(array('user' => $id, 'tag' => $tag, 'output_type' => ARRAY_A));
+    $convert_bibtex = ( get_tc_option('convert_bibtex') == '1' ) ? true : false;
+    $row = tc_Publications::get_publications(array('user' => $id, 'tag' => $tag, 'output_type' => ARRAY_A));
     $result = '';
     foreach ($row as $row) {
-        $tags = TP_Tags::get_tags(array('pub_id' => $row['pub_id'], 'output_type' => ARRAY_A));
+        $tags = tc_Tags::get_tags(array('pub_id' => $row['pub_id'], 'output_type' => ARRAY_A));
         // if you want to use bibtool
         if ( $use_bibtool === true ) {
-            $result .= TP_Bibtex::get_single_publication_bibtex($row, $tags, $convert_bibtex);
+            $result .= tc_Bibtex::get_single_publication_bibtex($row, $tags, $convert_bibtex);
         }
         // the general way
         else {
-            echo TP_Bibtex::get_single_publication_bibtex($row, $tags, $convert_bibtex);
+            echo tc_Bibtex::get_single_publication_bibtex($row, $tags, $convert_bibtex);
         }
     }
     if ( $use_bibtool === true ) {
@@ -119,69 +119,69 @@ function tp_pub_bibtex_feed_func () {
  * Generates the export stream
  * @since 6.0.0
  */
-function tp_export_feed_func() {
+function tc_export_feed_func() {
     $key = isset ( $_GET['key'] ) ? $_GET['key'] : '';
     // Export single publication
     if ( $key != '' ) {
         header('Content-Type: text/plain; charset=utf-8' );
         $filename = preg_replace('/[^a-zA-Z0-9]/', '_', $key);
         header("Content-Disposition: attachment; filename=" . $filename . ".bib");
-        TP_Export::get_publication_by_key($key);
+        tc_Export::get_publication_by_key($key);
     }
     elseif ( is_user_logged_in() && current_user_can('use_teachpress') ) {
         $type = isset ( $_GET['type'] ) ? htmlspecialchars($_GET['type']) : '';
         $course_id = isset ( $_GET['course_id'] ) ? intval($_GET['course_id']) : 0;
-        $user_id = isset ( $_GET['tp_user'] ) ? intval($_GET['tp_user']) : 0;
-        $format = isset ( $_GET['tp_format'] ) ?  htmlspecialchars($_GET['tp_format']) : '';
-        $sel = isset ( $_GET['tp_sel'] ) ?  htmlspecialchars($_GET['tp_sel']) : '';
+        $user_id = isset ( $_GET['tc_user'] ) ? intval($_GET['tc_user']) : 0;
+        $format = isset ( $_GET['tc_format'] ) ?  htmlspecialchars($_GET['tc_format']) : '';
+        $sel = isset ( $_GET['tc_sel'] ) ?  htmlspecialchars($_GET['tc_sel']) : '';
         $filename = 'teachpress_course_' . $course_id . '_' . date('dmY');
 
         // Export courses
         if ( $type === "xls" && $course_id != 0 ) {
             header("Content-type: application/vnd-ms-excel; charset=utf-8");
             header("Content-Disposition: attachment; filename=" . $filename . ".xls");
-            TP_Export::get_course_xls($course_id);
+            tc_Export::get_course_xls($course_id);
         }
 
         if ( $type === 'csv' && $course_id != 0 ) {
             header('Content-Type: text/x-csv');
             header("Content-Disposition: attachment; filename=" . $filename . ".csv");
-            TP_Export::get_course_csv($course_id);
+            tc_Export::get_course_csv($course_id);
         }
 
         // Export publication lists
         if ( $type === 'pub' ) {
             $filename = 'teachpress_pub_' . date('dmY');
-            $encoding = ( get_tp_option('convert_bibtex') == '1' ) ? 'Cp1252' : 'UTF-8';
+            $encoding = ( get_tc_option('convert_bibtex') == '1' ) ? 'Cp1252' : 'UTF-8';
             if ( $format === 'bib' ) {
                 header('Content-Type: text/plain; charset=utf-8' );
                 header("Content-Disposition: attachment; filename=" . $filename . ".bib");
-                echo '% This file was created with teachPress ' . get_tp_version() . chr(13) . chr(10);
+                echo '% This file was created with teachPress ' . get_tc_version() . chr(13) . chr(10);
                 echo '% Encoding: ' . $encoding . chr(13) . chr(10) . chr(13) . chr(10);
                 if ( $sel == '' ) {
-                    TP_Export::get_publications($user_id);
+                    tc_Export::get_publications($user_id);
                 }
                 else {
-                    TP_Export::get_selected_publications($sel);
+                    tc_Export::get_selected_publications($sel);
                 }
             }
             if ( $format === 'txt' ) {
                 header('Content-Type: text/plain; charset=utf-8' );
                 header("Content-Disposition: attachment; filename=" . $filename . ".txt");
-                TP_Export::get_publications($user_id,'bibtex');
+                tc_Export::get_publications($user_id,'bibtex');
             }
             if ( $format === 'rtf' ) {
                 header('Content-Type: text/plain; charset=utf-8' );
                 header("Content-Disposition: attachment; filename=" . $filename . ".rtf");
-                TP_Export::get_publications($user_id,'rtf');
+                tc_Export::get_publications($user_id,'rtf');
             }
             if ( $format === 'rss' ) {
                 if ( $user_id == 0 ) {
-                    header("Location: " . home_url() . '?feed=tp_pub_rss');
+                    header("Location: " . home_url() . '?feed=tc_pub_rss');
                     exit;
                 }
                 else {
-                    header("Location: " . home_url() . "?feed=tp_pub_rss&amp;id=$user_id");
+                    header("Location: " . home_url() . "?feed=tc_pub_rss&amp;id=$user_id");
                     exit;
                 }
             }

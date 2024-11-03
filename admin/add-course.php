@@ -10,10 +10,10 @@
 /**
  * Adds a help tab for add new courses page
  */
-function tp_add_course_page_help () {
+function tc_add_course_page_help () {
     $screen = get_current_screen();  
     $screen->add_help_tab( array(
-        'id'        => 'tp_add_course_help',
+        'id'        => 'tc_add_course_help',
         'title'     => __('Create a new course','teachpress'),
         'content'   => '<p><strong>' . __('Course name','teachpress') . '</strong></p>
                         <p>' . __('For child courses: The name of the parent course will be add automatically.','teachpress') . '</p>
@@ -25,7 +25,7 @@ function tp_add_course_page_help () {
                         <p><a href="options-general.php?page=teachpress/settings.php&amp;tab=courses">' . __('Add new course types and terms','teachpress') . '</a></p>'
     ) );
     $screen->add_help_tab( array(
-        'id'        => 'tp_add_course_help_2',
+        'id'        => 'tc_add_course_help_2',
         'title'     => __('Visibility','teachpress'),
         'content'   => '<p>' . __('You can choice between the following visibiltiy options','teachpress') . ':</p>
                         <ul style="list-style:disc; padding-left:40px;">
@@ -34,7 +34,7 @@ function tp_add_course_page_help () {
                             <li><strong>' . __('invisible','teachpress') . ':</strong> ' . __('The course is invisible.','teachpress') . '</li></ul>'
     ) );
     $screen->add_help_tab( array(
-        'id'        => 'tp_add_course_help_3',
+        'id'        => 'tc_add_course_help_3',
         'title'     => __('Capabilities','teachpress'),
         'content'   => '<p>' . __('You can choice between the following capability options','teachpress') . ':</p>
                         <ul style="list-style:disc; padding-left:40px;">
@@ -53,11 +53,11 @@ function tp_add_course_page_help () {
  * @param string $sem
  * @param string $ref
 */
-function tp_add_course_page() {
+function tc_add_course_page() {
 
    $current_user = wp_get_current_user();
-   $fields = get_tp_options('teachpress_courses','`setting_id` ASC', ARRAY_A);
-   $course_types = get_tp_options('course_type', '`value` ASC');
+   $fields = get_tc_options('teachpress_courses','`setting_id` ASC', ARRAY_A);
+   $course_types = get_tc_options('course_type', '`value` ASC');
 
    $data['type'] = isset( $_POST['course_type'] ) ? htmlspecialchars($_POST['course_type']) : '';
    $data['name'] = isset( $_POST['post_title'] ) ? htmlspecialchars($_POST['post_title']) : '';
@@ -93,12 +93,12 @@ function tp_add_course_page() {
    $search = isset( $_GET['search'] ) ? htmlspecialchars($_GET['search']) : '';
    $sem = isset( $_GET['sem'] ) ? htmlspecialchars($_GET['sem']) : '';
    $ref = isset( $_GET['ref'] ) ? htmlspecialchars($_GET['ref']) : '';
-   $capability = ($course_id !== 0) ? TP_Courses::get_capability($course_id, $current_user->ID) : 'owner';
+   $capability = ($course_id !== 0) ? tc_Courses::get_capability($course_id, $current_user->ID) : 'owner';
    
    // If the user has no permissions to edit this course
    if ( $course_id !== 0 && ( $capability !== 'owner' && $capability !== 'approved' ) ) {
        echo '<div class="wrap">';
-       get_tp_message(__('You have no capabilities to edit this course','teachpress'), 'red');
+       get_tc_message(__('You have no capabilities to edit this course','teachpress'), 'red');
        echo '</div>';
        return;
    }
@@ -110,28 +110,28 @@ function tp_add_course_page() {
    <?php 
         // Add new course
         if ( isset($_POST['create']) ) {
-             $course_id = TP_Courses::add_course($data, $sub);
-             TP_DB_Helpers::prepare_meta_data($course_id, $fields, $_POST, 'courses');
-             $message = __('Course created successful.','teachpress') . ' <a href="admin.php?page=teachpress/teachpress.php&amp;course_id=' . $course_id . '&amp;action=show&amp;search=&amp;sem=' . get_tp_option('sem') . '">' . __('Show course','teachpress') . '</a> | <a href="admin.php?page=teachpress/add_course.php">' . __('Add new','teachpress') . '</a>';
-             get_tp_message($message);
+             $course_id = tc_Courses::add_course($data, $sub);
+             tc_DB_Helpers::prepare_meta_data($course_id, $fields, $_POST, 'courses');
+             $message = __('Course created successful.','teachpress') . ' <a href="admin.php?page=teachpress/teachpress.php&amp;course_id=' . $course_id . '&amp;action=show&amp;search=&amp;sem=' . get_tc_option('sem') . '">' . __('Show course','teachpress') . '</a> | <a href="admin.php?page=teachpress/add_course.php">' . __('Add new','teachpress') . '</a>';
+             get_tc_message($message);
         }
 
         // Saves changes
         if ( isset($_POST['save']) ) {
-             TP_Courses::delete_course_meta($course_id);
-             TP_Courses::change_course($course_id, $data);
-             TP_DB_Helpers::prepare_meta_data($course_id, $fields, $_POST, 'courses');
+             tc_Courses::delete_course_meta($course_id);
+             tc_Courses::change_course($course_id, $data);
+             tc_DB_Helpers::prepare_meta_data($course_id, $fields, $_POST, 'courses');
              $message = __('Saved');
-             get_tp_message($message);
+             get_tc_message($message);
         }
 
         // Default vaulues
         if ( $course_id != 0 ) {
-             $course_data = TP_Courses::get_course($course_id, ARRAY_A);
-             $course_meta = TP_Courses::get_course_meta($course_id);
+             $course_data = tc_Courses::get_course($course_id, ARRAY_A);
+             $course_meta = tc_Courses::get_course_meta($course_id);
         }
         else {
-             $course_data = get_tp_var_types('course_array');
+             $course_data = get_tc_var_types('course_array');
              $course_meta = array ( array('meta_key' => '', 'meta_value' => '') );
         }
      ?>
@@ -143,8 +143,8 @@ function tp_add_course_page() {
      <input name="search" type="hidden" value="<?php echo $search; ?>" />
      <input name="ref" type="hidden" value="<?php echo $ref; ?>" />
      <input name="upload_mode" id="upload_mode" type="hidden" value="" />
-     <div class="tp_postbody">
-     <div class="tp_postcontent">
+     <div class="tc_postbody">
+     <div class="tc_postcontent">
         <div id="post-body">
            <div id="post-body-content">
                <div id="titlediv" style="padding-bottom: 15px;">
@@ -154,22 +154,22 @@ function tp_add_course_page() {
                    </div>
                </div>
                 <?php
-                TP_Add_Course::get_general_box ($course_id, $course_types, $course_data);
+                tc_Add_Course::get_general_box ($course_id, $course_types, $course_data);
 
                 if ( $course_id === 0 ) { 
-                    TP_Add_Course::get_subcourses_box($course_types, $course_data);
+                    tc_Add_Course::get_subcourses_box($course_types, $course_data);
                 }
                 if ( count($fields) !== 0 ) { 
-                    TP_Admin::display_meta_data($fields, $course_meta);       
+                    tc_Admin::display_meta_data($fields, $course_meta);       
                 } 
                 ?>
            </div>
         </div>
      </div>
-     <div class="tp_postcontent_right">  
+     <div class="tc_postcontent_right">  
         <?php
-        TP_Add_Course::get_meta_box ($course_id, $course_data, $capability);
-        TP_Add_Course::get_enrollments_box ($course_id, $course_data);
+        tc_Add_Course::get_meta_box ($course_id, $course_data, $capability);
+        tc_Add_Course::get_enrollments_box ($course_id, $course_data);
         ?>
      </div>
      </div>
@@ -183,7 +183,7 @@ function tp_add_course_page() {
  * This class contains all funcitons for the add_course_page
  * @since 5.0.0
  */
-class TP_Add_Course {
+class tc_Add_Course {
     
     /**
      * Gets the enrollment box
@@ -194,7 +194,7 @@ class TP_Add_Course {
     public static function get_enrollments_box ($course_id, $course_data) {
         ?>
         <div class="postbox">
-             <h3 class="tp_postbox"><span><?php _e('Enrollments','teachpress'); ?></span></h3>
+             <h3 class="tc_postbox"><span><?php _e('Enrollments','teachpress'); ?></span></h3>
              <div class="inside">
                  <p><label for="start" title="<?php _e('The start date for the enrollment','teachpress'); ?>"><strong><?php _e('Start','teachpress'); ?></strong></label></p>
                 <?php 
@@ -204,7 +204,7 @@ class TP_Add_Course {
                     $minute = '00';
                  }	
                  else {
-                    $date1 = tp_datesplit($course_data["start"]);
+                    $date1 = tc_datesplit($course_data["start"]);
                     $meta = 'value="' . $date1[0][0] . '-' . $date1[0][1] . '-' . $date1[0][2] . '"';
                     $hour = $date1[0][3];
                     $minute = $date1[0][4]; 
@@ -217,7 +217,7 @@ class TP_Add_Course {
                       // same as for start
                  }
                  else {
-                    $date1 = tp_datesplit($course_data["end"]);
+                    $date1 = tc_datesplit($course_data["end"]);
                     $meta = 'value="' . $date1[0][0] . '-' . $date1[0][1] . '-' . $date1[0][2] . '"';
                     $hour = $date1[0][3];
                     $minute = $date1[0][4];
@@ -232,7 +232,7 @@ class TP_Add_Course {
                 <p>
                 <?php 
                  if ($course_data["parent"] != 0) {
-                    $parent_data_strict = TP_Courses::get_course_data($course_data["parent"], 'strict_signup'); 
+                    $parent_data_strict = tc_Courses::get_course_data($course_data["parent"], 'strict_signup'); 
                     $check = $parent_data_strict == 1 ? 'checked="checked"' : '';
                     ?>
                     <input name="strict_signup_2" id="strict_signup_2" type="checkbox" value="1" tabindex="27" <?php echo $check; ?> disabled="disabled" /> <label for="strict_signup_2" title="<?php _e('This is a child course. You can only change this option in the parent course','teachpress'); ?>"><?php _e('Strict sign up','teachpress'); ?></label></p>
@@ -254,12 +254,12 @@ class TP_Add_Course {
      * @since 5.0.0
      */
     public static function get_general_box ($course_id, $course_types, $course_data) {
-        $post_type = get_tp_option('rel_page_courses');
-        $selected_sem = ( $course_id === 0 ) ? get_tp_option('sem') : 0;
-        $semester = get_tp_options('semester', '`setting_id` DESC');
+        $post_type = get_tc_option('rel_page_courses');
+        $selected_sem = ( $course_id === 0 ) ? get_tc_option('sem') : 0;
+        $semester = get_tc_options('semester', '`setting_id` DESC');
         ?>
         <div class="postbox">
-        <h3 class="tp_postbox"><span><?php _e('General','teachpress'); ?></span></h3>
+        <h3 class="tc_postbox"><span><?php _e('General','teachpress'); ?></span></h3>
         <div class="inside">
             <p><label for="course_type" title="<?php _e('The course type','teachpress'); ?>"><strong><?php _e('Type'); ?></strong></label></p>
             <select name="course_type" id="course_type" title="<?php _e('The course type','teachpress'); ?>" tabindex="2">
@@ -287,7 +287,7 @@ class TP_Add_Course {
             </select>
             <?php
             // lecturer
-            echo TP_Admin::get_form_field(
+            echo tc_Admin::get_form_field(
                 array(
                     'name' => 'lecturer',
                     'title' => __('The lecturer(s) of the course','teachpress'),
@@ -299,7 +299,7 @@ class TP_Add_Course {
                     'style' => 'width:95%;') );
             
             // date
-            echo TP_Admin::get_form_field(
+            echo tc_Admin::get_form_field(
                 array(
                     'name' => 'date',
                     'title' => __('The date(s) for the course','teachpress'),
@@ -311,7 +311,7 @@ class TP_Add_Course {
                     'style' => 'width:95%;') );
             
             // room
-            echo TP_Admin::get_form_field(
+            echo tc_Admin::get_form_field(
                 array(
                     'name' => 'room',
                     'title' => __('The room or place for the course','teachpress'),
@@ -327,10 +327,10 @@ class TP_Add_Course {
             <input name="places" type="text" id="places" title="<?php _e('The number of available places.','teachpress'); ?>" style="width:70px;" tabindex="7" value="<?php echo $course_data["places"]; ?>" />
             <?php 
             if ($course_id != 0) {
-                $free_places = TP_Courses::get_free_places($course_data["course_id"], $course_data["places"]);
+                $free_places = tc_Courses::get_free_places($course_data["course_id"], $course_data["places"]);
                 echo ' | ' . __('free places','teachpress') . ': ' . $free_places;
             } 
-            TP_Add_Course::get_parent_select_field($course_id, $course_data);
+            tc_Add_Course::get_parent_select_field($course_id, $course_data);
             ?>
             
             <p><label for="comment" title="<?php _e('For parent courses the comment is showing in the overview and for child courses in the enrollments system.','teachpress'); ?>"><strong><?php _e('Comment or Description','teachpress'); ?></strong></label></p>
@@ -341,7 +341,7 @@ class TP_Add_Course {
                 <?php _e('Select draft','teachpress');?>: 
                 <select name="rel_page_alter" id="rel_page_alter" title="<?php _e('If you will connect a course with a post or page (it is used as link in the courses overview) so you can do this here','teachpress'); ?>" tabindex="10">
                     <?php
-                    get_tp_wp_drafts($post_type, 'draft', 'post_date', 'DESC');
+                    get_tc_wp_drafts($post_type, 'draft', 'post_date', 'DESC');
                     ?>
                 </select>
                 <a onclick="javascript:teachpress_switch_rel_page_container();" style="cursor:pointer;"><?php _e('Use existing content','teachpress');?></a>
@@ -350,7 +350,7 @@ class TP_Add_Course {
                 <?php _e('Select related content','teachpress');?>: 
                 <select name="rel_page" id="rel_page" title="<?php _e('If you will connect a course with a post or page (it is used as link in the courses overview) so you can do this here','teachpress'); ?>" tabindex="10">
                     <?php 
-                    get_tp_wp_pages("menu_order","ASC",$course_data["rel_page"],$post_type,0,0); 
+                    get_tc_wp_pages("menu_order","ASC",$course_data["rel_page"],$post_type,0,0); 
                     ?>
                 </select>
                 <a onclick="javascript:teachpress_switch_rel_page_container();" style="cursor:pointer;"><?php _e('Create from draft','teachpress');?></a>
@@ -370,10 +370,10 @@ class TP_Add_Course {
     public static function get_meta_box ($course_id, $course_data, $capability) {
         ?>
         <div class="postbox">
-             <h3 class="tp_postbox"><span><?php _e('Meta','teachpress'); ?></span></h3>
+             <h3 class="tc_postbox"><span><?php _e('Meta','teachpress'); ?></span></h3>
              <div class="inside">
                 <?php if ($course_data["image_url"] != '') {
-                    echo '<p><img name="tp_pub_image" src="' . $course_data["image_url"] . '" alt="' . $course_data["name"] . '" title="' . $course_data["name"] . '" style="max-width:100%;"/></p>';
+                    echo '<p><img name="tc_pub_image" src="' . $course_data["image_url"] . '" alt="' . $course_data["name"] . '" title="' . $course_data["name"] . '" style="max-width:100%;"/></p>';
                 } ?>
                 <p><label for="image_url" title="<?php _e('With the image field you can add an image to a course.','teachpress'); ?>"><strong><?php _e('Image URL','teachpress'); ?></strong></label></p>
                 <input name="image_url" id="image_url" class="upload" type="text" title="<?php _e('Image URL','teachpress'); ?>" style="width:90%;" tabindex="12" value="<?php echo $course_data["image_url"]; ?>"/>
@@ -417,14 +417,14 @@ class TP_Add_Course {
      * @since 5.0.0
      */
     private static function get_parent_select_field ($course_id, $course_data) {
-        $semester = get_tp_options('semester', '`setting_id` DESC');
+        $semester = get_tc_options('semester', '`setting_id` DESC');
         ?>
         <p><label for="parent2" title="<?php _e('Here you can connect a course with a parent one. With this function you can create courses with an hierarchical order.','teachpress'); ?>"><strong><?php _e('Parent course','teachpress'); ?></strong></label></p>
             <select name="parent2" id="parent2" title="<?php _e('Here you can connect a course with a parent one. With this function you can create courses with an hierarchical order.','teachpress'); ?>" onchange="teachpress_courseFields();" tabindex="8">
                 <option value="0"><?php _e('none','teachpress'); ?></option>
                 <?php
                 foreach ( $semester as $row ) {
-                    $courses = TP_Courses::get_courses( array('parent' => 0, 'semester' => $row->value) );
+                    $courses = tc_Courses::get_courses( array('parent' => 0, 'semester' => $row->value) );
                     if ( count($courses) !== 0 ) {
                         echo '<optgroup label="' . $row->value . '">';
                     }
@@ -454,7 +454,7 @@ class TP_Add_Course {
     public static function get_subcourses_box ($course_types, $course_data) {
         ?>
         <div class="postbox">
-            <h3 class="tp_postbox"><span><?php _e('Sub courses','teachpress'); ?></span></h3>
+            <h3 class="tc_postbox"><span><?php _e('Sub courses','teachpress'); ?></span></h3>
             <div class="inside">
                 <p><label for="sub_course_type" title="<?php _e('The course type','teachpress'); ?>"><strong><?php _e('Type'); ?></strong></label></p>
                  <select name="sub_course_type" id="sub_course_type" title="<?php _e('The course type','teachpress'); ?>" tabindex="17">
@@ -466,7 +466,7 @@ class TP_Add_Course {
                  </select>
                  <?php
                 // number of subcourses
-                echo TP_Admin::get_form_field(
+                echo tc_Admin::get_form_field(
                     array(
                         'name' => 'sub_number',
                         'title' => __('Number of sub courses','teachpress'),
@@ -478,7 +478,7 @@ class TP_Add_Course {
                         'style' => 'width:70px;') );
               
                 // places
-                echo TP_Admin::get_form_field(
+                echo tc_Admin::get_form_field(
                     array(
                         'name' => 'sub_places',
                         'title' => __('Number of places per course','teachpress'), 

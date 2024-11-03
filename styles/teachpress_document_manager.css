@@ -7,10 +7,10 @@ body {color: #444; font-family: "Open Sans",sans-serif; font-size: 13px; line-he
 a {color: #0074a2;}
 ul {list-style: none;}
 ol, ul {padding: 0;}
-div#tp_select_course {padding: 0 0 15px 0;}
+div#tc_select_course {padding: 0 0 15px 0;}
 .ui-state-highlight {margin-bottom: 4px;}
-.tp_file_label {cursor: pointer;}
-.tp_file_checkbox {margin:0 5px 0 5px;}
+.tc_file_label {cursor: pointer;}
+.tc_file_checkbox {margin:0 5px 0 5px;}
 #document_headline {font-size: 1.3em; margin: 1em 0;}
 
 /* drap and drop area */

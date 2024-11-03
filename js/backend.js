@@ -136,9 +136,9 @@ function teachpress_courseFields () {
  * @since 1.0.0
  */
 function teachpress_editTags(tag_id) {
-    var parent = "tp_tag_row_" + tag_id;
-    var message_text_field = "tp_tag_row_name_" + tag_id;
-    var input_field = "tp_edit_tag_name";
+    var parent = "tc_tag_row_" + tag_id;
+    var message_text_field = "tc_tag_row_name_" + tag_id;
+    var input_field = "tc_edit_tag_name";
     var text;
 
     if (isNaN(document.getElementById(input_field))) {
@@ -152,7 +152,7 @@ function teachpress_editTags(tag_id) {
         editor.id = "div_edit";
         // create hidden fields
         var field_neu = document.createElement('input');
-        field_neu.name = "tp_edit_tag_id";
+        field_neu.name = "tc_edit_tag_id";
         field_neu.type = "hidden";
         field_neu.value = tag_id;
         // create textarea
@@ -163,7 +163,7 @@ function teachpress_editTags(tag_id) {
         tagname_new.style.width = "98%";
         // create save button
         var save_button = document.createElement('input');
-        save_button.name = "tp_edit_tag_submit";
+        save_button.name = "tc_edit_tag_submit";
         save_button.value = "Save";
         save_button.type = "submit";
         save_button.className = "button-primary";
@@ -222,7 +222,7 @@ function teachpress_publicationFields(mode) {
         
         // Load pub type and the suitable default fields for this type
         var pub_type = document.getElementsByName("type")[0].value;
-        var default_fields = window['tp_type_' + pub_type];
+        var default_fields = window['tc_type_' + pub_type];
         
         // Show/Hide the fields
         for (i = 0; i < all_fields.length; i++) {

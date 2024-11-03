@@ -11,7 +11,7 @@
  * @package teachpress\core\ajax
  * @since 5.0.0
  */
-class TP_Ajax {
+class tc_Ajax {
     /**
      * Adds a document headline
      * @param string $doc_name      The name of the document
@@ -20,7 +20,7 @@ class TP_Ajax {
      * @access public
      */
     public static function add_document_headline( $doc_name, $course_id ) {
-        $file_id = TP_Documents::add_document($doc_name, '', 0, $course_id);
+        $file_id = tc_Documents::add_document($doc_name, '', 0, $course_id);
         echo $file_id;
     }
     
@@ -32,7 +32,7 @@ class TP_Ajax {
      * @access public
      */
     public static function change_document_name( $doc_id, $doc_name ) {
-        TP_Documents::change_document_name($doc_id, $doc_name);
+        tc_Documents::change_document_name($doc_id, $doc_name);
         echo $doc_name;
     }
     
@@ -45,7 +45,7 @@ class TP_Ajax {
      */
     public static function delete_document( $doc_id ) {
         $doc_id = intval($doc_id);
-        $data = TP_Documents::get_document($doc_id);
+        $data = tc_Documents::get_document($doc_id);
         if ( $data['path'] !== '' ) {
             $uploads = wp_upload_dir();
             $test = @ unlink( $uploads['basedir'] . $data['path'] );
@@ -55,7 +55,7 @@ class TP_Ajax {
                 return false;
             }
         }
-        TP_Documents::delete_document($doc_id);
+        tc_Documents::delete_document($doc_id);
         echo 'true';
         return true;
     }
@@ -67,7 +67,7 @@ class TP_Ajax {
      * @access public
      */
     public static function get_artefact_screen($artefact_id) {
-        $artefact = TP_Artefacts::get_artefact($artefact_id);
+        $artefact = tc_Artefacts::get_artefact($artefact_id);
         echo '<!doctype html>';
         echo '<html>';
         echo '<head>';
@@ -77,14 +77,14 @@ class TP_Ajax {
         echo '<body>';
         echo '<div id="content">';
         echo '<form method="post">';
-        echo '<input name="tp_artefact_id" type="hidden" value="' . $artefact_id . '"/>';
+        echo '<input name="tc_artefact_id" type="hidden" value="' . $artefact_id . '"/>';
         echo '<table class="form-table">';
         echo '<tr>';
         echo '<td>' . __('Title','teachpress') . '</td>';
-        echo '<td><input name="tp_artefact_title" cols="50" value="' . stripslashes($artefact['title']) . '"/></td>';
+        echo '<td><input name="tc_artefact_title" cols="50" value="' . stripslashes($artefact['title']) . '"/></td>';
         echo '</tr>';
         echo '</table>';
-        echo '<p><input name="tp_save_artefact" type="submit" class="button-primary" value="' . __('Save') . '"/> <input name="tp_delete_artefact" type="submit" class="button-secondary" value="' . __('Delete','teachpress') . '"/></p>';
+        echo '<p><input name="tc_save_artefact" type="submit" class="button-primary" value="' . __('Save') . '"/> <input name="tc_delete_artefact" type="submit" class="button-secondary" value="' . __('Delete','teachpress') . '"/></p>';
         echo '</form>';
         echo '</div>';
         echo '</body>';
@@ -99,11 +99,11 @@ class TP_Ajax {
      */
     public static function get_assessment_screen($assessment_id) {
         global $current_user;
-        $assessment = TP_Assessments::get_assessment($assessment_id);
-        $artefact = TP_Artefacts::get_artefact($assessment['artefact_id']);
+        $assessment = tc_Assessments::get_assessment($assessment_id);
+        $artefact = tc_Artefacts::get_artefact($assessment['artefact_id']);
         $course_id = ( $assessment['course_id'] !== '' ) ? $assessment['course_id'] : $artefact['course_id'];
-        $capability = TP_Courses::get_capability($course_id, $current_user->ID);
-        $student = TP_Students::get_student($assessment['wp_id']);
+        $capability = tc_Courses::get_capability($course_id, $current_user->ID);
+        $student = tc_Students::get_student($assessment['wp_id']);
         $examiner = get_userdata($assessment['examiner_id']);
 
         // Check capability
@@ -121,7 +121,7 @@ class TP_Ajax {
         echo '<body>';
         echo '<div id="content">';
         echo '<form method="post">';
-        echo '<input name="tp_assessment_id" type="hidden" value="' . $assessment_id . '"/>';
+        echo '<input name="tc_assessment_id" type="hidden" value="' . $assessment_id . '"/>';
         echo '<table class="form-table">';
         echo '<tr>';
         echo '<td>' . __('Name','teachpress') . '</td>';
@@ -133,19 +133,19 @@ class TP_Ajax {
         echo '</tr>';
         echo '<tr>';
         echo '<td>' . __('Type','teachpress') . '</td>';
-        echo '<td>' . TP_Admin::get_assessment_type_field('tp_type', $assessment['type']) . '</td>';
+        echo '<td>' . tc_Admin::get_assessment_type_field('tc_type', $assessment['type']) . '</td>';
         echo '</tr>';
         echo '<tr>';
         echo '<td>' . __('Value/Grade','teachpress') . '</td>';
-        echo '<td><input name="tp_value" type="text" size="50" value="' . $assessment['value'] . '" /></td>';
+        echo '<td><input name="tc_value" type="text" size="50" value="' . $assessment['value'] . '" /></td>';
         echo '</tr>';
         echo '<tr>';
         echo '<td>' . __('Comment','teachpress') . '</td>';
-        echo '<td><textarea name="tp_comment" rows="4" cols="50">' . stripslashes($assessment['comment']) . '</textarea></td>';
+        echo '<td><textarea name="tc_comment" rows="4" cols="50">' . stripslashes($assessment['comment']) . '</textarea></td>';
         echo '</tr>';
         echo '<tr>';
         echo '<td>' . __('Has passed','teachpress') . '</td>';
-        echo '<td>' . TP_Admin::get_assessment_passed_field('tp_passed', $assessment['passed']) . '</td>';
+        echo '<td>' . tc_Admin::get_assessment_passed_field('tc_passed', $assessment['passed']) . '</td>';
         echo '</tr>';
         echo '<tr>';
         echo '<td>' . __('Date','teachpress') . '</td>';
@@ -156,7 +156,7 @@ class TP_Ajax {
         echo '<td>' . stripslashes($examiner->display_name) . '</td>';
         echo '</tr>';
         echo '</table>';
-        echo '<p><input name="tp_save_assessment" type="submit" class="button-primary" value="' . __('Save') . '"/> <input name="tp_delete_assessment" type="submit" class="button-secondary" value="' . __('Delete','teachpress') . '"/></p>';
+        echo '<p><input name="tc_save_assessment" type="submit" class="button-primary" value="' . __('Save') . '"/> <input name="tc_delete_assessment" type="submit" class="button-secondary" value="' . __('Delete','teachpress') . '"/></p>';
         echo '</form>';
         echo '</div>';
         echo '</body>';
@@ -171,11 +171,11 @@ class TP_Ajax {
      */
     public static function get_author_publications( $author_id ) {
         $author_id = intval($author_id);
-        $pubs = TP_Authors::get_related_publications($author_id, ARRAY_A);
+        $pubs = tc_Authors::get_related_publications($author_id, ARRAY_A);
         echo '<ol>';
         foreach ( $pubs as $pub) {
             echo '<li style="padding-left:10px;">';
-            echo '<a target="_blank" title="' . __('Edit publication','teachpress') .'" href="admin.php?page=teachpress/addpublications.php&pub_id=' . $pub['pub_id'] . '">' . TP_HTML::prepare_title($pub['title'], 'decode') . '</a>, ' . stripslashes($pub['type']) . ', ' . $pub['year'];
+            echo '<a target="_blank" title="' . __('Edit publication','teachpress') .'" href="admin.php?page=teachpress/addpublications.php&pub_id=' . $pub['pub_id'] . '">' . tc_HTML::prepare_title($pub['title'], 'decode') . '</a>, ' . stripslashes($pub['type']) . ', ' . $pub['year'];
             if ( $pub['is_author'] == 1 ) {
                 echo ' (' . __('as author','teachpress') . ')';
             }
@@ -194,7 +194,7 @@ class TP_Ajax {
      * @access public
      */
     public static function get_generated_bibtex_key ($string) {
-        echo TP_Publications::generate_unique_bibtex_key($string);
+        echo tc_Publications::generate_unique_bibtex_key($string);
     }
 
     /**
@@ -204,7 +204,7 @@ class TP_Ajax {
      * @access public
      */
     public static function get_cite_screen ($cite_id) {
-        $publication = TP_Publications::get_publication($cite_id, ARRAY_A);
+        $publication = tc_Publications::get_publication($cite_id, ARRAY_A);
         echo '<!doctype html>';
         echo '<html>';
         echo '<head>';
@@ -214,10 +214,10 @@ class TP_Ajax {
         echo '<body>';
         echo '<div class="content">';
         echo '<div class="wrap">';
-        echo '<h3 class="nav-tab-wrapper"><a class="nav-tab nav-tab-active tp_cite_text" id="tp_cite_text_' . $cite_id . '" pub_id="' . $cite_id . '">' . __('Text','teachpress') . '</a> <a class="nav-tab tp_cite_bibtex" id="tp_cite_bibtex_' . $cite_id . '" pub_id="' . $cite_id . '">' . __('BibTeX','teachpress') . '</a></h3>';
+        echo '<h3 class="nav-tab-wrapper"><a class="nav-tab nav-tab-active tc_cite_text" id="tc_cite_text_' . $cite_id . '" pub_id="' . $cite_id . '">' . __('Text','teachpress') . '</a> <a class="nav-tab tc_cite_bibtex" id="tc_cite_bibtex_' . $cite_id . '" pub_id="' . $cite_id . '">' . __('BibTeX','teachpress') . '</a></h3>';
         echo '<form name="form_cite" method="post">';
-        echo '<input name="tp_cite_id" type="hidden" value="' . '"/>';
-        echo '<textarea name="tp_cite_full" id="tp_cite_full_' . $cite_id . '" class="tp_cite_full" rows="7" style="width:100%; border-top:none;" title="' . __('Publication entry','teachpress') . '">' . TP_Export::text_row($publication) . '</textarea>';
+        echo '<input name="tc_cite_id" type="hidden" value="' . '"/>';
+        echo '<textarea name="tc_cite_full" id="tc_cite_full_' . $cite_id . '" class="tc_cite_full" rows="7" style="width:100%; border-top:none;" title="' . __('Publication entry','teachpress') . '">' . tc_Export::text_row($publication) . '</textarea>';
         echo '</form>';
         echo '</div>';
         echo '</div>';
@@ -234,13 +234,13 @@ class TP_Ajax {
      */
     public static function get_cite_text ($cite_id, $mode) {
         if ( $mode === 'bibtex' ) {
-            $publication = TP_Publications::get_publication($cite_id, ARRAY_A);
-            $tags = TP_Tags::get_tags(array('pub_id' => $cite_id, 'output_type' => ARRAY_A));
-            echo TP_Bibtex::get_single_publication_bibtex($publication, $tags);
+            $publication = tc_Publications::get_publication($cite_id, ARRAY_A);
+            $tags = tc_Tags::get_tags(array('pub_id' => $cite_id, 'output_type' => ARRAY_A));
+            echo tc_Bibtex::get_single_publication_bibtex($publication, $tags);
         }
         if ( $mode === 'text' ) {
-            $publication = TP_Publications::get_publication($cite_id, ARRAY_A);
-            echo TP_Export::text_row($publication);
+            $publication = tc_Publications::get_publication($cite_id, ARRAY_A);
+            echo tc_Export::text_row($publication);
         }
     }
 
@@ -253,7 +253,7 @@ class TP_Ajax {
      */
     public static function get_document_name( $doc_id ) {
         $doc_id = intval($doc_id);
-        $data = TP_Documents::get_document($doc_id);
+        $data = tc_Documents::get_document($doc_id);
         echo stripslashes($data['name']);
     }
     
@@ -277,8 +277,8 @@ class TP_Ajax {
             );
         }
         else {
-            $field = TP_Options::get_option_by_id($meta_field_id);
-            $data = TP_DB_Helpers::extract_column_data($field['value']);
+            $field = tc_Options::get_option_by_id($meta_field_id);
+            $data = tc_DB_Helpers::extract_column_data($field['value']);
         }
         
         echo '<!doctype html>';
@@ -388,7 +388,7 @@ class TP_Ajax {
      * @access public
      */
     public static function get_mimetype_image( $filename ) {
-        echo TP_Icons::get_class($filename);
+        echo tc_Icons::get_class($filename);
     }
 
     /**
@@ -400,7 +400,7 @@ class TP_Ajax {
     public static function set_sort_order( $array ) {
         $i = 0;
         foreach ($array as $value) {
-            TP_Documents::set_sort($value, $i);
+            tc_Documents::set_sort($value, $i);
             $i++;
         }
     }

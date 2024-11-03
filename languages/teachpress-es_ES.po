@@ -1264,65 +1264,65 @@ msgstr "Generar clave BibTeX"
 # @ teachpress
 #: core/deprecated.php:57
 msgid ""
-"get_tp_course() is deprecated since teachpress 5.0.0. Use tp_courses::"
+"get_tc_course() is deprecated since teachpress 5.0.0. Use tc_courses::"
 "get_course() instead."
 msgstr ""
-"get_tp_course() ha sido desaprobada desde la versión 5.0.0 de teachPress. "
-"Use en su lugar tp_courses::get_course()"
+"get_tc_course() ha sido desaprobada desde la versión 5.0.0 de teachPress. "
+"Use en su lugar tc_courses::get_course()"
 
 # @ teachpress
 #: core/deprecated.php:84
 msgid ""
-"get_tp_course_free_places() is deprecated since teachpress 5.0.0. tp_courses:"
+"get_tc_course_free_places() is deprecated since teachpress 5.0.0. tc_courses:"
 ":get_free_places() instead."
 msgstr ""
-"get_tp_course_free_places() ha sido desaprobada desde la versión 5.0.0 de "
-"teachPress. Use en su lugar tp_courses::get_free_places()"
+"get_tc_course_free_places() ha sido desaprobada desde la versión 5.0.0 de "
+"teachPress. Use en su lugar tc_courses::get_free_places()"
 
 # @ teachpress
 #: core/deprecated.php:70
 msgid ""
-"get_tp_courses() is deprecated since teachpress 5.0.0. Use tp_courses::"
+"get_tc_courses() is deprecated since teachpress 5.0.0. Use tc_courses::"
 "get_courses() instead."
 msgstr ""
-"get_tp_courses() ha sido desaprobada desde la versión 5.0.0 de teachPress. "
-"Use en su lugar tp_courses::get_courses()"
+"get_tc_courses() ha sido desaprobada desde la versión 5.0.0 de teachPress. "
+"Use en su lugar tc_courses::get_courses()"
 
 # @ teachpress
 #: core/deprecated.php:123
 msgid ""
-"get_tp_publication() is deprecated since teachpress 5.0.0. Use "
-"tp_publications::get_publication() instead."
+"get_tc_publication() is deprecated since teachpress 5.0.0. Use "
+"tc_publications::get_publication() instead."
 msgstr ""
-"get_tp_publication() ha sido desaprobada desde la versión 5.0.0 de "
-"teachPress. Use en su lugar tp_publications::get_publication()"
+"get_tc_publication() ha sido desaprobada desde la versión 5.0.0 de "
+"teachPress. Use en su lugar tc_publications::get_publication()"
 
 # @ teachpress
 #: core/deprecated.php:137
 msgid ""
-"get_tp_publications() is deprecated since teachpress 5.0.0. Use "
-"tp_publications::get_publications() instead."
+"get_tc_publications() is deprecated since teachpress 5.0.0. Use "
+"tc_publications::get_publications() instead."
 msgstr ""
-"get_tp_publications() ha sido desaprobada desde la versión 5.0.0 de "
-"teachPress. Use en su lugar tp_publications::get_publications()"
+"get_tc_publications() ha sido desaprobada desde la versión 5.0.0 de "
+"teachPress. Use en su lugar tc_publications::get_publications()"
 
 # @ teachpress
 #: core/deprecated.php:109
 msgid ""
-"get_tp_tag_cloud() is deprecated since teachpress 5.0.0. Use tp_tags::"
+"get_tc_tag_cloud() is deprecated since teachpress 5.0.0. Use tc_tags::"
 "get_tag_cloud() instead."
 msgstr ""
-"get_tp_tag_cloud() ha sido desaprobada desde la versión 5.0.0 de teachPress. "
-"Use en su lugar tp_tags::get_tag_cloud()"
+"get_tc_tag_cloud() ha sido desaprobada desde la versión 5.0.0 de teachPress. "
+"Use en su lugar tc_tags::get_tag_cloud()"
 
 # @ teachpress
 #: core/deprecated.php:97
 msgid ""
-"get_tp_tags() is deprecated since teachpress 5.0.0. Use tp_tags::get_tags() "
+"get_tc_tags() is deprecated since teachpress 5.0.0. Use tc_tags::get_tags() "
 "instead."
 msgstr ""
-"get_tp_tags() ha sido desaprobada desde la versión 5.0.0 de teachPress. Use "
-"en su lugar tp_tags::get_tags()"
+"get_tc_tags() ha sido desaprobada desde la versión 5.0.0 de teachPress. Use "
+"en su lugar tc_tags::get_tags()"
 
 # @ teachpress
 #: admin/add-course.php:41 admin/add-course.php:395
@@ -1509,7 +1509,7 @@ msgstr "Publicaciones importadas."
 # @ teachpress
 #: core/class-export.php:270 core/class-export.php:299 core/feeds.php:72
 #: core/shortcodes.php:975 core/shortcodes.php:1022
-#: templates/tp_template_2021.php:22 core/publications/templates.php:375
+#: templates/tc_template_2021.php:22 core/publications/templates.php:375
 msgid "In"
 msgstr "En"
 
@@ -1695,7 +1695,7 @@ msgid "Limit selection"
 msgstr "Limitar selección"
 
 # @ teachpress
-#: core/shortcodes.php:1156 templates/tp_template_2021.php:21
+#: core/shortcodes.php:1156 templates/tc_template_2021.php:21
 #: core/publications/templates.php:374 core/publications/templates.php:442
 msgid "Links"
 msgstr "Enlaces"
@@ -2877,11 +2877,11 @@ msgstr "Fecha de fin de la matriculación"
 # @ teachpress
 #: core/deprecated.php:37
 msgid ""
-"The function tp_admin_page_menu() is deprecated since teachpress 5.0.0. Use "
-"tp_page_menu() instead."
+"The function tc_admin_page_menu() is deprecated since teachpress 5.0.0. Use "
+"tc_page_menu() instead."
 msgstr ""
-"La función tp_admin_page_menu() ha sido desaprobada desde la versión 5.0.0 "
-"de teachPress. Use en su lugar tp_page_menu()"
+"La función tc_admin_page_menu() ha sido desaprobada desde la versión 5.0.0 "
+"de teachPress. Use en su lugar tc_page_menu()"
 
 # @ teachpress
 #: admin/add-publication.php:753
@@ -3074,20 +3074,20 @@ msgstr "a"
 # @ teachpress
 #: core/deprecated.php:166
 msgid ""
-"tp_check_bookmark() is deprecated since teachpress 5.0.0. Use tp_bookmarks::"
+"tc_check_bookmark() is deprecated since teachpress 5.0.0. Use tc_bookmarks::"
 "bookmark_exists() instead."
 msgstr ""
-"tp_check_bookmark() ha sido desaprobada desde la versión 5.0.0 de teachPress."
-" Use en su lugar tp_bookmarks::bookmark_exists()"
+"tc_check_bookmark() ha sido desaprobada desde la versión 5.0.0 de teachPress."
+" Use en su lugar tc_bookmarks::bookmark_exists()"
 
 # @ teachpress
 #: core/deprecated.php:151
 msgid ""
-"tp_is_user_subscribed() is deprecated since teachpress 5.0.0. Use tp_courses:"
+"tc_is_user_subscribed() is deprecated since teachpress 5.0.0. Use tc_courses:"
 ":is_student_subscribed() instead."
 msgstr ""
-"tp_is_user_subscribed() ha sido desaprobada desde la versión 5.0.0 de "
-"teachPress. Use en su lugar tp_courses::is_student_subscribed()"
+"tc_is_user_subscribed() ha sido desaprobada desde la versión 5.0.0 de "
+"teachPress. Use en su lugar tc_courses::is_student_subscribed()"
 
 # @ teachpress
 #: admin/settings.php:446
@@ -3098,7 +3098,7 @@ msgstr ""
 # @ default
 # @ teachpress
 #: admin/settings.php:739 core/class-ajax.php:135
-#: templates/tp_template_orig_s.php:86
+#: templates/tc_template_orig_s.php:86
 msgid "Type"
 msgstr "Tipo"
 

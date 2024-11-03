@@ -57,7 +57,7 @@ The following article describes the fist steps for [starting with teachPress](ht
 All parameters of the shortcodes are described in the [teachPress shortcode reference](https://github.com/winkm89/teachPress/wiki#shortcodes)
 
 = How can I hide the tags, when I use the [tpcloud] shortcode? =
-Use the shortcode with the following parameters: [tp_cloud show_tags_as="none"]
+Use the shortcode with the following parameters: [tc_cloud show_tags_as="none"]
 
 = How can I display images in publication lists? =
 An example: [tplist image="left" image_size="70"]. Important: You must specify both image parameters.
@@ -173,7 +173,7 @@ Please note the [teachPress 6.0 Upgrade Information](https://mtrv.wordpress.com/
 * Bugfix: Fix a date detection error in pubmed import
 
 = 8.0.2 (31.08.2021) = 
-* Changed: Don't longer use full table select for count queries in TP_Publications::get_publications()
+* Changed: Don't longer use full table select for count queries in tc_Publications::get_publications()
 * Bugfix: year field was not used fo bibtex import if date field was missing
 * Bugfix: Optimize bibtex key generation within unique bibtex key check 
 
@@ -190,13 +190,13 @@ Please note the [teachPress 6.0 Upgrade Information](https://mtrv.wordpress.com/
 * New: DOI-Link to feedlist added (#158)
 * New: [tplist, tpcloud, tpsearch]: author_name option "short" added (#171)
 * New: For custom templates: Add the ability to disable (or customize) currently hardcoded text (#164)
-* New: API: meta_key_search option for TP_Publications::get_publications() added (#169)
-* New: API: bibtex key search option for TP_Publications::get_publications() added (#174)
+* New: API: meta_key_search option for tc_Publications::get_publications() added (#169)
+* New: API: bibtex key search option for tc_Publications::get_publications() added (#174)
 * Changed: Update bibtexParse to v2.5 (#147)
 * Changed: Font sizes in publication templates defined in rem
 * Changed: Remove field requirements (tags, bibtex key) for adding publications (#159)
 * Changed: Sort publication types in select menus after their localization name instead of the type key (#162)
-* Changed: Class names follows WordPress Naming Conventions. Example: tp_publication_template is now TP_Publication_Template
+* Changed: Class names follows WordPress Naming Conventions. Example: tc_publication_template is now tc_Publication_Template
 * Changed: For custom templates: get_image() method for publication templates added (and is required for all templates!) (#161)
 * Changed: For custom templates: $interface->get_tag_line() renames to $interface->get_menu_line()
 * Changed: A fix for an old name bug changes "capabilites" to "capabilities" over the whole plugin including database tables
@@ -222,7 +222,7 @@ Please note the [teachPress 6.0 Upgrade Information](https://mtrv.wordpress.com/
 
 = 7.1.1 (13.09.2020) =
 * Changed: Consider note field in the publication search (#140)
-* Changed: Optimize function tp_frontend_scripts (#138)
+* Changed: Optimize function tc_frontend_scripts (#138)
 * Changed: [tpsearch]: New style for search button 
 * Bugfix: Filter of tpcloud not working with non-Latin slugs (#134)
 * Bugfix: Publication pages tpsearch author=(1,2,3) only returning 1st author (#142)
@@ -230,7 +230,7 @@ Please note the [teachPress 6.0 Upgrade Information](https://mtrv.wordpress.com/
 = 7.1.0 (25.04.2020) =
 * New: image target (none, self, related post, external) and external image target URL can be defined for each publication
 * Changed: [tpcloud, tplist, tpsearch]: Changed behavior for parameter "image_link". Local image target settings in each publication are priorised now
-* Bugfix: Fix link icon padding in template "tp_template_orig_s" and "tp_template_orig"
+* Bugfix: Fix link icon padding in template "tc_template_orig_s" and "tc_template_orig"
 
 = 7.0.3 (19.04.2020) =
 * Bugfix: Fixed the pagination for [tpsearch] (#128)
@@ -257,10 +257,10 @@ Please note the [teachPress 6.0 Upgrade Information](https://mtrv.wordpress.com/
 * Bugfix: Rename form fields for publications
 * Bugfix: Fix problem with not escaped authors in JavaScript on add-publication.php
 * Bugfix: Fix "A variable mismatch has been detected." error on add-publication.php
-* Bugfix: Fix missing output from tp_bibtex_import::parse_month()
+* Bugfix: Fix missing output from tc_bibtex_import::parse_month()
 * Bugfix: Fix missing design for disabled last page button in page menus
 * Bugfix: Fix styling of disabled tablenav buttons in all shortcodes
-* Bugfix: [tp_cloud show_tags_as="none"] doesn't hide the tag line of each publication (#107)
+* Bugfix: [tc_cloud show_tags_as="none"] doesn't hide the tag line of each publication (#107)
 * Bugfix: Missing keywords in the bibtex output of the cite function
 * Bugfix: [tpcloud, tplist, tpsearch]: Fix colspan for headline rows in the publication list
 
@@ -331,7 +331,7 @@ Please note the [teachPress 6.0 Upgrade Information](https://mtrv.wordpress.com/
 * Bugfix: [tpsingle]: Fix for displaying editors as authors for collections and periodical
 * Bugfix: [template: teachPress original small]: Remove annoying extra space in bibliographic template (#54)
 * Bugfix: [template: teachPress original small]: Years were displayed twice in publication lists (#10)
-* Bugfix: Fixed missing tables in tp_tables::remove()
+* Bugfix: Fixed missing tables in tc_tables::remove()
 
 = 6.0.3 - (17.02.2017) =
 * Bugfix: [tpsearch]: Fixed a PHP warning which occurs if "as_filter" is enabled.

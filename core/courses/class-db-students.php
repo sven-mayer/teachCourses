@@ -12,7 +12,7 @@
  * @subpackage database
  * @since 5.0.0
  */
-class TP_Students {
+class tc_Students {
     
     /**
      * Returns data of a student
@@ -106,7 +106,7 @@ class TP_Students {
 
         // End
         $sql = $select . $where . " ORDER BY $order $limit";
-        // get_tp_message($sql);
+        // get_tc_message($sql);
         $sql = ( $count === false ) ? $wpdb->get_results($sql, $output_type): $wpdb->get_var($sql);
         return $sql;
     }
@@ -294,7 +294,7 @@ class TP_Students {
             $sql .= " AND `waitinglist` = '1'";
         }
         $sql .= " ORDER BY " . $order;
-        // get_tp_message($sql);
+        // get_tc_message($sql);
         $result = $wpdb->get_results($sql, $output_type);
         return $result;
     }
@@ -325,7 +325,7 @@ class TP_Students {
     */
     public static function has_assessment ($wp_id, $course_id) {
         global $wpdb;
-        $artefacts = TP_Artefacts::get_artefact_ids($course_id, 0);
+        $artefacts = tc_Artefacts::get_artefact_ids($course_id, 0);
 
         // Define where clause
         $where = '';

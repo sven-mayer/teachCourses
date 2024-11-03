@@ -12,7 +12,7 @@
  * @subpackage database
  * @since 5.0.0
  */
-class TP_Options {
+class tc_Options {
     
     /**
      * Returns an option by ID
@@ -80,12 +80,12 @@ class TP_Options {
  * @return string
  * @since 1.0.0
 */
-function get_tp_option($var, $category = 'system') {
+function get_tc_option($var, $category = 'system') {
     global $wpdb;
     $result = $wpdb->get_var(
         $wpdb->prepare( "SELECT `value` FROM " . TEACHPRESS_SETTINGS . " WHERE `variable` = %s AND `category` = %s",  $var, $category )
     );
-    // get_tp_message ($wpdb->last_query);
+    // get_tc_message ($wpdb->last_query);
     return $result;
 }
 
@@ -97,7 +97,7 @@ function get_tp_option($var, $category = 'system') {
  * @return object|array
  * @since 4.0.0
  */
-function get_tp_options($category, $order = "`setting_id` DESC", $output_type = OBJECT) {
+function get_tc_options($category, $order = "`setting_id` DESC", $output_type = OBJECT) {
     global $wpdb;
     $order = esc_sql($order);
     $result = $wpdb->get_results( 

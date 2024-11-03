@@ -1,22 +1,13 @@
-teachPress
+teachCourses
 ==========
 
-This is the offical development repository of teachPress, a plugin for WordPress which unites a course management system (with modules for enrollments and assessments) and a powerful BibTeX compatible publication management. Both modules can be operated independently. You can use it with WordPress 3.9.0 or higher.
+teachCourses is a clone of the deprecated course model of teachPress, a plugin for WordPress to add a course management system. You can use it with WordPress 3.9.0 or higher.
 
-Offical teachPress versions are available in the WordPress Plugin Directory:
-https://wordpress.org/plugins/teachpress/
 
 Pre-Releases and the offical versions are available in the Release-Section:
 https://github.com/winkm89/teachPress/releases
 
-Documentation : https://github.com/winkm89/teachPress/wiki
-
 ## Features
-* BibTeX compatible multi user publication management
-* BibTeX import for publications
-* BibTeX and RTF export for publications
-* RSS feed for publications
-* Template system for publication lists
 * Course management with integrated modules for enrollments, assessments and documents
 * XLS/CSV export for course lists
 * Many shortcodes for an easy using of publication lists, publication searches, enrollments and course overviews
@@ -39,7 +30,7 @@ Use at your own risk. No warranty expressed or implied is provided.
 
 ## Credits / Licence
 
-Copyright 2008-2021 by Michael Winkler
+This module was developed by Michael Winkler from 2008 to 2021.
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -55,9 +46,8 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
+
 ## Licence information of external resources
-* Wikindx bibtex import classes (bibtexParse) by Mark Grimshaw-Aagaard & Stéphane Aulery (Licence: ISC License)
-* OSBib by Mark Grimshaw-Aagaard (Licence: GPL)
 * Graphics for mimetypes, user-new-3.png, folder-new-7.png and document-new-6.png by Oxygen Icons 4.3.1 http://www.oxygen-icons.org/ (Licence: LPGL)
 * jquery-ui-icons.png by The jQuery Foundation (License: MIT)
 * view-refresh-3.png by GNOME Icon Theme 2.26.0 http://art.gnome.org (License: GPLv2)

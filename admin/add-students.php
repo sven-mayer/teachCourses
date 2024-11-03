@@ -11,7 +11,7 @@
  * @param array $fields       An associative array with the settings of the meta data fields. The array keys are variable an value.
  * @since 2.0.0
 */ 
-function tp_add_student_page($fields) { 
+function tc_add_student_page($fields) { 
 
     $wp_id = isset($_POST['wp_id']) ? intval($_POST['wp_id']) : '';
     $data['userlogin'] = isset( $_POST['userlogin'] ) ? htmlspecialchars($_POST['userlogin']) : '';
@@ -19,8 +19,8 @@ function tp_add_student_page($fields) {
 
     // actions
     if (isset( $_POST['insert'] ) && $wp_id != __('WordPress User-ID','teachpress') && $wp_id != '') {
-        TP_Enrollments::add_student($wp_id, $data['userlogin'], $data['email'], $fields, filter_input_array(INPUT_POST, $_POST));
-        get_tp_message( __('Student added','teachpress') );
+        tc_Enrollments::add_student($wp_id, $data['userlogin'], $data['email'], $fields, filter_input_array(INPUT_POST, $_POST));
+        get_tc_message( __('Student added','teachpress') );
     }
     ?>
     <div class="wrap" >
@@ -37,7 +37,7 @@ function tp_add_student_page($fields) {
                 <?php 
                 echo '<select name="wp_id" id="wp_id">';
                 echo '<option value="n">' . __('Select user','teachpress') . '</option>';
-                $row = TP_Students::get_unregistered_students();
+                $row = tc_Students::get_unregistered_students();
                 foreach ($row as $row) {
                     echo '<option value="' . $row['ID'] . '">' . $row['user_login'] . '</option>';
                 }
@@ -63,32 +63,32 @@ function tp_add_student_page($fields) {
           <?php
           // Show custom fields
             foreach ($fields as $row) {
-                $data = TP_DB_Helpers::extract_column_data($row['value']);
+                $data = tc_DB_Helpers::extract_column_data($row['value']);
                 $required = ( $data['required'] === 'true' ) ? true : false;
                 $value = '';
                 if ( $data['type'] === 'SELECT' ) {
-                    echo TP_Enrollments::get_form_select_field($row['variable'], $data['title'], $value, false, $required);
+                    echo tc_Enrollments::get_form_select_field($row['variable'], $data['title'], $value, false, $required);
                 }
                 elseif ( $data['type'] === 'TEXTAREA' ) {
-                    echo TP_Enrollments::get_form_textarea_field($row['variable'], $data['title'], $value, $required);
+                    echo tc_Enrollments::get_form_textarea_field($row['variable'], $data['title'], $value, $required);
                 }
                 elseif ( $data['type'] === 'DATE' ) {
-                    echo TP_Enrollments::get_form_date_field($row['variable'], $data['title'], $value);
+                    echo tc_Enrollments::get_form_date_field($row['variable'], $data['title'], $value);
                 }
                 elseif ( $data['type'] === 'INT' ) {
                     $data['min'] = ( $data['min'] !== 'false' ) ? intval($data['min']) : 0;
                     $data['max'] = ( $data['max'] !== 'false' ) ? intval($data['max']) : 999;
                     $data['step'] = ( $data['step'] !== 'false' ) ? intval($data['step']) : 1;
-                    echo TP_Enrollments::get_form_int_field($row['variable'], $data['title'], $value, $data['min'], $data['max'], $data['step'], false, $required);
+                    echo tc_Enrollments::get_form_int_field($row['variable'], $data['title'], $value, $data['min'], $data['max'], $data['step'], false, $required);
                 }
                 elseif ( $data['type'] === 'CHECKBOX' ) {
-                    echo TP_Enrollments::get_form_checkbox_field($row['variable'], $data['title'], $value, false, $required);
+                    echo tc_Enrollments::get_form_checkbox_field($row['variable'], $data['title'], $value, false, $required);
                 }
                 elseif ( $data['type'] === 'RADIO' ) {
-                    echo TP_Enrollments::get_form_radio_field($row['variable'], $data['title'], $value, false, $required);
+                    echo tc_Enrollments::get_form_radio_field($row['variable'], $data['title'], $value, false, $required);
                 }
                 else {
-                    echo TP_Enrollments::get_form_text_field($row['variable'], $data['title'], $value, false, $required);
+                    echo tc_Enrollments::get_form_text_field($row['variable'], $data['title'], $value, false, $required);
                 }
             }
             ?>

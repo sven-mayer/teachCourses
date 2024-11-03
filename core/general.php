@@ -23,7 +23,7 @@
  * @return string
  * @since 5.0.0
 */
-function tp_page_menu ($atts) {
+function tc_page_menu ($atts) {
     $atts = shortcode_atts(array(
        'number_entries'     => 0,
        'entries_per_page'   => 50,
@@ -92,10 +92,10 @@ function tp_page_menu ($atts) {
  * @version 2
  * @since 5.0.0
 */ 
-function get_tp_message($message, $color = 'green') {
-    TP_HTML::line('<div class="teachpress_message teachpress_message_' . esc_attr( $color ) . '">');
-    TP_HTML::line('<strong>' . $message . '</strong>');
-    TP_HTML::line('</div>');
+function get_tc_message($message, $color = 'green') {
+    tc_HTML::line('<div class="teachpress_message teachpress_message_' . esc_attr( $color ) . '">');
+    tc_HTML::line('<strong>' . $message . '</strong>');
+    tc_HTML::line('</div>');
 }
 
 /** 
@@ -111,7 +111,7 @@ function get_tp_message($message, $color = 'green') {
  * $split[0][4] => Minute 
  * $split[0][5] => Second
 */ 
-function tp_datesplit($date_string) {
+function tc_datesplit($date_string) {
     $preg = '/[\d]{2,4}/'; 
     $split = array(); 
     preg_match_all($preg, $date_string, $split); 
@@ -125,9 +125,9 @@ function tp_datesplit($date_string) {
  * @return string
  * @since 2.0.0
  */
-function tp_translate_pub_type($pub_slug, $num = 'sin') {
-    global $tp_publication_types;
-    $types = $tp_publication_types->get();
+function tc_translate_pub_type($pub_slug, $num = 'sin') {
+    global $tc_publication_types;
+    $types = $tc_publication_types->get();
     
     if ( isset( $types[$pub_slug] ) ) {
         if ( $num == 'sin' ) {
@@ -152,11 +152,11 @@ function tp_translate_pub_type($pub_slug, $num = 'sin') {
  * 
  * @return string
 */
-function get_tp_publication_type_options ($selected, $mode = 'sng') {
-    global $tp_publication_types;
+function get_tc_publication_type_options ($selected, $mode = 'sng') {
+    global $tc_publication_types;
     $types = '';
-    $pub_types = $tp_publication_types->get();
-    usort($pub_types, 'sort_tp_publication_type_options');
+    $pub_types = $tc_publication_types->get();
+    usort($pub_types, 'sort_tc_publication_type_options');
     foreach ( $pub_types as $row ) {
         $title = ($mode === 'sng') ? $row['i18n_singular'] : $row['i18n_plural'];
         $current = ( $row['type_slug'] == $selected && $selected != '' ) ? 'selected="selected"' : '';
@@ -166,14 +166,14 @@ function get_tp_publication_type_options ($selected, $mode = 'sng') {
 }
 
 /**
- * Sort function helper for get_tp_publication_type_options()
+ * Sort function helper for get_tc_publication_type_options()
  * Sorts the publication types after the i18n_singular string
  * @param string $a
  * @param string $b
  * @return int
  * @since 8.0.0
  */
-function sort_tp_publication_type_options ($a, $b) {
+function sort_tc_publication_type_options ($a, $b) {
     return strcmp($a['i18n_singular'], $b['i18n_singular']);
 }
 
@@ -182,7 +182,7 @@ function sort_tp_publication_type_options ($a, $b) {
  * @param string $type  --> values: course_array, publication_array
  * @return array 
  */
-function get_tp_var_types($type) {
+function get_tc_var_types($type) {
     if ( $type == 'course_array' ) {
         $ret = array( 
             'course_id'         => '',
@@ -260,7 +260,7 @@ function get_tp_var_types($type) {
  * @since 1.0
  * @version 2
  */
-function tp_update_userrole($roles, $capability) {
+function tc_update_userrole($roles, $capability) {
     global $wp_roles;
 
     if ( empty($roles) || ! is_array($roles) ) { 
@@ -282,8 +282,8 @@ function tp_update_userrole($roles, $capability) {
  * @return string
  * @since 5.0.0
  */
-function tp_get_memory_usage () {
-    return 'Current real amount of memory: ' . tp_convert_file_size( memory_get_usage(true) ) . '<br/>';
+function tc_get_memory_usage () {
+    return 'Current real amount of memory: ' . tc_convert_file_size( memory_get_usage(true) ) . '<br/>';
 }
 
 /**
@@ -292,7 +292,7 @@ function tp_get_memory_usage () {
  * @return string
  * @since 5.0.0
  */
-function tp_convert_file_size ($bytes) {
+function tc_convert_file_size ($bytes) {
     $bytes = floatval($bytes);
     if ( $bytes >= 1099511627776 ) {
         return number_format($bytes / 1099511627776, 2) . ' TB';
@@ -325,7 +325,7 @@ function tp_convert_file_size ($bytes) {
  * @return string
  * @since 8.0.0
  */
-function tp_convert_input_to_string($input, $type = 'string') {
+function tc_convert_input_to_string($input, $type = 'string') {
     // if we have an array already
     if ( is_array($input) ) {
         $array = $input;
@@ -365,7 +365,7 @@ function tp_convert_input_to_string($input, $type = 'string') {
  * Writes data for the teachPress tinyMCE plugin in Javascript objects
  * @since 5.0.0
  */
-function tp_write_data_for_tinymce () {
+function tc_write_data_for_tinymce () {
     
     // Only write the data if the page is a page/post editor
     if ( $GLOBALS['current_screen']->base !== 'post' ) {
@@ -375,9 +375,9 @@ function tp_write_data_for_tinymce () {
     // List of courses
     $course_list = array();
     $course_list[] = array( 'text' => '=== SELECT ===' , 'value' => 0 );
-    $semester = get_tp_options('semester', '`setting_id` DESC');
+    $semester = get_tc_options('semester', '`setting_id` DESC');
     foreach ( $semester as $row ) {
-        $courses = TP_Courses::get_courses( array('parent' => 0, 'semester' => $row->value) );
+        $courses = tc_Courses::get_courses( array('parent' => 0, 'semester' => $row->value) );
         foreach ($courses as $course) {
             $course_list[] = array( 'text' => $course->name . ' (' . $course->semester . ')' , 'value' => $course->course_id );
         }
@@ -396,7 +396,7 @@ function tp_write_data_for_tinymce () {
     // List of publication users
     $pub_user_list = array();
     $pub_user_list[] = array( 'text' => __('All','teachpress') , 'value' => '' );
-    $pub_users = TP_Publications::get_pub_users();
+    $pub_users = tc_Publications::get_pub_users();
     foreach ($pub_users as $row) { 
         $user_data = get_userdata($row->user);
         if ( $user_data !== false ) {
@@ -407,22 +407,22 @@ function tp_write_data_for_tinymce () {
     // List of publication tags
     $pub_tag_list = array();
     $pub_tag_list[] = array( 'text' => __('All','teachpress'), 'value' => null );
-    $pub_tags = TP_Tags::get_tags(array( 'group_by' => true ));
+    $pub_tags = tc_Tags::get_tags(array( 'group_by' => true ));
     foreach($pub_tags as $pub_tag){
 	$pub_tag_list[] = array( 'text' => $pub_tag->name, 'value' => intval($pub_tag->tag_id) );
     }
     
     // List of publication types
-    global $tp_publication_types;
+    global $tc_publication_types;
     $pub_type_list = array();
-    $pub_types = $tp_publication_types->get();
+    $pub_types = $tc_publication_types->get();
     foreach ( $pub_types as $pub_type ) {
         $pub_type_list[] = array ( 'text' => $pub_type['i18n_singular'], 'value' => stripslashes($pub_type['type_slug']) );
     }
     
     // List of publication templates
     $pub_templates_list = array();
-    $pub_templates = tp_list_templates();
+    $pub_templates = tc_list_templates();
     foreach ( $pub_templates as $row ) {
         $pub_templates_list[] = array ( 'text' => $row, 'value' => $row);
     }
@@ -442,8 +442,6 @@ function tp_write_data_for_tinymce () {
         var teachpress_editor_url = '<?php echo admin_url( 'admin-ajax.php' ) . '?action=teachpressdocman&post_id=' . $post_id; ?>';
         var teachpress_cookie_path = '<?php echo SITECOOKIEPATH; ?>';
         var teachpress_file_link_css_class = '<?php echo TEACHPRESS_FILE_LINK_CSS_CLASS; ?>';
-        var teachpress_course_module = <?php if (TEACHPRESS_COURSE_MODULE === true) { echo 'true'; } else { echo 'false'; } ?>;
-        var teachpress_publication_module = <?php if (TEACHPRESS_PUBLICATION_MODULE === true) { echo 'true'; } else { echo 'false'; } ?>;
     </script>
     <?php
 }

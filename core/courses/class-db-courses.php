@@ -12,7 +12,7 @@
  * @subpackage database
  * @since 5.0.0
  */
-class TP_Courses {
+class tc_Courses {
     
     /**
      * Returns the capability ("owner" or "approved") of an user for a course. For courses with no capabilities "owner" is returned.
@@ -59,7 +59,7 @@ class TP_Courses {
            return false;
        }
        
-       if ( !TP_Courses::has_capability($course_id, $wp_id, $capability) ) {
+       if ( !tc_Courses::has_capability($course_id, $wp_id, $capability) ) {
            $wpdb->insert(TEACHPRESS_COURSE_CAPABILITIES, array('course_id' => $course_id, 'wp_id' => $wp_id, 'capability' => $capability), array('%d', '%d', '%s'));
        }
        
@@ -196,13 +196,13 @@ class TP_Courses {
         
         // WHERE clause
         $nwhere = array();
-        $nwhere[] = TP_DB_Helpers::generate_where_clause($atts['exclude'], "p.pub_id", "AND", "!=");
-        $nwhere[] = TP_DB_Helpers::generate_where_clause($atts['semester'], "semester", "OR", "=");
-        $nwhere[] = TP_DB_Helpers::generate_where_clause($atts['visibility'], "visible", "OR", "=");
-        $nwhere[] = TP_DB_Helpers::generate_where_clause($atts['parent'], "parent", "OR", "=");
+        $nwhere[] = tc_DB_Helpers::generate_where_clause($atts['exclude'], "p.pub_id", "AND", "!=");
+        $nwhere[] = tc_DB_Helpers::generate_where_clause($atts['semester'], "semester", "OR", "=");
+        $nwhere[] = tc_DB_Helpers::generate_where_clause($atts['visibility'], "visible", "OR", "=");
+        $nwhere[] = tc_DB_Helpers::generate_where_clause($atts['parent'], "parent", "OR", "=");
         $nwhere[] = ( $search != '') ? $search : null;
         
-        $where = TP_DB_Helpers::compose_clause($nwhere);
+        $where = tc_DB_Helpers::compose_clause($nwhere);
         
         // LIMIT clause
         $limit = ( $atts['limit'] != '' ) ? 'LIMIT ' . esc_sql($atts['limit']) : '';
@@ -239,7 +239,7 @@ class TP_Courses {
         global $wpdb;
         $row = $wpdb->get_row("SELECT `name`, `parent` FROM " . TEACHPRESS_COURSES . " WHERE `course_id` = '" . intval($course_id) . "'");
         if ($row->parent != '0') {
-            $parent = TP_Courses::get_course_data($row->parent, 'name');
+            $parent = tc_Courses::get_course_data($row->parent, 'name');
             $row->name = ( $row->name != $parent ) ? $parent . ' ' . $row->name : $row->name;
         }
         return $row->name;
@@ -363,10 +363,10 @@ class TP_Courses {
         $course_id = $wpdb->insert_id;
         // add capability
         global $current_user;
-        TP_Courses::add_capability($course_id, $current_user->ID, 'owner');
+        tc_Courses::add_capability($course_id, $current_user->ID, 'owner');
         // create rel_page
         if ($data['rel_page_alter'] !== 0 ) {
-            $data['rel_page'] = TP_Courses::add_rel_page($course_id, $data);
+            $data['rel_page'] = tc_Courses::add_rel_page($course_id, $data);
             // Update rel_page
             $wpdb->update( 
                     TEACHPRESS_COURSES, 
@@ -377,11 +377,11 @@ class TP_Courses {
         }
         // test if creation was successful
         if ( $data['rel_page'] === false ) {
-            get_tp_message(__('Error while adding new related content.','teachpress'), 'red');
+            get_tc_message(__('Error while adding new related content.','teachpress'), 'red');
         }
         // create sub courses
         if ( $sub['number'] !== 0 ) {
-            TP_Courses::add_sub_courses($course_id, $data, $sub);
+            tc_Courses::add_sub_courses($course_id, $data, $sub);
         }
         return $course_id;
     }
@@ -425,7 +425,7 @@ class TP_Courses {
         $options = array('number' => 0);
         for ( $i = 1; $i <= $sub['number']; $i++ ) {
             $sub_data['name'] = $sub['type'] . ' ' . $i;
-            TP_Courses::add_course($sub_data, $options);
+            tc_Courses::add_course($sub_data, $options);
         }
     }
     
@@ -440,7 +440,7 @@ class TP_Courses {
         global $wpdb;
         $course_id = intval($course_id);
         global $current_user;
-        $old_places = TP_Courses::get_course_data ($course_id, 'places');
+        $old_places = tc_Courses::get_course_data ($course_id, 'places');
 
         // If the number of places is raised up
         if ( $data['places'] > $old_places ) {
@@ -500,7 +500,7 @@ class TP_Courses {
             $checkbox[$i] = intval($checkbox[$i]);
             
             // capability check
-            $capability = TP_Courses::get_capability($checkbox[$i], $user_ID);
+            $capability = tc_Courses::get_capability($checkbox[$i], $user_ID);
             if ($capability !== 'owner' ) {
                 continue;
             }
@@ -575,13 +575,13 @@ class TP_Courses {
             $limit = " LIMIT $limit";
         }
 
-        $fields = get_tp_options('teachpress_stud','`setting_id` ASC');
+        $fields = get_tc_options('teachpress_stud','`setting_id` ASC');
         $selects = '';
         $joins = '';
         $where = '';
         $i = 1;
         foreach ($fields as $row) {
-            $settings = TP_DB_Helpers::extract_column_data($row->value);
+            $settings = tc_DB_Helpers::extract_column_data($row->value);
             if ( $settings['visibility'] !== $meta_visibility || $meta_visibility === 'all' ) {
                 continue;
             }
@@ -611,7 +611,7 @@ class TP_Courses {
             $where .= " AND s.waitinglist = '$waitinglist'";
         }
         
-        // get_tp_message($sql . $where . $order . $limit, 'orange');
+        // get_tc_message($sql . $where . $order . $limit, 'orange');
         if ( $count === true ) {
             return $wpdb->get_var($sql . $where);
         }
@@ -638,7 +638,7 @@ class TP_Courses {
             $name = self::get_course_name($course_id);
             
             // Send notification
-            TP_Enrollments::send_notification(201, $wp_id, $name);
+            tc_Enrollments::send_notification(201, $wp_id, $name);
             
             return true;
         }
@@ -684,7 +684,7 @@ class TP_Courses {
     }
     
     /** 
-     * Delete signup and add an entry from the waitinglist to the course (if possible). Please note that this function doesn't use transactions like tp_delete_signup_student().
+     * Delete signup and add an entry from the waitinglist to the course (if possible). Please note that this function doesn't use transactions like tc_delete_signup_student().
      * @param array $checkbox   An array with course IDs
      * @param boolean $move_up  A flag for the automatic move up from waitinglist entries
      * @since 5.0.0
@@ -735,7 +735,7 @@ class TP_Courses {
             $name = self::get_course_name($course_id);
             
             // Send notification
-            TP_Enrollments::send_notification(201, $signup->wp_id, $name);
+            tc_Enrollments::send_notification(201, $signup->wp_id, $name);
         }	
         
     }
@@ -786,7 +786,7 @@ class TP_Courses {
     
     /**
      * This function subscribes student from the waitinglist to the course, if the number of places is raised up.
-     * This is used in tp_courses::change_course()
+     * This is used in tc_courses::change_course()
      * 
      * @param int $course_id        The course ID
      * @param int $new_places       The new number of places
@@ -817,7 +817,7 @@ class TP_Courses {
                 $name = self::get_course_name($course_id);
 
                 // Send notification
-                TP_Enrollments::send_notification(201, $waitinglist["wp_id"], $name);
+                tc_Enrollments::send_notification(201, $waitinglist["wp_id"], $name);
             }
             else {
                 break;

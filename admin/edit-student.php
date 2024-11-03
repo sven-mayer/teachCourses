@@ -10,7 +10,7 @@
  * This class contains all functions for the show/edit student pages in admin menu
  * @since 6.0.0
  */
-class TP_Student_Page {
+class tc_Student_Page {
     
     /**
      * Prints a signup table
@@ -22,10 +22,10 @@ class TP_Student_Page {
     private static function get_signups_table ($student, $mode) {
         
         if ( $mode === 'reg' ) {
-            $row = TP_Students::get_signups( array('wp_id' => $student, 'mode' => 'reg'));
+            $row = tc_Students::get_signups( array('wp_id' => $student, 'mode' => 'reg'));
         }
         else {
-            $row = TP_Students::get_signups( array('wp_id' => $student, 'mode' => 'wtl'));
+            $row = tc_Students::get_signups( array('wp_id' => $student, 'mode' => 'wtl'));
         }
         
         // return if there is now entry
@@ -105,16 +105,16 @@ class TP_Student_Page {
      * @since 6.0.0
     */ 
     public static function show_tab ($student, $fields, $search, $curr_page, $url_parameter) {
-        $row3 = TP_Students::get_student($student);
-        $row4 = TP_Students::get_student_meta($student);
+        $row3 = tc_Students::get_student($student);
+        $row4 = tc_Students::get_student_meta($student);
         
         echo '<div class="wrap">';
         
         // Event handler
         if ( isset( $_GET['delete'] )) {
-             TP_Courses::delete_signup($_GET['checkbox']);
+             tc_Courses::delete_signup($_GET['checkbox']);
              $message = __('Enrollment deleted','teachpress');
-             get_tp_message($message);
+             get_tc_message($message);
         }
         
         // back button
@@ -127,7 +127,7 @@ class TP_Student_Page {
         echo '<input name="student_id" type="hidden" value="' . $student . '" />';
         echo '<input name="search" type="hidden" value="' . $search . '" />';
         echo '<input name="limit" type="hidden" value="' . $curr_page . '" />';
-        echo '<h1>' . stripslashes($row3['firstname']) . ' ' . stripslashes($row3['lastname']) . ' <span class="tp_break">|</span> <small><a href="admin.php?page=teachpress/students.php&amp;student_id=' . $student . '&amp;search=' . $search . '&amp;limit=' . $curr_page . $url_parameter . '&amp;action=edit' . '" id="daten_aendern">' . __('Edit','teachpress') . '</a></small></h1>';
+        echo '<h1>' . stripslashes($row3['firstname']) . ' ' . stripslashes($row3['lastname']) . ' <span class="tc_break">|</span> <small><a href="admin.php?page=teachpress/students.php&amp;student_id=' . $student . '&amp;search=' . $search . '&amp;limit=' . $curr_page . $url_parameter . '&amp;action=edit' . '" id="daten_aendern">' . __('Edit','teachpress') . '</a></small></h1>';
         echo '<div style="width:55%; padding-bottom:10px;">';
         echo '<table border="0" cellpadding="0" cellspacing="5" class="widefat">';
         echo '<thead>';
@@ -145,7 +145,7 @@ class TP_Student_Page {
         echo '<td style="vertical-align:middle;"><a href="admin.php?page=teachpress/teachpress.php&amp;student_id=' . $row3['wp_id'] . '&amp;search=' . $search . '&amp;limit=' . $curr_page . $url_parameter . '&amp;action=mail&amp;single=' . $row3['email'] . '" title="' . __('Send E-Mail to','teachpress') . ' ' . $row3['firstname'] . ' ' . $row3['lastname'] . '">' . $row3['email'] . '</a></td>';
         echo '</tr>';
         foreach ($fields as $row) {
-            $data = TP_DB_Helpers::extract_column_data($row['value']);
+            $data = tc_DB_Helpers::extract_column_data($row['value']);
             echo '<tr>';
             echo '<td><strong>' . $data['title'] . '</strong></td>';
             foreach ($row4 as $meta) {
@@ -189,9 +189,9 @@ class TP_Student_Page {
      * @access public
     */
     public static function edit_tab ($student, $fields, $search, $entry_limit, $url_parameter) {
-        if ( isset($_POST['tp_change_user'] ) ) {
+        if ( isset($_POST['tc_change_user'] ) ) {
             // delete old meta data
-            TP_Students::delete_student_meta($student);
+            tc_Students::delete_student_meta($student);
 
             $data = array (
                 'firstname' => htmlspecialchars($_POST['firstname']),
@@ -199,15 +199,15 @@ class TP_Student_Page {
                 'userlogin' => htmlspecialchars($_POST['userlogin']),
                 'email' => htmlspecialchars($_POST['email'])
             );
-            TP_DB_Helpers::prepare_meta_data($student, $fields, $_POST, 'students');
-            TP_Students::change_student($student, $data, false);
-            get_tp_message( __('Saved') );
+            tc_DB_Helpers::prepare_meta_data($student, $fields, $_POST, 'students');
+            tc_Students::change_student($student, $data, false);
+            get_tc_message( __('Saved') );
         }
 
         echo '<div class="wrap">';
         echo '<p><a href="admin.php?page=teachpress/students.php&amp;student_id=' . $student . '&amp;search=' . $search . '&amp;limit=' . $entry_limit . $url_parameter . '&amp;action=show" class="button-secondary" title="' . __('Back','teachpress') . '">&larr; ' . __('Back','teachpress') . ' </a></p>';
         echo '<h2>' . __('Edit Student','teachpress') . '</h2>';
-        echo tp_registration_form($student, 'admin');
+        echo tc_registration_form($student, 'admin');
         echo '</div>';
     }
 }

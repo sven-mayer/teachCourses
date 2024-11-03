@@ -6,7 +6,7 @@
  * @since 6.0.0
  */
 
-class TP_Template_2021 implements TP_Publication_Template {
+class tc_Template_2021 implements tc_Publication_Template {
     /**
      * Returns the settings of the template
      * @return array
@@ -41,7 +41,7 @@ class TP_Template_2021 implements TP_Publication_Template {
      * @return string
      */
     public function get_headline ($content, $args = array()) {
-        return '<h3 class="tp_h3" id="tp_h3_' . esc_attr($content) .'">' . $content . '</h3>';
+        return '<h3 class="tc_h3" id="tc_h3_' . esc_attr($content) .'">' . $content . '</h3>';
     }
     
     /**
@@ -51,7 +51,7 @@ class TP_Template_2021 implements TP_Publication_Template {
      * @return string
      */
     public function get_headline_sl ($content, $args = array()) {
-        return '<h4 class="tp_h4" id="tp_h4_' . esc_attr($content) .'">' . $content . '</h4>';
+        return '<h4 class="tc_h4" id="tc_h4_' . esc_attr($content) .'">' . $content . '</h4>';
     }
     
     /**
@@ -62,7 +62,7 @@ class TP_Template_2021 implements TP_Publication_Template {
      * @return string
      */
     public function get_image($content, $position, $optional_attributes = '') {
-        return '<div class="tp_pub_image_' . $position . '">' . $content . '</div>';
+        return '<div class="tc_pub_image_' . $position . '">' . $content . '</div>';
     }
     
     /**
@@ -84,15 +84,15 @@ class TP_Template_2021 implements TP_Publication_Template {
      * @return string
      */
     public function get_entry ($interface) {
-        $class = ' tp_publication_' . $interface->get_type('');
-        $s = '<div class="tp_publication' . $class . '">';
-        $s .= $interface->get_number('<div class="tp_pub_number">', '.</div>');
+        $class = ' tc_publication_' . $interface->get_type('');
+        $s = '<div class="tc_publication' . $class . '">';
+        $s .= $interface->get_number('<div class="tc_pub_number">', '.</div>');
         $s .= $interface->get_images('left');
-        $s .= '<div class="tp_pub_info">';
-        $s .= $interface->get_author('<p class="tp_pub_author">', '</p>');
-        $s .= '<p class="tp_pub_title">' . $interface->get_title() . ' ' . $interface->get_type() . ' ' . $interface->get_label('status', array('forthcoming') ) . '</p>';
-        $s .= '<p class="tp_pub_additional">' . $interface->get_meta() . '</p>';
-        $s .= '<p class="tp_pub_menu">' . $interface->get_menu_line() . '</p>';
+        $s .= '<div class="tc_pub_info">';
+        $s .= $interface->get_author('<p class="tc_pub_author">', '</p>');
+        $s .= '<p class="tc_pub_title">' . $interface->get_title() . ' ' . $interface->get_type() . ' ' . $interface->get_label('status', array('forthcoming') ) . '</p>';
+        $s .= '<p class="tc_pub_additional">' . $interface->get_meta() . '</p>';
+        $s .= '<p class="tc_pub_menu">' . $interface->get_menu_line() . '</p>';
         $s .= $interface->get_infocontainer();
         $s .= $interface->get_images('bottom');
         $s .= '</div>';

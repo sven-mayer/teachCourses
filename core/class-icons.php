@@ -1,6 +1,6 @@
 <?php
 /**
- * This file contains all functions of the tp_icons class
+ * This file contains all functions of the tc_icons class
  * @package teachpress\core\icons
  * @license http://www.gnu.org/licenses/gpl-2.0.html GPLv2 or later
  * @since 7.0
@@ -11,7 +11,7 @@
  * @package teachpress\core\icons
  * @since 7.0
  */
-class TP_Icons {
+class tc_Icons {
     
     /**
      * Returns the suitable icon classes for a given file_path or URL
