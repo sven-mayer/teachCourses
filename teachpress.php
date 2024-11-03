@@ -54,7 +54,6 @@ include_once('core/class-mail.php');
 include_once('core/class-db-helpers.php');
 include_once('core/class-db-options.php');
 include_once('core/deprecated.php');
-include_once('core/feeds.php');
 include_once('core/general.php');
 include_once('core/shortcodes.php');
 include_once('core/courses/class-db-artefacts.php');

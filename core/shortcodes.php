@@ -1083,33 +1083,6 @@ function tc_single_shortcode ($atts) {
 }
 
 /** 
- * Shortcode for displaying the BibTeX code of a single publication
- * 
- * If neither is given, the publication of the most recent [tpsingle] will be reused
- * 
- * @param array $atts {
- *      @type int id        id of a publication
- *      @type string key    bibtex key of a publication 
- * }
- * @return string
- * @since 4.2.0
-*/ 
-function tc_bibtex_shortcode ($atts) {
-    global $tc_single_publication;
-    $param = shortcode_atts(array(
-       'id' => 0,
-       'key' => '',
-    ), $atts);
-    
-    $convert_bibtex = ( get_tc_option('convert_bibtex') == '1' ) ? true : false;
-    $publication = tc_Shortcodes::set_publication($param, $tc_single_publication);
-    
-    $tags = tc_Tags::get_tags( array('pub_id' => $publication['pub_id'], 'output_type' => ARRAY_A) );
-    
-    return '<h2 class="tc_bibtex">BibTeX (<a href="' . home_url() . '?feed=tc_pub_bibtex&amp;key=' . $publication['bibtex'] . '">Download</a>)</h2><pre class="tc_bibtex">' . tc_Bibtex::get_single_publication_bibtex($publication, $tags, $convert_bibtex) . '</pre>';
-}
-
-/** 
  * Shortcode for displaying the abstract of a single publication
  * 
  * If neither is given, the publication of the most recent [tpsingle] will be reused
