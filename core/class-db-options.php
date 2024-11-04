@@ -22,7 +22,7 @@ class tc_Options {
      */
     public static function get_option_by_id ($id){
         global $wpdb;
-        return $wpdb->get_row("SELECT * FROM " . TEACHPRESS_SETTINGS . " WHERE `setting_id` = '" . intval($id) . "'", ARRAY_A);
+        return $wpdb->get_row("SELECT * FROM " . TEACHCOURSES_SETTINGS . " WHERE `setting_id` = '" . intval($id) . "'", ARRAY_A);
     }
 
     /** 
@@ -35,7 +35,7 @@ class tc_Options {
     */
     public static function add_option($variable, $value, $category) { 
         global $wpdb;
-        $wpdb->insert( TEACHPRESS_SETTINGS, 
+        $wpdb->insert( TEACHCOURSES_SETTINGS, 
             array( 
                 'variable' => htmlspecialchars(stripslashes($variable)), 
                 'value' => htmlspecialchars($value), 
@@ -58,7 +58,7 @@ class tc_Options {
         if ( $type === 'checkbox' ) {
             $val = ( $val !== '' ) ? 1 : 0;
         }
-        $wpdb->query( "UPDATE " . TEACHPRESS_SETTINGS . " SET `value` = '$val' WHERE `variable` = '$var'" );
+        $wpdb->query( "UPDATE " . TEACHCOURSES_SETTINGS . " SET `value` = '$val' WHERE `variable` = '$var'" );
     }
     
     /** 
@@ -68,7 +68,7 @@ class tc_Options {
     */
     public static function delete_option($delete) {
         global $wpdb;	
-        $wpdb->query( "DELETE FROM " . TEACHPRESS_SETTINGS . " WHERE `setting_id` = '" . intval($delete) . "'" );
+        $wpdb->query( "DELETE FROM " . TEACHCOURSES_SETTINGS . " WHERE `setting_id` = '" . intval($delete) . "'" );
     }
     
 }
@@ -83,7 +83,7 @@ class tc_Options {
 function get_tc_option($var, $category = 'system') {
     global $wpdb;
     $result = $wpdb->get_var(
-        $wpdb->prepare( "SELECT `value` FROM " . TEACHPRESS_SETTINGS . " WHERE `variable` = %s AND `category` = %s",  $var, $category )
+        $wpdb->prepare( "SELECT `value` FROM " . TEACHCOURSES_SETTINGS . " WHERE `variable` = %s AND `category` = %s",  $var, $category )
     );
     // get_tc_message ($wpdb->last_query);
     return $result;
@@ -101,7 +101,7 @@ function get_tc_options($category, $order = "`setting_id` DESC", $output_type = 
     global $wpdb;
     $order = esc_sql($order);
     $result = $wpdb->get_results( 
-        $wpdb->prepare( "SELECT * FROM " . TEACHPRESS_SETTINGS . " WHERE `category` = %s ORDER BY " . $order,  $category ), $output_type
+        $wpdb->prepare( "SELECT * FROM " . TEACHCOURSES_SETTINGS . " WHERE `category` = %s ORDER BY " . $order,  $category ), $output_type
         
     );
     return $result;

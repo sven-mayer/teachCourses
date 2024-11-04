@@ -23,7 +23,7 @@ class tc_Students {
      */
     public static function get_student ($id, $output_type = ARRAY_A) {
         global $wpdb;
-        $result = $wpdb->get_row("SELECT * FROM " . TEACHPRESS_STUD . " WHERE `wp_id` = '" . intval($id) . "'", $output_type);
+        $result = $wpdb->get_row("SELECT * FROM " . TEACHCOURSES_STUD . " WHERE `wp_id` = '" . intval($id) . "'", $output_type);
         return $result;
     }
     
@@ -73,18 +73,18 @@ class tc_Students {
                 $value = esc_sql($meta_search[$key]);
                 $table_id = 'm' . $i; 
                 $selects .= ', ' . $table_id .'.meta_value AS ' . $key;
-                $joins .= ' LEFT JOIN ' . TEACHPRESS_STUD_META . ' ' . $table_id . " ON ( " . $table_id . ".wp_id = s.wp_id AND " . $table_id . ".meta_key = '" . $key . "' ) ";
+                $joins .= ' LEFT JOIN ' . TEACHCOURSES_STUD_META . ' ' . $table_id . " ON ( " . $table_id . ".wp_id = s.wp_id AND " . $table_id . ".meta_key = '" . $key . "' ) ";
                 $where = ( $where != '' ) ? $where . " AND ( " . $table_id . ".meta_value = '$value' )" : " ( " . $table_id . ".meta_value = '$value' )" ;
                 $i++;
             }
         }
         
         // define SELECT
-        $select = "SELECT s.wp_id, s.firstname, s.lastname, s.userlogin, s.email $selects FROM " . TEACHPRESS_STUD . " s $joins";
+        $select = "SELECT s.wp_id, s.firstname, s.lastname, s.userlogin, s.email $selects FROM " . TEACHCOURSES_STUD . " s $joins";
         
         // if the user needs only the number of rows
         if ( $count === true ) {
-            $select = "SELECT COUNT(s.wp_id) AS `count` FROM " . TEACHPRESS_STUD  . " s $joins";
+            $select = "SELECT COUNT(s.wp_id) AS `count` FROM " . TEACHCOURSES_STUD  . " s $joins";
         }
 
         // define global search
@@ -124,7 +124,7 @@ class tc_Students {
         if ( $meta_key !== '' ) {
             $where = "AND `meta_key` = '" . esc_sql($meta_key) . "'";
         }
-        $sql = "SELECT * FROM " . TEACHPRESS_STUD_META . " WHERE `wp_id` = '" . intval($wp_id) . "' $where";
+        $sql = "SELECT * FROM " . TEACHCOURSES_STUD_META . " WHERE `wp_id` = '" . intval($wp_id) . "' $where";
         return $wpdb->get_results($sql, ARRAY_A);
     }
     
@@ -137,7 +137,7 @@ class tc_Students {
     public static function get_unregistered_students($output_type = ARRAY_A) {
         global $wpdb;
         $sql = "SELECT u.ID, u.user_login FROM " . $wpdb->users . " u "
-                . "LEFT JOIN " . TEACHPRESS_STUD . " s ON u.ID = s.wp_id "
+                . "LEFT JOIN " . TEACHCOURSES_STUD . " s ON u.ID = s.wp_id "
                 . "WHERE s.wp_id IS NULL";
         return $wpdb->get_results($sql, $output_type);
     }
@@ -157,9 +157,9 @@ class tc_Students {
         $data['firstname'] = stripslashes($data['firstname']);
         $data['lastname'] = stripslashes($data['lastname']);
 
-        $test = $wpdb->query("SELECT `wp_id` FROM " . TEACHPRESS_STUD . " WHERE `wp_id` = '$wp_id'");
+        $test = $wpdb->query("SELECT `wp_id` FROM " . TEACHCOURSES_STUD . " WHERE `wp_id` = '$wp_id'");
         if ($test == '0') {
-            $wpdb->insert( TEACHPRESS_STUD, array( 'wp_id' => $wp_id, 'firstname' => $data['firstname'], 'lastname' => $data['lastname'], 'userlogin' => $data['userlogin'], 'email' => $data['email'] ), array( '%d', '%s', '%s', '%s', '%s' ) );
+            $wpdb->insert( TEACHCOURSES_STUD, array( 'wp_id' => $wp_id, 'firstname' => $data['firstname'], 'lastname' => $data['lastname'], 'userlogin' => $data['userlogin'], 'email' => $data['email'] ), array( '%d', '%s', '%s', '%s', '%s' ) );
             return true;
         }
         else {
@@ -180,7 +180,7 @@ class tc_Students {
         // prevent possible double escapes
         $meta_value = stripslashes($meta_value);
         
-        $wpdb->insert( TEACHPRESS_STUD_META, array( 'wp_id' => $wp_id, 'meta_key' => $meta_key, 'meta_value' => $meta_value ), array( '%d', '%s', '%s' ) );
+        $wpdb->insert( TEACHCOURSES_STUD_META, array( 'wp_id' => $wp_id, 'meta_key' => $meta_key, 'meta_value' => $meta_value ), array( '%d', '%s', '%s' ) );
     }
     
     /** 
@@ -198,7 +198,7 @@ class tc_Students {
         $data['firstname'] = stripslashes($data['firstname']);
         $data['lastname'] = stripslashes($data['lastname']);
         
-        $wpdb->update( TEACHPRESS_STUD, array( 'firstname' => $data['firstname'], 'lastname' => $data['lastname'], 'userlogin' => $data['userlogin'], 'email' => $data['email'] ), array( 'wp_id' => $wp_id ), array( '%s', '%s', '%s', '%s' ), array( '%d' ) );
+        $wpdb->update( TEACHCOURSES_STUD, array( 'firstname' => $data['firstname'], 'lastname' => $data['lastname'], 'userlogin' => $data['userlogin'], 'email' => $data['email'] ), array( 'wp_id' => $wp_id ), array( '%s', '%s', '%s', '%s' ), array( '%d' ) );
         if ($show_message === true) {
             return '<div class="teachcorses_message_success">' . __('Changes in your profile successful.','teachcorses') . '</div>';
         }
@@ -214,19 +214,19 @@ class tc_Students {
         for( $i = 0; $i < count( $checkbox ); $i++ ) {
             $checkbox[$i] = intval($checkbox[$i]);
             // search courses where the user was registered
-            $row1 = $wpdb->get_results("SELECT `course_id` FROM " . TEACHPRESS_SIGNUP . " WHERE `wp_id` = '$checkbox[$i]'");
+            $row1 = $wpdb->get_results("SELECT `course_id` FROM " . TEACHCOURSES_SIGNUP . " WHERE `wp_id` = '$checkbox[$i]'");
             foreach ($row1 as $row1) {
                 // check if there are users in the waiting list
-                $sql = "SELECT `con_id` FROM " . TEACHPRESS_SIGNUP . " WHERE `course_id` = '" . $row1->course_id . "' AND `waitinglist` = '1' ORDER BY `con_id` ASC LIMIT 0, 1";
+                $sql = "SELECT `con_id` FROM " . TEACHCOURSES_SIGNUP . " WHERE `course_id` = '" . $row1->course_id . "' AND `waitinglist` = '1' ORDER BY `con_id` ASC LIMIT 0, 1";
                 $con_id = $wpdb->get_var($sql);
                 // if is true subscribe the first one in the waiting list for the course
                 if ($con_id != 0 && $con_id != '') {
-                    $wpdb->query( "UPDATE " . TEACHPRESS_SIGNUP . " SET `waitinglist` = '0' WHERE `con_id` = '$con_id'" );
+                    $wpdb->query( "UPDATE " . TEACHCOURSES_SIGNUP . " SET `waitinglist` = '0' WHERE `con_id` = '$con_id'" );
                 }
             }
-            $wpdb->query( "DELETE FROM " . TEACHPRESS_SIGNUP . " WHERE `wp_id` = '$checkbox[$i]'" );
-            $wpdb->query( "DELETE FROM " . TEACHPRESS_STUD_META . " WHERE `wp_id` = '$checkbox[$i]'" );
-            $wpdb->query( "DELETE FROM " . TEACHPRESS_STUD . " WHERE `wp_id` = '$checkbox[$i]'" );
+            $wpdb->query( "DELETE FROM " . TEACHCOURSES_SIGNUP . " WHERE `wp_id` = '$checkbox[$i]'" );
+            $wpdb->query( "DELETE FROM " . TEACHCOURSES_STUD_META . " WHERE `wp_id` = '$checkbox[$i]'" );
+            $wpdb->query( "DELETE FROM " . TEACHCOURSES_STUD . " WHERE `wp_id` = '$checkbox[$i]'" );
         }
     }
     
@@ -242,7 +242,7 @@ class tc_Students {
         if ( $meta_key !== '' ) {
             $where = "AND `meta_key` = '" . esc_sql($meta_key) . "'";
         }
-        $wpdb->query("DELETE FROM " . TEACHPRESS_STUD_META . " WHERE `wp_id` = '" . intval($wp_id) . "' $where");
+        $wpdb->query("DELETE FROM " . TEACHCOURSES_STUD_META . " WHERE `wp_id` = '" . intval($wp_id) . "' $where");
     }
     
     /**
@@ -283,9 +283,9 @@ class tc_Students {
         }
 
         $sql = "SELECT con_id, wp_id, course_id, waitinglist, name, type, room, date, semester, parent_name, timestamp FROM (SELECT s.con_id as con_id, s.wp_id as wp_id, s.course_id as course_id, s.waitinglist as waitinglist, c.name as name, c.type as type, c.room as room, c.date as date, c.semester as semester, c2.name as parent_name, s.date as timestamp 
-            FROM " . TEACHPRESS_SIGNUP . " s 
-            INNER JOIN " . TEACHPRESS_COURSES . " c ON s.course_id = c.course_id 
-            LEFT JOIN " . TEACHPRESS_COURSES . " c2 ON c.parent = c2.course_id $where) AS temp 
+            FROM " . TEACHCOURSES_SIGNUP . " s 
+            INNER JOIN " . TEACHCOURSES_COURSES . " c ON s.course_id = c.course_id 
+            LEFT JOIN " . TEACHCOURSES_COURSES . " c2 ON c.parent = c2.course_id $where) AS temp 
             WHERE `wp_id` = '$wp_id'";
         if ( $mode === 'reg' ) {
             $sql .= " AND `waitinglist` = '0'";
@@ -307,7 +307,7 @@ class tc_Students {
      */
     public static function is_student($wp_id) {
         global $wpdb;
-        $test = $wpdb->get_var("SELECT `wp_id` FROM " . TEACHPRESS_STUD . " WHERE `wp_id` = '" . intval($wp_id) . "'");
+        $test = $wpdb->get_var("SELECT `wp_id` FROM " . TEACHCOURSES_STUD . " WHERE `wp_id` = '" . intval($wp_id) . "'");
         if ( $test === NULL ) {
             return false;
         }
@@ -335,7 +335,7 @@ class tc_Students {
             }
         }
 
-        $test = $wpdb->query("SELECT assessment_id FROM " . TEACHPRESS_ASSESSMENTS . " WHERE `wp_id` = '" . intval($wp_id) . "' AND ( `course_id` = '" . intval($course_id) . "' $where)");
+        $test = $wpdb->query("SELECT assessment_id FROM " . TEACHCOURSES_ASSESSMENTS . " WHERE `wp_id` = '" . intval($wp_id) . "' AND ( `course_id` = '" . intval($course_id) . "' $where)");
         if ( $test === 0 ) {
             return false;
         }

@@ -1148,10 +1148,6 @@ class tc_Single_Course_Page {
             <a id="teachcorses_add_signup" style="cursor:pointer;" class="button-secondary" onclick="teachcorses_showhide('tc_add_signup_form');" title="<?php _e('Add signup','teachcorses'); ?>"><i class="fas fa-plus-square"></i> <?php _e('Add signup','teachcorses'); ?></a>
             <a id="teachcorses_create_list" href="admin.php?page=teachcorses/teachcorses.php&amp;course_id=<?php echo $course_id; ?>&amp;sem=<?php echo $link_parameter['sem']; ?>&amp;search=<?php echo $link_parameter['search']; ?>&amp;redirect=<?php echo $link_parameter['redirect']; ?>&amp;action=list" class="button-secondary" title="<?php _e('Attendance list','teachcorses'); ?>"><i class="fas fa-address-book"></i> <?php _e('Attendance list','teachcorses'); ?></a>
            </span>
-           <span style="margin-right:15px;">
-               <a id="teachcorses_create_csv" class="button-secondary" href="<?php echo home_url(); ?>?feed=tc_export&amp;course_id=<?php echo $course_id; ?>&amp;type=csv" title="<?php _e('CSV export','teachcorses'); ?>"><i class="fas fa-file-csv"></i> CSV</a>
-               <a id="teachcorses_create_xls" class="button-secondary" href="<?php echo home_url(); ?>?feed=tc_export&amp;course_id=<?php echo $course_id; ?>&amp;type=xls" title="<?php _e('XLS export','teachcorses'); ?>"><i class="fas fa-file-excel"></i> XLS</a>
-           </span>
            <a id="teachcorses_send_mail" class="button-secondary" href="admin.php?page=teachcorses/teachcorses.php&amp;course_id=<?php echo $course_id; ?>&amp;sem=<?php echo $link_parameter['sem']; ?>&amp;search=<?php echo $link_parameter['search']; ?>&amp;redirect=<?php echo $link_parameter['redirect']; ?>&amp;action=mail&amp;type=course" title="<?php _e('Send E-Mail','teachcorses'); ?>"><i class="fas fa-envelope"></i> <?php _e('Send E-Mail','teachcorses'); ?></a>
        </div>
        <?php

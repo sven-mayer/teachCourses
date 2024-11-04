@@ -281,7 +281,7 @@ class tc_Settings_Page {
         echo '<tr>';
         echo '<th>' . __('Components','teachcorses') . '</th>';
         echo '<td style="vertical-align: top;">';
-        echo 'Course module: ' . '<span style="color:#FF0000;">' . __('inactive','teachcorses') . '</span>' : '<span style="color:#01DF01;">' . __('active','teachcorses') . '</span>';
+        // echo 'Course module: <span style="color:#FF0000;">' . __('inactive','teachcorses') . '</span><span style="color:#01DF01;">' . __('active','teachcorses') . '</span>';
         echo '</td>';
         echo '<td>';
         echo '<a href="https://github.com/winkm89/teachCorses/wiki/FAQ#how-can-i-deactivate-parts-of-the-plugin-like-the-course-module" target="_blank">' . __('You can deactivate parts of the plugin.','teachcorses') . '</a>';
@@ -558,8 +558,8 @@ class tc_Settings_Page {
         echo '<div id="teachcorses_change_directory" class="teachcorses_message" style="display:none;">';
         echo '<p><b>1. Add the following code to your wp-config.php:</b></p>';
         echo '// For changing the teachCorses template directory (moving it to wp-content/uploads/)<br/>';
-        echo "define ('TEACHPRESS_TEMPLATE_PATH', '" . $tc_upload_dir['basedir'] . "/teachcorses/templates/');<br/>";
-        echo "define ('TEACHPRESS_TEMPLATE_URL', '". $tc_upload_dir['baseurl'] . "/teachcorses/templates/');<br/>";
+        echo "define ('TEACHCOURSES_TEMPLATE_PATH', '" . $tc_upload_dir['basedir'] . "/teachcorses/templates/');<br/>";
+        echo "define ('TEACHCOURSES_TEMPLATE_URL', '". $tc_upload_dir['baseurl'] . "/teachcorses/templates/');<br/>";
         echo '<p><b>2. Move all teachcorses template files to wp-content/uploads/teachcorses/templates/</b></p>';
         echo '</div>';
         // End change directory message
@@ -621,26 +621,26 @@ class tc_Settings_Page {
      * @since 7.0.0 
      */
     private static function get_db_status_tab () {
-        self::list_db_table_index(TEACHPRESS_ARTEFACTS);
-        self::list_db_table_index(TEACHPRESS_ASSESSMENTS);
-        self::list_db_table_index(TEACHPRESS_AUTHORS);
-        self::list_db_table_index(TEACHPRESS_COURSES);
-        self::list_db_table_index(TEACHPRESS_COURSE_CAPABILITIES);
-        self::list_db_table_index(TEACHPRESS_COURSE_DOCUMENTS);
-        self::list_db_table_index(TEACHPRESS_COURSE_META);
-        self::list_db_table_index(TEACHPRESS_PUB);
-        self::list_db_table_index(TEACHPRESS_PUB_CAPABILITIES);
-        self::list_db_table_index(TEACHPRESS_PUB_DOCUMENTS);
-        self::list_db_table_index(TEACHPRESS_PUB_IMPORTS);
-        self::list_db_table_index(TEACHPRESS_PUB_META);
-        self::list_db_table_index(TEACHPRESS_RELATION);
-        self::list_db_table_index(TEACHPRESS_REL_PUB_AUTH);
-        self::list_db_table_index(TEACHPRESS_SETTINGS);
-        self::list_db_table_index(TEACHPRESS_SIGNUP);
-        self::list_db_table_index(TEACHPRESS_STUD);
-        self::list_db_table_index(TEACHPRESS_STUD_META);
-        self::list_db_table_index(TEACHPRESS_TAGS);
-        self::list_db_table_index(TEACHPRESS_USER);
+        self::list_db_table_index(TEACHCOURSES_ARTEFACTS);
+        self::list_db_table_index(TEACHCOURSES_ASSESSMENTS);
+        self::list_db_table_index(TEACHCOURSES_AUTHORS);
+        self::list_db_table_index(TEACHCOURSES_COURSES);
+        self::list_db_table_index(TEACHCOURSES_COURSE_CAPABILITIES);
+        self::list_db_table_index(TEACHCOURSES_COURSE_DOCUMENTS);
+        self::list_db_table_index(TEACHCOURSES_COURSE_META);
+        self::list_db_table_index(TEACHCOURSES_PUB);
+        self::list_db_table_index(TEACHCOURSES_PUB_CAPABILITIES);
+        self::list_db_table_index(TEACHCOURSES_PUB_DOCUMENTS);
+        self::list_db_table_index(TEACHCOURSES_PUB_IMPORTS);
+        self::list_db_table_index(TEACHCOURSES_PUB_META);
+        self::list_db_table_index(TEACHCOURSES_RELATION);
+        self::list_db_table_index(TEACHCOURSES_REL_PUB_AUTH);
+        self::list_db_table_index(TEACHCOURSES_SETTINGS);
+        self::list_db_table_index(TEACHCOURSES_SIGNUP);
+        self::list_db_table_index(TEACHCOURSES_STUD);
+        self::list_db_table_index(TEACHCOURSES_STUD_META);
+        self::list_db_table_index(TEACHCOURSES_TAGS);
+        self::list_db_table_index(TEACHCOURSES_USER);
     }
     
     /**

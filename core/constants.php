@@ -5,217 +5,217 @@
 
 global $wpdb;
 
-if ( !defined('TEACHPRESS_ARTEFACTS') ) {
+if ( !defined('TEACHCOURSES_ARTEFACTS') ) {
     /**
      * This constant defines the table name for teachcorses_artefacts.
      * @since 5.0.0
     */
-    define('TEACHPRESS_ARTEFACTS', $wpdb->prefix . 'teachcorses_artefacts');}
+    define('TEACHCOURSES_ARTEFACTS', $wpdb->prefix . 'teachcorses_artefacts');}
 
-if ( !defined('TEACHPRESS_ASSESSMENTS') ) {
+if ( !defined('TEACHCOURSES_ASSESSMENTS') ) {
     /**
      * This constant defines the table name for teachcorses_assessments.
      * @since 5.0.0
     */
-    define('TEACHPRESS_ASSESSMENTS', $wpdb->prefix . 'teachcorses_assessments');}
+    define('TEACHCOURSES_ASSESSMENTS', $wpdb->prefix . 'teachcorses_assessments');}
 
-if ( !defined('TEACHPRESS_STUD') ) {
+if ( !defined('TEACHCOURSES_STUD') ) {
     /**
      * This constant defines the table name for teachcorses_stud.
      * @since 5.0.0
     */
-    define('TEACHPRESS_STUD', $wpdb->prefix . 'teachcorses_stud');}
+    define('TEACHCOURSES_STUD', $wpdb->prefix . 'teachcorses_stud');}
 
-if ( !defined('TEACHPRESS_STUD_META') ) {
+if ( !defined('TEACHCOURSES_STUD_META') ) {
     /**
      * This constant defines the table name for teachcorses_stud_meta.
      * @since 5.0.0
     */
-    define('TEACHPRESS_STUD_META', $wpdb->prefix . 'teachcorses_stud_meta');}
+    define('TEACHCOURSES_STUD_META', $wpdb->prefix . 'teachcorses_stud_meta');}
 
-if ( !defined('TEACHPRESS_COURSES') ) {
+if ( !defined('TEACHCOURSES_COURSES') ) {
     /**
      * This constant defines the table name for teachcorses_courses.
      * @since 5.0.0
     */
-    define('TEACHPRESS_COURSES', $wpdb->prefix . 'teachcorses_courses');}
+    define('TEACHCOURSES_COURSES', $wpdb->prefix . 'teachcorses_courses');}
 
-if ( !defined('TEACHPRESS_COURSE_META') ) {
+if ( !defined('TEACHCOURSES_COURSE_META') ) {
     /**
      * This constant defines the table name for teachcorses_course_meta.
      * @since 5.0.0
     */
-    define('TEACHPRESS_COURSE_META', $wpdb->prefix . 'teachcorses_course_meta');}
+    define('TEACHCOURSES_COURSE_META', $wpdb->prefix . 'teachcorses_course_meta');}
 
-if ( !defined('TEACHPRESS_COURSE_CAPABILITIES') ) {
+if ( !defined('TEACHCOURSES_COURSE_CAPABILITIES') ) {
     /**
      * This constant defines the table name for teachcorses_course_cababilities.
      * @since 5.0.0
     */
-    define('TEACHPRESS_COURSE_CAPABILITIES', $wpdb->prefix . 'teachcorses_course_capabilities');}
+    define('TEACHCOURSES_COURSE_CAPABILITIES', $wpdb->prefix . 'teachcorses_course_capabilities');}
 
-if ( !defined('TEACHPRESS_COURSE_DOCUMENTS') ) {
+if ( !defined('TEACHCOURSES_COURSE_DOCUMENTS') ) {
     /**
      * This constant defines the table name for teachcorses_course_documents.
      * @since 5.0.0
     */
-    define('TEACHPRESS_COURSE_DOCUMENTS', $wpdb->prefix . 'teachcorses_course_documents');}
+    define('TEACHCOURSES_COURSE_DOCUMENTS', $wpdb->prefix . 'teachcorses_course_documents');}
 
-if ( !defined('TEACHPRESS_SIGNUP') ) {
+if ( !defined('TEACHCOURSES_SIGNUP') ) {
     /**
      * This constant defines the table name for teachcorses_signups.
      * @since 5.0.0
     */
-    define('TEACHPRESS_SIGNUP', $wpdb->prefix . 'teachcorses_signup');}
+    define('TEACHCOURSES_SIGNUP', $wpdb->prefix . 'teachcorses_signup');}
 
-if ( !defined('TEACHPRESS_SETTINGS') ) {
+if ( !defined('TEACHCOURSES_SETTINGS') ) {
     /**
      * This constant defines the table name for teachcorses_settings.
      * @since 5.0.0
     */
-    define('TEACHPRESS_SETTINGS', $wpdb->prefix . 'teachcorses_settings');}
+    define('TEACHCOURSES_SETTINGS', $wpdb->prefix . 'teachcorses_settings');}
 
-if ( !defined('TEACHPRESS_PUB') ) {
+if ( !defined('TEACHCOURSES_PUB') ) {
     /**
      * This constant defines the table name for teachcorses_pub.
      * @since 5.0.0
     */
-    define('TEACHPRESS_PUB', $wpdb->prefix . 'teachcorses_pub');}
+    define('TEACHCOURSES_PUB', $wpdb->prefix . 'teachcorses_pub');}
 
-if ( !defined('TEACHPRESS_PUB_META') ) {
+if ( !defined('TEACHCOURSES_PUB_META') ) {
     /**
      * This constant defines the table name for teachcorses_pub_meta.
      * @since 5.0.0
     */
-    define('TEACHPRESS_PUB_META', $wpdb->prefix . 'teachcorses_pub_meta');}
+    define('TEACHCOURSES_PUB_META', $wpdb->prefix . 'teachcorses_pub_meta');}
 
-if ( !defined('TEACHPRESS_PUB_CAPABILITIES') ) {
+if ( !defined('TEACHCOURSES_PUB_CAPABILITIES') ) {
     /**
      * This constant defines the table name for teachcorses_course_cababilites.
      * @since 6.0.0
     */
-    define('TEACHPRESS_PUB_CAPABILITIES', $wpdb->prefix . 'teachcorses_pub_capabilities');}
+    define('TEACHCOURSES_PUB_CAPABILITIES', $wpdb->prefix . 'teachcorses_pub_capabilities');}
 
-if ( !defined('TEACHPRESS_PUB_DOCUMENTS') ) {
+if ( !defined('TEACHCOURSES_PUB_DOCUMENTS') ) {
     /**
      * This constant defines the table name for teachcorses_course_documents.
      * @since 6.0.0
     */
-    define('TEACHPRESS_PUB_DOCUMENTS', $wpdb->prefix . 'teachcorses_pub_documents');}
+    define('TEACHCOURSES_PUB_DOCUMENTS', $wpdb->prefix . 'teachcorses_pub_documents');}
 
-if ( !defined('TEACHPRESS_PUB_IMPORTS') ) {
+if ( !defined('TEACHCOURSES_PUB_IMPORTS') ) {
     /**
      * This constant defines the table name for teachcorses_pub_imports.
      * @since 6.0.0
     */
-    define('TEACHPRESS_PUB_IMPORTS', $wpdb->prefix . 'teachcorses_pub_imports');}    
+    define('TEACHCOURSES_PUB_IMPORTS', $wpdb->prefix . 'teachcorses_pub_imports');}    
     
-if ( !defined('TEACHPRESS_TAGS') ) {
+if ( !defined('TEACHCOURSES_TAGS') ) {
     /**
      * This constant defines the table name for teachcorses_tags.
      * @since 5.0.0
     */
-    define('TEACHPRESS_TAGS', $wpdb->prefix . 'teachcorses_tags');}
+    define('TEACHCOURSES_TAGS', $wpdb->prefix . 'teachcorses_tags');}
 
-if ( !defined('TEACHPRESS_RELATION') ) {
+if ( !defined('TEACHCOURSES_RELATION') ) {
     /**
      * This constant defines the table name for teachcorses_relation. This is the relationship tags to publications.
      * @since 5.0.0
     */
-    define('TEACHPRESS_RELATION', $wpdb->prefix . 'teachcorses_relation');}
+    define('TEACHCOURSES_RELATION', $wpdb->prefix . 'teachcorses_relation');}
 
-if ( !defined('TEACHPRESS_USER') ) {
+if ( !defined('TEACHCOURSES_USER') ) {
     /**
      * This constant defines the table name for teachcorses_user. This is the relationship publications to users.
      * @since 5.0.0
     */
-    define('TEACHPRESS_USER', $wpdb->prefix . 'teachcorses_user');}
+    define('TEACHCOURSES_USER', $wpdb->prefix . 'teachcorses_user');}
 
-if ( !defined('TEACHPRESS_AUTHORS') ) {
+if ( !defined('TEACHCOURSES_AUTHORS') ) {
     /**
      * This constant defines the table name for teachcorses_authors.
      * @since 5.0.0
     */
-    define('TEACHPRESS_AUTHORS', $wpdb->prefix . 'teachcorses_authors');}
+    define('TEACHCOURSES_AUTHORS', $wpdb->prefix . 'teachcorses_authors');}
 
-if ( !defined('TEACHPRESS_REL_PUB_AUTH') ) {
+if ( !defined('TEACHCOURSES_REL_PUB_AUTH') ) {
     /**
      * This constant defines the table name for teachcorses_rel_pub_auth. This is the relationship publications to authors.
      * @since 5.0.0
     */
-    define('TEACHPRESS_REL_PUB_AUTH', $wpdb->prefix . 'teachcorses_rel_pub_auth');}
+    define('TEACHCOURSES_REL_PUB_AUTH', $wpdb->prefix . 'teachcorses_rel_pub_auth');}
 
-if ( !defined('TEACHPRESS_TIME_LIMIT') ) {
+if ( !defined('TEACHCOURSES_TIME_LIMIT') ) {
     /**
      * This value is used for PHP's set_time_limit(). The plugin sets this value before an import or export of publications
      * @since 5.0.0
     */
-    define('TEACHPRESS_TIME_LIMIT', 240);}
+    define('TEACHCOURSES_TIME_LIMIT', 240);}
 
-if ( !defined('TEACHPRESS_FILE_LINK_CSS_CLASS') ) {
+if ( !defined('TEACHCOURSES_FILE_LINK_CSS_CLASS') ) {
     /**
      * This value defines the CSS classes for file links which are inserted via the tinyMCE plugin
      * @since 5.0.0
     */
-    define('TEACHPRESS_FILE_LINK_CSS_CLASS', 'linksecure tc_file_link');}
+    define('TEACHCOURSES_FILE_LINK_CSS_CLASS', 'linksecure tc_file_link');}
 
-if ( !defined('TEACHPRESS_ERROR_REPORTING') ) {
+if ( !defined('TEACHCOURSES_ERROR_REPORTING') ) {
     /**
      * This value defines if the error reporting is active or not
      * @since 5.0.13
     */
-    define('TEACHPRESS_ERROR_REPORTING', false);}
+    define('TEACHCOURSES_ERROR_REPORTING', false);}
 
-if ( !defined('TEACHPRESS_FOREIGN_KEY_CHECKS') ) {
+if ( !defined('TEACHCOURSES_FOREIGN_KEY_CHECKS') ) {
     /**
      * This value defines if foreign key checks are enabled or disabled, while adding database tables
      * @since 5.0.16
     */
-    define('TEACHPRESS_FOREIGN_KEY_CHECKS', true);}
+    define('TEACHCOURSES_FOREIGN_KEY_CHECKS', true);}
 
-if ( !defined('TEACHPRESS_TEMPLATE_PATH') ) {
+if ( !defined('TEACHCOURSES_TEMPLATE_PATH') ) {
     /**
      * This value defines the template path
      * @since 6.0.0
     */
-    define('TEACHPRESS_TEMPLATE_PATH', TEACHPRESS_GLOBAL_PATH . 'templates/');}
+    define('TEACHCOURSES_TEMPLATE_PATH', TEACHCOURSES_GLOBAL_PATH . 'templates/');}
 
-if ( !defined('TEACHPRESS_TEMPLATE_URL') ) {
+if ( !defined('TEACHCOURSES_TEMPLATE_URL') ) {
     /**
      * This value defines the template url
      * @since 6.0.0
     */
-    define('TEACHPRESS_TEMPLATE_URL', plugins_url( 'templates/', dirname( __FILE__ ) ) );}
+    define('TEACHCOURSES_TEMPLATE_URL', plugins_url( 'templates/', dirname( __FILE__ ) ) );}
 
-if ( !defined('TEACHPRESS_ALTMETRIC_SUPPORT') ) {
+if ( !defined('TEACHCOURSES_ALTMETRIC_SUPPORT') ) {
     /**
      * This value defines if the altmetric support is available (loads external sources)
      * @since 6.0.0
     */
-    define('TEACHPRESS_ALTMETRIC_SUPPORT', false);}
+    define('TEACHCOURSES_ALTMETRIC_SUPPORT', false);}
     
-if ( !defined('TEACHPRESS_DOI_RESOLVER') ) {
+if ( !defined('TEACHCOURSES_DOI_RESOLVER') ) {
     /**
      * This value defines if the URL for the DOI resolve service
      * @since 6.1.1
     */
-    define('TEACHPRESS_DOI_RESOLVER', 'https://dx.doi.org/');}
+    define('TEACHCOURSES_DOI_RESOLVER', 'https://dx.doi.org/');}
     
-if ( !defined('TEACHPRESS_LOAD_ACADEMICONS') ) {
+if ( !defined('TEACHCOURSES_LOAD_ACADEMICONS') ) {
     /**
      * This value defines if the URL for the DOI resolve service
      * @since 7.0
     */
-    define('TEACHPRESS_LOAD_ACADEMICONS', true);}
+    define('TEACHCOURSES_LOAD_ACADEMICONS', true);}
     
-if ( !defined('TEACHPRESS_LOAD_FONT_AWESOME') ) {
+if ( !defined('TEACHCOURSES_LOAD_FONT_AWESOME') ) {
     /**
      * This value defines if the URL for the DOI resolve service
      * @since 7.0
     */
-    define('TEACHPRESS_LOAD_FONT_AWESOME', true);}
+    define('TEACHCOURSES_LOAD_FONT_AWESOME', true);}
     
-if ( !defined('TEACHPRESS_MENU_POSITION') ) {
+if ( !defined('TEACHCOURSES_MENU_POSITION') ) {
     /**
      * This value defines the position in the admin menu. 
      * 
@@ -227,13 +227,13 @@ if ( !defined('TEACHPRESS_MENU_POSITION') ) {
      * 
      * @since 7.0
     */
-    define('TEACHPRESS_MENU_POSITION', null);}
+    define('TEACHCOURSES_MENU_POSITION', null);}
     
-if ( !defined('TEACHPRESS_DEBUG') ) { 
+if ( !defined('TEACHCOURSES_DEBUG') ) { 
     /**
      * This value defines if the debug mode is active or not
      * @since 8.0.0
      */
-    define('TEACHPRESS_DEBUG', false);
+    define('TEACHCOURSES_DEBUG', false);
 }
 

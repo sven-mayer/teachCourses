@@ -25,7 +25,7 @@ class tc_Enrollments {
         $return = '';
         $max = count( $checkbox );
         for ($n = 0; $n < $max; $n++) {
-            $row = $wpdb->get_row("SELECT `name`, `parent` FROM " . TEACHPRESS_COURSES . " WHERE `course_id` = '" . intval($checkbox[$n]) . "'");
+            $row = $wpdb->get_row("SELECT `name`, `parent` FROM " . TEACHCOURSES_COURSES . " WHERE `course_id` = '" . intval($checkbox[$n]) . "'");
             if ($row->parent != '0') {
                 $parent = tc_Courses::get_course_data($row->parent, 'name');
                 $row->name = ( $row->name != $parent ) ? $parent . ' ' . $row->name : $row->name;
@@ -68,7 +68,7 @@ class tc_Enrollments {
        $wpdb->query("START TRANSACTION");
        $wpdb->query("SET AUTOCOMMIT=0");
        // Check if the user is already registered
-       $check = $wpdb->get_var("SELECT `waitinglist` FROM " . TEACHPRESS_SIGNUP . " WHERE `course_id` = '$checkbox' and `wp_id` = '$wp_id'");
+       $check = $wpdb->get_var("SELECT `waitinglist` FROM " . TEACHCOURSES_SIGNUP . " WHERE `course_id` = '$checkbox' and `wp_id` = '$wp_id'");
        if ( $check != NULL && $check == '0' ) {
             $wpdb->query("ROLLBACK");
             return 101;
@@ -78,11 +78,11 @@ class tc_Enrollments {
             return 102;
        }
        // Check if there is a strict signup
-       $row1 = $wpdb->get_row("SELECT `places`, `waitinglist`, `parent` FROM " . TEACHPRESS_COURSES . " WHERE `course_id` = '$checkbox'");
+       $row1 = $wpdb->get_row("SELECT `places`, `waitinglist`, `parent` FROM " . TEACHCOURSES_COURSES . " WHERE `course_id` = '$checkbox'");
        if ( $row1->parent != 0 ) {
             $check = tc_Courses::get_course_data($row1->parent, 'strict_signup');
             if ( $check != 0 ) {
-                 $check2 = $wpdb->query("SELECT c.course_id FROM " . TEACHPRESS_COURSES . " c INNER JOIN " . TEACHPRESS_SIGNUP . " s ON s.course_id = c.course_id WHERE c.parent = '$row1->parent' AND s.wp_id = '$wp_id' AND s.waitinglist = '0'");
+                 $check2 = $wpdb->query("SELECT c.course_id FROM " . TEACHCOURSES_COURSES . " c INNER JOIN " . TEACHCOURSES_SIGNUP . " s ON s.course_id = c.course_id WHERE c.parent = '$row1->parent' AND s.wp_id = '$wp_id' AND s.waitinglist = '0'");
                  if ( $check2 != NULL ) {
                      $wpdb->query("ROLLBACK");
                      return 103;
@@ -90,17 +90,17 @@ class tc_Enrollments {
             }
        }
        // Check if there are free places available
-       $used_places = $wpdb->query("SELECT `course_id` FROM " . TEACHPRESS_SIGNUP . " WHERE `course_id` = '$checkbox' AND `waitinglist` = 0");
+       $used_places = $wpdb->query("SELECT `course_id` FROM " . TEACHCOURSES_SIGNUP . " WHERE `course_id` = '$checkbox' AND `waitinglist` = 0");
        if ($used_places < $row1->places ) {
             // Subscribe
-            $wpdb->query("INSERT INTO " . TEACHPRESS_SIGNUP . " (`course_id`, `wp_id`, `waitinglist`, `date`) VALUES ('$checkbox', '$wp_id', '0', NOW() )");
+            $wpdb->query("INSERT INTO " . TEACHCOURSES_SIGNUP . " (`course_id`, `wp_id`, `waitinglist`, `date`) VALUES ('$checkbox', '$wp_id', '0', NOW() )");
             $wpdb->query("COMMIT");
             return 201;
        }
        else {
             // if there is a waiting list available
             if ($row1->waitinglist == '1') {
-                  $wpdb->query( "INSERT INTO " . TEACHPRESS_SIGNUP . " (course_id, wp_id, waitinglist, date) VALUES ('$checkbox', '$wp_id', '1', NOW() )" );
+                  $wpdb->query( "INSERT INTO " . TEACHCOURSES_SIGNUP . " (course_id, wp_id, waitinglist, date) VALUES ('$checkbox', '$wp_id', '1', NOW() )" );
                   $wpdb->query("COMMIT");
                   return 202;
             }
@@ -176,7 +176,7 @@ class tc_Enrollments {
             $checkbox[$i] = intval($checkbox[$i]);
             
             // Select course ID
-            $sql = "SELECT `course_id`, `waitinglist` FROM " . TEACHPRESS_SIGNUP . " WHERE `con_id` = '$checkbox[$i]'";
+            $sql = "SELECT `course_id`, `waitinglist` FROM " . TEACHCOURSES_SIGNUP . " WHERE `con_id` = '$checkbox[$i]'";
             $signup = $wpdb->get_row($sql);
             
             // Start transaction
@@ -187,7 +187,7 @@ class tc_Enrollments {
             if ( $signup->waitinglist == 0 ) {
                 tc_Courses::move_up_signup($checkbox[$i]);
             }
-            $wpdb->query("DELETE FROM " . TEACHPRESS_SIGNUP . " WHERE `con_id` = '$checkbox[$i]'");
+            $wpdb->query("DELETE FROM " . TEACHCOURSES_SIGNUP . " WHERE `con_id` = '$checkbox[$i]'");
             
             // End transaction
             $wpdb->query("COMMIT");
@@ -227,7 +227,7 @@ class tc_Enrollments {
      */
     public static function get_form_checkbox_field($field_name, $label, $checked, $readonly = false, $required = false){
         global $wpdb;
-        $options = $wpdb->get_results("SELECT * FROM " . TEACHPRESS_SETTINGS . " WHERE `category` = '" . esc_sql($field_name) . "' ORDER BY value ASC");
+        $options = $wpdb->get_results("SELECT * FROM " . TEACHCOURSES_SETTINGS . " WHERE `category` = '" . esc_sql($field_name) . "' ORDER BY value ASC");
         $readonly = ( $readonly === true ) ? 'readonly="true" ' : '' ;
         $required = ( $required === true ) ? 'required="required"' : '';
         // extrakt checkbox_values
@@ -330,7 +330,7 @@ class tc_Enrollments {
      */
     public static function get_form_radio_field ($field_name, $label, $value, $readonly = false, $required = false) {
         global $wpdb;
-        $options = $wpdb->get_results("SELECT * FROM " . TEACHPRESS_SETTINGS . " WHERE `category` = '" . esc_sql($field_name) . "' ORDER BY value ASC");
+        $options = $wpdb->get_results("SELECT * FROM " . TEACHCOURSES_SETTINGS . " WHERE `category` = '" . esc_sql($field_name) . "' ORDER BY value ASC");
         $readonly = ( $readonly === true ) ? 'readonly="true" ' : '' ;
         $required = ( $required === true ) ? 'required="required"' : '';
         $return = '<tr>';
@@ -365,7 +365,7 @@ class tc_Enrollments {
         $return .= '<tr>';
         $return .= '<td><label for="' . $field_name . '"><b>' . stripslashes($label) . '</b></label></td>';
         $return .= '<td><select name="' . $field_name . '" id="' . $field_name . '" ' . $disabled . ' ' . $required . '>';
-        $options = $wpdb->get_results("SELECT * FROM " . TEACHPRESS_SETTINGS . " WHERE `category` = '" . esc_sql($field_name) . "' ORDER BY value ASC");
+        $options = $wpdb->get_results("SELECT * FROM " . TEACHCOURSES_SETTINGS . " WHERE `category` = '" . esc_sql($field_name) . "' ORDER BY value ASC");
         if ( $value == '' ) {
             $return .= '<option value="">- ' . __('Please select','teachcorses') . ' -</option>';
         }
@@ -729,7 +729,7 @@ class tc_Enrollments {
         $rtn = '';
         $sem = esc_sql($sem);
         // Select all courses where enrollments in the current term are available
-        $row = $wpdb->get_results("SELECT * FROM " . TEACHPRESS_COURSES . " WHERE `semester` = '$sem' AND `parent` = '0' AND (`visible` = '1' OR `visible` = '2') ORDER BY " . $settings['order_parent']);
+        $row = $wpdb->get_results("SELECT * FROM " . TEACHCOURSES_COURSES . " WHERE `semester` = '$sem' AND `parent` = '0' AND (`visible` = '1' OR `visible` = '2') ORDER BY " . $settings['order_parent']);
         foreach( $row as $row ) {
             $rtn .= self::load_course_entry($row, $settings, $user_exists);	
         }	
@@ -754,7 +754,7 @@ class tc_Enrollments {
         $course_name = ( $row->rel_page != 0 ) ? '<a href="' . get_permalink($row->rel_page) . '">' . stripslashes($row->name) . '</a>' : stripslashes($row->name);
 
         // load all childs
-        $childs = $wpdb->get_results("SELECT * FROM " . TEACHPRESS_COURSES . " WHERE `parent` = '" . $row->course_id . "' AND (`visible` = '1' OR `visible` = '2') AND (`start` != '0000-00-00 00:00:00') ORDER BY " . $settings['order_child']);
+        $childs = $wpdb->get_results("SELECT * FROM " . TEACHCOURSES_COURSES . " WHERE `parent` = '" . $row->course_id . "' AND (`visible` = '1' OR `visible` = '2') AND (`start` != '0000-00-00 00:00:00') ORDER BY " . $settings['order_child']);
         
         // leave the function if there is nothing to show
         if ( $row->start == '0000-00-00 00:00:00' && count($childs) === 0 ) {
@@ -855,7 +855,7 @@ class tc_Enrollments {
         global $wpdb;
         if ( $code == 201 || $code == 202 ) {
             // Send user an E-Mail and return a message
-            $to = $wpdb->get_var("SELECT `email` FROM " . TEACHPRESS_STUD . " WHERE `wp_id` = '" . intval($wp_id) . "'");
+            $to = $wpdb->get_var("SELECT `email` FROM " . TEACHCOURSES_STUD . " WHERE `wp_id` = '" . intval($wp_id) . "'");
             if ( $code == 201 ) {
                 $subject = '[' . get_bloginfo('name') . '] ' . __('Registration','teachcorses');
                 $message = __('Your Registration for the following course was successful:','teachcorses') . chr(13) . chr(10);

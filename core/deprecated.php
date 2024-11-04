@@ -125,20 +125,6 @@ function get_tc_publication ($id, $output_type = OBJECT) {
 }
 
 /**
- * This function is deprecated. Please use tc_publications::get_publications() instead.
- * @param array $args
- * @param boolean $count    set to true of you only need the number of rows
- * @return array|object|int
- * @since 3.1.8
- * @deprecated since version 5.0.0
- * @todo Delete function
-*/
-function get_tc_publications($args = array(), $count = false) {
-    trigger_error( __('get_tc_publications() is deprecated since teachcorses 5.0.0. Use tc_publications::get_publications() instead.','teachcorses') );
-    return tc_Publications::get_publications($args, $count);
-}
-
-/**
  * This function is deprecated. Please use tc_is_student_subscribed() instead.
  * @param integer $course_id
  * @param boolean $consider_childcourses

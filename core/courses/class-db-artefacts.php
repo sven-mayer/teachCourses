@@ -24,7 +24,7 @@ class tc_Artefacts {
      */
     public static function get_artefact ($artefact_id, $output_type = ARRAY_A) {
         global $wpdb;
-        return $wpdb->get_row("SELECT * FROM " . TEACHPRESS_ARTEFACTS . " WHERE `artefact_id` = '" . intval($artefact_id ) . "'", $output_type);
+        return $wpdb->get_row("SELECT * FROM " . TEACHCOURSES_ARTEFACTS . " WHERE `artefact_id` = '" . intval($artefact_id ) . "'", $output_type);
     }
     
     /**
@@ -37,7 +37,7 @@ class tc_Artefacts {
      */
     public static function get_artefacts ($course_id, $parent_id, $output_type = ARRAY_A) {
         global $wpdb;
-        return $wpdb->get_results("SELECT * FROM " . TEACHPRESS_ARTEFACTS . " WHERE `course_id` = '" . intval($course_id) . "' AND `parent_id` = '" . intval($parent_id) . "'", $output_type);
+        return $wpdb->get_results("SELECT * FROM " . TEACHCOURSES_ARTEFACTS . " WHERE `course_id` = '" . intval($course_id) . "' AND `parent_id` = '" . intval($parent_id) . "'", $output_type);
     }
     
     /**
@@ -50,7 +50,7 @@ class tc_Artefacts {
      */
     public static function get_artefact_ids ($course_id, $parent_id, $output_type = ARRAY_A) {
         global $wpdb;
-        return $wpdb->get_results("SELECT artefact_id FROM " . TEACHPRESS_ARTEFACTS . " WHERE `course_id` = '" . intval($course_id) . "' AND `parent_id` = '" . intval($parent_id) . "'", $output_type);
+        return $wpdb->get_results("SELECT artefact_id FROM " . TEACHCOURSES_ARTEFACTS . " WHERE `course_id` = '" . intval($course_id) . "' AND `parent_id` = '" . intval($parent_id) . "'", $output_type);
     }
     
     /**
@@ -65,7 +65,7 @@ class tc_Artefacts {
         // prevent double escapes
         $data['title'] = stripslashes($data['title']);
         
-        $wpdb->insert(TEACHPRESS_ARTEFACTS, array('parent_id' => $data['parent_id'], 'course_id' => $data['course_id'], 'title' => $data['title'], 'scale' => $data['scale'], 'passed' => $data['passed'], 'max_value' => $data['max_value']), array('%d', '%d', '%s', '%s', '%d', '%s'));
+        $wpdb->insert(TEACHCOURSES_ARTEFACTS, array('parent_id' => $data['parent_id'], 'course_id' => $data['course_id'], 'title' => $data['title'], 'scale' => $data['scale'], 'passed' => $data['passed'], 'max_value' => $data['max_value']), array('%d', '%d', '%s', '%s', '%d', '%s'));
         return $wpdb->insert_id;
     }
     
@@ -76,7 +76,7 @@ class tc_Artefacts {
      */
     public static function delete_artefact ($artefact_id) {
         global $wpdb;
-        $wpdb->query("DELETE FROM " . TEACHPRESS_ARTEFACTS . " WHERE `artefact_id` = '" . intval($artefact_id) . "'");
+        $wpdb->query("DELETE FROM " . TEACHCOURSES_ARTEFACTS . " WHERE `artefact_id` = '" . intval($artefact_id) . "'");
     }
     
     /**
@@ -92,7 +92,7 @@ class tc_Artefacts {
         // prevent double escapes
         $title = stripslashes($title);
         
-        return $wpdb->update( TEACHPRESS_ARTEFACTS, array( 'title' => $title), array( 'artefact_id' => $artefact_id ), array( '%s' ), array( '%d' ) );
+        return $wpdb->update( TEACHCOURSES_ARTEFACTS, array( 'title' => $title), array( 'artefact_id' => $artefact_id ), array( '%s' ), array( '%d' ) );
     }
     
     /**
@@ -103,7 +103,7 @@ class tc_Artefacts {
      */
     public static function has_assessments($artefact_id) {
         global $wpdb;
-        $test = $wpdb->query("SELECT assessment_id FROM " . TEACHPRESS_ASSESSMENTS . " WHERE `artefact_id` = '" . intval($artefact_id) . "'");
+        $test = $wpdb->query("SELECT assessment_id FROM " . TEACHCOURSES_ASSESSMENTS . " WHERE `artefact_id` = '" . intval($artefact_id) . "'");
         if ( $test === 0 ) {
             return false;
         }

@@ -97,14 +97,6 @@ function tc_ajax_callback () {
         }
 
         /**
-         * Getting the cite dialog
-         * @since 6.0.0
-         */
-        if ( isset( $_GET['cite_id'] ) ) {
-            tc_Ajax::get_cite_screen($_GET['cite_id']);
-        }
-
-        /**
          * Getting the cite text for a cite dialog
          * @since 6.0.0
          */

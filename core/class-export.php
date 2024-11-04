@@ -179,65 +179,6 @@ class tc_Export {
     }
 
     /**
-     * Export publications
-     * @param int $user_id 
-     * @param string $format - bibtex or rtf
-     * @sinsce 4.2.0 
-     */
-    public static function get_publications($user_id, $format = 'bibtex') {
-        $user_id = intval($user_id);
-        
-        // Try to set the time limit for the script
-        set_time_limit(TEACHPRESS_TIME_LIMIT);
-        
-        $row = tc_Publications::get_publications( array('user' => $user_id, 'output_type' => ARRAY_A) );
-        if ( $format === 'bibtex' ) {
-            $convert_bibtex = ( get_tc_option('convert_bibtex') == '1' ) ? true : false;
-            foreach ($row as $row) {
-                $tags = tc_Tags::get_tags( array('pub_id' => $row['pub_id'], 'output_type' => ARRAY_A ) );
-                echo tc_Bibtex::get_single_publication_bibtex($row, $tags, $convert_bibtex);
-            }
-        }     
-        if ( $format === 'rtf' ) {
-            echo self::rtf($row);
-        }
-    }
-    
-    /**
-     * Export a selection of publications
-     * @param string $selection     A string of publication IDs which are separated by comma
-     * @param string $format        bibtex or rtf
-     * @since 5.0.0
-     */
-    public static function get_selected_publications($selection, $format = 'bibtex') {
-        $row = tc_Publications::get_publications( array( 'include' => $selection, 'output_type' => ARRAY_A) );
-        
-        if ( $format === 'bibtex' ) {
-            $convert_bibtex = ( get_tc_option('convert_bibtex') == '1' ) ? true : false;
-            foreach ($row as $row) {
-                $tags = tc_Tags::get_tags( array('pub_id' => $row['pub_id'], 'output_type' => ARRAY_A) );
-                echo tc_Bibtex::get_single_publication_bibtex($row, $tags, $convert_bibtex);
-            }
-        }     
-        if ( $format === 'rtf' ) {
-            echo self::rtf($row);
-        }
-    }
-
-
-    /**
-     * Export a single publication
-     * @param string $bibtex_key
-     * @since 4.2.0
-     */
-    public static function get_publication_by_key($bibtex_key) {
-        $convert_bibtex = ( get_tc_option('convert_bibtex') == '1' ) ? true : false;
-        $row = tc_Publications::get_publication_by_key($bibtex_key, ARRAY_A);
-        $tags = tc_Tags::get_tags( array( 'pub_id' => $row['pub_id'], 'output_type' => ARRAY_A ) );
-        echo tc_Bibtex::get_single_publication_bibtex($row, $tags, $convert_bibtex);
-    }
-
-    /**
      * Generate rtf document format
      * @param array $row
      * @return string

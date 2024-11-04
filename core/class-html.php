@@ -40,7 +40,7 @@ class tc_HTML {
      */
     public static function div_close($class = '') {
         // Print the class name as comment in debug mode
-        $c = (TEACHPRESS_DEBUG === true && $class !== '') ? '<!-- CLOSE: div: ' . $class . ' -->' : '';
+        $c = (TEACHCOURSES_DEBUG === true && $class !== '') ? '<!-- CLOSE: div: ' . $class . ' -->' : '';
         
         echo '</div>' . $c . PHP_EOL;
     }

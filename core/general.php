@@ -441,7 +441,7 @@ function tc_write_data_for_tinymce () {
         var teachcorses_pub_templates = <?php echo json_encode($pub_templates_list); ?>;
         var teachcorses_editor_url = '<?php echo admin_url( 'admin-ajax.php' ) . '?action=teachcorsesdocman&post_id=' . $post_id; ?>';
         var teachcorses_cookie_path = '<?php echo SITECOOKIEPATH; ?>';
-        var teachcorses_file_link_css_class = '<?php echo TEACHPRESS_FILE_LINK_CSS_CLASS; ?>';
+        var teachcorses_file_link_css_class = '<?php echo TEACHCOURSES_FILE_LINK_CSS_CLASS; ?>';
     </script>
     <?php
 }

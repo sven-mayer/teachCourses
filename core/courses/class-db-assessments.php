@@ -23,7 +23,7 @@ class tc_Assessments {
      */
     public static function get_assessment ($assessment_id, $output_type = ARRAY_A) {
         global $wpdb;
-        return $wpdb->get_row("SELECT * FROM " . TEACHPRESS_ASSESSMENTS . " WHERE `assessment_id` = '" . intval($assessment_id) . "'", $output_type);
+        return $wpdb->get_row("SELECT * FROM " . TEACHCOURSES_ASSESSMENTS . " WHERE `assessment_id` = '" . intval($assessment_id) . "'", $output_type);
     }
     
     /**
@@ -43,7 +43,7 @@ class tc_Assessments {
         else {
             $artefacts = tc_DB_Helpers::generate_where_clause($artefact_id, "artefact_id", "OR", "=");
         }
-        return $wpdb->get_results("SELECT * FROM " . TEACHPRESS_ASSESSMENTS . " WHERE `wp_id` = '" . intval($wp_id) . "' AND $artefacts", $output_type);
+        return $wpdb->get_results("SELECT * FROM " . TEACHCOURSES_ASSESSMENTS . " WHERE `wp_id` = '" . intval($wp_id) . "' AND $artefacts", $output_type);
     }
     
     /**
@@ -59,14 +59,14 @@ class tc_Assessments {
         $data['type'] = stripslashes($data['type']);
         $data['comment'] = stripslashes($data['comment']);
         
-        $wpdb->insert(TEACHPRESS_ASSESSMENTS, array('wp_id' => $data['wp_id'], 'value' => $data['value'], 'max_value' => $data['max_value'], 'type' => $data['type'], 'examiner_id' => $data['examiner_id'], 'exam_date' => $data['exam_date'], 'comment' => $data['comment'], 'passed' => $data['passed']), array('%d', '%s', '%s', '%s', '%d', '%s', '%s', '%d'));
+        $wpdb->insert(TEACHCOURSES_ASSESSMENTS, array('wp_id' => $data['wp_id'], 'value' => $data['value'], 'max_value' => $data['max_value'], 'type' => $data['type'], 'examiner_id' => $data['examiner_id'], 'exam_date' => $data['exam_date'], 'comment' => $data['comment'], 'passed' => $data['passed']), array('%d', '%s', '%s', '%s', '%d', '%s', '%s', '%d'));
         $insert_id = $wpdb->insert_id;
         
         // For possible NULL values ($wpdb doesn't like that)
         $data['artefact_id'] = ( $data['artefact_id'] === NULL ) ? "NULL" : intval($data['artefact_id']);
         $data['course_id'] = ( $data['course_id'] === NULL ) ? "NULL" : intval($data['course_id']);
         $wpdb->query("SET foreign_key_checks = 0");
-        $wpdb->query("UPDATE " . TEACHPRESS_ASSESSMENTS . " SET `artefact_id` = '" . $data['artefact_id'] . "', `course_id` = '" . $data['course_id'] . "' WHERE `assessment_id` = '$insert_id'");
+        $wpdb->query("UPDATE " . TEACHCOURSES_ASSESSMENTS . " SET `artefact_id` = '" . $data['artefact_id'] . "', `course_id` = '" . $data['course_id'] . "' WHERE `assessment_id` = '$insert_id'");
         $wpdb->query("SET foreign_key_checks = 1");
         return $insert_id;
     }
@@ -86,7 +86,7 @@ class tc_Assessments {
         $data['comment'] = stripslashes($data['comment']);
         
         $wpdb->query("SET foreign_key_checks = 0");
-        $return = $wpdb->update( TEACHPRESS_ASSESSMENTS, array( 'type' => $data['type'], 'value' => $data['value'], 'examiner_id' => $data['examiner_id'], 'exam_date' => $data['exam_date'], 'comment' => $data['comment'], 'passed' => $data['passed']), array( 'assessment_id' => $assessment_id ), array( '%s', '%s', '%d', '%s', '%s', '%d' ), array( '%d' ) );
+        $return = $wpdb->update( TEACHCOURSES_ASSESSMENTS, array( 'type' => $data['type'], 'value' => $data['value'], 'examiner_id' => $data['examiner_id'], 'exam_date' => $data['exam_date'], 'comment' => $data['comment'], 'passed' => $data['passed']), array( 'assessment_id' => $assessment_id ), array( '%s', '%s', '%d', '%s', '%s', '%d' ), array( '%d' ) );
         $wpdb->query("SET foreign_key_checks = 1");
         return $return;
         
@@ -99,7 +99,7 @@ class tc_Assessments {
     */
    public static function delete_assessment ($assessment_id) {
        global $wpdb;
-       $wpdb->query("DELETE FROM " . TEACHPRESS_ASSESSMENTS . " WHERE `assessment_id` = '" . intval($assessment_id) . "'");
+       $wpdb->query("DELETE FROM " . TEACHCOURSES_ASSESSMENTS . " WHERE `assessment_id` = '" . intval($assessment_id) . "'");
    }
     
 }

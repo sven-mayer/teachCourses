@@ -198,54 +198,6 @@ class tc_Ajax {
     }
 
     /**
-     * Gets the cite screen for a single publication.
-     * @param int $cite_id       The publication ID
-     * @since 6.0.0
-     * @access public
-     */
-    public static function get_cite_screen ($cite_id) {
-        $publication = tc_Publications::get_publication($cite_id, ARRAY_A);
-        echo '<!doctype html>';
-        echo '<html>';
-        echo '<head>';
-        echo '<meta charset="utf-8">';
-	echo '<title>teachCorses - cite publication</title>';
-        echo '</head>';
-        echo '<body>';
-        echo '<div class="content">';
-        echo '<div class="wrap">';
-        echo '<h3 class="nav-tab-wrapper"><a class="nav-tab nav-tab-active tc_cite_text" id="tc_cite_text_' . $cite_id . '" pub_id="' . $cite_id . '">' . __('Text','teachcorses') . '</a> <a class="nav-tab tc_cite_bibtex" id="tc_cite_bibtex_' . $cite_id . '" pub_id="' . $cite_id . '">' . __('BibTeX','teachcorses') . '</a></h3>';
-        echo '<form name="form_cite" method="post">';
-        echo '<input name="tc_cite_id" type="hidden" value="' . '"/>';
-        echo '<textarea name="tc_cite_full" id="tc_cite_full_' . $cite_id . '" class="tc_cite_full" rows="7" style="width:100%; border-top:none;" title="' . __('Publication entry','teachcorses') . '">' . tc_Export::text_row($publication) . '</textarea>';
-        echo '</form>';
-        echo '</div>';
-        echo '</div>';
-        echo '</body>';
-        echo '</html>';
-    }
-    
-    /**
-     * Gets the cite text for a publication
-     * @param int $cite_id      the publication ID
-     * @param string $mode      text or bibtex
-     * @access public
-     * @since 6.0.0
-     */
-    public static function get_cite_text ($cite_id, $mode) {
-        if ( $mode === 'bibtex' ) {
-            $publication = tc_Publications::get_publication($cite_id, ARRAY_A);
-            $tags = tc_Tags::get_tags(array('pub_id' => $cite_id, 'output_type' => ARRAY_A));
-            echo tc_Bibtex::get_single_publication_bibtex($publication, $tags);
-        }
-        if ( $mode === 'text' ) {
-            $publication = tc_Publications::get_publication($cite_id, ARRAY_A);
-            echo tc_Export::text_row($publication);
-        }
-    }
-
-
-    /**
      * Gets the name of a document
      * @param int $doc_id       The ID of the document
      * @since 5.0.0

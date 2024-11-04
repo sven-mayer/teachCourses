@@ -97,7 +97,7 @@ class tc_Admin {
     public static function get_checkbox_field ($field_name, $label, $checked, $readonly = false, $required = false) {
         global $wpdb;
         $return = '';
-        $options = $wpdb->get_results("SELECT * FROM " . TEACHPRESS_SETTINGS . " WHERE `category` = '" . esc_sql($field_name) . "' ORDER BY value ASC");
+        $options = $wpdb->get_results("SELECT * FROM " . TEACHCOURSES_SETTINGS . " WHERE `category` = '" . esc_sql($field_name) . "' ORDER BY value ASC");
         $ro = ( $readonly === true ) ? 'readonly="true" ' : '' ;
         $rq = ( $required === true ) ? 'required="required"' : '';
         // extrakt checkbox_values
@@ -189,7 +189,7 @@ class tc_Admin {
     public static function get_radio_field ($field_name, $label, $value, $readonly = false, $required = false) {
         global $wpdb;
         $return = '';
-        $options = $wpdb->get_results("SELECT * FROM " . TEACHPRESS_SETTINGS . " WHERE `category` = '" . esc_sql($field_name) . "' ORDER BY value ASC");
+        $options = $wpdb->get_results("SELECT * FROM " . TEACHCOURSES_SETTINGS . " WHERE `category` = '" . esc_sql($field_name) . "' ORDER BY value ASC");
         $ro = ( $readonly === true ) ? 'readonly="true" ' : '' ;
         $rq = ( $required === true ) ? 'required="required"' : '';
         $return .= '<p><label for="' . $field_name . '"><b>' . stripslashes($label) . '</b></label></p>';
@@ -215,7 +215,7 @@ class tc_Admin {
         $return = '';
         $return .= '<p><label for="' . $field_name . '"><b>' . stripslashes($label) . '</b></label></p>';
         $return .= '<select name="' . $field_name . '" id="' . $field_name . '">';
-        $options = $wpdb->get_results("SELECT * FROM " . TEACHPRESS_SETTINGS . " WHERE `category` = '" . esc_sql($field_name) . "' ORDER BY value ASC");
+        $options = $wpdb->get_results("SELECT * FROM " . TEACHCOURSES_SETTINGS . " WHERE `category` = '" . esc_sql($field_name) . "' ORDER BY value ASC");
         if ( $value == '' ) {
             $return .= '<option value="">- ' . __('none','teachcorses') . ' -</option>';
         }
@@ -350,16 +350,16 @@ class tc_Admin {
         echo '<tbody>';
 
         if ( $type === 'term' ) {
-            $sql = "SELECT number, value, setting_id FROM ( SELECT COUNT(v.semester) as number, e.variable AS value,  e.setting_id as setting_id, e.category as category FROM " . TEACHPRESS_SETTINGS . " e LEFT JOIN " . TEACHPRESS_COURSES . " v ON e.variable = v.semester GROUP BY e.variable ORDER BY number DESC ) AS temp WHERE category = 'semester' ORDER BY setting_id";
+            $sql = "SELECT number, value, setting_id FROM ( SELECT COUNT(v.semester) as number, e.variable AS value,  e.setting_id as setting_id, e.category as category FROM " . TEACHCOURSES_SETTINGS . " e LEFT JOIN " . TEACHCOURSES_COURSES . " v ON e.variable = v.semester GROUP BY e.variable ORDER BY number DESC ) AS temp WHERE category = 'semester' ORDER BY setting_id";
         }
         elseif ( $type === 'type' ) {
-            $sql = "SELECT number, value, setting_id FROM ( SELECT COUNT(v.type) as number, e.value AS value,  e.setting_id as setting_id, e.category as category FROM " . TEACHPRESS_SETTINGS . " e LEFT JOIN " . TEACHPRESS_COURSES . " v ON e.value = v.type GROUP BY e.value ORDER BY number DESC ) AS temp WHERE category = 'course_type' ORDER BY value";
+            $sql = "SELECT number, value, setting_id FROM ( SELECT COUNT(v.type) as number, e.value AS value,  e.setting_id as setting_id, e.category as category FROM " . TEACHCOURSES_SETTINGS . " e LEFT JOIN " . TEACHCOURSES_COURSES . " v ON e.value = v.type GROUP BY e.value ORDER BY number DESC ) AS temp WHERE category = 'course_type' ORDER BY value";
         }
         elseif ( $type === 'course_of_studies' ) {
-            $sql = "SELECT number, value, setting_id FROM ( SELECT COUNT(m.meta_value) as number, e.value AS value,  e.setting_id as setting_id, e.category as category FROM " . TEACHPRESS_SETTINGS . " e LEFT JOIN " . TEACHPRESS_STUD_META . " m ON e.value = m.meta_value GROUP BY e.value ORDER BY number DESC ) AS temp WHERE category = 'course_of_studies' ORDER BY value";
+            $sql = "SELECT number, value, setting_id FROM ( SELECT COUNT(m.meta_value) as number, e.value AS value,  e.setting_id as setting_id, e.category as category FROM " . TEACHCOURSES_SETTINGS . " e LEFT JOIN " . TEACHCOURSES_STUD_META . " m ON e.value = m.meta_value GROUP BY e.value ORDER BY number DESC ) AS temp WHERE category = 'course_of_studies' ORDER BY value";
         }
         else {
-            $sql = "SELECT * FROM " . TEACHPRESS_SETTINGS . " WHERE `category` = '" . esc_sql($type) . "' ORDER BY value ASC";
+            $sql = "SELECT * FROM " . TEACHCOURSES_SETTINGS . " WHERE `category` = '" . esc_sql($type) . "' ORDER BY value ASC";
         }
 
         $row = $wpdb->get_results($sql);

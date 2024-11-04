@@ -22,7 +22,7 @@ class tc_Documents {
      */
     public static function get_document($doc_id, $output_type = ARRAY_A) {
         global $wpdb;
-        return $wpdb->get_row("SELECT * FROM " . TEACHPRESS_COURSE_DOCUMENTS . " WHERE `doc_id` = '" . intval($doc_id) . "'",$output_type);
+        return $wpdb->get_row("SELECT * FROM " . TEACHCOURSES_COURSE_DOCUMENTS . " WHERE `doc_id` = '" . intval($doc_id) . "'",$output_type);
     }
     
     /**
@@ -34,7 +34,7 @@ class tc_Documents {
      */
     public static function get_documents($course_id, $output_type = ARRAY_A) {
         global $wpdb;
-        return $wpdb->get_results("SELECT * FROM " . TEACHPRESS_COURSE_DOCUMENTS . " WHERE `course_id` = '" . intval($course_id) . "' ORDER BY `sort` ASC, `added` ASC",$output_type);
+        return $wpdb->get_results("SELECT * FROM " . TEACHCOURSES_COURSE_DOCUMENTS . " WHERE `course_id` = '" . intval($course_id) . "' ORDER BY `sort` ASC, `added` ASC",$output_type);
     }
     
     /**
@@ -54,10 +54,10 @@ class tc_Documents {
         $name = stripslashes($name);
         
         // ask for max sort
-        $max = $wpdb->get_var( "SELECT MAX(sort) FROM " . TEACHPRESS_COURSE_DOCUMENTS . " WHERE `course_id` = '" . intval($course_id) . "'" );
+        $max = $wpdb->get_var( "SELECT MAX(sort) FROM " . TEACHCOURSES_COURSE_DOCUMENTS . " WHERE `course_id` = '" . intval($course_id) . "'" );
         $sort = intval($max) + 1;
         
-        $wpdb->insert( TEACHPRESS_COURSE_DOCUMENTS, array( 'name' => $name, 
+        $wpdb->insert( TEACHCOURSES_COURSE_DOCUMENTS, array( 'name' => $name, 
                                                            'path' => $path, 
                                                            'added' => $time,
                                                            'size' => $size,
@@ -80,7 +80,7 @@ class tc_Documents {
         // prevent possible double escapes
         $doc_name = stripslashes($doc_name);
         
-        return $wpdb->update( TEACHPRESS_COURSE_DOCUMENTS, array( 'name' => $doc_name ), array( 'doc_id' => $doc_id ), array( '%s', ), array( '%d' ) );
+        return $wpdb->update( TEACHCOURSES_COURSE_DOCUMENTS, array( 'name' => $doc_name ), array( 'doc_id' => $doc_id ), array( '%s', ), array( '%d' ) );
     }
 
 
@@ -93,7 +93,7 @@ class tc_Documents {
      */
     public static function set_sort($doc_id, $sort) {
         global $wpdb;
-        return $wpdb->update( TEACHPRESS_COURSE_DOCUMENTS, array( 'sort' => $sort ), array( 'doc_id' => $doc_id ), array( '%d', ), array( '%d' ) );
+        return $wpdb->update( TEACHCOURSES_COURSE_DOCUMENTS, array( 'sort' => $sort ), array( 'doc_id' => $doc_id ), array( '%d', ), array( '%d' ) );
     }
 
     /**
@@ -104,7 +104,7 @@ class tc_Documents {
     public static function delete_document($doc_id) {
         global $wpdb;
         $doc_id = intval($doc_id);
-        $wpdb->query("DELETE FROM " . TEACHPRESS_COURSE_DOCUMENTS . " WHERE `doc_id` = '$doc_id'");
+        $wpdb->query("DELETE FROM " . TEACHCOURSES_COURSE_DOCUMENTS . " WHERE `doc_id` = '$doc_id'");
     }
 }
 

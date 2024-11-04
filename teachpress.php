@@ -37,7 +37,7 @@
 /* Includes */
 /************/
 
-define('TEACHPRESS_GLOBAL_PATH', plugin_dir_path(__FILE__));
+define('TEACHCOURSES_GLOBAL_PATH', plugin_dir_path(__FILE__));
 
 // Loads contstants
 include_once('core/constants.php');
@@ -93,7 +93,7 @@ function tc_add_menu() {
     global $wp_version;
     global $tc_admin_show_courses_page;
     global $tc_admin_add_course_page;
-    $pos = TEACHPRESS_MENU_POSITION;
+    $pos = TEACHCOURSES_MENU_POSITION;
 
     $logo = (version_compare($wp_version, '3.8', '>=')) ? plugins_url( 'images/logo_small.png', __FILE__ ) : plugins_url( 'images/logo_small_black.png', __FILE__ );
 
@@ -184,7 +184,7 @@ function tc_advanced_registration() {
     $user = wp_get_current_user();
     global $wpdb;
     global $current_user;
-    $test = $wpdb->query("SELECT `wp_id` FROM " . TEACHPRESS_STUD . " WHERE `wp_id` = '$current_user->ID'");
+    $test = $wpdb->query("SELECT `wp_id` FROM " . TEACHCOURSES_STUD . " WHERE `wp_id` = '$current_user->ID'");
     if ($test == '0' && $user->ID != '0') {
         if ($user->user_firstname == '') {
             $user->user_firstname = $user->display_name;
@@ -199,14 +199,6 @@ function tc_advanced_registration() {
     }
 }
 
-/**
- * Adds the publication feeds
- * @since 6.0.0
- */
-function tc_feed_init(){
-    add_feed('tc_pub_bibtex', 'tc_pub_bibtex_feed_func');
-    add_feed('tc_export', 'tc_export_feed_func');
-}
 
 /*************************/
 /* Installer and Updater */
@@ -355,12 +347,12 @@ function tc_backend_scripts() {
     add_thickbox();
 
     /* academicons v1.8.6 */
-    if ( TEACHPRESS_LOAD_ACADEMICONS === true ) {
+    if ( TEACHCOURSES_LOAD_ACADEMICONS === true ) {
         wp_enqueue_style('academicons', plugins_url( 'includes/academicons/css/academicons.min.css', __FILE__ ) );
     }
 
     /* Font Awesome Free v5.10.1 */
-    if (TEACHPRESS_LOAD_FONT_AWESOME === true) {
+    if (TEACHCOURSES_LOAD_FONT_AWESOME === true) {
         wp_enqueue_style('font-awesome', plugins_url( 'includes/fontawesome/css/all.min.css', __FILE__ ) );
     }
     
@@ -401,17 +393,17 @@ function tc_frontend_scripts() {
     }
 
     /* altmetric support */
-    if ( TEACHPRESS_ALTMETRIC_SUPPORT === true ) {
+    if ( TEACHCOURSES_ALTMETRIC_SUPPORT === true ) {
         echo '<script' . $type_attr . ' src="https://d1bxh8uas1mnw7.cloudfront.net/assets/embed.js"></script>' . PHP_EOL;
     }
 
     /* academicons v1.8.6 */
-    if ( TEACHPRESS_LOAD_ACADEMICONS === true ) {
+    if ( TEACHCOURSES_LOAD_ACADEMICONS === true ) {
         wp_enqueue_style('academicons', plugins_url( 'includes/academicons/css/academicons.min.css', __FILE__ ) );
     }
 
     /* Font Awesome Free 5.10.1 */
-    if (TEACHPRESS_LOAD_FONT_AWESOME === true) {
+    if (TEACHCOURSES_LOAD_FONT_AWESOME === true) {
         wp_enqueue_style('font-awesome', plugins_url( 'includes/fontawesome/css/all.min.css', __FILE__ ) );
     }
 
@@ -451,8 +443,6 @@ function tc_plugin_link($links, $file){
 // Register WordPress-Hooks
 register_activation_hook( __FILE__, 'tc_activation');
 add_action('init', 'tc_language_support');
-add_action('init', 'tc_feed_init');
-add_action('init', 'tc_register_all_publication_types');
 add_action('wp_ajax_teachcorses', 'tc_ajax_callback');
 add_action('wp_ajax_teachcorsesdocman', 'tc_ajax_doc_manager_callback');
 add_action('admin_menu', 'tc_add_menu_settings');
@@ -469,7 +459,7 @@ if ( version_compare( tc_get_wp_version() , '3.9', '>=') ) {
  }
 
 // Activation Error Reporting
-if ( TEACHPRESS_ERROR_REPORTING === true ) {
+if ( TEACHCOURSES_ERROR_REPORTING === true ) {
     register_activation_hook( __FILE__, 'tc_activation_error_reporting' );
 }
 
