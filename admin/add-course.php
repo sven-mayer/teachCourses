@@ -103,11 +103,15 @@ function tc_add_course_page() {
        return;
    }
    
+    echo '<div class="wrap">';
+    echo '<h2>';
+    if ($course_id == 0) {
+        echo _e('Create a new course','teachcorses');
+    } else {
+        echo _e('Edit Course','teachcorses');
+    }
+    echo '</h2>';
    
-   ?>
-   <div class="wrap">
-       <h2><?php if ($course_id == 0) { _e('Create a new course','teachcorses'); } else { _e('Edit Course','teachcorses'); } ?></h2>
-   <?php 
         // Add new course
         if ( isset($_POST['create']) ) {
              $course_id = tc_Courses::add_course($data, $sub);
@@ -134,50 +138,50 @@ function tc_add_course_page() {
              $course_data = get_tc_var_types('course_array');
              $course_meta = array ( array('meta_key' => '', 'meta_value' => '') );
         }
-     ?>
-     <form id="add_course" name="form1" method="post" action="<?php echo esc_url($_SERVER['REQUEST_URI']); ?>">
-     <input name="page" type="hidden" value="<?php if ($course_id != 0) {?>teachcorses/teachcorses.php<?php } else {?>teachcorses/add_course.php<?php } ?>" />
-     <input name="action" type="hidden" value="edit" />
-     <input name="course_id" type="hidden" value="<?php echo $course_id; ?>" />
-     <input name="sem" type="hidden" value="<?php echo $sem; ?>" />
-     <input name="search" type="hidden" value="<?php echo $search; ?>" />
-     <input name="ref" type="hidden" value="<?php echo $ref; ?>" />
-     <input name="upload_mode" id="upload_mode" type="hidden" value="" />
-     <div class="tc_postbody">
-     <div class="tc_postcontent">
-        <div id="post-body">
-           <div id="post-body-content">
-               <div id="titlediv" style="padding-bottom: 15px;">
-                   <div id="titlewrap">
-                      <label class="hide-if-no-js" style="display:none;" id="title-prompt-text" for="title"><?php _e('Course name','teachcorses'); ?></label>
-                      <input type="text" name="post_title" title="<?php _e('Course name','teachcorses'); ?>" size="30" tabindex="1" placeholder="<?php _e('Course name','teachcorses'); ?>" value="<?php echo stripslashes($course_data["name"]); ?>" id="title" autocomplete="off" />
-                   </div>
-               </div>
-                <?php
-                tc_Add_Course::get_general_box ($course_id, $course_types, $course_data);
+    
+    echo '<form id="add_course" name="form1" method="post" action="'. esc_url($_SERVER['REQUEST_URI']) .'">';
+    echo '<input name="page" type="hidden" value="';
+    if ($course_id != 0) {
+        echo 'teachcorses/teachcorses.php';
+    } else {
+        echo 'teachcorses/add_course.php';
+    }
+    echo '" />';
+    echo '<input name="action" type="hidden" value="edit" />';
+    echo '<input name="course_id" type="hidden" value="'. $course_id.'" />';
+    echo '<input name="sem" type="hidden" value="'. $sem.'" />';
+    echo '<input name="search" type="hidden" value="'. $search.'" />';
+    echo '<input name="ref" type="hidden" value="'.$ref.'" />';
+    echo '<input name="upload_mode" id="upload_mode" type="hidden" value="" />';
+    echo '<div class="tc_postbody">';
+    echo '<div class="tc_postcontent">';
+    echo '<div id="post-body">';
+    echo '<div id="post-body-content">';
+    echo '<div id="titlediv" style="padding-bottom: 15px;">';
+    echo '<div id="titlewrap">';
+    echo '<label class="hide-if-no-js" style="display:none;" id="title-prompt-text" for="title">'._e('Course name','teachcorses').'</label>';
+    echo '<input type="text" name="post_title" title="'._e('Course name','teachcorses').'" size="30" tabindex="1" placeholder="'._e('Course name','teachcorses').'" value="'.stripslashes($course_data["name"]).'" id="title" autocomplete="off" />';
+    echo '</div></div>';
+    tc_Add_Course::get_general_box ($course_id, $course_types, $course_data);
 
-                if ( $course_id === 0 ) { 
-                    tc_Add_Course::get_subcourses_box($course_types, $course_data);
-                }
-                if ( count($fields) !== 0 ) { 
-                    tc_Admin::display_meta_data($fields, $course_meta);       
-                } 
-                ?>
-           </div>
-        </div>
-     </div>
-     <div class="tc_postcontent_right">  
-        <?php
-        tc_Add_Course::get_meta_box ($course_id, $course_data, $capability);
-        tc_Add_Course::get_enrollments_box ($course_id, $course_data);
-        ?>
-     </div>
-     </div>
-      
-      </form>
-      <script type="text/javascript" charset="utf-8" src="<?php echo plugins_url( 'js/admin_add_course.js', dirname( __FILE__ ) ); ?>"></script>
-   </div>
-<?php }
+    if ( $course_id === 0 ) { 
+    tc_Add_Course::get_subcourses_box($course_types, $course_data);
+    }
+    if ( count($fields) !== 0 ) { 
+    tc_Admin::display_meta_data($fields, $course_meta);       
+    } 
+    echo '</div></div></div>';
+    echo '<div class="tc_postcontent_right"';
+    tc_Add_Course::get_meta_box ($course_id, $course_data, $capability);
+    tc_Add_Course::get_enrollments_box ($course_id, $course_data);
+
+    echo '</div>';
+    echo '</div>';
+
+    echo '</form>';    
+    echo '<script type="text/javascript" charset="utf-8" src="'. plugins_url( 'js/admin_add_course.js', dirname( __FILE__ ) ).'"></script>';
+    echo '</div>';
+}
 
 /**
  * This class contains all funcitons for the add_course_page
