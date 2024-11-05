@@ -139,9 +139,6 @@ class tc_DB_Helpers {
             else if ( $table === 'courses' ) {
                 tc_Courses::add_course_meta($id, $row['variable'], $value);
             }
-            else {
-                tc_Publications::add_pub_meta($id, $row['variable'], $value);
-            }
         }
     }
     

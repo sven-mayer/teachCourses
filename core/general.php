@@ -393,40 +393,6 @@ function tc_write_data_for_tinymce () {
         $semester_list[] = array( 'text' => stripslashes($sem->value) , 'value' => stripslashes($sem->value) );
     }
     
-    // List of publication users
-    $pub_user_list = array();
-    $pub_user_list[] = array( 'text' => __('All','teachcorses') , 'value' => '' );
-    $pub_users = tc_Publications::get_pub_users();
-    foreach ($pub_users as $row) { 
-        $user_data = get_userdata($row->user);
-        if ( $user_data !== false ) {
-            $pub_user_list[] = array( 'text' => $user_data->display_name , 'value' => intval($row->user) );
-        }
-    }
-    
-    // List of publication tags
-    $pub_tag_list = array();
-    $pub_tag_list[] = array( 'text' => __('All','teachcorses'), 'value' => null );
-    $pub_tags = tc_Tags::get_tags(array( 'group_by' => true ));
-    foreach($pub_tags as $pub_tag){
-	$pub_tag_list[] = array( 'text' => $pub_tag->name, 'value' => intval($pub_tag->tag_id) );
-    }
-    
-    // List of publication types
-    global $tc_publication_types;
-    $pub_type_list = array();
-    $pub_types = $tc_publication_types->get();
-    foreach ( $pub_types as $pub_type ) {
-        $pub_type_list[] = array ( 'text' => $pub_type['i18n_singular'], 'value' => stripslashes($pub_type['type_slug']) );
-    }
-    
-    // List of publication templates
-    $pub_templates_list = array();
-    $pub_templates = tc_list_templates();
-    foreach ( $pub_templates as $row ) {
-        $pub_templates_list[] = array ( 'text' => $row, 'value' => $row);
-    }
-    
     // Current post id
     $post_id = ( isset ($_GET['post']) ) ? intval($_GET['post']) : 0;
     

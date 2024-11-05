@@ -186,16 +186,6 @@ class tc_Ajax {
         }
         echo '</ol>';
     }
-    
-    /**
-     * Gets a unique bibtex key from a given string
-     * @param string $string
-     * @since 6.1.1
-     * @access public
-     */
-    public static function get_generated_bibtex_key ($string) {
-        echo tc_Publications::generate_unique_bibtex_key($string);
-    }
 
     /**
      * Gets the name of a document

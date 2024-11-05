@@ -64,7 +64,6 @@ include_once('core/courses/class-db-documents.php');
 // Admin menus
 if ( is_admin() ) {
     include_once('admin/class-authors-page.php');
-    include_once('admin/class-tags-page.php');
     include_once('admin/add-course.php');
     include_once('admin/create-lists.php');
     

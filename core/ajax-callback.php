@@ -112,14 +112,6 @@ function tc_ajax_callback () {
             $meta_field_id = intval( $_GET['meta_field_id'] );
             tc_Ajax::get_meta_field_screen($meta_field_id);
         } 
-        
-        /**
-         * Getting the unique version of the bibtex string
-         * @since 6.1.1
-         */
-        if ( isset ( $_GET['bibtex_key_check'] ) ) {
-            tc_Ajax::get_generated_bibtex_key($_GET['bibtex_key_check']);
-        }
 
     }
 
