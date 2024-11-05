@@ -334,7 +334,7 @@ class tc_Settings_Page {
     
     /**
      * Shows the student settings tab
-     * @param string $tab   publication_data or course_data
+     * @param string $tab course_data
      * @access private
      * @since 5.0.0
      */
