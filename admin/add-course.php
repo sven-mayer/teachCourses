@@ -270,7 +270,7 @@ class tc_Add_Course {
             tc_Add_Course::get_parent_select_field($course_id, $course_data);
             ?>
             
-            <p><label for="comment" title="<?php _e('For parent courses the comment is showing in the overview and for child courses in the enrollments system.','teachcorses'); ?>"><strong><?php _e('Comment or Description','teachcorses'); ?></strong></label></p>
+            <p><label for="comment" title="<?php _e('For parent courses the comment is showing in the overview and for child courses in the enrollments system.','teachcorses'); ?>"><strong><?php _e('Description','teachcorses'); ?></strong></label></p>
             <textarea name="comment" rows="3" id="comment" title="<?php _e('For parent courses the comment is showing in the overview and for child courses in the enrollments system.','teachcorses'); ?>" tabindex="9" style="width:95%;"><?php echo stripslashes($course_data["comment"]); ?></textarea>
             <p><label for="rel_page" title="<?php _e('If you will connect a course with a page (it is used as link in the courses overview) so you can do this here','teachcorses'); ?>"><strong><?php _e('Related content','teachcorses'); ?></strong></label></p>
 
