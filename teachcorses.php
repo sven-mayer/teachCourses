@@ -89,28 +89,23 @@ function tc_add_menu() {
     $pos = TEACHCOURSES_MENU_POSITION;
 
     $logo = (version_compare($wp_version, '3.8', '>=')) ? plugins_url( 'images/logo_small.png', __FILE__ ) : plugins_url( 'images/logo_small_black.png', __FILE__ );
-
+    // var_dump(__FILE__);
+    // die("products_first_ends");
     $tc_admin_show_courses_page = add_menu_page(
             __('Course','teachcorses'), 
             __('Course','teachcorses'),
             'use_teachcorses_courses', 
-            __FILE__, 
+            'teachcorses.php',
             'tc_show_courses_page', 
             $logo, 
             $pos);
     $tc_admin_add_course_page = add_submenu_page(
-            'teachcorses/teachcorses.php',
+            'teachcorses.php',
             __('Add new','teachcorses'), 
             __('Add new', 'teachcorses'),
             'use_teachcorses_courses',
             'teachcorses/add_course.php',
             'tc_add_course_page');
-    add_submenu_page(
-            'teachcorses/teachcorses.php',
-            __('Students','teachcorses'), 
-            __('Students','teachcorses'),
-            'use_teachcorses_courses', 
-            'tc_students_page');
     add_action("load-$tc_admin_add_course_page", 'tc_add_course_page_help');
     add_action("load-$tc_admin_show_courses_page", 'tc_show_course_page_help');
     add_action("load-$tc_admin_show_courses_page", 'tc_show_course_page_screen_options');

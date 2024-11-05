@@ -22,7 +22,7 @@ This plugin unites a course management system (with modules for documents and as
 * Course management with integrated modules for assessments and documents
 * XLS/CSV export for course lists
 * Many shortcodes for an easy using of publication lists, publication searches and course overviews
-* Dymamic meta data system for courses, students and publications
+* Dymamic meta data system for courses
 
 = Supported Languages =
 * English
