@@ -12,13 +12,6 @@ if ( !defined('TEACHCOURSES_ARTEFACTS') ) {
     */
     define('TEACHCOURSES_ARTEFACTS', $wpdb->prefix . 'teachcorses_artefacts');}
 
-if ( !defined('TEACHCOURSES_ASSESSMENTS') ) {
-    /**
-     * This constant defines the table name for teachcorses_assessments.
-     * @since 5.0.0
-    */
-    define('TEACHCOURSES_ASSESSMENTS', $wpdb->prefix . 'teachcorses_assessments');}
-
 if ( !defined('TEACHCOURSES_COURSES') ) {
     /**
      * This constant defines the table name for teachcorses_courses.
@@ -46,13 +39,6 @@ if ( !defined('TEACHCOURSES_COURSE_DOCUMENTS') ) {
      * @since 5.0.0
     */
     define('TEACHCOURSES_COURSE_DOCUMENTS', $wpdb->prefix . 'teachcorses_course_documents');}
-
-if ( !defined('TEACHCOURSES_SIGNUP') ) {
-    /**
-     * This constant defines the table name for teachcorses_signups.
-     * @since 5.0.0
-    */
-    define('TEACHCOURSES_SIGNUP', $wpdb->prefix . 'teachcorses_signup');}
 
 if ( !defined('TEACHCOURSES_SETTINGS') ) {
     /**

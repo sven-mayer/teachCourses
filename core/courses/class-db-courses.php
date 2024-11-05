@@ -289,36 +289,6 @@ class tc_Courses {
         $wpdb->query("DELETE FROM " . TEACHCOURSES_COURSE_META . " WHERE `course_id` = '" . intval($course_id) . "' $where");
     }
     
-    /**
-     * Returns the number of free places in a course
-     * @param int $course_id    ID of the course
-     * @param int $places       Number of places
-     * @return int
-     * @since 5.0.0
-     */
-    public static function get_free_places($course_id, $places) {
-        global $wpdb;
-        $places = intval($places);
-        $used_places = $wpdb->get_var("SELECT COUNT(`course_id`) FROM " . TEACHCOURSES_SIGNUP . " WHERE `course_id` = '" . intval($course_id) . "' AND `waitinglist` = 0");
-        return ($places - $used_places);
-    }
-    
-    /**
-    * Returns an array with the number of used places for each course. The array key is the course_id, the value is the number of used places.
-    * @return array
-    * @since 5.0.0
-    */
-   public static function get_used_places() {
-       global $wpdb;
-       $used_places = array();
-       $sql = "SELECT `course_id`, COUNT(`course_id`) AS used_places FROM " . TEACHCOURSES_SIGNUP . " WHERE `waitinglist` = '0' GROUP BY `course_id`";
-       $r = $wpdb->get_results($sql);
-       foreach ($r as $r) {
-           $used_places[$r->course_id] = $r->used_places;
-       }
-       return $used_places;
-    }
-    
     /** 
      * Add a new course
      * @param array $data       An associative array with data of the course
@@ -509,9 +479,7 @@ class tc_Courses {
             $wpdb->query( "DELETE FROM " . TEACHCOURSES_COURSE_META . " WHERE `course_id` = $checkbox[$i]" );
             $wpdb->query( "DELETE FROM " . TEACHCOURSES_COURSE_CAPABILITIES . " WHERE `course_id` = $checkbox[$i]" );
             $wpdb->query( "DELETE FROM " . TEACHCOURSES_COURSE_DOCUMENTS . " WHERE `course_id` = $checkbox[$i]" );
-            $wpdb->query( "DELETE FROM " . TEACHCOURSES_ASSESSMENTS . " WHERE `course_id` = $checkbox[$i]" );
             $wpdb->query( "DELETE FROM " . TEACHCOURSES_ARTEFACTS . " WHERE `course_id` = $checkbox[$i]" );
-            $wpdb->query( "DELETE FROM " . TEACHCOURSES_SIGNUP . " WHERE `course_id` = $checkbox[$i]" );
             // Check if there are parent courses, which are not selected for erasing, and set there parent to default
             $sql = "SELECT `course_id` FROM " . TEACHCOURSES_COURSES . " WHERE `parent` = $checkbox[$i]";
             $test = $wpdb->query($sql);
@@ -526,96 +494,6 @@ class tc_Courses {
             }
         }
         $wpdb->query("SET FOREIGN_KEY_CHECKS=1");
-    }
-    
-    /**
-     * Returns course signups or waitinglist entries
-     * 
-     * Possible values for the array $args:
-     *      course_id (INT)             The ID of the course
-     *      waitinglist (STRING)        The waitinglist flag (0 or 1 or '')
-     *      order (STRING)              The SQL order by statement
-     *      limit (STRING)              The SQL limit statement
-     *      search (STRING)             A search string for a name search (firstname, lastname of students)
-     *      count (BOOLEAN)             If this flag is true, only the number of rows will be returned, default is false
-     *      meta_visibility (STRING)    The visibility level of considered meta data fields (normal, admin, hidden, all), default is admin
-     *      output_type (STRING)        OBJECT, ARRAY_N or ARRAY_A, default is OBJECT
-     * 
-     * @param array $args
-     * @return object|array
-     * @since 5.0.0
-     */
-    public static function get_signups ( $args = array() ) {
-        $defaults = array(
-            'course_id' => '',
-            'waitinglist' => '',
-            'order' => '',
-            'limit' => '',
-            'search' => '',
-            'count' => false,
-            'meta_visibility' => 'admin',
-            'output_type' => OBJECT
-        );
-        $args = wp_parse_args( $args, $defaults );
-        extract( $args, EXTR_SKIP );
-
-        global $wpdb;
-
-        $course_id = intval($course_id);
-        $order = esc_sql($order);
-        $search = esc_sql(stripslashes($search));
-        $output_type = esc_sql($output_type);
-        $waitinglist = esc_sql($waitinglist);
-        $limit = esc_sql($limit);
-
-        if ($order != '') {
-            $order = " ORDER BY $order";
-        }
-        if ( $limit != '' ) {
-            $limit = " LIMIT $limit";
-        }
-
-        $fields = get_tc_options('teachcorses_stud','`setting_id` ASC');
-        $selects = '';
-        $joins = '';
-        $where = '';
-        $i = 1;
-        foreach ($fields as $row) {
-            $settings = tc_DB_Helpers::extract_column_data($row->value);
-            if ( $settings['visibility'] !== $meta_visibility || $meta_visibility === 'all' ) {
-                continue;
-            }
-            $table_id = 'm' . $i; 
-            $selects .= ', ' . $table_id .'.meta_value AS ' . $row->variable;
-            $joins .= ' LEFT JOIN ' . TEACHCOURSES_STUD_META . ' ' . $table_id . " ON ( " . $table_id . ".wp_id = s.wp_id AND " . $table_id . ".meta_key = '" . $row->variable . "' ) ";
-            $i++;
-        }
-
-        if ( $count === true ) {
-            $select = "COUNT(st.wp_id)";
-        }
-        else {
-            $select = "st.wp_id, st.firstname, st.lastname, st.userlogin, st.email, s.date, s.con_id, s.waitinglist $selects";
-        }
-        
-        $sql = "SELECT DISTINCT $select "
-                . "FROM " . TEACHCOURSES_SIGNUP . " s "
-                . "INNER JOIN " . TEACHCOURSES_STUD . " st ON st.wp_id = s.wp_id $joins"
-                . "WHERE s.course_id = '$course_id' ";
-        
-        if ( $search !== '' ) {
-            $where .= " AND ( st.firstname LIKE '%$search%' OR st.lastname LIKE '%$search%' )";
-        }
-
-        if ( $waitinglist !== '' ) {
-            $where .= " AND s.waitinglist = '$waitinglist'";
-        }
-        
-        // get_tc_message($sql . $where . $order . $limit, 'orange');
-        if ( $count === true ) {
-            return $wpdb->get_var($sql . $where);
-        }
-        return $wpdb->get_results($sql . $where . $order . $limit, $output_type);
     }
     
     /** 

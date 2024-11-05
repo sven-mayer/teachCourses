@@ -56,7 +56,6 @@ include_once('core/deprecated.php');
 include_once('core/general.php');
 include_once('core/shortcodes.php');
 include_once('core/courses/class-db-artefacts.php');
-include_once('core/courses/class-db-assessments.php');
 include_once('core/courses/class-db-courses.php');
 include_once('core/courses/class-db-documents.php');
 
@@ -65,7 +64,6 @@ include_once('core/courses/class-db-documents.php');
 if ( is_admin() ) {
     include_once('admin/class-authors-page.php');
     include_once('admin/add-course.php');
-    include_once('admin/create-lists.php');
     
     include_once('admin/settings.php');
     include_once('admin/show-courses.php');

@@ -77,7 +77,6 @@ function tc_add_course_page() {
    $data['rel_page_alter'] = isset( $_POST['rel_page_alter'] ) ? intval($_POST['rel_page_alter']) : 0;
    $data['parent'] = isset( $_POST['parent2'] ) ? intval($_POST['parent2']) : 0;
    $data['visible'] = isset( $_POST['visible'] ) ? intval($_POST['visible']) : 1;
-   $data['waitinglist'] = isset( $_POST['waitinglist'] ) ? intval($_POST['waitinglist']) : 0;
    $data['image_url'] = isset( $_POST['image_url'] ) ? htmlspecialchars($_POST['image_url']) : '';
    $data['strict_signup'] = isset( $_POST['strict_signup'] ) ? intval($_POST['strict_signup']) : 0;
    $data['use_capabilities'] = isset( $_POST['use_capabilities'] ) ? intval($_POST['use_capabilities']) : 0;
@@ -142,7 +141,7 @@ function tc_add_course_page() {
     echo '<form id="add_course" name="form1" method="post" action="'. esc_url($_SERVER['REQUEST_URI']) .'">';
     echo '<input name="page" type="hidden" value="';
     if ($course_id != 0) {
-        echo 'teachcorses/teachcorses.php';
+    echo 'teachcorses/teachcorses.php';
     } else {
         echo 'teachcorses/add_course.php';
     }
@@ -229,11 +228,6 @@ class tc_Add_Course {
                  ?>
                  <input name="end" type="text" id="end" title="<?php _e('Date','teachcorses'); ?>" tabindex="17" size="15" <?php echo $meta; ?>/> <input name="end_hour" type="text" title="<?php _e('Hours','teachcorses'); ?>" value="<?php echo $hour; ?>" size="2" tabindex="18" /> : <input name="end_minute" type="text" title="<?php _e('Minutes','teachcorses'); ?>" value="<?php echo $minute; ?>" size="2" tabindex="19" />
               <p><strong><?php _e('Options','teachcorses'); ?></strong></p>
-               <?php
-                 $check = $course_data["waitinglist"] == 1 ? 'checked="checked"' : '';
-                 ?>
-                  <p><input name="waitinglist" id="waitinglist" type="checkbox" value="1" tabindex="26" <?php echo $check; ?>/> <label for="waitinglist" title="<?php _e('Waiting list','teachcorses'); ?>"><?php _e('Waiting list','teachcorses'); ?></label></p>
-                <p>
                 <?php 
                  if ($course_data["parent"] != 0) {
                     $parent_data_strict = tc_Courses::get_course_data($course_data["parent"], 'strict_signup'); 
@@ -330,10 +324,6 @@ class tc_Add_Course {
             <p><label for="places" title="<?php _e('The number of available places.','teachcorses'); ?>"><strong><?php _e('Number of places','teachcorses'); ?></strong></label></p>
             <input name="places" type="text" id="places" title="<?php _e('The number of available places.','teachcorses'); ?>" style="width:70px;" tabindex="7" value="<?php echo $course_data["places"]; ?>" />
             <?php 
-            if ($course_id != 0) {
-                $free_places = tc_Courses::get_free_places($course_data["course_id"], $course_data["places"]);
-                echo ' | ' . __('free places','teachcorses') . ': ' . $free_places;
-            } 
             tc_Add_Course::get_parent_select_field($course_id, $course_data);
             ?>
             

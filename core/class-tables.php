@@ -37,9 +37,7 @@ class tc_Tables {
         self::add_table_course_meta($charset_collate);
         self::add_table_course_capabilities($charset_collate);
         self::add_table_course_documents($charset_collate);
-        self::add_table_signup($charset_collate);
         self::add_table_artefacts($charset_collate);
-        self::add_table_assessments($charset_collate);
         
         // Enable foreign key checks
         if ( TEACHCOURSES_FOREIGN_KEY_CHECKS === false ) {
@@ -55,7 +53,6 @@ class tc_Tables {
         global $wpdb;
         $wpdb->query("SET FOREIGN_KEY_CHECKS=0");
         $wpdb->query("DROP TABLE `" . TEACHCOURSES_ARTEFACTS . "`, 
-                                `" . TEACHCOURSES_ASSESSMENTS . "`,
                                 `" . TEACHCOURSES_AUTHORS . "`, 
                                 `" . TEACHCOURSES_COURSES . "`, 
                                 `" . TEACHCOURSES_COURSE_CAPABILITIES . "`, 
@@ -63,8 +60,7 @@ class tc_Tables {
                                 `" . TEACHCOURSES_COURSE_META . "`, 
                                 `" . TEACHCOURSES_RELATION ."`,
                                 `" . TEACHCOURSES_REL_PUB_AUTH . "`, 
-                                `" . TEACHCOURSES_SETTINGS ."`, 
-                                `" . TEACHCOURSES_SIGNUP ."`, 
+                                `" . TEACHCOURSES_SETTINGS ."`,  
                                 `" . TEACHCOURSES_TAGS . "`, 
                                 `" . TEACHCOURSES_USER . "`");
         $wpdb->query("SET FOREIGN_KEY_CHECKS=1");
@@ -124,7 +120,6 @@ class tc_Tables {
                     `rel_page` INT,
                     `parent` INT,
                     `visible` INT(1),
-                    `waitinglist` INT(1),
                     `image_url` VARCHAR(400),
                     `strict_signup` INT(1),
                     `use_capabilities` INT(1),
@@ -222,36 +217,6 @@ class tc_Tables {
     }
     
     /**
-     * Create table teachcorses_signup
-     * @param string $charset_collate
-     * @since 5.0.0
-     */
-    public static function add_table_signup($charset_collate) {
-        global $wpdb;
-        
-        if( $wpdb->get_var("SHOW TABLES LIKE '" . TEACHCOURSES_SIGNUP ."'") == TEACHCOURSES_SIGNUP ) {
-            return;
-        }
-        
-        require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
-    
-        dbDelta("CREATE TABLE " . TEACHCOURSES_SIGNUP ." (
-                    `con_id` INT UNSIGNED AUTO_INCREMENT,
-                    `course_id` INT UNSIGNED,
-                    `wp_id` INT UNSIGNED,
-                    `waitinglist` INT(1) UNSIGNED,
-                    `date` DATETIME,
-                    PRIMARY KEY (con_id),
-                    KEY `ind_course_id` (`course_id`),
-                    KEY `ind_wp_id` (`wp_id`),
-                    KEY `ind_date` (`date`)
-                ) $charset_collate;");
-        
-        // test engine
-        self::change_engine(TEACHCOURSES_SIGNUP);
-    }
-    
-    /**
      * Create table teachcorses_artefacts
      * @param string $charset_collate
      * @since 5.0.0
@@ -283,42 +248,6 @@ class tc_Tables {
         
         // test engine
         self::change_engine(TEACHCOURSES_ARTEFACTS);
-    }
-    
-    /**
-     * Create table teachcorses_assessments
-     * @param string $charset_collate
-     * @since 5.0.0
-     */
-    public static function add_table_assessments($charset_collate) {
-        global $wpdb;
-        
-        if( $wpdb->get_var("SHOW TABLES LIKE '" . TEACHCOURSES_ASSESSMENTS . "'") == TEACHCOURSES_ASSESSMENTS ) {
-            return;
-        }
-        
-        require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
-    
-        dbDelta("CREATE TABLE " . TEACHCOURSES_ASSESSMENTS . " (
-                    `assessment_id` INT UNSIGNED AUTO_INCREMENT,
-                    `artefact_id` INT UNSIGNED,
-                    `course_id` INT UNSIGNED,
-                    `wp_id` INT UNSIGNED,
-                    `value` VARCHAR(50),
-                    `max_value` VARCHAR(50),
-                    `type` VARCHAR(50),
-                    `examiner_id` INT,
-                    `exam_date` DATETIME,
-                    `comment` TEXT,
-                    `passed` INT(1),
-                    PRIMARY KEY (assessment_id),
-                    KEY `ind_course_id` (`course_id`),
-                    KEY `ind_artefact_id` (`artefact_id`),
-                    KEY `ind_wp_id` (`wp_id`)
-                ) $charset_collate;");
-        
-        // test engine
-        self::change_engine(TEACHCOURSES_ASSESSMENTS);
     }
     
     /**

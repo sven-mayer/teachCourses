@@ -61,12 +61,7 @@ function tc_show_courses_page() {
     elseif ( $action === 'show' || $action === 'assessments' || $action === 'add_assessments' || $action === 'enrollments' || $action === 'capabilities' || $action === 'documents' ) {
         tc_show_single_course_page();
     }
-    elseif ( $action === 'list' ) {
-        tc_lists_page();
-    }
-    else {
-        tc_Courses_Page::get_tab();
-    }
+    tc_Courses_Page::get_tab();
 }
 
 /**
@@ -204,8 +199,7 @@ class tc_Courses_Page {
             return;
         }
            
-        // prepare data
-        $used_places = tc_Courses::get_used_places();
+
         $static['bulk'] = $bulk;
         $static['sem'] = $sem;
         $static['search'] = $search;
@@ -219,14 +213,6 @@ class tc_Courses_Page {
             $courses[$z]['room'] = stripslashes($row->room);
             $courses[$z]['lecturer'] = stripslashes($row->lecturer);
             $courses[$z]['date'] = stripslashes($row->date);
-            $courses[$z]['places'] = $row->places;
-            // number of free places
-            if ( array_key_exists($row->course_id, $used_places) ) {
-                $courses[$z]['fplaces'] = $courses[$z]['places'] - $used_places[$row->course_id];
-            }
-            else {
-                $courses[$z]['fplaces'] = $courses[$z]['places'];
-            }
             $courses[$z]['start'] = '' . $date1[0][0] . '-' . $date1[0][1] . '-' . $date1[0][2] . '';
             $courses[$z]['end'] = '' . $date2[0][0] . '-' . $date2[0][1] . '-' . $date2[0][2] . '';
             $courses[$z]['semester'] = stripslashes($row->semester);
@@ -283,7 +269,6 @@ class tc_Courses_Page {
     */ 
     private static function get_single_table_row ($course, $user_ID, $checkbox, $static, $parent_course_name = '', $type = 'parent') {
         $check = '';
-        $style = '';
         
         // Check if checkbox must be activated or not
         if ( ( $static['bulk'] == "copy" || $static['bulk'] == "delete") && $checkbox != "" ) {
@@ -291,12 +276,7 @@ class tc_Courses_Page {
                 if ( $course['course_id'] == $checkbox[$k] ) { $check = 'checked="checked"';} 
             }
         }
-        
-        // Change the style for an important information
-        if ( $course['places'] > 0 && $course['fplaces'] <= 0 ) {
-            $style = ' style="color:#ff6600; font-weight:bold;"'; 
-        }
-        
+    
         // Type specifics
         $class = ( $type == 'parent' || $type == 'search' ) ? ' class="tc_course_parent"' : ' class="tc_course_child"';
 
@@ -331,7 +311,7 @@ class tc_Courses_Page {
             <td>' . $course['lecturer'] . '</td>
             <td>' . $course['date'] . '</td>
             <td>' . $course['places'] . '</td>
-            <td' . $style . '>' . $course['fplaces'] . '</td>';
+            <td></td>';
         if ( $course['start'] != '0000-00-00' && $course['end'] != '0000-00-00' ) {
             $a2 ='<td>' . $course['start'] . '</td>
                     <td>' . $course['end'] . '</td>';

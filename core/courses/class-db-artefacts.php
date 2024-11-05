@@ -94,19 +94,4 @@ class tc_Artefacts {
         
         return $wpdb->update( TEACHCOURSES_ARTEFACTS, array( 'title' => $title), array( 'artefact_id' => $artefact_id ), array( '%s' ), array( '%d' ) );
     }
-    
-    /**
-     * Checks if an artefact has assessments. If yes, the function returns true. If not, the function returns false.
-     * @param int $artefact_id      The artefact ID
-     * @return boolean
-     * @since 5.0.0
-     */
-    public static function has_assessments($artefact_id) {
-        global $wpdb;
-        $test = $wpdb->query("SELECT assessment_id FROM " . TEACHCOURSES_ASSESSMENTS . " WHERE `artefact_id` = '" . intval($artefact_id) . "'");
-        if ( $test === 0 ) {
-            return false;
-        }
-        return true;
-    }
 }

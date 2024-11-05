@@ -15,57 +15,6 @@
 class tc_Export {
 
     /**
-     * Print html table with registrations
-     * @param int $course_id
-     * @param array $option
-     * @param int $waitinglist 
-     * @since 3.0.0
-     * @access private
-     */
-    private static function get_course_registration_table($course_id, $option, $waitinglist = '') {
-        $row = tc_Courses::get_signups( array('course_id' => $course_id, 'waitinglist' => $waitinglist, 'output_type' => ARRAY_A, 'order' => 'st.lastname ASC') );
-        echo '<table border="1" cellpadding="5" cellspacing="0">';
-        echo '<thead>';
-        echo '<tr>';
-        echo '<th>' . __('Last name','teachcorses') . '</th>';
-        echo '<th>' . __('First name','teachcorses') . '</th>';
-        echo '<th>' . __('User account','teachcorses') . '</th>';
-        echo '<th>' . __('E-Mail') . '</th>';
-        $fields = get_tc_options('teachcorses_stud','`setting_id` ASC');
-        foreach ( $fields as $field ) {
-            $data = tc_DB_Helpers::extract_column_data($field->value);
-            if ( $data['visibility'] === 'admin') {
-                echo '<th>' . stripslashes(utf8_decode($data['title'])) . '</th>';
-            }
-        }
-        echo '<th>' . __('Registered at','teachcorses') . '</th>';
-        echo '</tr>';
-        echo '</thead>';  
-        echo '<tbody>';
-        foreach($row as $row) {
-            $row['firstname'] = tc_Export::decode($row['firstname']);
-            $row['lastname'] = tc_Export::decode($row['lastname']);
-            $row['course_of_studies'] = tc_Export::decode($row['course_of_studies']);
-            echo '<tr>';
-            echo '<td>' . stripslashes(utf8_decode($row['lastname'])) . '</td>';
-            echo '<td>' . stripslashes(utf8_decode($row['firstname'])) . '</td>';
-            echo '<td>' . stripslashes(utf8_decode($row['userlogin'])) . '</td>';
-            echo '<td>' . $row['email'] . '</td>';
-            foreach ( $fields as $field ) {
-                $data = tc_DB_Helpers::extract_column_data($field->value);
-                if ( $data['visibility'] === 'admin') {
-                    echo '<td>' . stripslashes( utf8_decode( tc_Export::decode($row[$field->variable]) ) ) . '</td>';
-                }
-            }
-            echo '<td>' . $row['date'] . '</td>';
-            echo '</tr>';
-
-        }
-        echo '</tbody>';
-        echo '</table>';
-    }
-
-    /**
      * Export course data in xls format
      * @param int $course_id 
      * @since 3.0.0
@@ -108,8 +57,7 @@ class tc_Export {
         echo '<th>' . __('Places','teachcorses') . '</th>';
         echo '<td>' . $data['places'] . '</td>';
         echo '<th>' . __('free places','teachcorses') . '</th>';
-        $free_places = tc_Courses::get_free_places($data["course_id"], $data["places"]);
-        echo '<td>' . $free_places . '</td>';
+        echo '<td></td>';
         echo '<td>&nbsp;</td>';
         echo '<td>&nbsp;</td>';
         echo '</tr>';
@@ -119,11 +67,6 @@ class tc_Export {
         echo '</tr>';
         echo '</thead>';
         echo '</table>';
-
-        echo '<h3>' . __('Registered participants','teachcorses') . '</h3>'; 
-        self::get_course_registration_table($course_id, $option, 0);
-        echo '<h3>' . __('Waiting list','teachcorses') . '</h3>'; 
-        self::get_course_registration_table($course_id, $option, 1);
 
         global $tc_version;
         echo '<p style="font-size:11px; font-style:italic;">' . __('Created on','teachcorses') . ': ' . date("d.m.Y") . ' | teachCorses ' . $tc_version . '</p>';
@@ -148,7 +91,6 @@ class tc_Export {
         // load settings
         $option['regnum'] = get_tc_option('regnum');
         $option['studies'] = get_tc_option('studies');
-        $row = tc_Courses::get_signups( array('course_id' => $course_id, 'waitinglist' => 0, 'output_type' => ARRAY_A, 'order' => 'st.lastname ASC') );
         $fields = get_tc_options('teachcorses_stud','`setting_id` ASC');
         
         $extra_headlines = '';
@@ -162,20 +104,7 @@ class tc_Export {
         $headline = '"' . __('Last name','teachcorses') . '";"' . __('First name','teachcorses') . '";"' . __('User account','teachcorses') . '";"' . __('E-Mail') . '";' . $extra_headlines . '"' . __('Registered at','teachcorses') . '";"' . __('Record-ID','teachcorses') . '";"' . __('Waiting list','teachcorses') . '"' . "\r\n";
         $headline = tc_Export::decode($headline);
         echo $headline;
-        foreach($row as $row) {
-            $row['firstname'] = tc_Export::decode($row['firstname']);
-            $row['lastname'] = tc_Export::decode($row['lastname']);
-            
-            $values = '';
-            foreach ( $fields as $field ) {
-                $data = tc_DB_Helpers::extract_column_data($field->value);
-                if ( $data['visibility'] === 'admin') {
-                    $values .= '"' . stripslashes( utf8_decode( tc_Export::decode($row[$field->variable]) ) ) . '";';
-                }
-            }
-
-            echo '"' . stripslashes(utf8_decode($row['lastname'])) . '";"' . stripslashes(utf8_decode($row['firstname'])) . '";"' . stripslashes(utf8_decode($row['userlogin'])) . '";"' . $row['email'] . '";' . $values . '"' . $row['date'] . '";"' . $row['con_id'] . '";"' . $row['waitinglist'] . '"' . "\r\n";
-        }
+       
     }
 
     /**

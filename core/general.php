@@ -199,7 +199,6 @@ function get_tc_var_types($type) {
             'rel_page'          => '',
             'parent'            => '',
             'visible'           => '',
-            'waitinglist'       => '',
             'image_url'         => '',
             'strict_signup'     => '',
             'use_capabilities'   => '');
