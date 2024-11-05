@@ -106,7 +106,6 @@ class tc_Settings_Page {
         $set_menu_1 = ( $tab === 'general' || $tab === '' ) ? 'nav-tab nav-tab-active' : 'nav-tab';
         $set_menu_2 = ( $tab === 'courses' ) ? 'nav-tab nav-tab-active' : 'nav-tab';
         $set_menu_3 = ( $tab === 'course_data' ) ? 'nav-tab nav-tab-active' : 'nav-tab';
-        $set_menu_4 = ( $tab === 'student_data' ) ? 'nav-tab nav-tab-active' : 'nav-tab';
         $set_menu_5 = ( $tab === 'publications' ) ? 'nav-tab nav-tab-active' : 'nav-tab';
         $set_menu_6 = ( $tab === 'publication_data' ) ? 'nav-tab nav-tab-active' : 'nav-tab';
         $set_menu_7 = ( $tab === 'publication_templates' ) ? 'nav-tab nav-tab-active' : 'nav-tab';
@@ -116,7 +115,6 @@ class tc_Settings_Page {
         
         echo '<a href="' . $site . '&amp;tab=courses" class="' . $set_menu_2 . '">' . __('Courses','teachcorses') . '</a>';
         echo '<a href="' . $site . '&amp;tab=course_data" class="' . $set_menu_3 . '">' . __('Meta','teachcorses') . ': ' . __('Courses','teachcorses') . '</a>';
-        echo '<a href="' . $site . '&amp;tab=student_data" class="' . $set_menu_4 . '">' . __('Meta','teachcorses') . ': ' . __('Students','teachcorses') . '</a>';
        
         echo '</h3>';
 
@@ -133,7 +131,7 @@ class tc_Settings_Page {
             self::get_course_tab();
         }
         /* Meta data */
-        if ( $tab === 'course_data' || $tab === 'student_data' || $tab === 'publication_data' ) {
+        if ( $tab === 'course_data' || $tab === 'publication_data' ) {
             self::get_meta_tab($tab);
         }
         /* Templates */
@@ -416,21 +414,13 @@ class tc_Settings_Page {
     
     /**
      * Shows the student settings tab
-     * @param string $tab   student_data, publication_data or course_data
+     * @param string $tab   publication_data or course_data
      * @access private
      * @since 5.0.0
      */
     private static function get_meta_tab($tab) {
         // Select right table name
-        if ( $tab === 'student_data' ) {
-            $table = 'teachcorses_stud';
-        }
-        else if ( $tab === 'publication_data' ) {
-            $table = 'teachcorses_pub';
-        }
-        else {
-            $table = 'teachcorses_courses';
-        }
+        $table = 'teachcorses_courses';
 
         $select_fields = array();
 
