@@ -1259,69 +1259,6 @@ msgid "Generate BibTeX key"
 msgstr "Generate BibTeX key"
 
 # @ teachcorses
-#: core/deprecated.php:57
-msgid ""
-"get_tc_course() is deprecated since teachcorses 5.0.0. Use tc_courses::"
-"get_course() instead."
-msgstr ""
-"get_tc_course() is deprecated since teachcorses 5.0.0. Use tc_courses::"
-"get_course() instead."
-
-# @ teachcorses
-#: core/deprecated.php:84
-msgid ""
-"get_tc_course_free_places() is deprecated since teachcorses 5.0.0. tc_courses:"
-":get_free_places() instead."
-msgstr ""
-"get_tc_course_free_places() is deprecated since teachcorses 5.0.0. tc_courses:"
-":get_free_places() instead."
-
-# @ teachcorses
-#: core/deprecated.php:70
-msgid ""
-"get_tc_courses() is deprecated since teachcorses 5.0.0. Use tc_courses::"
-"get_courses() instead."
-msgstr ""
-"get_tc_courses() is deprecated since teachcorses 5.0.0. Use tc_courses::"
-"get_courses() instead."
-
-# @ teachcorses
-#: core/deprecated.php:123
-msgid ""
-"get_tc_publication() is deprecated since teachcorses 5.0.0. Use "
-"tc_publications::get_publication() instead."
-msgstr ""
-"get_tc_publication() is deprecated since teachcorses 5.0.0. Use "
-"tc_publications::get_publication() instead."
-
-# @ teachcorses
-#: core/deprecated.php:137
-msgid ""
-"get_tc_publications() is deprecated since teachcorses 5.0.0. Use "
-"tc_publications::get_publications() instead."
-msgstr ""
-"get_tc_publications() is deprecated since teachcorses 5.0.0. Use "
-"tc_publications::get_publications() instead."
-
-# @ teachcorses
-#: core/deprecated.php:109
-msgid ""
-"get_tc_tag_cloud() is deprecated since teachcorses 5.0.0. Use tc_tags::"
-"get_tag_cloud() instead."
-msgstr ""
-"get_tc_tag_cloud() is deprecated since teachcorses 5.0.0. Use tc_tags::"
-"get_tag_cloud() instead."
-
-# @ teachcorses
-#: core/deprecated.php:97
-msgid ""
-"get_tc_tags() is deprecated since teachcorses 5.0.0. Use tc_tags::get_tags() "
-"instead."
-msgstr ""
-"get_tc_tags() is deprecated since teachcorses 5.0.0. Use tc_tags::get_tags() "
-"instead."
-
-# @ teachcorses
 #: admin/add-course.php:41 admin/add-course.php:395
 msgid "global"
 msgstr "global"
@@ -2871,15 +2808,6 @@ msgid "The end date for the enrollment"
 msgstr "La date de fin pour l'inscription"
 
 # @ teachcorses
-#: core/deprecated.php:37
-msgid ""
-"The function tc_admin_page_menu() is deprecated since teachcorses 5.0.0. Use "
-"tc_page_menu() instead."
-msgstr ""
-"La fonction tc_admin_page_menu () est obsolète depuis teachcorses 5.0.0. "
-"Utilisez tc_page_menu () à la place."
-
-# @ teachcorses
 #: admin/add-publication.php:753
 msgid "The ISBN or ISSN of the publication"
 msgstr "L'ISBN ou ISSN de la publication"
@@ -3066,24 +2994,6 @@ msgstr "À"
 #: core/courses/enrollments.php:815
 msgid "to"
 msgstr "à"
-
-# @ teachcorses
-#: core/deprecated.php:166
-msgid ""
-"tc_check_bookmark() is deprecated since teachcorses 5.0.0. Use tc_bookmarks::"
-"bookmark_exists() instead."
-msgstr ""
-"tc_check_bookmark() is deprecated since teachcorses 5.0.0. Use tc_bookmarks::"
-"bookmark_exists() instead."
-
-# @ teachcorses
-#: core/deprecated.php:151
-msgid ""
-"tc_is_user_subscribed() is deprecated since teachcorses 5.0.0. Use tc_courses:"
-":is_student_subscribed() instead."
-msgstr ""
-"tc_is_user_subscribed() is deprecated since teachcorses 5.0.0. Use tc_courses:"
-":is_student_subscribed() instead."
 
 # @ teachcorses
 #: admin/settings.php:446

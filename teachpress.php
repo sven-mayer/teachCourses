@@ -465,7 +465,6 @@ if ( TEACHCOURSES_ERROR_REPORTING === true ) {
 
 // Register course module
 add_action('admin_menu', 'tc_add_menu');
-add_shortcode('tpdate', 'tc_date_shortcode');  // Deprecated
 add_shortcode('tpcourseinfo', 'tc_courseinfo_shortcode');
 add_shortcode('tpcoursedocs', 'tc_coursedocs_shortcode');
 add_shortcode('tpcourselist', 'tc_courselist_shortcode');
