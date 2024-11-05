@@ -1,6 +1,6 @@
 <?php
 /**
- * This file contains the shortcode functions (without [tc_enrollments])
+ * This file contains the shortcode functions
  * 
  * @package teachcorses\core\shortcodes
  * @license http://www.gnu.org/licenses/gpl-2.0.html GPLv2 or later
@@ -1309,8 +1309,5 @@ function tc_search_shortcode ($atts) {
 function tc_post_shortcode ($atts, $content) {
     $param = shortcode_atts(array('id' => 0), $atts);
     $id = intval($param['id']);
-    $test = tc_Courses::is_student_subscribed($id, true);
-    if ( $test === true ) {
-        return $content;
-    }
+    return $content;
 }

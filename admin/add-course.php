@@ -172,7 +172,6 @@ function tc_add_course_page() {
     echo '</div></div></div>';
     echo '<div class="tc_postcontent_right"';
     tc_Add_Course::get_meta_box ($course_id, $course_data, $capability);
-    tc_Add_Course::get_enrollments_box ($course_id, $course_data);
 
     echo '</div>';
     echo '</div>';
@@ -187,63 +186,7 @@ function tc_add_course_page() {
  * @since 5.0.0
  */
 class tc_Add_Course {
-    
-    /**
-     * Gets the enrollment box
-     * @param int $course_id
-     * @param array $course_data
-     * @since 5.0.0
-     */
-    public static function get_enrollments_box ($course_id, $course_data) {
-        ?>
-        <div class="postbox">
-             <h3 class="tc_postbox"><span><?php _e('Enrollments','teachcorses'); ?></span></h3>
-             <div class="inside">
-                 <p><label for="start" title="<?php _e('The start date for the enrollment','teachcorses'); ?>"><strong><?php _e('Start','teachcorses'); ?></strong></label></p>
-                <?php 
-                 if ($course_id === 0) {
-                    $meta = 'value="' . __('JJJJ-MM-TT','teachcorses') . '" onblur="if(this.value==' . "'" . "'" . ') this.value=' . "'" . __('JJJJ-MM-TT','teachcorses') . "'" . ';" onfocus="if(this.value==' . "'" . __('JJJJ-MM-TT','teachcorses') . "'" . ') this.value=' . "'" . "'" . ';"';
-                    $hour = '00';
-                    $minute = '00';
-                 }	
-                 else {
-                    $date1 = tc_datesplit($course_data["start"]);
-                    $meta = 'value="' . $date1[0][0] . '-' . $date1[0][1] . '-' . $date1[0][2] . '"';
-                    $hour = $date1[0][3];
-                    $minute = $date1[0][4]; 
-                 }	
-                 ?>
-                 <input name="start" type="text" id="start" title="<?php _e('Date','teachcorses'); ?>" tabindex="14" size="15" <?php echo $meta; ?>/> <input name="start_hour" type="text" title="<?php _e('Hours','teachcorses'); ?>" value="<?php echo $hour; ?>" size="2" tabindex="15" /> : <input name="start_minute" type="text" title="<?php _e('Minutes','teachcorses'); ?>" value="<?php echo $minute; ?>" size="2" tabindex="16" />
-                 <p><label for="end" title="<?php _e('The end date for the enrollment','teachcorses'); ?>"><strong><?php _e('End','teachcorses'); ?></strong></label></p>
-                <?php 
-                 if ($course_id === 0) {
-                      // same as for start
-                 }
-                 else {
-                    $date1 = tc_datesplit($course_data["end"]);
-                    $meta = 'value="' . $date1[0][0] . '-' . $date1[0][1] . '-' . $date1[0][2] . '"';
-                    $hour = $date1[0][3];
-                    $minute = $date1[0][4];
-                 }
-                 ?>
-                 <input name="end" type="text" id="end" title="<?php _e('Date','teachcorses'); ?>" tabindex="17" size="15" <?php echo $meta; ?>/> <input name="end_hour" type="text" title="<?php _e('Hours','teachcorses'); ?>" value="<?php echo $hour; ?>" size="2" tabindex="18" /> : <input name="end_minute" type="text" title="<?php _e('Minutes','teachcorses'); ?>" value="<?php echo $minute; ?>" size="2" tabindex="19" />
-              <p><strong><?php _e('Options','teachcorses'); ?></strong></p>
-                <?php 
-                 if ($course_data["parent"] != 0) {
-                    $parent_data_strict = tc_Courses::get_course_data($course_data["parent"], 'strict_signup'); 
-                    $check = $parent_data_strict == 1 ? 'checked="checked"' : '';
-                    ?>
-                    <input name="strict_signup_2" id="strict_signup_2" type="checkbox" value="1" tabindex="27" <?php echo $check; ?> disabled="disabled" /> <label for="strict_signup_2" title="<?php _e('This is a child course. You can only change this option in the parent course','teachcorses'); ?>"><?php _e('Strict sign up','teachcorses'); ?></label></p>
-           <?php } else {
-                    $check = $course_data["strict_signup"] == 1 ? 'checked="checked"' : '';
-                    ?>
-                 <input name="strict_signup" id="strict_signup" type="checkbox" value="1" tabindex="27" <?php echo $check; ?> /> <label for="strict_signup" title="<?php _e('This is an option only for parent courses. If you activate it, subscribing is only possible for one of the child courses and not in all. This option has no influence on waiting lists.','teachcorses'); ?>"><?php _e('Strict sign up','teachcorses'); ?></label></p>
-         <?php } ?>
-             </div>
-         </div>
-        <?php
-    }
-
+     
     /**
      * Gets the general box
      * @param int $course_id

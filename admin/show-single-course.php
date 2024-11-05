@@ -59,7 +59,7 @@ function tc_show_single_course_page() {
     $capability = tc_Courses::get_capability($course_id, $current_user->ID);
 
     echo '<div class="wrap">';
-    tc_Single_Course_Actions::do_actions($course_id, $_POST, $current_user, $waiting, $checkbox, $reg_action, $capability);
+    tc_Single_Course_Actions::do_actions($course_id, $_POST, $capability);
     
     echo '<form id="einzel" name="einzel" action="' . esc_url($_SERVER['REQUEST_URI']) . '" method="post">';
     echo '<input name="page" type="hidden" value="teachcorses/teachcorses.php">';
@@ -155,22 +155,11 @@ class tc_Single_Course_Actions {
      * Handles all database actions for the single course page
      * @param int $course_id
      * @param array $post
-     * @param array $current_user
      * @param array $waiting
-     * @param array $checkbox
      * @param string $reg_action
      * @param string $capability
      */
-    public static function do_actions($course_id, $post, $current_user, $waiting, $checkbox, $reg_action, $capability) {
-        // change signup
-        if ( $reg_action == 'signup' && ( $capability === 'owner' || $capability === 'approved' ) ) {
-            tc_Courses::change_signup_status($waiting, 'course');
-            get_tc_message( __('Participant added','teachcorses') );
-        }
-        if ( $reg_action == 'signout' && ( $capability === 'owner' || $capability === 'approved' ) ) {
-            tc_Courses::change_signup_status($checkbox, 'waitinglist');
-            get_tc_message( __('Participant moved','teachcorses') );
-        }
+    public static function do_actions($course_id, $post, $capability) {
         // Add artefact
         if ( isset( $post['add_artefact'] ) && ( $capability === 'owner' || $capability === 'approved' ) ) {
             self::add_artefact($course_id, $post);
