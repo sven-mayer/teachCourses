@@ -58,7 +58,7 @@ function tc_show_courses_page() {
     if ( $action === 'edit' ) {
         tc_add_course_page();
     }
-    elseif ( $action === 'show' || $action === 'assessments' || $action === 'add_assessments' || $action === 'enrollments' || $action === 'capabilities' || $action === 'documents' ) {
+    elseif ( $action === 'show' || $action === 'documents' ) {
         tc_show_single_course_page();
     }
     tc_Courses_Page::get_tab();

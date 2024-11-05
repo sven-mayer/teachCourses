@@ -121,53 +121,6 @@ class tc_Single_Course_Actions {
     }
     
     /**
-     * Adds an assessment
-     * @param int $course_id        The course ID
-     * @param array $post           The $_POST array
-     * @since 5.0.0
-     * @access private
-     */
-    private static function add_assessment($course_id, $post) {
-        $assessment_target = intval($post['assessment_target']);
-        $assessment_passed = ( isset($post['assessment_passed']) ) ? 1 : 0;
-        $artefact_id = ( $assessment_target !== 0 ) ? intval($post['assessment_target']) : NULL;
-        $course = ( $assessment_target === 0 ) ? $course_id : NULL;
-        $data = array('artefact_id' => $artefact_id, 
-                      'course_id' => $course, 
-                      'wp_id' => intval($post['assessment_participant']), 
-                      'value' => htmlspecialchars($_POST['assessment_value']), 
-                      'max_value' => '',
-                      'type' => htmlspecialchars($_POST['assessment_value_type']),
-                      'examiner_id' => get_current_user_id(),
-                      'exam_date' => date('Y-m-d H:i:s'), 
-                      'comment' => htmlspecialchars($_POST['assessment_comment']), 
-                      'passed' =>  $assessment_passed );
-        tc_Assessments::add_assessment($data);
-        get_tc_message( __('Assessment added','teachcorses') );
-    }
-    
-    /**
-     * Adds a capability
-     * @param int $course_id        The course ID
-     * @param int $user_id          The user ID
-     * @param array $post           The $_POST array
-     * @since 5.0.0
-     * @access private
-     */
-    private static function add_capability($course_id, $user_id, $post) {
-        $cap_user = $post['cap_user'];
-        if ( tc_Courses::has_capability($course_id, $user_id, 'owner') ) {
-            $ret = tc_Courses::add_capability($course_id, $cap_user, 'approved');
-            if ( $ret !== false ) {
-                get_tc_message( __('Capability added','teachcorses') );
-            }
-        }
-        else {
-            get_tc_message( __('Access denied','teachcorses'), 'red' );
-        }
-    }
-    
-    /**
      * Deletes an artefact
      * @param int $artefact_id
      * @since 5.0.0
@@ -180,33 +133,6 @@ class tc_Single_Course_Actions {
         }
         tc_Artefacts::delete_artefact($artefact_id);
         get_tc_message( __('Removing successful','teachcorses') );
-    }
-    
-    /**
-     * Deletes an assessment
-     * @param array $post
-     * @since 5.0.0
-     * @access private
-     */
-    private static function delete_assessment($post) {
-        $assessment_id = isset ( $post['tc_assessment_id'] ) ? intval($post['tc_assessment_id']) : 0;
-        tc_Assessments::delete_assessment($assessment_id);
-        get_tc_message( __('Removing successful','teachcorses') );
-    }
-    
-    /**
-     * Deletes signups
-     * @param array $post
-     * @param array $checkbox
-     * @param array $waiting
-     * @since 5.0.0
-     * @access private
-     */
-    private static function delete_signup($post, $checkbox, $waiting) {
-        $move_up = isset( $post['move_up'] ) ? true : false;
-        tc_Courses::delete_signup($checkbox, $move_up);
-        tc_Courses::delete_signup($waiting, $move_up);
-        get_tc_message( __('Removing successful','teachcorses') );	
     }
     
     /**
@@ -223,41 +149,6 @@ class tc_Single_Course_Actions {
         }
         tc_Artefacts::change_artefact_title($artefact_id, $artefact_title);
         get_tc_message( __('Saved') );
-    }
-    
-    /**
-     * Changes an assessment
-     * @param array $post
-     * @since 5.0.0
-     * @access private
-     */
-    private static function change_assessment($post) {
-        $assessment_id = isset ( $post['tc_assessment_id'] ) ? intval($post['tc_assessment_id']) : 0;
-        $data = array('value' => isset ( $post['tc_value'] ) ? htmlspecialchars($post['tc_value']) : '', 
-                      'type' => isset ( $post['tc_type'] ) ? htmlspecialchars($post['tc_type']) : '',
-                      'examiner_id' => get_current_user_id(),
-                      'exam_date' => date('Y-m-d H:i:s'), 
-                      'comment' => isset ( $post['tc_comment'] ) ? htmlspecialchars($post['tc_comment']) : '', 
-                      'passed' =>  isset ( $post['tc_passed'] ) ? htmlspecialchars($post['tc_passed']) : '' );
-        if ( $assessment_id === 0 ) {
-            return;
-        }
-        tc_Assessments::change_assessment($assessment_id, $data);
-        get_tc_message( __('Saved') );
-    }
-    
-    /**
-     * Moves a signup
-     * @param array $post
-     * @param array $checkbox
-     * @param array $waiting
-     * @since 5.0.0
-     * @access private
-     */
-    private static function move_signup($post, $checkbox, $waiting) {
-        tc_Courses::move_signup($checkbox, intval($post['tc_rel_course']) );
-        tc_Courses::move_signup($waiting, intval($post['tc_rel_course']) );
-        get_tc_message( __('Participant moved','teachcorses') );
     }
 
     /**
@@ -280,24 +171,6 @@ class tc_Single_Course_Actions {
             tc_Courses::change_signup_status($checkbox, 'waitinglist');
             get_tc_message( __('Participant moved','teachcorses') );
         }
-        // add signup
-        if ( isset( $post['add_signup'] ) && ( $capability === 'owner' || $capability === 'approved' ) ) {
-            if ( isset( $post['tc_add_reg_student'] ) ) {
-                $students = $post['tc_add_reg_student'];
-                foreach ($students as $row) {
-                    tc_Courses::add_signup($row, $course_id);
-                }
-                get_tc_message( __('Participant added','teachcorses') );
-            }
-        }
-        // move signup
-        if ( isset( $post['move_ok'] ) && ( $capability === 'owner' || $capability === 'approved' ) ) {
-            self::move_signup($post, $checkbox, $waiting);
-        }
-        // Delete functions
-        if ( isset( $post['delete_ok'] ) && ( $capability === 'owner' || $capability === 'approved' ) ) {
-            self::delete_signup($post, $checkbox, $waiting);
-        }
         // Add artefact
         if ( isset( $post['add_artefact'] ) && ( $capability === 'owner' || $capability === 'approved' ) ) {
             self::add_artefact($course_id, $post);
@@ -310,22 +183,6 @@ class tc_Single_Course_Actions {
         if ( isset( $_GET['delete_artefact'] ) && ( $capability === 'owner' || $capability === 'approved' ) ) {
             self::delete_artefact($_GET['delete_artefact']);
             
-        }
-        // Add assessment
-        if ( isset( $post['add_assessment'] ) && ( $capability === 'owner' || $capability === 'approved' ) ) {
-            self::add_assessment($course_id, $post);
-        }
-        // Edit assessment
-        if ( isset( $post['tc_save_assessment'] ) && ( $capability === 'owner' || $capability === 'approved' ) ) {
-            self::change_assessment($post);
-        }
-        // Delete assessment
-        if ( isset( $post['tc_delete_assessment'] ) && ( $capability === 'owner' || $capability === 'approved' ) ) {
-            self::delete_assessment($post);
-        }
-        // Add capability
-        if ( isset( $post['cap_submit'] ) ) {
-            self::add_capability($course_id, $current_user->ID, $post);
         }
     }
 }
@@ -423,51 +280,12 @@ class tc_Single_Course_Page {
             $documents_tab = '<a href="admin.php?page=teachcorses/teachcorses.php&amp;course_id=' . $course_id . '&amp;sem=' . $link_parameter['sem'] . '&amp;search=' . $link_parameter['search'] . '&amp;action=documents" class="' . $set_documents_tab . '">' . __('Documents','teachcorses') . '</a> ';
         }
         
-        if ( $capability === 'owner' || $capability === 'approved' ) {
-            $set_enrollments_tab = ( $action === 'enrollments' ) ? 'nav-tab nav-tab-active' : 'nav-tab';
-            $enrollments_tab = '<a href="admin.php?page=teachcorses/teachcorses.php&amp;course_id=' . $course_id . '&amp;sem=' . $link_parameter['sem'] . '&amp;search=' . $link_parameter['search'] . '&amp;action=enrollments" class="' . $set_enrollments_tab . '">' . __('Enrollments','teachcorses') . '</a> ';
-        }
-        
-        if ( $capability === 'owner' || $capability === 'approved' ) {
-            $set_assessment_tab = ( $action === 'assessments' || $action === 'add_assessments' ) ? 'nav-tab nav-tab-active' : 'nav-tab';
-            $assessment_tab = '<a href="admin.php?page=teachcorses/teachcorses.php&amp;course_id=' . $course_id . '&amp;sem=' . $link_parameter['sem'] . '&amp;search=' . $link_parameter['search'] . '&amp;action=assessments" class="' . $set_assessment_tab . '">' . __('Assessments','teachcorses') . '</a> ';
-        }
-        
         if ( $capability === 'owner' ) {
             $set_capability_tab = ( $action === 'capabilities' ) ? 'nav-tab nav-tab-active' : 'nav-tab';
             $capability_tab = '<a href="admin.php?page=teachcorses/teachcorses.php&amp;course_id=' . $course_id . '&amp;sem=' . $link_parameter['sem'] . '&amp;search=' . $link_parameter['search'] . '&amp;action=capabilities" class="' . $set_capability_tab . '">' . __('Capabilities','teachcorses') . '</a> ';
         }
         
         return '<h3 class="nav-tab-wrapper">' . $info_tab . $documents_tab . $enrollments_tab. $assessment_tab . $capability_tab . '</h3>';
-    }
-    
-    /**
-     * Gets the add_students_form for the enrollments tab
-     * @since 5.0.0
-     * @access private
-     */
-    private static function get_add_students_form() {
-        echo '<div class="teachcorses_message" id="tc_add_signup_form" style="display: none;">';
-        echo '<p class="teachcorses_message_headline">' . __('Add students manually','teachcorses') . '</p>';
-        echo '<select name="tc_add_reg_student[]" id="tc_add_reg_student" size="10" multiple>';
-        $row1 = tc_Students::get_students();
-        $zahl = 0;
-        $notice = array();
-        foreach($row1 as $row1) {
-            if ($zahl != 0 && $notice[0] != $row1->lastname[0]) {
-                echo '<option>----------</option>';
-            }
-            echo '<option value="' . $row1->wp_id . '">' . stripslashes($row1->lastname) . ', ' . stripslashes($row1->firstname) . ' (' . $row1->userlogin . ')</option>';
-            $notice = $row1->lastname;
-            $zahl++;
-        }
-        echo '</select>';
-        echo '<p><i>' . __('Use &lt;Ctrl&gt; key to select more than one student','teachcorses') . '</i></p>';
-        echo '<p>
-               <input type="submit" name="add_signup" class="button-primary" value="' . __('Add', 'teachcorses') . '" />
-               <a onclick="teachcorses_showhide(' . "'" . 'tc_add_signup_form' . "'" . ');" class="button-secondary" style="cursor:pointer;">' . __('Cancel', 'teachcorses') . '</a>
-             </p>';
-        echo '</div>';   
     }
     
     /**
@@ -499,75 +317,6 @@ class tc_Single_Course_Page {
         echo '</div>';
     }
     
-    
-    /**
-     * Shows the capabilities tab for show_single_course page
-     * @param array $course_data
-     * @since 5.0.0
-     */
-    public static function get_capability_tab ($course_data) {
-        if ( $course_data['use_capabilities'] != 1 ) {
-            get_tc_message( __("You can't set user capabilities here, because you are using global capabilities for this course.",'teachcorses'), 'orange' );
-            return;
-        }
-        echo '<div class="tc_actions"><a id="teachcorses_add_capability" class="button-secondary" onclick="javascript:teachcorses_showhide(' . "'add_capability'" .');"><i class="fas fa-user-plus"></i> ' . __('Add new','teachcorses') . '</a></div>';
-        echo '<div id="add_capability" class="teachcorses_message" style="display:none;">';
-        echo '<form name="add_cap" method=""post>';
-        echo '<p class="teachcorses_message_headline">' . __('Add capability for user','teachcorses') . '</p>';
-        echo '<label for="cap_user">' . __('Username', 'teachcorses') . '</label> ';
-        echo '<select id="cap_user" name="cap_user">';
-        echo '<option>- ' . __('Select user','teachcorses') . ' -</option>';
-        $capabilities = tc_Courses::get_capabilities($course_data['course_id']);
-        $users = get_users();
-        $array_caps = array();
-        foreach ($capabilities as $row) {
-            array_push($array_caps, $row['wp_id']);
-        }
-        foreach ($users as $user) {
-            if (!in_array($user->ID, $array_caps) && user_can( $user->ID, 'use_teachcorses_courses' )  ) {
-                echo '<option value="' . $user->ID . '">' . $user->display_name . '</option>';
-            }
-        }
-        echo '</select>';
-        echo '<p><input name="cap_submit" type="submit" class="button-primary" value="' . __('Add','teachcorses') . '" /> <a class="button-secondary" onclick="javascript:teachcorses_showhide(' . "'add_capability'" .');">' . __('Cancel','teachcorses') . '</a></p>';
-        echo '</form>';
-        echo '</div>';
-        echo '<table class="widefat">';
-        echo '<thead>';
-        echo '<tr>';
-        echo '<th class="check-column"></th>';
-        echo '<th>' . __('Username') . '</th>';
-        echo '<th>' . __('Name','teachcorses') . '</th>';
-        echo '<th>' . __('Capability','teachcorses') . '</th>';
-        echo '</thead>';
-        echo '</tr>';
-        echo '<tbody>';
-        $class_alternate = true;
-        foreach ( $capabilities as $row ) {
-            if ( $class_alternate === true ) {
-                $tr_class = 'class="alternate"';
-                $class_alternate = false;
-            }
-            else {
-                $tr_class = '';
-                $class_alternate = true;
-            }
-            $user = get_userdata( $row['wp_id'] );
-            echo '<tr ' . $tr_class . '>';
-            echo '<th class="check-column"></th>';
-            echo '<td>';
-            echo '<span style="float:left; margin-right:10px;">' . get_avatar($row['wp_id'], 35) . '</span> <strong>' . $user->user_login . '</strong>';
-            if ( $row['capability'] !== 'owner' ) {
-                echo '<div class="tc_row_actions"><a class="tc_row_delete" href="admin.php?page=teachcorses/teachcorses.php&course_id=6&sem=Example%20term&search=&action=capabilities" style="color:#a00;" title="' . __('Delete','teachcorses') . '">' . __('Delete','teachcorses') . '</a></div>';
-            }
-            echo '</td>';
-            echo '<td>' . $user->display_name . '</td>';
-            echo '<td>' . $row['capability'] . '</td>';
-            echo '<tr>';
-        }
-        echo '</tbody>';
-        echo '</table>';
-    }
     
     /**
      * Shows the info tab for show_single_course page

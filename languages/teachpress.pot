@@ -1106,12 +1106,6 @@ msgid ""
 "types instead of pages, so you can set it here."
 msgstr ""
 
-#: admin/add-course.php:21
-msgid ""
-"If you have a course without enrollments, so add no dates in the fields "
-"start and end. teachCorses will be deactivate the enrollments automatically."
-msgstr ""
-
 #: admin/show-single-course.php:584
 msgid ""
 "If you move a signup to an other course the signup status will be not "
@@ -1254,10 +1248,6 @@ msgstr ""
 msgid "Items per page"
 msgstr ""
 
-#: core/admin.php:133 core/courses/enrollments.php:266
-msgid "Jan"
-msgstr ""
-
 #: admin/add-course.php:202 admin/add-publication.php:412
 #: admin/add-publication.php:789
 msgid "JJJJ-MM-TT"
@@ -1275,14 +1265,6 @@ msgstr ""
 msgid "Journal Articles"
 msgstr ""
 
-#: core/admin.php:139 core/courses/enrollments.php:266
-msgid "Jul"
-msgstr ""
-
-#: core/admin.php:138 core/courses/enrollments.php:266
-msgid "Jun"
-msgstr ""
-
 #: admin/add-publication.php:743
 msgid "Key"
 msgstr ""
@@ -1297,15 +1279,6 @@ msgstr ""
 
 #: admin/settings.php:833 core/class-ajax.php:309
 msgid "Label"
-msgstr ""
-
-#: admin/add-students.php:52 admin/class-authors-page.php:293
-#: admin/create-lists.php:46 admin/show-single-course.php:623
-#: admin/show-single-course.php:757 admin/show-single-course.php:1213
-#: admin/show-single-course.php:1249 admin/show-students.php:204
-#: core/class-export.php:30 core/class-export.php:162
-#: core/courses/enrollments.php:912
-msgid "Last name"
 msgstr ""
 
 #: core/general.php:75
@@ -1335,10 +1308,6 @@ msgstr ""
 msgid "local"
 msgstr ""
 
-#: core/admin.php:135 core/courses/enrollments.php:266
-msgid "Mar"
-msgstr ""
-
 #: core/publications/default-publication-types.php:140
 msgid "Masters Theses"
 msgstr ""
@@ -1357,10 +1326,6 @@ msgstr ""
 
 #: admin/import-publications.php:178
 msgid "max file size"
-msgstr ""
-
-#: core/admin.php:137 core/courses/enrollments.php:266
-msgid "May"
 msgstr ""
 
 #: core/publications/default-publication-types.php:154
@@ -1409,10 +1374,6 @@ msgstr ""
 msgid "Mode"
 msgstr ""
 
-#: core/admin.php:148 core/courses/enrollments.php:272
-msgid "Month"
-msgstr ""
-
 #: admin/show-courses.php:23 admin/show-publications.php:42
 msgid "More information"
 msgstr ""
@@ -1441,7 +1402,6 @@ msgstr ""
 #: admin/class-authors-page.php:151 admin/class-tags-page.php:155
 #: admin/create-lists.php:132 admin/settings.php:594 admin/show-courses.php:173
 #: admin/show-single-course.php:879 core/class-ajax.php:127
-#: core/courses/enrollments.php:477 core/courses/enrollments.php:637
 msgid "Name"
 msgstr ""
 
@@ -1458,20 +1418,8 @@ msgstr ""
 msgid "no"
 msgstr ""
 
-#: core/courses/enrollments.php:485
-msgid "No enrollments"
-msgstr ""
-
 #: admin/show-single-course.php:1231
 msgid "No entries"
-msgstr ""
-
-#: core/courses/enrollments.php:157
-msgid "No free places available."
-msgstr ""
-
-#: core/courses/enrollments.php:619 core/courses/enrollments.php:649
-msgid "No results available"
 msgstr ""
 
 #: admin/import-publications.php:117
@@ -1501,19 +1449,6 @@ msgstr ""
 #: admin/add-course.php:32 admin/add-course.php:383 admin/show-courses.php:362
 #: admin/show-single-course.php:973
 msgid "normal"
-msgstr ""
-
-#: core/admin.php:76 core/courses/enrollments.php:591
-#: core/courses/enrollments.php:606
-msgid "not passed"
-msgstr ""
-
-#: admin/add-publication.php:282
-msgid "Note"
-msgstr ""
-
-#: core/admin.php:143 core/courses/enrollments.php:266
-msgid "Nov"
 msgstr ""
 
 #: admin/add-publication.php:587 admin/class-tags-page.php:157
@@ -1550,14 +1485,6 @@ msgstr ""
 
 #: admin/class-authors-page.php:127 admin/class-tags-page.php:132
 msgid "Occurence = 0"
-msgstr ""
-
-#: core/admin.php:142 core/courses/enrollments.php:266
-msgid "Oct"
-msgstr ""
-
-#: core/general.php:60 core/general.php:84 core/courses/enrollments.php:813
-msgid "of"
 msgstr ""
 
 #: admin/show-courses.php:155 admin/show-publications.php:478
@@ -1626,11 +1553,6 @@ msgstr ""
 msgid "Participant moved"
 msgstr ""
 
-#: core/admin.php:77 core/courses/enrollments.php:591
-#: core/courses/enrollments.php:606
-msgid "passed"
-msgstr ""
-
 #: core/publications/default-publication-types.php:186
 msgid "Patent"
 msgstr ""
@@ -1679,11 +1601,6 @@ msgstr ""
 msgid "Please enter the date before!"
 msgstr ""
 
-#: core/courses/enrollments.php:898
-msgid ""
-"Please fill in the following registration form and sign up in the system. "
-"You can edit your data later."
-msgstr ""
 
 #: admin/settings.php:637
 msgid "Please note"
@@ -1695,17 +1612,11 @@ msgid ""
 "current server time is:"
 msgstr ""
 
-#: core/courses/enrollments.php:370
-msgid "Please select"
-msgstr ""
 
 #: core/admin.php:55
 msgid "Points"
 msgstr ""
 
-#: core/courses/enrollments.php:814
-msgid "Possible to subscribe in the waiting list"
-msgstr ""
 
 #: core/publications/templates.php:536
 msgid "pp."
@@ -1804,34 +1715,6 @@ msgstr ""
 msgid "Registered participants"
 msgstr ""
 
-#: core/courses/enrollments.php:860
-msgid "Registration"
-msgstr ""
-
-#: core/courses/enrollments.php:155
-msgid ""
-"Registration is not possible, because you are already registered for an "
-"other course of this course group."
-msgstr ""
-
-#: core/courses/enrollments.php:153
-msgid ""
-"Registration is not possible, because you are already registered in the "
-"waitinglist."
-msgstr ""
-
-#: core/courses/enrollments.php:815
-msgid "Registration period"
-msgstr ""
-
-#: core/courses/enrollments.php:137
-msgid "Registration successful"
-msgstr ""
-
-#: core/courses/enrollments.php:159
-msgid "Registration was successful."
-msgstr ""
-
 #: admin/add-course.php:338 admin/add-publication.php:451
 #: admin/add-publication.php:479 admin/add-publication.php:481
 #: admin/settings.php:306 admin/settings.php:455
@@ -1876,13 +1759,8 @@ msgstr ""
 msgid "Reset"
 msgstr ""
 
-#: admin/show-single-course.php:625 core/courses/enrollments.php:640
-msgid "Result"
-msgstr ""
-
 #: admin/add-course.php:318 admin/create-lists.php:122
 #: admin/show-single-course.php:988 core/class-export.php:104
-#: core/courses/enrollments.php:480
 msgid "Room"
 msgstr ""
 
@@ -1907,11 +1785,6 @@ msgstr ""
 #: admin/show-single-course.php:721 admin/show-students.php:177
 #: core/shortcodes.php:1377
 msgid "Search"
-msgstr ""
-
-#: admin/settings.php:352 admin/show-students.php:107
-#: core/class-document-manager.php:380 core/courses/enrollments.php:807
-msgid "Select"
 msgstr ""
 
 #: admin/add-publication.php:481 admin/add-publication.php:485
@@ -1970,10 +1843,6 @@ msgstr ""
 msgid "Semester number"
 msgstr ""
 
-#: admin/mail.php:123 core/courses/enrollments.php:963
-msgid "Send"
-msgstr ""
-
 #: admin/show-single-course.php:1081 admin/show-single-course.php:1155
 #: admin/show-single-course.php:1155 admin/show-students.php:286
 msgid "Send E-Mail"
@@ -1985,10 +1854,6 @@ msgstr ""
 
 #: admin/mail.php:118 admin/mail.php:119
 msgid "Send me the e-mail as separate copy"
-msgstr ""
-
-#: core/admin.php:141 core/courses/enrollments.php:266
-msgid "Sep"
 msgstr ""
 
 #: admin/settings.php:746
@@ -2046,10 +1911,6 @@ msgstr ""
 msgid "Show course"
 msgstr ""
 
-#: core/courses/enrollments.php:667
-msgid "Show details"
-msgstr ""
-
 #: core/publications/templates.php:442
 msgid "Show links and resources"
 msgstr ""
@@ -2064,14 +1925,6 @@ msgstr ""
 
 #: core/publications/class-books-widget.php:20
 msgid "Shows a random book in the sidebar"
-msgstr ""
-
-#: core/courses/enrollments.php:737
-msgid "Sign up"
-msgstr ""
-
-#: core/courses/enrollments.php:519
-msgid "Signed up for"
 msgstr ""
 
 #: admin/edit-student.php:164 admin/show-single-course.php:1187
@@ -2220,8 +2073,6 @@ msgid "Templates"
 msgstr ""
 
 #: admin/add-course.php:272 admin/settings.php:246 admin/settings.php:252
-#: admin/show-courses.php:180 core/courses/enrollments.php:481
-#: core/courses/enrollments.php:639
 msgid "Term"
 msgstr ""
 
@@ -2247,13 +2098,6 @@ msgstr ""
 
 #: admin/add-course.php:34
 msgid "The course is invisible."
-msgstr ""
-
-#: admin/add-course.php:32
-msgid ""
-"The course is visible at the enrollment pages, if enrollments are justified. "
-"If it is a parent course, the course is visible at the frontend semester "
-"overview."
 msgstr ""
 
 #: admin/add-course.php:264 admin/add-course.php:265 admin/add-course.php:459
@@ -2420,10 +2264,6 @@ msgstr ""
 msgid "To"
 msgstr ""
 
-#: core/courses/enrollments.php:815
-msgid "to"
-msgstr ""
-
 #: admin/settings.php:446
 msgid "Try to convert utf-8 chars into BibTeX compatible ASCII strings"
 msgstr ""
@@ -2448,10 +2288,6 @@ msgstr ""
 #: core/publications/default-publication-types.php:252
 #: core/publications/default-publication-types.php:253
 msgid "Unpublished"
-msgstr ""
-
-#: core/courses/enrollments.php:542
-msgid "unsubscribe"
 msgstr ""
 
 #: admin/import-publications.php:198 admin/settings.php:450
@@ -2508,9 +2344,7 @@ msgstr ""
 
 #: admin/add-students.php:56 admin/create-lists.php:133
 #: admin/edit-student.php:140 admin/show-single-course.php:1215
-#: admin/show-single-course.php:1251 admin/show-students.php:206
 #: core/class-export.php:32 core/class-export.php:162
-#: core/courses/enrollments.php:915
 msgid "User account"
 msgstr ""
 
@@ -2543,13 +2377,6 @@ msgstr ""
 msgid "Volume"
 msgstr ""
 
-#: admin/add-course.php:231 admin/edit-student.php:38
-#: admin/show-single-course.php:1242 core/class-export.php:125
-#: core/class-export.php:162 core/courses/enrollments.php:537
-#: core/courses/enrollments.php:864
-msgid "Waiting list"
-msgstr ""
-
 #: admin/import-publications.php:106
 msgid "Warning: No publication was selected."
 msgstr ""
@@ -2558,14 +2385,6 @@ msgstr ""
 msgid "Warning: This field name is not possible."
 msgstr ""
 
-#: core/courses/enrollments.php:149
-msgid "Warning: Wrong course_id"
-msgstr ""
-
-#. Description of the plugin
-msgid ""
-"With teachCorses you can easy manage courses, enrollments and publications."
-msgstr ""
 
 #: admin/add-course.php:378
 msgid "With the image field you can add an image to a course."
@@ -2575,11 +2394,6 @@ msgstr ""
 msgid ""
 "With the image field you can add an image to a publication. You can display "
 "images in all publication lists"
-msgstr ""
-
-#: admin/add-students.php:21 admin/add-students.php:35
-#: admin/edit-student.php:135 core/courses/enrollments.php:905
-msgid "WordPress User-ID"
 msgstr ""
 
 #: core/publications/default-publication-types.php:263
@@ -2610,25 +2424,8 @@ msgstr ""
 msgid "XLS export"
 msgstr ""
 
-#: admin/import-publications.php:276 admin/show-publications.php:512
-#: core/admin.php:155 core/courses/enrollments.php:279
-msgid "Year"
-msgstr ""
-
 #: admin/settings.php:391 admin/settings.php:395
 msgid "yes"
-msgstr ""
-
-#: core/courses/enrollments.php:151
-msgid "You are already registered for this course."
-msgstr ""
-
-#: core/courses/enrollments.php:195
-msgid "You are signed out successful"
-msgstr ""
-
-#: core/courses/enrollments.php:865
-msgid "You are signed up in the waitinglist for the following course:"
 msgstr ""
 
 #: admin/add-publication.php:20 admin/add-publication.php:801
@@ -2675,26 +2472,6 @@ msgstr ""
 
 #: core/class-document-manager.php:434
 msgid "You have no capabilities to use this course"
-msgstr ""
-
-#: core/courses/enrollments.php:433
-msgid "Your data"
-msgstr ""
-
-#: core/courses/enrollments.php:429
-msgid "Your enrollments"
-msgstr ""
-
-#: teachcorses.php:179 teachcorses.php:180 admin/show-publications.php:427
-msgid "Your publications"
-msgstr ""
-
-#: core/courses/enrollments.php:861
-msgid "Your Registration for the following course was successful:"
-msgstr ""
-
-#: core/courses/enrollments.php:431
-msgid "Your results"
 msgstr ""
 
 #: admin/settings.php:323 admin/settings.php:327

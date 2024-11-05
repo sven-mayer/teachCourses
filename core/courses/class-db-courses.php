@@ -44,28 +44,7 @@ class tc_Courses {
        global $wpdb;
        return $wpdb->get_results("SELECT * FROM " . TEACHCOURSES_COURSE_CAPABILITIES . " WHERE `course_id` = '" . intval($course_id) . "'",$output_type);
    }
-   
-   /**
-    * Add course capability
-    * @param int $course_id         The course ID
-    * @param int $wp_id             WordPress user ID
-    * @param string $capability     The capability name (owner, approved)
-    * @return int|false
-    * @since 5.0.0
-    */
-   public static function add_capability ($course_id, $wp_id, $capability) {
-       global $wpdb;
-       if ( $course_id === 0 || $wp_id === 0 || $capability === '' ) {
-           return false;
-       }
-       
-       if ( !tc_Courses::has_capability($course_id, $wp_id, $capability) ) {
-           $wpdb->insert(TEACHCOURSES_COURSE_CAPABILITIES, array('course_id' => $course_id, 'wp_id' => $wp_id, 'capability' => $capability), array('%d', '%d', '%s'));
-       }
-       
-       return $wpdb->insert_id;
-   }
-   
+
    /**
     * Delete course capability
     * @param int $cap_id    The capability ID
@@ -331,9 +310,6 @@ class tc_Courses {
                     'use_capabilities'  => $data['use_capabilities'] ), 
                 array( '%s', '%s', '%s', '%s', '%s', '%d', '%s', '%s', '%s', '%s', '%d', '%d', '%d', '%d', '%s', '%d', '%d' ) );
         $course_id = $wpdb->insert_id;
-        // add capability
-        global $current_user;
-        tc_Courses::add_capability($course_id, $current_user->ID, 'owner');
         // create rel_page
         if ($data['rel_page_alter'] !== 0 ) {
             $data['rel_page'] = tc_Courses::add_rel_page($course_id, $data);
@@ -411,16 +387,6 @@ class tc_Courses {
         $course_id = intval($course_id);
         global $current_user;
         $old_places = tc_Courses::get_course_data ($course_id, 'places');
-
-        // If the number of places is raised up
-        if ( $data['places'] > $old_places ) {
-            self::handle_changes_of_free_places($course_id, $data['places'], $old_places);
-        }
-        
-        // Handle capabilities for old existing courses (added before teachcorses 5.0)
-        if ( self::is_owner($course_id) === false ) {
-            self::add_capability($course_id, $current_user->ID, 'owner');
-        }
         
         // prevent possible double escapes
         $data['name'] = stripslashes($data['name']);
@@ -497,54 +463,6 @@ class tc_Courses {
     }
     
     /** 
-     * Subscribe a student manually
-     * @param int $wp_id        ID of the student
-     * @param int $course_id    ID of the course
-     * @return boolean
-     * @since 5.0.0
-    */	
-    public static function add_signup($wp_id, $course_id) {
-        global $wpdb;
-        if ( $wp_id != 0 && $course_id != 0 ) {
-            $time = current_time('mysql',0);
-            $wpdb->insert( TEACHCOURSES_SIGNUP, array( 'course_id' => $course_id,
-                                                     'wp_id' => $wp_id,
-                                                     'waitinglist' => 0,
-                                                     'date' => $time, ),
-                                                     array( '%d', '%d', '%d', '%s') );
-            // Find course name
-            $name = self::get_course_name($course_id);
-            
-            // Send notification
-            tc_Enrollments::send_notification(201, $wp_id, $name);
-            
-            return true;
-        }
-        return false;
-    }
-    
-    /**
-     * Moves a signup to an other course
-     * @param array $checkbox     An array of registration IDs
-     * @param int $course         The course ID
-     * @since 5.0.0
-     */
-    public static function move_signup($checkbox, $course) {
-        global $wpdb;
-        if ( $checkbox == '' ) { 
-            return false; 
-        }
-        $course = intval($course);
-        $max = count($checkbox);
-        for ( $i = 0; $i < $max; $i++ ) {
-            $checkbox[$i] = intval($checkbox[$i]);
-            if ( $checkbox[$i] != 0 && $course != 0) {
-                $wpdb->update( TEACHCOURSES_SIGNUP, array ('course_id' => $course), array( 'con_id' => $checkbox[$i] ), array('%d'), array('%d') );
-            }
-        }
-    }
-    
-    /** 
      * Change the status of one or more course signups
      * @param array $checkbox   IDs of the signups
      * @param string $status    The new status for the signups (course or waitinglist)
@@ -558,27 +476,6 @@ class tc_Courses {
         for( $i = 0; $i < $max; $i++ ) {
             $checkbox[$i] = intval($checkbox[$i]);
             $wpdb->update( TEACHCOURSES_SIGNUP, array ( 'waitinglist' => $status ), array ( 'con_id' => $checkbox[$i] ), array ( '%d'), array ( '%d' ) );
-        }
-    }
-    
-    /** 
-     * Delete signup and add an entry from the waitinglist to the course (if possible). Please note that this function doesn't use transactions like tc_delete_signup_student().
-     * @param array $checkbox   An array with course IDs
-     * @param boolean $move_up  A flag for the automatic move up from waitinglist entries
-     * @since 5.0.0
-    */
-    public static function delete_signup($checkbox, $move_up = true) {
-        global $wpdb;
-        if ( $checkbox == '' ) {
-            return false;
-        }
-        $max = count( $checkbox );
-        for( $i = 0; $i < $max; $i++ ) {
-            $checkbox[$i] = intval($checkbox[$i]);
-            if ( $move_up !== true ) {
-                self::move_up_signup($checkbox[$i]);
-            }
-            $wpdb->query( "DELETE FROM " . TEACHCOURSES_SIGNUP . " WHERE `con_id` = '$checkbox[$i]'" );
         }
     }
     
@@ -661,48 +558,7 @@ class tc_Courses {
         }
         return false;
     }
-    
-    /**
-     * This function subscribes student from the waitinglist to the course, if the number of places is raised up.
-     * This is used in tc_courses::change_course()
-     * 
-     * @param int $course_id        The course ID
-     * @param int $new_places       The new number of places
-     * @param int $old_places       The old number of places
-     * @since 5.0.0
-     * @access private
-     */
-    private static function handle_changes_of_free_places($course_id, $new_places, $old_places){
-        global $wpdb;
-        $course_id = intval($course_id);
-        $new_free_places = $new_places - $old_places;
-        
-        $sql = "SELECT s.con_id, s.wp_id, s.waitinglist, s.date
-                FROM " . TEACHCOURSES_SIGNUP . " s 
-                INNER JOIN " . TEACHCOURSES_COURSES . " c ON c.course_id=s.course_id
-                WHERE c.course_id = '$course_id' AND s.waitinglist = '1' ORDER BY s.date ASC";
-        $waitinglist = $wpdb->get_results($sql, ARRAY_A);
-        
-        if ( count($waitinglist) === 0 ) {
-            return;
-        }
-        
-        // Subscribe students from waitinglist if there are new free places in the course
-        foreach ( $waitinglist as $waitinglist ) {
-            if ( $new_free_places > 0 ) {
-                $wpdb->update( TEACHCOURSES_SIGNUP, array ( 'waitinglist' => 0 ), array ( 'con_id' => $waitinglist["con_id"] ), array ( '%d' ), array ( '%d' ) );
-                // Find course name
-                $name = self::get_course_name($course_id);
 
-                // Send notification
-                tc_Enrollments::send_notification(201, $waitinglist["wp_id"], $name);
-            }
-            else {
-                break;
-            }
-            $new_free_places--;
-        }
-    }
     
 }
 

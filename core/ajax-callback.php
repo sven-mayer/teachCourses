@@ -16,24 +16,6 @@ function tc_ajax_callback () {
     if ( is_user_logged_in() && current_user_can('use_teachcorses') ) {
         
         /**
-         * Getting author's publications (for show_authors.php)
-         * Works if $_GET['author_id'] is given
-         */
-        $author_id = ( isset( $_GET['author_id'] ) ) ? intval( $_GET['author_id'] ) : 0;
-        if ( $author_id !== 0 ) {
-            tc_Ajax::get_author_publications($author_id);
-        }
-        
-        /**
-         * Getting assessment screen (for show_single_course.php)
-         * Works if $_GET['assessment_id'] is given
-         */
-        $assessment_id = ( isset( $_GET['assessment_id'] ) ) ? intval( $_GET['assessment_id'] ) : 0;
-        if ( $assessment_id !== 0 ) {
-            tc_Ajax::get_assessment_screen($assessment_id);
-        }
-        
-        /**
          * Getting artefact screen (for show_single_course.php)
          * Works if $_GET['artefact_id'] is given
          */
