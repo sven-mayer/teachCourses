@@ -8,7 +8,7 @@ Pre-Releases and the offical versions are available in the Release-Section:
 https://github.com/winkm89/teachCorses/releases
 
 ## Features
-* Course management with integrated modules for enrollments, assessments and documents
+* Course management with integrated modules for assessments and documents
 * XLS/CSV export for course lists
 * Many shortcodes for an easy using of pcourse overviews
 * Dymamic meta data system for courses

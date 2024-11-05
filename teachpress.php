@@ -50,7 +50,6 @@ include_once('core/class-document-manager.php');
 include_once('core/class-export.php');
 include_once('core/class-html.php');
 include_once('core/class-icons.php');
-include_once('core/class-mail.php');
 include_once('core/class-db-helpers.php');
 include_once('core/class-db-options.php');
 include_once('core/deprecated.php');
@@ -60,8 +59,6 @@ include_once('core/courses/class-db-artefacts.php');
 include_once('core/courses/class-db-assessments.php');
 include_once('core/courses/class-db-courses.php');
 include_once('core/courses/class-db-documents.php');
-include_once('core/courses/class-db-students.php');
-include_once('core/courses/enrollments.php');
 
 
 // Admin menus
@@ -69,15 +66,11 @@ if ( is_admin() ) {
     include_once('admin/class-authors-page.php');
     include_once('admin/class-tags-page.php');
     include_once('admin/add-course.php');
-    include_once('admin/add-students.php');
     include_once('admin/create-lists.php');
-    include_once('admin/edit-student.php');
     
-    include_once('admin/mail.php');
     include_once('admin/settings.php');
     include_once('admin/show-courses.php');
     include_once('admin/show-single-course.php');
-    include_once('admin/show-students.php');
 }
 
 /*********/
@@ -117,7 +110,6 @@ function tc_add_menu() {
             __('Students','teachcorses'), 
             __('Students','teachcorses'),
             'use_teachcorses_courses', 
-            'teachcorses/students.php', 
             'tc_students_page');
     add_action("load-$tc_admin_add_course_page", 'tc_add_course_page_help');
     add_action("load-$tc_admin_show_courses_page", 'tc_show_course_page_help');
@@ -175,30 +167,6 @@ function tc_get_wp_version () {
     global $wp_version;
     return $wp_version;
 }
-
-/**
- * Function for the integrated registration mode
- * @since 1.0.0
- */
-function tc_advanced_registration() {
-    $user = wp_get_current_user();
-    global $wpdb;
-    global $current_user;
-    $test = $wpdb->query("SELECT `wp_id` FROM " . TEACHCOURSES_STUD . " WHERE `wp_id` = '$current_user->ID'");
-    if ($test == '0' && $user->ID != '0') {
-        if ($user->user_firstname == '') {
-            $user->user_firstname = $user->display_name;
-        }
-        $data = array (
-            'firstname' => $user->user_firstname,
-            'lastname' => $user->user_lastname,
-            'userlogin' => $user->user_login,
-            'email' => $user->user_email
-        );
-        tc_Students::add_student($user->ID, $data );
-    }
-}
-
 
 /*************************/
 /* Installer and Updater */
@@ -468,5 +436,4 @@ add_action('admin_menu', 'tc_add_menu');
 add_shortcode('tpcourseinfo', 'tc_courseinfo_shortcode');
 add_shortcode('tpcoursedocs', 'tc_coursedocs_shortcode');
 add_shortcode('tpcourselist', 'tc_courselist_shortcode');
-add_shortcode('tpenrollments', 'tc_enrollments_shortcode');
 add_shortcode('tppost','tc_post_shortcode');

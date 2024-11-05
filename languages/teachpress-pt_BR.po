@@ -117,11 +117,6 @@ msgstr ""
 #: admin/show-single-course.php:726
 msgid "Add single assessment"
 msgstr ""
-
-#: admin/add-students.php:28 admin/show-students.php:142
-msgid "Add student"
-msgstr "Adicionar aluno"
-
 #: admin/show-single-course.php:545
 msgid "Add students manually"
 msgstr "Adicionar alunos manualmente"
@@ -161,7 +156,6 @@ msgid "Admin"
 msgstr ""
 
 #: admin/import-publications.php:326 admin/mail.php:86 admin/mail.php:89
-#: admin/mail.php:92 admin/show-students.php:108 core/general.php:386
 #: core/general.php:397
 msgid "All"
 msgstr "Todos"
@@ -374,7 +368,6 @@ msgstr "Título"
 #: admin/edit-tags.php:139 admin/edit-tags.php:168 admin/show-authors.php:155
 #: admin/show-authors.php:211 admin/show-courses.php:151
 #: admin/show-publications.php:471 admin/show-single-course.php:1139
-#: admin/show-students.php:181
 msgid "Bulk actions"
 msgstr "Ações em massa"
 
@@ -400,13 +393,11 @@ msgstr ""
 #: admin/show-single-course.php:405 admin/show-single-course.php:446
 #: admin/show-single-course.php:562 admin/show-single-course.php:592
 #: admin/show-single-course.php:735 admin/show-single-course.php:871
-#: admin/show-single-course.php:1170 admin/show-students.php:151
 msgid "Cancel"
 msgstr "Cancelar"
 
 #: admin/edit-tags.php:132 admin/show-authors.php:144
 #: admin/show-courses.php:143 admin/show-publications.php:461
-#: admin/show-single-course.php:718 admin/show-students.php:174
 msgid "Cancel the search"
 msgstr "Cancelar a pesquisa"
 
@@ -454,7 +445,6 @@ msgstr ""
 #: admin/edit-tags.php:232 admin/edit-tags.php:234
 #: admin/import-publications.php:294 admin/settings.php:557
 #: admin/show-publications.php:309 admin/show-publications.php:313
-#: admin/show-students.php:283
 msgid "Click to edit"
 msgstr "Clique para editar"
 

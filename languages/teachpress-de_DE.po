@@ -118,10 +118,6 @@ msgstr "Einschreibung hinzufügen"
 msgid "Add single assessment"
 msgstr "Einzelne Bewertung hinzufügen"
 
-#: admin/add-students.php:28 admin/show-students.php:142
-msgid "Add student"
-msgstr "Student hinzufügen"
-
 #: admin/show-single-course.php:545
 msgid "Add students manually"
 msgstr "Studenten manuell hinzufügen"
@@ -159,12 +155,6 @@ msgstr "Adresse"
 #: core/class-ajax.php:360
 msgid "Admin"
 msgstr "Admin"
-
-#: admin/import-publications.php:333 admin/mail.php:86 admin/mail.php:89
-#: admin/mail.php:92 admin/show-students.php:108 core/general.php:394
-#: core/general.php:405
-msgid "All"
-msgstr "Alle"
 
 #: core/shortcodes.php:208
 msgid "All authors"
@@ -376,12 +366,6 @@ msgstr "Bücher"
 msgid "Booktitle"
 msgstr "Buchtitel"
 
-#: admin/class-authors-page.php:121 admin/class-tags-page.php:125
-#: admin/show-courses.php:151 admin/show-publications.php:470
-#: admin/show-single-course.php:1139 admin/show-students.php:181
-msgid "Bulk actions"
-msgstr "Aktion wählen"
-
 #: admin/show-publications.php:130
 msgid "Bulk edit executed"
 msgstr "Massenbearbeitung ausgeführt"
@@ -405,13 +389,11 @@ msgstr "von"
 #: admin/show-single-course.php:405 admin/show-single-course.php:446
 #: admin/show-single-course.php:562 admin/show-single-course.php:592
 #: admin/show-single-course.php:735 admin/show-single-course.php:871
-#: admin/show-single-course.php:1170 admin/show-students.php:151
 msgid "Cancel"
 msgstr "Abbrechen"
 
 #: admin/class-authors-page.php:110 admin/class-tags-page.php:114
 #: admin/show-courses.php:143 admin/show-publications.php:460
-#: admin/show-single-course.php:718 admin/show-students.php:174
 msgid "Cancel the search"
 msgstr "Suche abbrechen"
 

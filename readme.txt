@@ -11,7 +11,7 @@ Stable tag: 8.1.5
 Manage your courses with teachCorses 
 
 == Description ==
-This plugin unites a course management system (with modules for enrollments, documents and assessments) and a powerful BibTeX compatible publication management. Both modules can be operated independently. teachCorses is optimized for the needs of professorships and research groups. You can use it with WordPress 3.9.0 or higher.
+This plugin unites a course management system (with modules for documents and assessments) and a powerful BibTeX compatible publication management. Both modules can be operated independently. teachCorses is optimized for the needs of professorships and research groups. You can use it with WordPress 3.9.0 or higher.
 
 = Features: =
 * BibTeX compatible multi user publication management
@@ -19,9 +19,9 @@ This plugin unites a course management system (with modules for enrollments, doc
 * BibTeX and RTF export for publications
 * Direct data import from NCBI PubMed 
 * RSS feed for publications
-* Course management with integrated modules for enrollments, assessments and documents
+* Course management with integrated modules for assessments and documents
 * XLS/CSV export for course lists
-* Many shortcodes for an easy using of publication lists, publication searches, enrollments and course overviews
+* Many shortcodes for an easy using of publication lists, publication searches and course overviews
 * Dymamic meta data system for courses, students and publications
 
 = Supported Languages =

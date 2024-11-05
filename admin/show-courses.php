@@ -19,7 +19,6 @@ function tc_show_course_page_help () {
                         <p>' . __('For course informations','teachcorses') . ': <strong>[tpcourseinfo id="x"]</strong> ' . __('x = Course-ID','teachcorses') . '</p>
                         <p>' . __('For course documents','teachcorses') . ': <strong>[tpcoursedocs id="x"]</strong> ' . __('x = Course-ID','teachcorses') . '</p>
                         <p>' . __('For the course list','teachcorses') . ': <strong>[tpcourselist]</strong></p>
-                        <p>' . __('For the enrollment system','teachcorses') . ': <strong>[tpenrollments]</strong></p>
                         <p><strong>' . __('More information','teachcorses') . '</strong></p>
                         <p><a href="https://github.com/winkm89/teachCorses/wiki#shortcodes" target="_blank" title="teachCorses Shortcode Reference (engl.)">teachCorses Shortcode Reference (engl.)</a></p>',
     ) );
@@ -53,20 +52,6 @@ function tc_show_courses_page() {
     
     tc_Admin::database_test('<div class="wrap">', '</div>');
      
-    // Send mail (received from mail tab)
-    if( isset( $_POST['send_mail'] ) ) {
-        $from = isset ( $_POST['from'] ) ? htmlspecialchars($_POST['from']) : '';
-        $to = isset ( $_POST['recipients'] ) ? htmlspecialchars($_POST['recipients']) : '';
-        $subject = isset ( $_POST['subject'] ) ? htmlspecialchars($_POST['subject']) : '';
-        $text = isset ( $_POST['text'] ) ? htmlspecialchars($_POST['text']) : '';
-        $options['backup_mail'] = isset ( $_POST['backup_mail'] ) ? htmlspecialchars($_POST['backup_mail']) : '';
-        $options['recipients'] = isset ( $_POST['recipients_option'] ) ? htmlspecialchars($_POST['recipients_option']) : '';
-        $attachments = isset ( $_POST['attachments'] ) ? $_POST['attachments'] : '';
-        $ret = tc_Mail::sendMail($from, $to, $subject, $text, $options, $attachments);
-        $message = ( $ret === true ) ? __('E-Mail sent','teachcorses') : __('Error: E-Mail could not sent','teachcorses');
-        get_tc_message($message);
-    }
-
     // Event Handler
     $action = isset( $_GET['action'] ) ? htmlspecialchars($_GET['action']) : '';
 
@@ -78,9 +63,6 @@ function tc_show_courses_page() {
     }
     elseif ( $action === 'list' ) {
         tc_lists_page();
-    }
-    elseif ( $action === 'mail' ) {
-        tc_show_mail_page();
     }
     else {
         tc_Courses_Page::get_tab();
