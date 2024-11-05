@@ -481,7 +481,7 @@ msgid "Comment"
 msgstr ""
 
 #: admin/add-course.php:336
-msgid "Comment or Description"
+msgid "Description"
 msgstr ""
 
 #: admin/add-publication.php:262

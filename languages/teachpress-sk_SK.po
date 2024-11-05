@@ -493,7 +493,7 @@ msgid "Comment"
 msgstr "Komentár"
 
 #: admin/add-course.php:336
-msgid "Comment or Description"
+msgid "Description"
 msgstr "Komentár alebo popis"
 
 #: admin/add-publication.php:261

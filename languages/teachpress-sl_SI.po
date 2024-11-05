@@ -589,7 +589,7 @@ msgstr ""
 
 # @ teachcorses
 #: admin/add-course.php:336
-msgid "Comment or Description"
+msgid "Description"
 msgstr ""
 
 # @ teachcorses
