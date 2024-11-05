@@ -104,17 +104,17 @@ class tc_Settings_Page {
 
         // Site menu
         $set_menu_1 = ( $tab === 'general' || $tab === '' ) ? 'nav-tab nav-tab-active' : 'nav-tab';
-        $set_menu_2 = ( $tab === 'courses' ) ? 'nav-tab nav-tab-active' : 'nav-tab';
-        $set_menu_3 = ( $tab === 'course_data' ) ? 'nav-tab nav-tab-active' : 'nav-tab';
-        $set_menu_5 = ( $tab === 'publications' ) ? 'nav-tab nav-tab-active' : 'nav-tab';
-        $set_menu_6 = ( $tab === 'publication_data' ) ? 'nav-tab nav-tab-active' : 'nav-tab';
-        $set_menu_7 = ( $tab === 'publication_templates' ) ? 'nav-tab nav-tab-active' : 'nav-tab';
+        $set_menu_3 = ( $tab === 'term' ) ? 'nav-tab nav-tab-active' : 'nav-tab';
+        $set_menu_4 = ( $tab === 'type' ) ? 'nav-tab nav-tab-active' : 'nav-tab';
+        $set_menu_5 = ( $tab === 'course_data' ) ? 'nav-tab nav-tab-active' : 'nav-tab';
+        $set_menu_99 = ( $tab === 'db_status' ) ? 'nav-tab nav-tab-active' : 'nav-tab';
 
         echo '<h3 class="nav-tab-wrapper">'; 
         echo '<a href="' . $site . '&amp;tab=general" class="' . $set_menu_1 . '">' . __('General','teachcorses') . '</a>';
-        
-        echo '<a href="' . $site . '&amp;tab=courses" class="' . $set_menu_2 . '">' . __('Courses','teachcorses') . '</a>';
-        echo '<a href="' . $site . '&amp;tab=course_data" class="' . $set_menu_3 . '">' . __('Meta','teachcorses') . ': ' . __('Courses','teachcorses') . '</a>';
+        echo '<a href="' . $site . '&amp;tab=term" class="' . $set_menu_3 . '">' . __('Term','teachcorses') . '</a>';
+        echo '<a href="' . $site . '&amp;tab=type" class="' . $set_menu_4 . '">' . __('Type','teachcorses') . '</a>';
+        echo '<a href="' . $site . '&amp;tab=course_data" class="' . $set_menu_5 . '">' . __('Meta','teachcorses') .'</a>';
+        echo '<a href="' . $site . '&amp;tab=db_status" class="' . $set_menu_99 . '">' . __('Database','teachcorses') .' '. __('Index status','teachcorses') . '</a>';
        
         echo '</h3>';
 
@@ -126,17 +126,17 @@ class tc_Settings_Page {
         if ($tab === '' || $tab === 'general') {
             self::get_general_tab($site);
         }
-        /* Courses */
-        if ( $tab === 'courses' ) { 
-            self::get_course_tab();
+        /* Term */
+        if ( $tab === 'term' ) { 
+            self::get_term_tab();
+        }
+        /* Type */
+        if ( $tab === 'type' ) { 
+            self::get_type_tab();
         }
         /* Meta data */
         if ( $tab === 'course_data' || $tab === 'publication_data' ) {
             self::get_meta_tab($tab);
-        }
-        /* Templates */
-        if ( $tab === 'publication_templates' ) {
-            self::get_template_tab();
         }
         /* DB Status Tab */
         if ( $tab === 'db_status' ) {
@@ -222,40 +222,45 @@ class tc_Settings_Page {
     }
     
     /**
-     * Shows the course settings tab
+     * Shows the type settings tab
      * @access private
-     * @since 5.0.0
+     * @since 1.0.0
      */
-    private static function get_course_tab() {
-
-        echo '<div style="min-width:780px; width:100%;">';
-        echo '<div style="width:48%; float:left; padding-right:2%;">';
-
-        $args2 = array ( 
-            'element_title' => __('Term','teachcorses'),
-            'count_title' => __('Number of courses','teachcorses'),
-            'delete_title' => __('Delete term','teachcorses'),
-            'add_title' => __('Add term','teachcorses'),
-            'tab' => 'courses'
-            );
-            tc_Admin::get_course_option_box(__('Term','teachcorses'), 'term', $args2);
-
-        echo '</div>';
-        echo '<div style="width:48%; float:left; padding-left:2%;">';
+    private static function get_type_tab() {
+        echo '<div style="width:100%;">';
 
         $args3 = array ( 
             'element_title' => __('Type'),
             'count_title' => __('Number of courses','teachcorses'),
             'delete_title' => __('Delete type','teachcorses'),
             'add_title' => __('Add type','teachcorses'),
-            'tab' => 'courses'
+            'tab' => 'type'
             );
         tc_Admin::get_course_option_box(__('Types of courses','teachcorses'), 'type', $args3);
 
         echo '</div>';
+    }
+
+    /**
+     * Shows the term settings tab
+     * @access private
+     * @since 1.0.0
+     */
+    private static function get_term_tab() {
+        echo '<div style="width:100%;">';
+
+        $args2 = array ( 
+            'element_title' => __('Term','teachcorses'),
+            'count_title' => __('Number of courses','teachcorses'),
+            'delete_title' => __('Delete term','teachcorses'),
+            'add_title' => __('Add term','teachcorses'),
+            'tab' => 'term'
+            );
+        tc_Admin::get_course_option_box(__('Term','teachcorses'), 'term', $args2);
+
         echo '</div>';
     }
-    
+
     /**
      * Shows the tab for general options
      * @param sting $site
@@ -275,25 +280,13 @@ class tc_Settings_Page {
         echo '</td>';
         echo '</tr>';
 
-        // Components
-        echo '<tr>';
-        echo '<th>' . __('Components','teachcorses') . '</th>';
-        echo '<td style="vertical-align: top;">';
-        // echo 'Course module: <span style="color:#FF0000;">' . __('inactive','teachcorses') . '</span><span style="color:#01DF01;">' . __('active','teachcorses') . '</span>';
-        echo '</td>';
-        echo '<td>';
-        echo '<a href="https://github.com/winkm89/teachCorses/wiki/FAQ#how-can-i-deactivate-parts-of-the-plugin-like-the-course-module" target="_blank">' . __('You can deactivate parts of the plugin.','teachcorses') . '</a>';
-        echo '</td>';
-        echo '</tr>';
-
         // Related content
         echo '<tr>';
         echo '<th>' . __('Related content','teachcorses') . '</th>';
         echo '<td>';
         tc_Settings_Page::get_rel_page_form('rel_page_courses');
-        tc_Settings_Page::get_rel_page_form('rel_page_publications');
         echo '</td>';
-        echo '<td style="vertical-align: top;">' . __('If you create a course or a publication you can define a link to related content. It is kind of a "more information link", which helps you to connect a course/publication with a page. If you want to use custom post types instead of pages, so you can set it here.','teachcorses') . '</td>';
+        echo '<td style="vertical-align: top;">' . __('If you create a course you can define a link to related content. It is kind of a "more information link", which helps you to connect a course with a page. If you want to use custom post types instead of pages, so you can set it here.','teachcorses') . '</td>';
         echo '</tr>';
 
         // Frontend styles
@@ -317,85 +310,12 @@ class tc_Settings_Page {
         echo '</tr>';
 
         // User roles
-        tc_Settings_Page::get_user_role_form('userrole_publications');
         tc_Settings_Page::get_user_role_form('userrole_courses');
         
         echo '<tr>';
-        echo '<th colspan="3"><h3>' . __('Enrollment system','teachcorses') . '</h3></th>';
-        echo '</tr>';
-
-        // Current semester
-        echo '<tr>';
-        echo '<th><label for="semester">' . __('Current term','teachcorses') . '</label></th>';
-        echo '<td><select name="semester" id="semester" title="' . __('Current term','teachcorses') . '">'; 
-        $value = get_tc_option('sem');
-        $sem = get_tc_options('semester');
-        
-        // Test if the current semester is in the semester list
-        $sem_test = ( get_tc_option($value, 'semester') === NULL ) ? false : true;
-        if ( $sem_test === false ) {
-            echo '<option selected="selected">- ' . __('Select','teachcorses') . ' -</option>';
-        }
-        
-        foreach ($sem as $sem) { 
-            $current = ($sem->value == $value) ? 'selected="selected"' : '';
-            echo '<option value="' . $sem->value . '" ' . $current . '>' . stripslashes($sem->value) . '</option>';
-        }
-        echo '</select>';
-        echo '</td>';
-        echo '<td>' . __('Here you can change the current term. This value is used for the default settings for all menus.','teachcorses') . '</td>';
-        echo '</tr>';
-
-        // Enrollment mode
-        echo '<tr>';
-        echo '<th width="160"><label for="login_mode">' . __('Mode','teachcorses') . '</label></th>';
-        echo '<td width="210" style="vertical-align: top;">';
-        echo '<select name="login" id="login_mode" title="' . __('Mode','teachcorses') . '">';
-
-        $value = get_tc_option('login');
-        if ($value == 'int') {
-            echo '<option value="std">' . __('Standard','teachcorses') . '</option>';
-            echo '<option value="int" selected="selected">' . __('Integrated','teachcorses') . '</option>';
-        }
-        else {
-            echo '<option value="std" selected="selected">' . __('Standard','teachcorses') . '</option>';
-            echo '<option value="int">' . __('Integrated','teachcorses') . '</option>';
-        }
-        echo '</select>';
-        echo '</td>';
-        echo '<td>' . __('Standard - teachCorses has a separate registration. This is usefull if you have an auto login for WordPress or most of your users are registered in your blog, for example in a network.','teachcorses') . '<br />' . __('Integrated - teachCorses deactivates the own registration and uses all available data from WordPress. This is usefull, if most of your users has not an acount in your blog.','teachcorses') . '</td>';
-        echo '</tr>';
-
-        // Prevent Sign out
-        echo '<tr>';
-        echo '<th><label for="sign_out">' . __('Prevent sign out','teachcorses') . '</label></th>';
-        echo '<td><select name="sign_out" id="sign_out" title="' . __('Prevent sign out','teachcorses') . '">';
-
-        $value = get_tc_option('sign_out');
-        if ($value == '1') {
-            echo '<option value="1" selected="selected">' . __('yes','teachcorses') . '</option>';
-            echo '<option value="0">' . __('no','teachcorses') . '</option>';
-        }
-        else {
-            echo '<option value="1">' . __('yes','teachcorses') . '</option>';
-            echo '<option value="0" selected="selected">' . __('no','teachcorses') . '</option>';
-        } 
-        echo '</select>';
-        echo '</td>';
-        echo '<td>' . __('Prevent sign out for your users','teachcorses') . '</td>';
-        echo '</tr>';
-
-        echo '<tr>';
         echo '<th colspan="3"><h3>' . __('Misc','teachcorses') . '</h3></th>';
         echo '</tr>';
-        
-        echo '<tr>';
-        echo '<th>' . __('Database','teachcorses') . '</th>';
-        echo '<td>';
-        echo '<a href="' .$site . '&amp;tab=db_status">' . __('Index status','teachcorses') . '</a>';
-        echo '</td>';
-        echo '</tr>';
-        
+    
         echo '<tr>';
         echo '<th>' . __('Uninstalling','teachcorses') . '</th>';
         echo '<td>';
@@ -424,8 +344,7 @@ class tc_Settings_Page {
 
         $select_fields = array();
 
-        echo '<div style="min-width:780px; width:100%;">';
-        echo '<div style="width:48%; float:left; padding-right:2%;">';
+        echo '<div style="width:100%;">';
         echo '<h3>' . __('Meta data fields','teachcorses') . '</h3>';
 
         echo '<table class="widefat">';
@@ -510,7 +429,6 @@ class tc_Settings_Page {
              tc_Admin::get_course_option_box($elem, $elem, $args1);
         }
 
-        echo '</div>';
         ?>
         <script type="text/javascript" charset="utf-8">
             jQuery(document).ready(function($){
@@ -534,38 +452,6 @@ class tc_Settings_Page {
         <?php
     }
     
-    /**
-     * Shows the templates tab
-     * @access private
-     * @since 6.0.0 
-     */
-    private static function get_template_tab () {
-        $tc_upload_dir = wp_upload_dir();
-        echo '<h3>' . __('Available templates for publication lists','teachcorses') . '</h3>';
-        
-        // Begin change directory message
-        echo '<div class="teachcorses_message teachcorses_message_orange"><b>' . __('Please note','teachcorses') . '</b>: ' . __('Changes in the templates will be overwritten by updates of the plugin.','teachcorses') . ' <a onclick="teachcorses_showhide(' . "'teachcorses_change_directory'" . ')" style="cursor: pointer;">' . __('But you can change the directory for the templates.','teachcorses') . '</a></div>';
-        echo '<div id="teachcorses_change_directory" class="teachcorses_message" style="display:none;">';
-        echo '<p><b>1. Add the following code to your wp-config.php:</b></p>';
-        echo '// For changing the teachCorses template directory (moving it to wp-content/uploads/)<br/>';
-        echo "define ('TEACHCOURSES_TEMPLATE_PATH', '" . $tc_upload_dir['basedir'] . "/teachcorses/templates/');<br/>";
-        echo "define ('TEACHCOURSES_TEMPLATE_URL', '". $tc_upload_dir['baseurl'] . "/teachcorses/templates/');<br/>";
-        echo '<p><b>2. Move all teachcorses template files to wp-content/uploads/teachcorses/templates/</b></p>';
-        echo '</div>';
-        // End change directory message
-        
-        echo '<table class="widefat">';
-        echo '<thead>';
-        echo '<tr>';
-        echo '<th>' . __('Name') . '</th>';
-        echo '<th>' . __('Key') . '</th>';
-        echo '<th>' . __('Description') . '</th>';
-        echo '</tr>';
-        echo '</thead>';
-        echo self::list_templates();
-        echo '</table>';
-    }
-
     /**
      * Creates the list of publication templates
      * @return string
