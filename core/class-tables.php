@@ -55,6 +55,7 @@ class tc_Tables {
         global $wpdb;
         $wpdb->query("SET FOREIGN_KEY_CHECKS=0");
         $wpdb->query("DROP TABLE `" . TEACHCOURSES_ARTEFACTS . "`, 
+                                `" . TEACHCOURSES_ASSESSMENTS . "`,
                                 `" . TEACHCOURSES_AUTHORS . "`, 
                                 `" . TEACHCOURSES_COURSES . "`, 
                                 `" . TEACHCOURSES_COURSE_CAPABILITIES . "`, 
@@ -380,15 +381,9 @@ class tc_Tables {
         // course_of_studies
         $value = 'name = {course_of_studies}, title = {' . __('Course of studies','teachcorses') . '}, type = {SELECT}, required = {false}, min = {false}, max = {false}, step = {false}, visibility = {admin}';
         $wpdb->query("INSERT INTO " . TEACHCOURSES_SETTINGS . " (`variable`, `value`, `category`) VALUES ('course_of_studies', '$value', 'teachcorses_stud')"); 
-        // birthday
-        $value = 'name = {birthday}, title = {' . __('Birthday','teachcorses') . '}, type = {DATE}, required = {false}, min = {false}, max = {false}, step = {false}, visibility = {normal}';
-        $wpdb->query("INSERT INTO " . TEACHCOURSES_SETTINGS . " (`variable`, `value`, `category`) VALUES ('birthday', '$value', 'teachcorses_stud')"); 
         // semester_number
         $value = 'name = {semester_number}, title = {' . __('Semester number','teachcorses') . '}, type = {INT}, required = {false}, min = {1}, max = {99}, step = {1}, visibility = {normal}';
         $wpdb->query("INSERT INTO " . TEACHCOURSES_SETTINGS . " (`variable`, `value`, `category`) VALUES ('semester_number', '$value', 'teachcorses_stud')"); 
-        // matriculation_number
-        $value = 'name = {matriculation_number}, title = {' . __('Matriculation number','teachcorses') . '}, type = {INT}, required = {false}, min = {1}, max = {1000000}, step = {1}, visibility = {admin}';
-        $wpdb->query("INSERT INTO " . TEACHCOURSES_SETTINGS . " (`variable`, `value`, `category`) VALUES ('matriculation_number', '$value', 'teachcorses_stud')"); 
        
     }
     

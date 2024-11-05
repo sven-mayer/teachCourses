@@ -187,9 +187,6 @@ function tc_db_sync($table) {
     if ( $table === 'authors' ) {
         tc_Update::fill_table_authors();
     }
-    if ( $table === 'stud_meta' ) {
-        tc_Update::fill_table_stud_meta();
-    }
 }
 
 /**

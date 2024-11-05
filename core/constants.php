@@ -19,20 +19,6 @@ if ( !defined('TEACHCOURSES_ASSESSMENTS') ) {
     */
     define('TEACHCOURSES_ASSESSMENTS', $wpdb->prefix . 'teachcorses_assessments');}
 
-if ( !defined('TEACHCOURSES_STUD') ) {
-    /**
-     * This constant defines the table name for teachcorses_stud.
-     * @since 5.0.0
-    */
-    define('TEACHCOURSES_STUD', $wpdb->prefix . 'teachcorses_stud');}
-
-if ( !defined('TEACHCOURSES_STUD_META') ) {
-    /**
-     * This constant defines the table name for teachcorses_stud_meta.
-     * @since 5.0.0
-    */
-    define('TEACHCOURSES_STUD_META', $wpdb->prefix . 'teachcorses_stud_meta');}
-
 if ( !defined('TEACHCOURSES_COURSES') ) {
     /**
      * This constant defines the table name for teachcorses_courses.
@@ -75,82 +61,12 @@ if ( !defined('TEACHCOURSES_SETTINGS') ) {
     */
     define('TEACHCOURSES_SETTINGS', $wpdb->prefix . 'teachcorses_settings');}
 
-if ( !defined('TEACHCOURSES_PUB') ) {
-    /**
-     * This constant defines the table name for teachcorses_pub.
-     * @since 5.0.0
-    */
-    define('TEACHCOURSES_PUB', $wpdb->prefix . 'teachcorses_pub');}
-
-if ( !defined('TEACHCOURSES_PUB_META') ) {
-    /**
-     * This constant defines the table name for teachcorses_pub_meta.
-     * @since 5.0.0
-    */
-    define('TEACHCOURSES_PUB_META', $wpdb->prefix . 'teachcorses_pub_meta');}
-
-if ( !defined('TEACHCOURSES_PUB_CAPABILITIES') ) {
-    /**
-     * This constant defines the table name for teachcorses_course_cababilites.
-     * @since 6.0.0
-    */
-    define('TEACHCOURSES_PUB_CAPABILITIES', $wpdb->prefix . 'teachcorses_pub_capabilities');}
-
-if ( !defined('TEACHCOURSES_PUB_DOCUMENTS') ) {
-    /**
-     * This constant defines the table name for teachcorses_course_documents.
-     * @since 6.0.0
-    */
-    define('TEACHCOURSES_PUB_DOCUMENTS', $wpdb->prefix . 'teachcorses_pub_documents');}
-
-if ( !defined('TEACHCOURSES_PUB_IMPORTS') ) {
-    /**
-     * This constant defines the table name for teachcorses_pub_imports.
-     * @since 6.0.0
-    */
-    define('TEACHCOURSES_PUB_IMPORTS', $wpdb->prefix . 'teachcorses_pub_imports');}    
-    
-if ( !defined('TEACHCOURSES_TAGS') ) {
-    /**
-     * This constant defines the table name for teachcorses_tags.
-     * @since 5.0.0
-    */
-    define('TEACHCOURSES_TAGS', $wpdb->prefix . 'teachcorses_tags');}
-
-if ( !defined('TEACHCOURSES_RELATION') ) {
-    /**
-     * This constant defines the table name for teachcorses_relation. This is the relationship tags to publications.
-     * @since 5.0.0
-    */
-    define('TEACHCOURSES_RELATION', $wpdb->prefix . 'teachcorses_relation');}
-
-if ( !defined('TEACHCOURSES_USER') ) {
-    /**
-     * This constant defines the table name for teachcorses_user. This is the relationship publications to users.
-     * @since 5.0.0
-    */
-    define('TEACHCOURSES_USER', $wpdb->prefix . 'teachcorses_user');}
-
 if ( !defined('TEACHCOURSES_AUTHORS') ) {
     /**
      * This constant defines the table name for teachcorses_authors.
      * @since 5.0.0
     */
     define('TEACHCOURSES_AUTHORS', $wpdb->prefix . 'teachcorses_authors');}
-
-if ( !defined('TEACHCOURSES_REL_PUB_AUTH') ) {
-    /**
-     * This constant defines the table name for teachcorses_rel_pub_auth. This is the relationship publications to authors.
-     * @since 5.0.0
-    */
-    define('TEACHCOURSES_REL_PUB_AUTH', $wpdb->prefix . 'teachcorses_rel_pub_auth');}
-
-if ( !defined('TEACHCOURSES_TIME_LIMIT') ) {
-    /**
-     * This value is used for PHP's set_time_limit(). The plugin sets this value before an import or export of publications
-     * @since 5.0.0
-    */
-    define('TEACHCOURSES_TIME_LIMIT', 240);}
 
 if ( !defined('TEACHCOURSES_FILE_LINK_CSS_CLASS') ) {
     /**

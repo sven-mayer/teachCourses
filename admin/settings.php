@@ -499,24 +499,12 @@ class tc_Settings_Page {
     private static function get_db_status_tab () {
         self::list_db_table_index(TEACHCOURSES_ARTEFACTS);
         self::list_db_table_index(TEACHCOURSES_ASSESSMENTS);
-        self::list_db_table_index(TEACHCOURSES_AUTHORS);
         self::list_db_table_index(TEACHCOURSES_COURSES);
         self::list_db_table_index(TEACHCOURSES_COURSE_CAPABILITIES);
         self::list_db_table_index(TEACHCOURSES_COURSE_DOCUMENTS);
         self::list_db_table_index(TEACHCOURSES_COURSE_META);
-        self::list_db_table_index(TEACHCOURSES_PUB);
-        self::list_db_table_index(TEACHCOURSES_PUB_CAPABILITIES);
-        self::list_db_table_index(TEACHCOURSES_PUB_DOCUMENTS);
-        self::list_db_table_index(TEACHCOURSES_PUB_IMPORTS);
-        self::list_db_table_index(TEACHCOURSES_PUB_META);
-        self::list_db_table_index(TEACHCOURSES_RELATION);
-        self::list_db_table_index(TEACHCOURSES_REL_PUB_AUTH);
         self::list_db_table_index(TEACHCOURSES_SETTINGS);
         self::list_db_table_index(TEACHCOURSES_SIGNUP);
-        self::list_db_table_index(TEACHCOURSES_STUD);
-        self::list_db_table_index(TEACHCOURSES_STUD_META);
-        self::list_db_table_index(TEACHCOURSES_TAGS);
-        self::list_db_table_index(TEACHCOURSES_USER);
     }
     
     /**
