@@ -64,7 +64,6 @@ function tc_add_course_page() {
    $data['room'] = isset( $_POST['room'] ) ? htmlspecialchars($_POST['room']) : '';
    $data['lecturer'] = isset( $_POST['lecturer'] ) ? htmlspecialchars($_POST['lecturer']) : '';
    $data['date'] = isset( $_POST['date'] ) ? htmlspecialchars($_POST['date']) : '';
-   $data['places'] = isset( $_POST['places'] ) ? intval($_POST['places']) : 0;
    $data['start'] = isset( $_POST['start'] ) ? htmlspecialchars($_POST['start']) : ''; 
    $data['start_hour'] = isset( $_POST['start_hour'] ) ? htmlspecialchars($_POST['start_hour']) : '';
    $data['start_minute'] = isset( $_POST['start_minute'] ) ? htmlspecialchars($_POST['start_minute']) : '';
@@ -83,7 +82,6 @@ function tc_add_course_page() {
    
    $sub['type'] = isset( $_POST['sub_course_type'] ) ? htmlspecialchars($_POST['sub_course_type']) : '';
    $sub['number'] = isset( $_POST['sub_number'] ) ? intval($_POST['sub_number']) : 0;
-   $sub['places'] = isset( $_POST['sub_places'] ) ? intval($_POST['sub_places']) : 0;
 
    // Handle that the activation of strict sign up is not possible for a child course
    if ( $data['parent'] != 0) { $data['strict_signup'] = 0; }
@@ -263,10 +261,6 @@ class tc_Add_Course {
                     'display' => 'block', 
                     'style' => 'width:95%;') );
             
-            ?>
-            <p><label for="places" title="<?php _e('The number of available places.','teachcorses'); ?>"><strong><?php _e('Number of places','teachcorses'); ?></strong></label></p>
-            <input name="places" type="text" id="places" title="<?php _e('The number of available places.','teachcorses'); ?>" style="width:70px;" tabindex="7" value="<?php echo $course_data["places"]; ?>" />
-            <?php 
             tc_Add_Course::get_parent_select_field($course_id, $course_data);
             ?>
             
