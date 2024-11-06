@@ -33,15 +33,6 @@ function tc_add_course_page_help () {
                             <li><strong>' . __('extend','teachcorses') . ' (' . __('only for parent courses','teachcorses') . '):</strong> ' . __('The same as normal, but in the frontend semester overview all sub-courses will also be displayed.','teachcorses') . '</li>
                             <li><strong>' . __('invisible','teachcorses') . ':</strong> ' . __('The course is invisible.','teachcorses') . '</li></ul>'
     ) );
-    $screen->add_help_tab( array(
-        'id'        => 'tc_add_course_help_3',
-        'title'     => __('Capabilities','teachcorses'),
-        'content'   => '<p>' . __('You can choice between the following capability options','teachcorses') . ':</p>
-                        <ul style="list-style:disc; padding-left:40px;">
-                            <li><strong>' . __('global','teachcorses') . ':</strong> ' . __('All users, which have the minimum user role for using teachcorses, can see, edit or delete the course or course data.','teachcorses') . '</li>
-                            <li><strong>' . __('local','teachcorses') . ':</strong> ' . __('You can select which users can see, edit or delete the course or course data.','teachcorses') . '</li>
-                            </ul>'
-    ) );
 }
 
 /** 
@@ -74,31 +65,16 @@ function tc_add_course_page() {
    $data['comment'] = isset( $_POST['comment'] ) ? htmlspecialchars($_POST['comment']) : '';
    $data['rel_page'] = isset( $_POST['rel_page'] ) ? intval($_POST['rel_page']) : 0;
    $data['rel_page_alter'] = isset( $_POST['rel_page_alter'] ) ? intval($_POST['rel_page_alter']) : 0;
-   $data['parent'] = isset( $_POST['parent2'] ) ? intval($_POST['parent2']) : 0;
    $data['visible'] = isset( $_POST['visible'] ) ? intval($_POST['visible']) : 1;
    $data['image_url'] = isset( $_POST['image_url'] ) ? htmlspecialchars($_POST['image_url']) : '';
-   $data['strict_signup'] = isset( $_POST['strict_signup'] ) ? intval($_POST['strict_signup']) : 0;
-   $data['use_capabilities'] = isset( $_POST['use_capabilities'] ) ? intval($_POST['use_capabilities']) : 0;
    
    $sub['type'] = isset( $_POST['sub_course_type'] ) ? htmlspecialchars($_POST['sub_course_type']) : '';
    $sub['number'] = isset( $_POST['sub_number'] ) ? intval($_POST['sub_number']) : 0;
-
-   // Handle that the activation of strict sign up is not possible for a child course
-   if ( $data['parent'] != 0) { $data['strict_signup'] = 0; }
 
    $course_id = isset( $_REQUEST['course_id'] ) ? intval($_REQUEST['course_id']) : 0;
    $search = isset( $_GET['search'] ) ? htmlspecialchars($_GET['search']) : '';
    $sem = isset( $_GET['sem'] ) ? htmlspecialchars($_GET['sem']) : '';
    $ref = isset( $_GET['ref'] ) ? htmlspecialchars($_GET['ref']) : '';
-   $capability = ($course_id !== 0) ? tc_Courses::get_capability($course_id, $current_user->ID) : 'owner';
-   
-   // If the user has no permissions to edit this course
-   if ( $course_id !== 0 && ( $capability !== 'owner' && $capability !== 'approved' ) ) {
-       echo '<div class="wrap">';
-       get_tc_message(__('You have no capabilities to edit this course','teachcorses'), 'red');
-       echo '</div>';
-       return;
-   }
    
     echo '<div class="wrap">';
     echo '<h2>';
@@ -113,7 +89,7 @@ function tc_add_course_page() {
         if ( isset($_POST['create']) ) {
              $course_id = tc_Courses::add_course($data, $sub);
              tc_DB_Helpers::prepare_meta_data($course_id, $fields, $_POST, 'courses');
-             $message = __('Course created successful.','teachcorses') . ' <a href="admin.php?page=teachcorses/teachcorses.php&amp;course_id=' . $course_id . '&amp;action=show&amp;search=&amp;sem=' . get_tc_option('sem') . '">' . __('Show course','teachcorses') . '</a> | <a href="admin.php?page=teachcorses/add_course.php">' . __('Add new','teachcorses') . '</a>';
+             $message = __('Course created successful.','teachcorses') . ' <a href="admin.php?page=teachcorses.php&amp;course_id=' . $course_id . '&amp;action=show&amp;search=&amp;sem=' . get_tc_option('sem') . '">' . __('Show course','teachcorses') . '</a> | <a href="admin.php?page=teachcorses/add_course.php">' . __('Add new','teachcorses') . '</a>';
              get_tc_message($message);
         }
 
@@ -139,7 +115,7 @@ function tc_add_course_page() {
     echo '<form id="add_course" name="form1" method="post" action="'. esc_url($_SERVER['REQUEST_URI']) .'">';
     echo '<input name="page" type="hidden" value="';
     if ($course_id != 0) {
-    echo 'teachcorses/teachcorses.php';
+        echo 'teachcorses.php';
     } else {
         echo 'teachcorses/add_course.php';
     }
@@ -169,7 +145,7 @@ function tc_add_course_page() {
     } 
     echo '</div></div></div>';
     echo '<div class="tc_postcontent_right"';
-    tc_Add_Course::get_meta_box ($course_id, $course_data, $capability);
+    tc_Add_Course::get_meta_box ($course_id, $course_data);
 
     echo '</div>';
     echo '</div>';
@@ -287,7 +263,6 @@ class tc_Add_Course {
                 <a onclick="javascript:teachcorses_switch_rel_page_container();" style="cursor:pointer;"><?php _e('Create from draft','teachcorses');?></a>
             </div>
         </div>
-    </div>
     <?php
     }
     
@@ -295,10 +270,9 @@ class tc_Add_Course {
      * Gets the meta box
      * @param int $course_id
      * @param array $course_data
-     * @param array $capability
      * @since 5.0.0
      */
-    public static function get_meta_box ($course_id, $course_data, $capability) {
+    public static function get_meta_box ($course_id, $course_data) {
         ?>
         <div class="postbox">
              <h3 class="tc_postbox"><span><?php _e('Meta','teachcorses'); ?></span></h3>
@@ -315,17 +289,11 @@ class tc_Add_Course {
                     <option value="2"<?php if ( $course_data["visible"] == 2 && $course_id != 0 ) {echo ' selected="selected"'; } ?>><?php _e('extend','teachcorses'); ?></option>
                     <option value="0"<?php if ( $course_data["visible"] == 0 && $course_id != 0 ) {echo ' selected="selected"'; } ?>><?php _e('invisible','teachcorses'); ?></option>
                 </select>
-                <?php
-                $readonly = 'disabled="disabled"';
-                if ( $capability === 'owner' || $capability === 'approved' ) {
-                    $readonly = '';
-                }
-                ?>
-                <p><label for="use_capabilities"><strong><?php _e('Capabilities','teachcorses'); ?></strong></label></p>
-                <select name="use_capabilities" <?php echo $readonly; ?>>
+                <!-- <p><label for="use_capabilities"><strong><?php _e('Capabilities','teachcorses'); ?></strong></label></p>
+                <select name="use_capabilities" >
                     <option value="0"<?php if ( $course_data["use_capabilities"] == 0 && $course_id != 0 ) {echo ' selected="selected"'; } ?>><?php _e('global','teachcorses'); ?></option>
                     <option value="1"<?php if ( $course_data["use_capabilities"] == 1 && $course_id != 0 ) {echo ' selected="selected"'; } ?>><?php _e('local','teachcorses'); ?></option>
-                </select>
+                </select> -->
              </div>
              <div id="major-publishing-actions">
                  <div style="text-align: center;">

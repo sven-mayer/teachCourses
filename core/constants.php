@@ -26,13 +26,6 @@ if ( !defined('TEACHCOURSES_COURSE_META') ) {
     */
     define('TEACHCOURSES_COURSE_META', $wpdb->prefix . 'teachcorses_course_meta');}
 
-if ( !defined('TEACHCOURSES_COURSE_CAPABILITIES') ) {
-    /**
-     * This constant defines the table name for teachcorses_course_cababilities.
-     * @since 5.0.0
-    */
-    define('TEACHCOURSES_COURSE_CAPABILITIES', $wpdb->prefix . 'teachcorses_course_capabilities');}
-
 if ( !defined('TEACHCOURSES_COURSE_DOCUMENTS') ) {
     /**
      * This constant defines the table name for teachcorses_course_documents.

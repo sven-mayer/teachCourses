@@ -23,13 +23,6 @@ class tc_Export {
         global $current_user;
         $parent = '';
         
-        // check capabilities
-        $capability = tc_Courses::get_capability($course_id, $current_user->ID);
-        if ( $capability !== 'owner' && $capability !== 'approved' ) {
-            echo __('Access denied','teachcorses');
-            return;
-        }
-
         // load course data
         $data = tc_Courses::get_course($course_id, ARRAY_A);
         $course_name = $data['name'];
@@ -80,13 +73,6 @@ class tc_Export {
      */
     public static function get_course_csv($course_id) {
         global $current_user;
-        
-        // check capabilities
-        $capability = tc_Courses::get_capability($course_id, $current_user->ID);
-        if ( $capability !== 'owner' && $capability !== 'approved' ) {
-            echo __('Access denied','teachcorses');
-            return;
-        }
         
         // load settings
         $option['regnum'] = get_tc_option('regnum');

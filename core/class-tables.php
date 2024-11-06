@@ -35,7 +35,6 @@ class tc_Tables {
         // Courses
         self::add_table_courses($charset_collate);
         self::add_table_course_meta($charset_collate);
-        self::add_table_course_capabilities($charset_collate);
         self::add_table_course_documents($charset_collate);
         self::add_table_artefacts($charset_collate);
         
@@ -55,7 +54,6 @@ class tc_Tables {
         $wpdb->query("DROP TABLE `" . TEACHCOURSES_ARTEFACTS . "`, 
                                 `" . TEACHCOURSES_AUTHORS . "`, 
                                 `" . TEACHCOURSES_COURSES . "`, 
-                                `" . TEACHCOURSES_COURSE_CAPABILITIES . "`, 
                                 `" . TEACHCOURSES_COURSE_DOCUMENTS . "`, 
                                 `" . TEACHCOURSES_COURSE_META . "`, 
                                 `" . TEACHCOURSES_RELATION ."`,
@@ -129,34 +127,6 @@ class tc_Tables {
         
         // test engine
         self::change_engine(TEACHCOURSES_COURSES);
-    }
-    
-    /**
-     * Create table course_capabilities
-     * @param string $charset_collate
-     * @since 5.0.0
-     */
-    public static function add_table_course_capabilities($charset_collate) {
-        global $wpdb;
-        
-        if( $wpdb->get_var("SHOW TABLES LIKE '" . TEACHCOURSES_COURSE_CAPABILITIES . "'") == TEACHCOURSES_COURSE_CAPABILITIES ) {
-            return;
-        }
-        
-        require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
-        
-        dbDelta("CREATE TABLE " . TEACHCOURSES_COURSE_CAPABILITIES . " (
-                    `cap_id` INT UNSIGNED AUTO_INCREMENT,
-                    `wp_id` INT UNSIGNED,
-                    `course_id` INT UNSIGNED,
-                    `capability` VARCHAR(100),
-                    PRIMARY KEY (`cap_id`),
-                    KEY `ind_course_id` (`course_id`),
-                    KEY `ind_wp_id` (`wp_id`)
-                ) $charset_collate;");
-        
-        // test engine
-        self::change_engine(TEACHCOURSES_COURSE_CAPABILITIES);
     }
     
     /**

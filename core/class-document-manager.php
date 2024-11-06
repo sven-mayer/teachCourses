@@ -428,14 +428,7 @@ class tc_Document_Manager {
             self::get_course_selector($course_id);
             
             if ( $course_id !== 0 ) { 
-                $capability = tc_Courses::get_capability($course_id, $current_user->ID);
-                // check capabilities
-                if ( $capability !== 'owner' && $capability !== 'approved' ) {
-                    get_tc_message(__('You have no capabilities to use this course','teachcorses'), 'red');
-                }
-                else {
-                    tc_Document_Manager::init($course_id, 'tinyMCE');
-                }
+                tc_Document_Manager::init($course_id, 'tinyMCE');
             } 
             
             echo '</form>';

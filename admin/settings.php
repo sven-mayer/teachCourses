@@ -499,7 +499,6 @@ class tc_Settings_Page {
     private static function get_db_status_tab () {
         self::list_db_table_index(TEACHCOURSES_ARTEFACTS);
         self::list_db_table_index(TEACHCOURSES_COURSES);
-        self::list_db_table_index(TEACHCOURSES_COURSE_CAPABILITIES);
         self::list_db_table_index(TEACHCOURSES_COURSE_DOCUMENTS);
         self::list_db_table_index(TEACHCOURSES_COURSE_META);
         self::list_db_table_index(TEACHCOURSES_SETTINGS);

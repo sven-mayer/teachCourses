@@ -13,74 +13,7 @@
  * @since 5.0.0
  */
 class tc_Courses {
-    
-    /**
-     * Returns the capability ("owner" or "approved") of an user for a course. For courses with no capabilities "owner" is returned.
-     * @param string $course_id     The course ID
-     * @param string $wp_id         WordPress user ID
-     * @return string
-     * @since 5.0.0
-     */
-    public static function get_capability ($course_id, $wp_id){
-        global $wpdb;
-        $test = $wpdb->get_var("SELECT `use_capabilities` FROM " . TEACHCOURSES_COURSES . " WHERE `course_id` = '" . intval($course_id) . "'");
-        
-        if ( intval($test) === 1 ){
-            return $wpdb->get_var("SELECT `capability` FROM " . TEACHCOURSES_COURSE_CAPABILITIES . " WHERE `course_id` = '" . intval($course_id) . "' AND `wp_id` = '" . intval($wp_id) . "'");
-        }
-        
-        // Return owner if the course has no capabilities
-        return 'owner';
-    }
 
-    /**
-    * Get course capabilities
-    * @param int $course_id         The course ID
-    * @param string $output_type    OBJECT, ARRAY_N or ARRAY_A, default is ARRAY_A
-    * @return array|object
-    * @since 5.0.0
-    */
-   public static function get_capabilities ($course_id, $output_type = ARRAY_A) {
-       global $wpdb;
-       return $wpdb->get_results("SELECT * FROM " . TEACHCOURSES_COURSE_CAPABILITIES . " WHERE `course_id` = '" . intval($course_id) . "'",$output_type);
-   }
-
-   /**
-    * Delete course capability
-    * @param int $cap_id    The capability ID
-    * @since 5.0.0
-    * @todo unused
-    */
-   public static function delete_capability ($cap_id) {
-       global $wpdb;
-       $wpdb->query("DELETE FROM " . TEACHCOURSES_COURSE_CAPABILITIES . " WHERE `cap_id` = '" . intval($cap_id) . "'");
-   }
-   
-   /**
-    * Checks if a user has a cap in the selected course
-    * @param int $course_id         ID of a course
-    * @param int $wp_id             WordPress user ID
-    * @param string $capability     "owner" or "approved"
-    * @return boolean
-    * @since 5.0.0
-    */
-   public static function has_capability ($course_id, $wp_id, $capability) {
-       global $wpdb;
-       $where = '';
-       
-       if ( $capability !== '' ) {
-           $where = "AND `capability` = '" . esc_sql($capability). "'";
-       }
-       
-       $test = $wpdb->query("SELECT `wp_id` FROM " . TEACHCOURSES_COURSE_CAPABILITIES . " WHERE `course_id` = '" . intval($course_id) . "' AND `wp_id` = '" . intval($wp_id) . "' $where");
-       
-       if ( $test === 1 ) {
-           return true;
-       }
-       
-       return false;
-   }
-   
    /**
     * Checks if there is an owner of the selected course. If not, the function returns false, if yes, the user_id is returned.
     * @param int $course_id     The course ID
@@ -88,14 +21,8 @@ class tc_Courses {
     * @since 5.0.0
     */
    public static function is_owner ($course_id) {
-       global $wpdb;
-       $test = $wpdb->get_var("SELECT `wp_id` FROM " . TEACHCOURSES_COURSE_CAPABILITIES . " WHERE `course_id` = '" . intval($course_id) . "' AND `capability` = 'owner'");
        
-       if ( $test === NULL ){
-           return false;
-       }
-       
-       return intval($test);
+       return false;
        
    }
    
@@ -433,15 +360,8 @@ class tc_Courses {
         for( $i = 0; $i < count( $checkbox ); $i++ ) { 
             $checkbox[$i] = intval($checkbox[$i]);
             
-            // capability check
-            $capability = tc_Courses::get_capability($checkbox[$i], $user_ID);
-            if ($capability !== 'owner' ) {
-                continue;
-            }
-            
             $wpdb->query( "DELETE FROM " . TEACHCOURSES_COURSES . " WHERE `course_id` = $checkbox[$i]" );
             $wpdb->query( "DELETE FROM " . TEACHCOURSES_COURSE_META . " WHERE `course_id` = $checkbox[$i]" );
-            $wpdb->query( "DELETE FROM " . TEACHCOURSES_COURSE_CAPABILITIES . " WHERE `course_id` = $checkbox[$i]" );
             $wpdb->query( "DELETE FROM " . TEACHCOURSES_COURSE_DOCUMENTS . " WHERE `course_id` = $checkbox[$i]" );
             $wpdb->query( "DELETE FROM " . TEACHCOURSES_ARTEFACTS . " WHERE `course_id` = $checkbox[$i]" );
             // Check if there are parent courses, which are not selected for erasing, and set there parent to default

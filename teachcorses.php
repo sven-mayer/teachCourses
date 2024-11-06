@@ -101,7 +101,7 @@ function tc_add_menu() {
             __('Add new','teachcorses'), 
             __('Add new', 'teachcorses'),
             'use_teachcorses_courses',
-            'teachcorses/add_course.php',
+            'add_course.php',
             'tc_add_course_page');
     add_action("load-$tc_admin_add_course_page", 'tc_add_course_page_help');
     add_action("load-$tc_admin_show_courses_page", 'tc_show_course_page_help');
