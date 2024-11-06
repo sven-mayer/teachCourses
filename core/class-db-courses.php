@@ -1,14 +1,14 @@
 <?php
 /**
  * This file contains the database access class for courses
- * @package teachcorses
+ * @package teachcourses
  * @subpackage core
  * @license http://www.gnu.org/licenses/gpl-2.0.html GPLv2 or later
  */
 
 /**
  * Contains functions for getting, adding and deleting of courses
- * @package teachcorses
+ * @package teachcourses
  * @subpackage database
  * @since 5.0.0
  */
@@ -249,7 +249,7 @@ class tc_Courses {
         }
         // test if creation was successful
         if ( $data['rel_page'] === false ) {
-            get_tc_message(__('Error while adding new related content.','teachcorses'), 'red');
+            get_tc_message(__('Error while adding new related content.','teachcourses'), 'red');
         }
         // create sub courses
         if ( $sub['number'] !== 0 ) {

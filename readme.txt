@@ -1,4 +1,4 @@
-=== teachCorses ===
+=== teachcourses ===
 Contributors: Michael Winkler
 Tags: courses
 License: GPLv2 or later
@@ -8,10 +8,10 @@ Tested up to: 5.9
 Requires PHP: 5.4
 Stable tag: 8.1.5
 
-Manage your courses with teachCorses 
+Manage your courses with teachcourses 
 
 == Description ==
-This plugin unites a course management system (with modules for documents and assessments) and a powerful BibTeX compatible publication management. Both modules can be operated independently. teachCorses is optimized for the needs of professorships and research groups. You can use it with WordPress 3.9.0 or higher.
+This plugin unites a course management system (with modules for documents and assessments) and a powerful BibTeX compatible publication management. Both modules can be operated independently. teachcourses is optimized for the needs of professorships and research groups. You can use it with WordPress 3.9.0 or higher.
 
 = Features: =
 * BibTeX compatible multi user publication management
@@ -36,13 +36,13 @@ This plugin unites a course management system (with modules for documents and as
 
 (o) Incomplete language files
 
-= Start with teachCorses =
-The following article describes the fist steps for [starting with teachCorses](https://github.com/winkm89/teachCorses/wiki/Start-with-teachCorses).
+= Start with teachcourses =
+The following article describes the fist steps for [starting with teachcourses](https://github.com/winkm89/teachcourses/wiki/Start-with-teachcourses).
 
 = Further information = 
-* [Wiki/Documentation](https://github.com/winkm89/teachCorses/wiki) 
-* [teachCorses on GitHub](https://github.com/winkm89/teachCorses)  
-* [Developer blog](https://mtrv.wordpress.com/teachcorses/) 
+* [Wiki/Documentation](https://github.com/winkm89/teachcourses/wiki) 
+* [teachcourses on GitHub](https://github.com/winkm89/teachcourses)  
+* [Developer blog](https://mtrv.wordpress.com/teachcourses/) 
 
 == Screenshots ==
 1. Publication overview screen
@@ -54,7 +54,7 @@ The following article describes the fist steps for [starting with teachCorses](h
 == Frequently Asked Questions ==
 
 = How can I find the documentation for the shortcodes? =
-All parameters of the shortcodes are described in the [teachCorses shortcode reference](https://github.com/winkm89/teachCorses/wiki#shortcodes)
+All parameters of the shortcodes are described in the [teachcourses shortcode reference](https://github.com/winkm89/teachcourses/wiki#shortcodes)
 
 = How can I hide the tags, when I use the [tpcloud] shortcode? =
 Use the shortcode with the following parameters: [tc_cloud show_tags_as="none"]
@@ -66,9 +66,9 @@ An example: [tplist image="left" image_size="70"]. Important: You must specify b
 Write a long course desciption as normal WordPress pages and add this page as related content to the course.
 
 = How can I protect course documents? =
-The plugin saves course documents in your WordPress upload directory under /teachcorses/*course_id*. You can add a protection for this directory with a .htaccess file without influence to your normal media files.
+The plugin saves course documents in your WordPress upload directory under /teachcourses/*course_id*. You can add a protection for this directory with a .htaccess file without influence to your normal media files.
 
-[More FAQs are available on GitHub](https://github.com/winkm89/teachCorses/wiki/FAQ)
+[More FAQs are available on GitHub](https://github.com/winkm89/teachcourses/wiki/FAQ)
 
 == Credits ==
 
@@ -114,8 +114,8 @@ Use at your own risk. No warranty expressed or implied is provided.
 **For updates:**
 
 1. Download the plugin.
-2. Delete all files in the 'plugins/teachcorses/' directory.
-3. Upload all files to the 'plugins/teachcorses/' directory.
+2. Delete all files in the 'plugins/teachcourses/' directory.
+3. Upload all files to the 'plugins/teachcourses/' directory.
 4. Go in the backend to Courses->Settings and click on "Update to ....".
 
 == Changelog ==

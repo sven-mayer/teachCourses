@@ -1,7 +1,7 @@
 <?php
 /**
- * teachCorses template file
- * @package teachcorses\core\templates
+ * teachcourses template file
+ * @package teachcourses\core\templates
  * @license http://www.gnu.org/licenses/gpl-2.0.html GPLv2 or later
  * @since 6.0.0
  */
@@ -12,15 +12,15 @@ class tc_Template_2021 implements tc_Publication_Template {
      * @return array
      */
     public function get_settings() {
-        return array ('name'                => 'teachCorses 2021',
+        return array ('name'                => 'teachcourses 2021',
                       'description'         => 'A new mobile friendly 4 line style template for publication lists.',
                       'author'              => 'Michael Winkler',
                       'version'             => '1.0',
                       'button_separator'    => ' | ',
                       'menu_label_tags'     => __('Tags') . ': ',
-                      'menu_label_links'    => __('Links','teachcorses') . ': ',
-                      'meta_label_in'       => __('In','teachcorses') . ': ',
-                      'citation_style'      => 'teachCorses'
+                      'menu_label_links'    => __('Links','teachcourses') . ': ',
+                      'meta_label_in'       => __('In','teachcourses') . ': ',
+                      'citation_style'      => 'teachcourses'
         );
     }
     
@@ -31,7 +31,7 @@ class tc_Template_2021 implements tc_Publication_Template {
      * @return string
      */
     public function get_body ($content, $args = array() ) {
-        return '<div class="teachcorses_publication_list">' . $content . '</div>';
+        return '<div class="teachcourses_publication_list">' . $content . '</div>';
     }
     
     /**

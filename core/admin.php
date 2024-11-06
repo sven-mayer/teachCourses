@@ -2,14 +2,14 @@
 /**
  * This file contains all general functions for admin menu
  * 
- * @package teachcorses\core\admin
+ * @package teachcourses\core\admin
  * @license http://www.gnu.org/licenses/gpl-2.0.html GPLv2 or later
  */
 
 /**
- * This class contains general functions for teachcorses admin menus
+ * This class contains general functions for teachcourses admin menus
  * @since 5.0.0
- * @package teachcorses\core\admin
+ * @package teachcourses\core\admin
  */
 class tc_Admin {
     
@@ -27,13 +27,13 @@ class tc_Admin {
            $version = get_tc_version();
            if ($test !== $version) {
                echo $before;
-               get_tc_message( __('A database update is necessary','teachcorses') . '. <a href="options-general.php?page=teachcorses/settings.php&up=1">' . __('Update to','teachcorses') . ' ' . $version . '</a>.', 'orange' );
+               get_tc_message( __('A database update is necessary','teachcourses') . '. <a href="options-general.php?page=teachcourses/settings.php&up=1">' . __('Update to','teachcourses') . ' ' . $version . '</a>.', 'orange' );
                echo $after;
            }
         }
         else {
             echo $before;
-            get_tc_message( '<a href="options-general.php?page=teachcorses/settings.php&ins=1">' . __('Install database','teachcorses') . '</a>', 'orange' );
+            get_tc_message( '<a href="options-general.php?page=teachcourses/settings.php&ins=1">' . __('Install database','teachcourses') . '</a>', 'orange' );
             echo $after;
         }
     }
@@ -50,9 +50,9 @@ class tc_Admin {
         $return = '';
         $return .= '<select name="' . $field_name . '" id="' . $field_name . '" tabindex="' . $tabindex . '">';
         $options = array( 
-                    array( 'value' => 'grade', 'title' => __('Grade','teachcorses') ),
-                    array( 'value' => 'percentage', 'title' => __('Percentage','teachcorses') ),
-                    array( 'value' => 'points', 'title' => __('Points','teachcorses') ) 
+                    array( 'value' => 'grade', 'title' => __('Grade','teachcourses') ),
+                    array( 'value' => 'percentage', 'title' => __('Percentage','teachcourses') ),
+                    array( 'value' => 'points', 'title' => __('Points','teachcourses') ) 
                    );
         foreach ($options as $opt) {
             $selected = ( $value == $opt['value'] ) ? 'selected="selected"' : '';
@@ -73,8 +73,8 @@ class tc_Admin {
         $return = '';
         $return .= '<select name="' . $field_name . '" id="' . $field_name . '" tabindex="' . $tabindex . '">';
         $options = array( 
-                    array( 'value' => '0', 'title' => __('not passed','teachcorses') ),
-                    array( 'value' => '1', 'title' => __('passed','teachcorses') ) 
+                    array( 'value' => '0', 'title' => __('not passed','teachcourses') ),
+                    array( 'value' => '1', 'title' => __('passed','teachcourses') ) 
                    );
         foreach ($options as $opt) {
             $selected = ( $value == $opt['value'] ) ? 'selected="selected"' : '';
@@ -130,29 +130,29 @@ class tc_Admin {
         $month = ( $value != '' ) ? $b[0][1] : '01';
         $year = ( $value != '' ) ? $b[0][0] : '19xx';
         $months = array ( 
-            __('Jan','teachcorses'), 
-            __('Feb','teachcorses'), 
-            __('Mar','teachcorses'), 
-            __('Apr','teachcorses'), 
-            __('May','teachcorses'), 
-            __('Jun','teachcorses'), 
-            __('Jul','teachcorses'), 
-            __('Aug','teachcorses'), 
-            __('Sep','teachcorses'), 
-            __('Oct','teachcorses'), 
-            __('Nov','teachcorses'), 
-            __('Dec','teachcorses') );
+            __('Jan','teachcourses'), 
+            __('Feb','teachcourses'), 
+            __('Mar','teachcourses'), 
+            __('Apr','teachcourses'), 
+            __('May','teachcourses'), 
+            __('Jun','teachcourses'), 
+            __('Jul','teachcourses'), 
+            __('Aug','teachcourses'), 
+            __('Sep','teachcourses'), 
+            __('Oct','teachcourses'), 
+            __('Nov','teachcourses'), 
+            __('Dec','teachcourses') );
         $return = '';
         $return .= '<p><b>' . stripslashes($label) . '</b></p>';
         $return .= '<input name="' . $field_name . '_day" id="' . $field_name . '_day" type="text" title="Day" size="2" value="' . $day . '"/>';
-        $return .= '<select name="' . $field_name . '_month" id="' . $field_name . '_month" title="' . __('Month','teachcorses') . '">';
+        $return .= '<select name="' . $field_name . '_month" id="' . $field_name . '_month" title="' . __('Month','teachcourses') . '">';
         for ( $i = 1; $i <= 12; $i++ ) {
             $m = ( $i < 10 ) ? '0' . $i : $i;
             $selected = ($month == $m) ? 'selected="selected"' : '';
             $return .= '<option value="' . $m . '" ' . $selected . '>' . $months[$i-1] . '</option>';
         }
         $return .= '</select>';
-        $return .= '<input name="' . $field_name . '_year" id="' . $field_name . '_year" type="text" title="' . __('Year','teachcorses') . '" size="4" value="' . $year . '"/>';
+        $return .= '<input name="' . $field_name . '_year" id="' . $field_name . '_year" type="text" title="' . __('Year','teachcourses') . '" size="4" value="' . $year . '"/>';
         return $return;
     }
     
@@ -217,7 +217,7 @@ class tc_Admin {
         $return .= '<select name="' . $field_name . '" id="' . $field_name . '">';
         $options = $wpdb->get_results("SELECT * FROM " . TEACHCOURSES_SETTINGS . " WHERE `category` = '" . esc_sql($field_name) . "' ORDER BY value ASC");
         if ( $value == '' ) {
-            $return .= '<option value="">- ' . __('none','teachcorses') . ' -</option>';
+            $return .= '<option value="">- ' . __('none','teachcourses') . ' -</option>';
         }
         foreach ($options as $opt) {
             $return .= tc_Admin::get_select_option(stripslashes($opt->value), stripslashes($opt->value), $value);
@@ -374,7 +374,7 @@ class tc_Admin {
                 $class_alternate = true;
             }
             echo '<tr ' . $tr_class . '>';
-            echo '<td><a title="' . $options['delete_title'] . '" href="options-general.php?page=teachcorses/settings.php&amp;delete=' . $row->setting_id . '&amp;tab=' . $options['tab'] . '" class="teachcorses_delete">X</a></td>';
+            echo '<td><a title="' . $options['delete_title'] . '" href="options-general.php?page=teachcourses/settings.php&amp;delete=' . $row->setting_id . '&amp;tab=' . $options['tab'] . '" class="teachcourses_delete">X</a></td>';
             echo '<td>' . stripslashes($row->value) . '</td>';
             if ( $type === 'term' || $type === 'course_of_studies' || $type === 'type' ) {
                 echo '<td>' . $row->number . '</td>';
@@ -384,7 +384,7 @@ class tc_Admin {
 
         echo '<tr>';
         echo '<td></td>';
-        echo '<td colspan="2"><input name="new_' . $type . '" type="text" id="new_' . $type . '" size="30" value="' . $options['add_title'] . '" onblur="if(this.value==' . "''" .') this.value='. "'" . $options['add_title'] . "'" . ';" onfocus="if(this.value=='. "'" . $options['add_title'] . "'" . ') this.value=' . "''" . ';"/> <input name="add_' . $type . '" type="submit" class="button-secondary" value="' . __('Create','teachcorses') . '"/></td>'; 
+        echo '<td colspan="2"><input name="new_' . $type . '" type="text" id="new_' . $type . '" size="30" value="' . $options['add_title'] . '" onblur="if(this.value==' . "''" .') this.value='. "'" . $options['add_title'] . "'" . ';" onfocus="if(this.value=='. "'" . $options['add_title'] . "'" . ') this.value=' . "''" . ';"/> <input name="add_' . $type . '" type="submit" class="button-secondary" value="' . __('Create','teachcourses') . '"/></td>'; 
         echo '</tr>'; 
 
         echo '</tbody>';
@@ -400,7 +400,7 @@ class tc_Admin {
     public static function display_meta_data($fields, $meta_input) {
     
         echo '<div class="postbox">';
-        echo '<h3 class="tc_postbox"><span>' . __('Custom meta data','teachcorses') . '</span></h3>';
+        echo '<h3 class="tc_postbox"><span>' . __('Custom meta data','teachcourses') . '</span></h3>';
     
         echo '<div class="inside">';   
         foreach ($fields as $row) {
@@ -555,7 +555,7 @@ class tc_copy_course {
  */
 function get_tc_wp_drafts($post_type, $post_status = 'publish', $sort_column = 'menu_order', $sort_order = 'ASC') {
     global $wpdb;
-    echo "\n\t<option value='0'>" . __('none','teachcorses') . "</option>";
+    echo "\n\t<option value='0'>" . __('none','teachcourses') . "</option>";
     $items = $wpdb->get_results( "SELECT `ID`, `post_title` FROM $wpdb->posts WHERE `post_type` = '" . esc_sql($post_type) . "' AND `post_status` = '" . esc_sql($post_status) . "' ORDER BY " . esc_sql($sort_column) . " " . esc_sql($sort_order) );
     foreach ( $items as $item ) {
         echo "\n\t<option value='$item->ID'>" . get_the_title($item->ID) . "</option>";
@@ -563,7 +563,7 @@ function get_tc_wp_drafts($post_type, $post_status = 'publish', $sort_column = '
 }
 
 /**
- * This function handles document uploads in teachCorses
+ * This function handles document uploads in teachcourses
  * @since 5.0.0
  */
 function tc_handle_document_uploads(){
@@ -582,15 +582,15 @@ function tc_handle_document_uploads(){
 }
 
 /**
- * Handle PHP uploads in teachCorses, sanitizing file names, checking extensions for mime type,
+ * Handle PHP uploads in teachcourses, sanitizing file names, checking extensions for mime type,
  * and moving the file to the appropriate directory within the uploads directory. The function is a modified copy
- * of wp_handle_upload(), but uses the teachcorses upload directory
+ * of wp_handle_upload(), but uses the teachcourses upload directory
  *
  * @since 5.0.0
  *
  * @param array $file       Reference to a single element of $_FILES. Call the function once for each uploaded file.
  * @param array $overrides  Optional. An associative array of names=>values to override default variables with extract( $overrides, EXTR_OVERWRITE ).
- * @param int $course_id    ID of a teachCorses course.
+ * @param int $course_id    ID of a teachcourses course.
  * @return array On success, returns an associative array of file attributes. On failure, returns $overrides['upload_error_handler'](&$file, $message ) or array( 'error'=>$message ).
  */
 function tc_handle_upload( &$file, $overrides = false, $course_id = 0 ) {
@@ -691,17 +691,17 @@ function tc_handle_upload( &$file, $overrides = false, $course_id = 0 ) {
 	if ( ! ( ( $uploads = wp_upload_dir() ) && false === $uploads['error'] ) ) {
 		return call_user_func($upload_error_handler, $file, $uploads['error'] );
         }
-	$filename = wp_unique_filename( $uploads['basedir'] . "/teachcorses$extra_directory_part", $file['name'] );
+	$filename = wp_unique_filename( $uploads['basedir'] . "/teachcourses$extra_directory_part", $file['name'] );
         
 	// Move the file to the uploads dir
-        wp_mkdir_p($uploads['basedir'] . "/teachcorses$extra_directory_part");
-	$new_file = $uploads['basedir'] . "/teachcorses$extra_directory_part/$filename";
+        wp_mkdir_p($uploads['basedir'] . "/teachcourses$extra_directory_part");
+	$new_file = $uploads['basedir'] . "/teachcourses$extra_directory_part/$filename";
 	if ( false === @ move_uploaded_file( $file['tmp_name'], $new_file ) ) {
             if ( 0 === strpos( $uploads['basedir'], ABSPATH ) ) {
-                $error_path = str_replace( ABSPATH, '', $uploads['basedir'] ) . "/teachcorses$extra_directory_part/$filename";
+                $error_path = str_replace( ABSPATH, '', $uploads['basedir'] ) . "/teachcourses$extra_directory_part/$filename";
             }
             else {
-                $error_path = basename( $uploads['basedir'] ) . "/teachcorses$extra_directory_part/$filename";
+                $error_path = basename( $uploads['basedir'] ) . "/teachcourses$extra_directory_part/$filename";
             }
             return $upload_error_handler( $file, sprintf( __('The uploaded file could not be moved to %s.' ), $error_path ) );
 	}
@@ -734,7 +734,7 @@ function tc_handle_upload( &$file, $overrides = false, $course_id = 0 ) {
 	 */
 	return apply_filters( 'wp_handle_upload', array( 'file' => $new_file, 
                                                          'url' => $url, 
-                                                         'path' => "/teachcorses$extra_directory_part/$filename", 
+                                                         'path' => "/teachcourses$extra_directory_part/$filename", 
                                                          'type' => $type, 
                                                          'size' => $file['size'],
                                                          'filename' => $filename ), 'upload' );
@@ -766,7 +766,7 @@ function get_tc_wp_pages($sort_column = "menu_order", $sort_order = "ASC", $sele
         else {
             $current = '';
         }
-        echo "\n\t<option value='0'$current>$pad " . __('none','teachcorses') . "</option>";
+        echo "\n\t<option value='0'$current>$pad " . __('none','teachcourses') . "</option>";
     }
     $items = $wpdb->get_results( "SELECT `ID`, `post_parent`, `post_title` FROM $wpdb->posts WHERE `post_parent` = '" . intval($parent) . "' AND `post_type` = '" . esc_sql($post_type) . "' AND `post_status` = 'publish' ORDER BY " . esc_sql($sort_column) . " " . esc_sql($sort_order) );
     if ( $items ) {

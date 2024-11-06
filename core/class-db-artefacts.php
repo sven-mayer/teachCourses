@@ -1,7 +1,7 @@
 <?php
 /**
  * This file contains the database access class for course artefacts
- * @package teachcorses
+ * @package teachcourses
  * @subpackage core
  * @license http://www.gnu.org/licenses/gpl-2.0.html GPLv2 or later
  */
@@ -9,7 +9,7 @@
 
 /**
  * Database access class for course artefacts
- * @package teachcorses
+ * @package teachcourses
  * @subpackage database
  * @since 5.0.0
  */

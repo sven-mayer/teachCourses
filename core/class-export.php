@@ -2,14 +2,14 @@
 /**
  * This file contains all general functions for the export system
  * 
- * @package teachcorses\core\export
+ * @package teachcourses\core\export
  * @license http://www.gnu.org/licenses/gpl-2.0.html GPLv2 or later
  */
 
 /**
- * teachCorses export class
+ * teachcourses export class
  *
- * @package teachcorses\core\export
+ * @package teachcourses\core\export
  * @since 3.0.0
  */
 class tc_Export {
@@ -39,30 +39,30 @@ class tc_Export {
         echo '<table border="1" cellspacing="0" cellpadding="5">';
         echo '<thead>';
         echo '<tr>';
-        echo '<th>' . __('Lecturer','teachcorses') . '</th>';
+        echo '<th>' . __('Lecturer','teachcourses') . '</th>';
         echo '<td>' . stripslashes(utf8_decode($data['lecturer'])) . '</td>';
-        echo '<th>' . __('Date','teachcorses') . '</th>';
+        echo '<th>' . __('Date','teachcourses') . '</th>';
         echo '<td>' . $data['date'] . '</td>';
-        echo '<th>' . __('Room','teachcorses') . '</th>';
+        echo '<th>' . __('Room','teachcourses') . '</th>';
         echo '<td>' . stripslashes(utf8_decode($data['room'])) . '</td>';
         echo '</tr>';
         echo '<tr>';
-        echo '<th>' . __('Places','teachcorses') . '</th>';
+        echo '<th>' . __('Places','teachcourses') . '</th>';
         echo '<td>' . $data['places'] . '</td>';
-        echo '<th>' . __('free places','teachcorses') . '</th>';
+        echo '<th>' . __('free places','teachcourses') . '</th>';
         echo '<td></td>';
         echo '<td>&nbsp;</td>';
         echo '<td>&nbsp;</td>';
         echo '</tr>';
         echo '<tr>';
-        echo '<th>' . __('Comment','teachcorses') . '</th>';
+        echo '<th>' . __('Comment','teachcourses') . '</th>';
         echo '<td colspan="5">' . stripslashes(utf8_decode($data['comment'])) . '</td>';
         echo '</tr>';
         echo '</thead>';
         echo '</table>';
 
         global $tc_version;
-        echo '<p style="font-size:11px; font-style:italic;">' . __('Created on','teachcorses') . ': ' . date("d.m.Y") . ' | teachCorses ' . $tc_version . '</p>';
+        echo '<p style="font-size:11px; font-style:italic;">' . __('Created on','teachcourses') . ': ' . date("d.m.Y") . ' | teachcourses ' . $tc_version . '</p>';
     }
 
     /**
@@ -77,7 +77,7 @@ class tc_Export {
         // load settings
         $option['regnum'] = get_tc_option('regnum');
         $option['studies'] = get_tc_option('studies');
-        $fields = get_tc_options('teachcorses_stud','`setting_id` ASC');
+        $fields = get_tc_options('teachcourses_stud','`setting_id` ASC');
         
         $extra_headlines = '';
         foreach ( $fields as $field ) {
@@ -87,7 +87,7 @@ class tc_Export {
             }
         }
 
-        $headline = '"' . __('Last name','teachcorses') . '";"' . __('First name','teachcorses') . '";"' . __('User account','teachcorses') . '";"' . __('E-Mail') . '";' . $extra_headlines . '"' . __('Registered at','teachcorses') . '";"' . __('Record-ID','teachcorses') . '";"' . __('Waiting list','teachcorses') . '"' . "\r\n";
+        $headline = '"' . __('Last name','teachcourses') . '";"' . __('First name','teachcourses') . '";"' . __('User account','teachcourses') . '";"' . __('E-Mail') . '";' . $extra_headlines . '"' . __('Registered at','teachcourses') . '";"' . __('Record-ID','teachcourses') . '";"' . __('Waiting list','teachcourses') . '"' . "\r\n";
         $headline = tc_Export::decode($headline);
         echo $headline;
        
@@ -123,11 +123,11 @@ class tc_Export {
             'editor_name'       => 'initials',
             'editor_separator'  => ';',
             'style'             => 'simple',
-            'meta_label_in'     => __('In','teachcorses') . ': ',
+            'meta_label_in'     => __('In','teachcourses') . ': ',
             'use_span'          => false
         );
         if ( $row['type'] === 'collection' || $row['type'] === 'periodical' || ( $row['author'] === '' && $row['editor'] !== '' ) ) {
-            $all_authors = tc_Bibtex::parse_author($row['editor'], ';', $settings['editor_name'] ) . ' (' . __('Ed.','teachcorses') . ')';
+            $all_authors = tc_Bibtex::parse_author($row['editor'], ';', $settings['editor_name'] ) . ' (' . __('Ed.','teachcourses') . ')';
         }
         else {
             $all_authors = tc_Bibtex::parse_author($row['author'], ';', $settings['author_name'] );
@@ -152,11 +152,11 @@ class tc_Export {
             'editor_name'       => 'initials',
             'editor_separator'  => ';',
             'style'             => 'simple',
-            'meta_label_in'     => __('In','teachcorses') . ': ',
+            'meta_label_in'     => __('In','teachcourses') . ': ',
             'use_span'          => false
         );
         if ( $row['type'] === 'collection' || $row['type'] === 'periodical' || ( $row['author'] === '' && $row['editor'] !== '' ) ) {
-            $all_authors = tc_Bibtex::parse_author($row['editor'], ';', $settings['editor_name'] ) . ' (' . __('Ed.','teachcorses') . ')';
+            $all_authors = tc_Bibtex::parse_author($row['editor'], ';', $settings['editor_name'] ) . ' (' . __('Ed.','teachcourses') . ')';
         }
         else {
             $all_authors = tc_Bibtex::parse_author($row['author'], ';', $settings['author_name'] );

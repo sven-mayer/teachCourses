@@ -1,15 +1,15 @@
 <?php
 /**
- * This file contains all functions for updating a teachcorses database
+ * This file contains all functions for updating a teachcourses database
  * 
- * @package teachcorses\core\update
+ * @package teachcourses\core\update
  * @license http://www.gnu.org/licenses/gpl-2.0.html GPLv2 or later
  * @since 4.2.0
  */
 
 /**
- * This class contains all functions for updating a teachcorses database
- * @package teachcorses\core\update
+ * This class contains all functions for updating a teachcourses database
+ * @package teachcourses\core\update
  * @since 4.2.0
  */
 class tc_Update {
@@ -24,14 +24,14 @@ class tc_Update {
         $software_version = get_tc_version();
         $update_level = '0';
         
-        // Fallback for very old teachCorses systems
+        // Fallback for very old teachcourses systems
         if ( $db_version == '' ) {
             $db_version = $wpdb->get_var("SELECT `value` FROM " . TEACHCOURSES_SETTINGS . " WHERE `variable` = 'db-version'");
         }
         
         // if is the current one
         if ( $db_version === $software_version ) {
-            get_tc_message( __('An update is not necessary.','teachcorses') );
+            get_tc_message( __('An update is not necessary.','teachcourses') );
             return;
         }
         
@@ -47,11 +47,11 @@ class tc_Update {
         // set capabilities
         global $wp_roles;
         $role = $wp_roles->get_role('administrator');
-        if ( !$role->has_cap('use_teachcorses') ) {
-            $wp_roles->add_cap('administrator', 'use_teachcorses');
+        if ( !$role->has_cap('use_teachcourses') ) {
+            $wp_roles->add_cap('administrator', 'use_teachcourses');
         }
-        if ( !$role->has_cap('use_teachcorses_courses') ) {
-            $wp_roles->add_cap('administrator', 'use_teachcorses_courses');
+        if ( !$role->has_cap('use_teachcourses_courses') ) {
+            $wp_roles->add_cap('administrator', 'use_teachcourses_courses');
         }
         
         // Disable foreign key checks
@@ -60,7 +60,7 @@ class tc_Update {
         }
         
         
-        // Add teachCorses options
+        // Add teachcourses options
         tc_Update::add_options();
         
         // Enable foreign key checks
@@ -92,7 +92,7 @@ class tc_Update {
 
 
     /**
-     * Checks if the table teachcorses_authors needs to be filled. Returns false if not.
+     * Checks if the table teachcourses_authors needs to be filled. Returns false if not.
      * @return boolean
      * @since 5.0.0
      */
@@ -107,7 +107,7 @@ class tc_Update {
     }
     
     /**
-     * Checks if the table teachcorses_stud_meta needs to be filled. Returns false if not.
+     * Checks if the table teachcourses_stud_meta needs to be filled. Returns false if not.
      * @return boolean
      * @since 5.0.0
      */
@@ -166,7 +166,7 @@ class tc_Update {
     }
 
     /**
-     * Use this function to fill up the table teachcorses_authors with data from teachcorses_pub
+     * Use this function to fill up the table teachcourses_authors with data from teachcourses_pub
      * @param string $limit     A normal SQL limit like 0,500. By default this value is not set.
      * @since 5.0.0
      */
@@ -181,7 +181,7 @@ class tc_Update {
         }
         
         $relation = '';
-        get_tc_message( __('Step 1: Read data and add authors','teachcorses') );
+        get_tc_message( __('Step 1: Read data and add authors','teachcourses') );
         $pubs = $wpdb->get_results("SELECT pub_id, author, editor FROM " . TEACHCOURSES_PUB . $limit, ARRAY_A);
         foreach ( $pubs as $row ) {
             if ( $row['author'] != '' ) {
@@ -193,9 +193,9 @@ class tc_Update {
         }
         $relation = substr($relation, 0, -2);
         $relation = str_replace(', ,', ',', $relation);
-        get_tc_message( __('Step 2: Add relations between authors and publications','teachcorses') );
+        get_tc_message( __('Step 2: Add relations between authors and publications','teachcourses') );
         $wpdb->query("INSERT INTO " . TEACHCOURSES_REL_PUB_AUTH . " (`pub_id`, `author_id`, `is_author`, `is_editor`) VALUES $relation");
-        get_tc_message( __('Update successful','teachcorses') );
+        get_tc_message( __('Update successful','teachcourses') );
     }
 
     /**
@@ -257,14 +257,14 @@ class tc_Update {
         }
         
         // course_of_studies
-        if ($wpdb->query("SELECT value FROM " . TEACHCOURSES_SETTINGS . " WHERE `variable` = 'course_of_studies' AND `category` = 'teachcorses_stud'") == '0') {
-            $value = 'name = {course_of_studies}, title = {' . __('Course of studies','teachcorses') . '}, type = {SELECT}, required = {false}, min = {false}, max = {false}, step = {false}, visibility = {admin}';
-            $wpdb->query("INSERT INTO " . TEACHCOURSES_SETTINGS . " (`variable`, `value`, `category`) VALUES ('course_of_studies', '$value', 'teachcorses_stud')"); 
+        if ($wpdb->query("SELECT value FROM " . TEACHCOURSES_SETTINGS . " WHERE `variable` = 'course_of_studies' AND `category` = 'teachcourses_stud'") == '0') {
+            $value = 'name = {course_of_studies}, title = {' . __('Course of studies','teachcourses') . '}, type = {SELECT}, required = {false}, min = {false}, max = {false}, step = {false}, visibility = {admin}';
+            $wpdb->query("INSERT INTO " . TEACHCOURSES_SETTINGS . " (`variable`, `value`, `category`) VALUES ('course_of_studies', '$value', 'teachcourses_stud')"); 
         }
         // semester_number
-        if ($wpdb->query("SELECT value FROM " . TEACHCOURSES_SETTINGS . " WHERE `variable` = 'semester_number' AND `category` = 'teachcorses_stud'") == '0') {
-            $value = 'name = {semester_number}, title = {' . __('Semester number','teachcorses') . '}, type = {INT}, required = {false}, min = {1}, max = {99}, step = {1}, visibility = {normal}';
-            $wpdb->query("INSERT INTO " . TEACHCOURSES_SETTINGS . " (`variable`, `value`, `category`) VALUES ('semester_number', '$value', 'teachcorses_stud')"); 
+        if ($wpdb->query("SELECT value FROM " . TEACHCOURSES_SETTINGS . " WHERE `variable` = 'semester_number' AND `category` = 'teachcourses_stud'") == '0') {
+            $value = 'name = {semester_number}, title = {' . __('Semester number','teachcourses') . '}, type = {INT}, required = {false}, min = {1}, max = {99}, step = {1}, visibility = {normal}';
+            $wpdb->query("INSERT INTO " . TEACHCOURSES_SETTINGS . " (`variable`, `value`, `category`) VALUES ('semester_number', '$value', 'teachcourses_stud')"); 
         }
         /**** since version 5.0.3 ****/
         // Fix an installer bug (wrong template for related content)
@@ -282,6 +282,6 @@ class tc_Update {
         global $wpdb;
         $version = htmlspecialchars( esc_sql( $version ) );
         $wpdb->query("UPDATE " . TEACHCOURSES_SETTINGS . " SET `value` = '$version', `category` = 'system' WHERE `variable` = 'db-version'");
-        get_tc_message( __('Update successful','teachcorses') );
+        get_tc_message( __('Update successful','teachcourses') );
     }
 }

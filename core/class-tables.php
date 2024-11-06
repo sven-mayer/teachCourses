@@ -1,21 +1,21 @@
 <?php
 /**
- * This file contains all functions for creating a database for teachcorses
+ * This file contains all functions for creating a database for teachcourses
  * 
- * @package teachcorses\core\installation
+ * @package teachcourses\core\installation
  * @license http://www.gnu.org/licenses/gpl-2.0.html GPLv2 or later
  * @since 5.0.0
  */
 
 /**
- * This class contains all functions for creating a database for teachcorses
- * @package teachcorses\core\installation
+ * This class contains all functions for creating a database for teachcourses
+ * @package teachcourses\core\installation
  * @since 5.0.0
  */
 class tc_Tables {
     
     /**
-     * Install teachCorses database tables
+     * Install teachcourses database tables
      * @since 5.0.0
      */
     public static function create() {
@@ -45,7 +45,7 @@ class tc_Tables {
     }
     
       /**
-     * Remove teachCorses database tables
+     * Remove teachcourses database tables
      * @since 5.0.0
      */
     public static function remove() {
@@ -90,7 +90,7 @@ class tc_Tables {
     }
 
     /**
-     * Create table teachcorses_courses
+     * Create table teachcourses_courses
      * @param string $charset_collate
      * @since 5.0.0
      */
@@ -160,7 +160,7 @@ class tc_Tables {
     }
     
     /**
-     * Create table teachcorses_course_meta
+     * Create table teachcourses_course_meta
      * @param string $charset_collate
      * @since 5.0.0
      */
@@ -187,7 +187,7 @@ class tc_Tables {
     }
     
     /**
-     * Create table teachcorses_artefacts
+     * Create table teachcourses_artefacts
      * @param string $charset_collate
      * @since 5.0.0
      */
@@ -221,7 +221,7 @@ class tc_Tables {
     }
     
     /**
-     * Create table teachcorses_settings
+     * Create table teachcourses_settings
      * @param string $charset_collate
      * @since 5.0.0
      */
@@ -278,11 +278,11 @@ class tc_Tables {
         
         // Register example meta data fields
         // course_of_studies
-        $value = 'name = {course_of_studies}, title = {' . __('Course of studies','teachcorses') . '}, type = {SELECT}, required = {false}, min = {false}, max = {false}, step = {false}, visibility = {admin}';
-        $wpdb->query("INSERT INTO " . TEACHCOURSES_SETTINGS . " (`variable`, `value`, `category`) VALUES ('course_of_studies', '$value', 'teachcorses_stud')"); 
+        $value = 'name = {course_of_studies}, title = {' . __('Course of studies','teachcourses') . '}, type = {SELECT}, required = {false}, min = {false}, max = {false}, step = {false}, visibility = {admin}';
+        $wpdb->query("INSERT INTO " . TEACHCOURSES_SETTINGS . " (`variable`, `value`, `category`) VALUES ('course_of_studies', '$value', 'teachcourses_stud')"); 
         // semester_number
-        $value = 'name = {semester_number}, title = {' . __('Semester number','teachcorses') . '}, type = {INT}, required = {false}, min = {1}, max = {99}, step = {1}, visibility = {normal}';
-        $wpdb->query("INSERT INTO " . TEACHCOURSES_SETTINGS . " (`variable`, `value`, `category`) VALUES ('semester_number', '$value', 'teachcorses_stud')"); 
+        $value = 'name = {semester_number}, title = {' . __('Semester number','teachcourses') . '}, type = {INT}, required = {false}, min = {1}, max = {99}, step = {1}, visibility = {normal}';
+        $wpdb->query("INSERT INTO " . TEACHCOURSES_SETTINGS . " (`variable`, `value`, `category`) VALUES ('semester_number', '$value', 'teachcourses_stud')"); 
        
     }
     
@@ -294,11 +294,11 @@ class tc_Tables {
         // 
         global $wp_roles;
         $role = $wp_roles->get_role('administrator');
-        if ( !$role->has_cap('use_teachcorses') ) {
-            $wp_roles->add_cap('administrator', 'use_teachcorses');
+        if ( !$role->has_cap('use_teachcourses') ) {
+            $wp_roles->add_cap('administrator', 'use_teachcourses');
         }
-        if ( !$role->has_cap('use_teachcorses_courses') ) {
-            $wp_roles->add_cap('administrator', 'use_teachcorses_courses');
+        if ( !$role->has_cap('use_teachcourses_courses') ) {
+            $wp_roles->add_cap('administrator', 'use_teachcourses_courses');
         }
     }
     

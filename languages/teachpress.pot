@@ -90,7 +90,7 @@ msgstr ""
 msgid "Add image"
 msgstr ""
 
-#: teachcorses.php:135 teachcorses.php:136 teachcorses.php:186 teachcorses.php:187
+#: teachcourses.php:135 teachcourses.php:136 teachcourses.php:186 teachcourses.php:187
 #: admin/add-course.php:115 admin/add-publication.php:121
 #: admin/settings.php:583 admin/settings.php:583 admin/show-courses.php:112
 #: admin/show-publications.php:428 admin/show-single-course.php:852
@@ -186,7 +186,7 @@ msgstr ""
 
 #: admin/add-course.php:41
 msgid ""
-"All users, which have the minimum user role for using teachcorses, can see, "
+"All users, which have the minimum user role for using teachcourses, can see, "
 "edit or delete the course or course data."
 msgstr ""
 
@@ -267,7 +267,7 @@ msgstr ""
 msgid "Author/Editor Format"
 msgstr ""
 
-#: teachcorses.php:200 teachcorses.php:201 admin/class-authors-page.php:100
+#: teachcourses.php:200 teachcourses.php:201 admin/class-authors-page.php:100
 msgid "Authors"
 msgstr ""
 
@@ -521,7 +521,7 @@ msgstr ""
 msgid "Copying successful"
 msgstr ""
 
-#: teachcorses.php:126 teachcorses.php:127 admin/edit-student.php:47
+#: teachcourses.php:126 teachcourses.php:127 admin/edit-student.php:47
 #: admin/show-single-course.php:763
 msgid "Course"
 msgstr ""
@@ -731,7 +731,7 @@ msgid "Display publications"
 msgstr ""
 
 #: admin/settings.php:975
-msgid "Do you really want to delete all teachcorses database tables?"
+msgid "Do you really want to delete all teachcourses database tables?"
 msgstr ""
 
 #: admin/settings.php:887
@@ -1074,7 +1074,7 @@ msgid "http://mtrv.wordpress.com/"
 msgstr ""
 
 #. URI of the plugin
-msgid "http://mtrv.wordpress.com/teachcorses/"
+msgid "http://mtrv.wordpress.com/teachcourses/"
 msgstr ""
 
 #: admin/class-authors-page.php:152
@@ -1083,7 +1083,7 @@ msgstr ""
 
 #: admin/import-publications.php:200
 msgid ""
-"If the bibtex key is similar with a publication in the database, teachCorses "
+"If the bibtex key is similar with a publication in the database, teachcourses "
 "updates this publication with the import information."
 msgstr ""
 
@@ -1209,7 +1209,7 @@ msgstr ""
 
 #: admin/settings.php:381
 msgid ""
-"Integrated - teachCorses deactivates the own registration and uses all "
+"Integrated - teachcourses deactivates the own registration and uses all "
 "available data from WordPress. This is usefull, if most of your users has "
 "not an acount in your blog."
 msgstr ""
@@ -1670,7 +1670,7 @@ msgstr ""
 msgid "Publication entry"
 msgstr ""
 
-#: teachcorses.php:170 teachcorses.php:171 admin/add-publication.php:208
+#: teachcourses.php:170 teachcourses.php:171 admin/add-publication.php:208
 #: admin/class-authors-page.php:337 admin/class-tags-page.php:236
 #: admin/import-publications.php:36 admin/settings.php:122
 #: admin/settings.php:123 core/shortcodes.php:458
@@ -1727,7 +1727,7 @@ msgid "Releated Page for &laquo;all books&raquo; link:"
 msgstr ""
 
 #: admin/settings.php:417
-msgid "Remove teachCorses from database"
+msgid "Remove teachcourses from database"
 msgstr ""
 
 #: core/class-document-manager.php:311
@@ -1825,14 +1825,14 @@ msgstr ""
 
 #: admin/settings.php:331
 msgid ""
-"Select which style sheet you will use. teachcorses_front.css is the "
-"teachCorses default style. If you have created your own style in the default "
+"Select which style sheet you will use. teachcourses_front.css is the "
+"teachcourses default style. If you have created your own style in the default "
 "style sheet of your theme, you can activate this here."
 msgstr ""
 
 #: admin/settings.php:231
 msgid ""
-"Select which userrole your users must have to use the teachCorses backend."
+"Select which userrole your users must have to use the teachcourses backend."
 msgstr ""
 
 #: admin/add-publication.php:450
@@ -1962,7 +1962,7 @@ msgstr ""
 
 #: admin/settings.php:381
 msgid ""
-"Standard - teachCorses has a separate registration. This is usefull if you "
+"Standard - teachcourses has a separate registration. This is usefull if you "
 "have an auto login for WordPress or most of your users are registered in "
 "your blog, for example in a network."
 msgstr ""
@@ -1999,7 +1999,7 @@ msgstr ""
 msgid "Student added"
 msgstr ""
 
-#: teachcorses.php:142 teachcorses.php:143 admin/settings.php:119
+#: teachcourses.php:142 teachcourses.php:143 admin/settings.php:119
 #: admin/show-students.php:142
 msgid "Students"
 msgstr ""
@@ -2021,31 +2021,31 @@ msgid "Tag saved"
 msgstr ""
 
 #. Name of the plugin
-msgid "teachCorses"
+msgid "teachcourses"
 msgstr ""
 
 #: core/publications/class-books-widget.php:22
-msgid "teachCorses books"
+msgid "teachcourses books"
 msgstr ""
 
-#: teachcorses.php:228
-msgid "teachCorses Settings"
+#: teachcourses.php:228
+msgid "teachcourses Settings"
 msgstr ""
 
 #: admin/settings.php:103
-msgid "teachCorses settings"
+msgid "teachcourses settings"
 msgstr ""
 
 #: admin/settings.php:283
-msgid "teachCorses version"
+msgid "teachcourses version"
 msgstr ""
 
 #: admin/settings.php:964
-msgid "teachCorses wants to fill up the new database. This can take some time."
+msgid "teachcourses wants to fill up the new database. This can take some time."
 msgstr ""
 
 #: admin/settings.php:322 admin/settings.php:326
-msgid "teachcorses_front.css"
+msgid "teachcourses_front.css"
 msgstr ""
 
 #: core/publications/default-publication-types.php:128
@@ -2134,7 +2134,7 @@ msgid "The lecturer(s) of the course"
 msgstr ""
 
 #: admin/add-students.php:44
-msgid "The Menu shows all your blog users who has no teachCorses account"
+msgid "The Menu shows all your blog users who has no teachcourses account"
 msgstr ""
 
 #: admin/add-publication.php:694
@@ -2197,7 +2197,7 @@ msgstr ""
 
 #: core/deprecated.php:19
 msgid ""
-"The shortcode [tpdate] is deprecated since teachcorses 5.0.0. Use "
+"The shortcode [tpdate] is deprecated since teachcourses 5.0.0. Use "
 "[tpcourseinfo] instead."
 msgstr ""
 
@@ -2331,7 +2331,7 @@ msgstr ""
 #: admin/import-publications.php:18
 msgid ""
 "Use the file upload or add your BibTeX entries directly in the textfield. "
-"Restrictions: teachCorses can't convert not numeric month and day attributes."
+"Restrictions: teachcourses can't convert not numeric month and day attributes."
 msgstr ""
 
 #: admin/settings.php:472

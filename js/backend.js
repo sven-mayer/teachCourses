@@ -1,11 +1,11 @@
-// teachCorses javascript for the admin menu
+// teachcourses javascript for the admin menu
 
 /**
  * Delele node
  * @param {type} id
  * @since 5.0.0
  */
-function teachcorses_del_node(id){
+function teachcourses_del_node(id){
     jQuery(document).ready(function($) {
         $(id).remove();
     });
@@ -17,7 +17,7 @@ function teachcorses_del_node(id){
  * @param {string} checkbox_id
  * @since 3.0.0
  */
-function teachcorses_checkboxes(element_names, checkbox_id) {
+function teachcourses_checkboxes(element_names, checkbox_id) {
     var switch_box = document.getElementById(checkbox_id);
     var checkbox = document.getElementsByName(element_names);
     var i;
@@ -39,7 +39,7 @@ function teachcorses_checkboxes(element_names, checkbox_id) {
  * @since 4.2.0
  * @version 2
  */
-function teachcorses_inserttag(tag) {
+function teachcourses_inserttag(tag) {
     var old = document.getElementsByName("tags")[0].value;
     if ( old === "") {
         document.getElementsByName("tags")[0].value = tag;
@@ -56,7 +56,7 @@ function teachcorses_inserttag(tag) {
  * @returns {string}
  * @since 4.2.0
  */
-function teachcorses_trim (input) {
+function teachcourses_trim (input) {
     input = input.replace(/^\s*(.*)/, "$1");
     input = input.replace(/(.*?)\s*$/, "$1");
     return input;
@@ -69,7 +69,7 @@ function teachcorses_trim (input) {
  * @since 1.0.0
  * @version 2
  */
-function teachcorses_change_label_color(checkbox, label) {
+function teachcourses_change_label_color(checkbox, label) {
     if (document.getElementById(checkbox).checked === true) {
         document.getElementById(label).style.color = "#FF0000";
     }
@@ -83,7 +83,7 @@ function teachcorses_change_label_color(checkbox, label) {
  * @param {string} where
  * @since 1.0.0
  */
-function teachcorses_showhide(where) {
+function teachcourses_showhide(where) {
     var mode = "block";
     if (where === "show_all_fields" || where === "show_recommend_fields") {
         mode = "inline";
@@ -104,7 +104,7 @@ function teachcorses_showhide(where) {
  * @returns {undefined}
  * @since 5.0.0
  */
-function teachcorses_switch_rel_page_container(){
+function teachcourses_switch_rel_page_container(){
     if (document.getElementById('rel_page_original').style.display !== "none") {
     	document.getElementById('rel_page_alternative').style.display = "block";
         document.getElementById('rel_page_original').style.display = "none";
@@ -120,7 +120,7 @@ function teachcorses_switch_rel_page_container(){
  * @returns {undefined}
  * @since 5.0.0
  */
-function teachcorses_courseFields () {
+function teachcourses_courseFields () {
     var test = document.getElementById('parent2').value;
     if ( test === "0") {
         document.getElementById('sub_course_panel').style.display = "block";
@@ -135,7 +135,7 @@ function teachcorses_courseFields () {
  * @param {int} tag_id
  * @since 1.0.0
  */
-function teachcorses_editTags(tag_id) {
+function teachcourses_editTags(tag_id) {
     var parent = "tc_tag_row_" + tag_id;
     var message_text_field = "tc_tag_row_name_" + tag_id;
     var input_field = "tc_edit_tag_name";
@@ -185,9 +185,9 @@ function teachcorses_editTags(tag_id) {
  * validate forms
  * @since 1.0.0
  */
-function teachcorses_validateForm() {
+function teachcourses_validateForm() {
   if (document.getElementById){
-    var i,p,q,nm,test,num,min,max,errors='',args=teachcorses_validateForm.arguments;
+    var i,p,q,nm,test,num,min,max,errors='',args=teachcourses_validateForm.arguments;
     for (i = 0; i < (args.length-2); i+=3) { test=args[i+2]; val=document.getElementById(args[i]);
       if (val) { nm=val.name; if ((val=val.value)!=="") {
         if (test.indexOf('isEmail') !== -1) { p=val.indexOf('@');
@@ -199,7 +199,7 @@ function teachcorses_validateForm() {
             if (num<min || max<num) errors+='* '+nm+' must contain a number between '+min+' and '+max+'.\n';
       } } } else if (test.charAt(0) === 'R') errors += '* '+nm+' is required.\n'; }
     } if (errors) alert('Sorry, but you must relieve the following error(s):\n'+errors);
-    document.teachcorses_returnValue = (errors === '');
+    document.teachcourses_returnValue = (errors === '');
 } }
 
 /**
@@ -208,7 +208,7 @@ function teachcorses_validateForm() {
  *                          std2 (= the action is called from the show fields buttons)
  * @since 2.0.0
  */
-function teachcorses_publicationFields(mode) {
+function teachcourses_publicationFields(mode) {
     var all_fields = ["journal", "volume", "number", "pages", "address", "chapter", 
                         "institution", "school", "series", "howpublished", "edition",
                         "organization", "techtype", "booktitle", "issuetitle", "publisher",
@@ -216,8 +216,8 @@ function teachcorses_publicationFields(mode) {
     // Show publication type specific fields
     if ( mode === "std" || mode === "std2" ) {
         if ( mode === "std2" ) {
-            teachcorses_showhide("show_all_fields");
-            teachcorses_showhide("show_recommend_fields");
+            teachcourses_showhide("show_all_fields");
+            teachcourses_showhide("show_recommend_fields");
         }
         
         // Load pub type and the suitable default fields for this type
@@ -240,8 +240,8 @@ function teachcorses_publicationFields(mode) {
     
     // Show all fields
     else {
-        teachcorses_showhide("show_all_fields");
-        teachcorses_showhide("show_recommend_fields");
+        teachcourses_showhide("show_all_fields");
+        teachcourses_showhide("show_recommend_fields");
         for (i = 0; i < all_fields.length; i++) {
             document.getElementById("div_" + all_fields[i]).style.display = "block";
         }

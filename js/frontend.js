@@ -1,4 +1,4 @@
-// teachCorses javascript for the frontend
+// teachcourses javascript for the frontend
 
 /**
  * for jumpmenu
@@ -8,7 +8,7 @@
  * @since 6.0.4
  * @version 2
  */
-function teachcorses_jumpMenu(targ, selObj, base){
+function teachcourses_jumpMenu(targ, selObj, base){
     var url = encodeURI(base+selObj.options[selObj.selectedIndex].value);
     eval(targ+".location='"+ url +"'");
 }
@@ -17,7 +17,7 @@ function teachcorses_jumpMenu(targ, selObj, base){
  * for cleaning input field of tpsearch
  * @since 4.3.12
  */
-function teachcorses_tc_search_clean() {
+function teachcourses_tc_search_clean() {
     document.getElementById("tc_search_input_field").value = "";
 }
 
@@ -26,7 +26,7 @@ function teachcorses_tc_search_clean() {
  * @param {string} where
  * @since 0.85
  */
-function teachcorses_showhide(where) {
+function teachcourses_showhide(where) {
     var mode = "block";
     if (document.getElementById(where).style.display !== mode) {
         document.getElementById(where).style.display = mode;
@@ -42,7 +42,7 @@ function teachcorses_showhide(where) {
  * @param {string} button
  * @since 1.0
  */
-function teachcorses_pub_showhide(id, button) {
+function teachcourses_pub_showhide(id, button) {
     var mode = "block";
     var curr = button + "_" + id;
     var currSh = button + "_sh_" + id;
@@ -72,9 +72,9 @@ function teachcorses_pub_showhide(id, button) {
  * validate forms
  * @since 0.85
  */
-function teachcorses_validateForm() {
+function teachcourses_validateForm() {
   if (document.getElementById){
-    var i,p,q,nm,test,num,min,max,errors='',args=teachcorses_validateForm.arguments;
+    var i,p,q,nm,test,num,min,max,errors='',args=teachcourses_validateForm.arguments;
     for (i=0; i<(args.length-2); i+=3) { 
         test=args[i+2]; 
         val=document.getElementById(args[i]);
@@ -105,6 +105,6 @@ function teachcorses_validateForm() {
         }
     } 
     if (errors) alert('Sorry, but you must relieve the following error(s):\n'+errors);
-    document.teachcorses_returnValue = (errors === '');
+    document.teachcourses_returnValue = (errors === '');
   } 
 }

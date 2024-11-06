@@ -1,7 +1,7 @@
 <?php
 /**
  * This file contains the database helper class
- * @package teachcorses
+ * @package teachcourses
  * @subpackage core
  * @license http://www.gnu.org/licenses/gpl-2.0.html GPLv2 or later
  * @since 8.0.0
@@ -9,7 +9,7 @@
 
 /**
  * Contains database helper functions
- * @package teachcorses
+ * @package teachcourses
  * @subpackage database
  * @since 5.0.0
  */
@@ -143,7 +143,7 @@ class tc_DB_Helpers {
     }
     
     /**
-     * Register a new table column in teachcorses
+     * Register a new table column in teachcourses
      * @param string $table
      * @param string $column
      * @param array $data

@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: teachCorses v5.0.13\n"
+"Project-Id-Version: teachcourses v5.0.13\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-04-25 14:25+0000\n"
 "PO-Revision-Date: 2022-01-30 15:26+0000\n"
@@ -99,7 +99,7 @@ msgstr "Bild hinzufügen"
 msgid "Add image"
 msgstr "Bild hinzufügen"
 
-#: teachcorses.php:135 teachcorses.php:136 teachcorses.php:186 teachcorses.php:187
+#: teachcourses.php:135 teachcourses.php:136 teachcourses.php:186 teachcourses.php:187
 #: admin/add-course.php:115 admin/add-publication.php:121
 #: admin/settings.php:583 admin/settings.php:583 admin/show-courses.php:112
 #: admin/show-publications.php:428 admin/show-single-course.php:852
@@ -186,10 +186,10 @@ msgstr "Alle Nutzer"
 
 #: admin/add-course.php:41
 msgid ""
-"All users, which have the minimum user role for using teachcorses, can see, "
+"All users, which have the minimum user role for using teachcourses, can see, "
 "edit or delete the course or course data."
 msgstr ""
-"Alle Nutzer, welche die nötige Berechtigungsstufe haben, um teachCorses "
+"Alle Nutzer, welche die nötige Berechtigungsstufe haben, um teachcourses "
 "nutzen zu können, können die Veranstaltung oder die entsprechenden Daten "
 "sehen, bearbeiten oder löschen."
 
@@ -272,7 +272,7 @@ msgstr "Autor(en)"
 msgid "Author/Editor Format"
 msgstr "Autor/Herausgeber Format"
 
-#: teachcorses.php:200 teachcorses.php:201 admin/class-authors-page.php:100
+#: teachcourses.php:200 teachcourses.php:201 admin/class-authors-page.php:100
 msgid "Authors"
 msgstr "Autoren"
 
@@ -520,7 +520,7 @@ msgstr "Veranstaltungen kopieren"
 msgid "Copying successful"
 msgstr "Kopiervorgang erfolgreich"
 
-#: teachcorses.php:126 teachcorses.php:127 admin/edit-student.php:47
+#: teachcourses.php:126 teachcourses.php:127 admin/edit-student.php:47
 #: admin/show-single-course.php:763
 msgid "Course"
 msgstr "Veranstaltung"
@@ -735,7 +735,7 @@ msgid "Display publications"
 msgstr "Anzeige von Publikationen"
 
 #: admin/settings.php:975
-msgid "Do you really want to delete all teachcorses database tables?"
+msgid "Do you really want to delete all teachcourses database tables?"
 msgstr "Möchtest du wirklich alle Daten des Plugins aus der Datenbank löschen?"
 
 #: admin/settings.php:887
@@ -1096,8 +1096,8 @@ msgid "http://mtrv.wordpress.com/"
 msgstr "http://mtrv.wordpress.com/"
 
 #. URI of the plugin
-msgid "http://mtrv.wordpress.com/teachcorses/"
-msgstr "http://mtrv.wordpress.com/teachcorses/"
+msgid "http://mtrv.wordpress.com/teachcourses/"
+msgstr "http://mtrv.wordpress.com/teachcourses/"
 
 #: admin/class-authors-page.php:152
 msgid "ID"
@@ -1105,11 +1105,11 @@ msgstr "ID"
 
 #: admin/import-publications.php:200
 msgid ""
-"If the bibtex key is similar with a publication in the database, teachCorses "
+"If the bibtex key is similar with a publication in the database, teachcourses "
 "updates this publication with the import information."
 msgstr ""
 "Wenn der BibTeX-Schlüssel mit dem einer Publikation in der Datenbank "
-"übereinstimmt, wird teachCorses diese Publikation mit den Daten aus dem "
+"übereinstimmt, wird teachcourses diese Publikation mit den Daten aus dem "
 "Import aktualisieren."
 
 #: admin/add-publication.php:742
@@ -1139,10 +1139,10 @@ msgstr ""
 #: admin/add-course.php:21
 msgid ""
 "If you have a course without enrollments, so add no dates in the fields "
-"start and end. teachCorses will be deactivate the enrollments automatically."
+"start and end. teachcourses will be deactivate the enrollments automatically."
 msgstr ""
 "Wenn es zu einer Veranstaltung keine Einschreibung geben soll, dann lasse "
-"einfach die Felder Beginn und Ende so wie sie sind. teachCorses deaktiviert "
+"einfach die Felder Beginn und Ende so wie sie sind. teachcourses deaktiviert "
 "die Einschreibungen dann automatisch."
 
 #: admin/show-single-course.php:584
@@ -1256,14 +1256,14 @@ msgstr "Integriert"
 
 #: admin/settings.php:381
 msgid ""
-"Integrated - teachCorses deactivates the own registration and uses all "
+"Integrated - teachcourses deactivates the own registration and uses all "
 "available data from WordPress. This is usefull, if most of your users has "
 "not an acount in your blog."
 msgstr ""
-"Integriert - teachCorses deaktiviert die eigene Registrierung und nutzt alle "
+"Integriert - teachcourses deaktiviert die eigene Registrierung und nutzt alle "
 "verfügbaren Daten von WordPress. Dies wird empfohlen, wenn viele Nutzer noch "
 "keinen Account im Blog haben, denn hier entfällt die seperate Registrierung "
-"in teachCorses."
+"in teachcourses."
 
 #: admin/add-course.php:34 admin/add-course.php:385 admin/show-courses.php:368
 #: admin/show-single-course.php:979
@@ -1821,7 +1821,7 @@ msgstr "Publikation hinzugefügt"
 msgid "Publication entry"
 msgstr "Publikationseintrag"
 
-#: teachcorses.php:170 teachcorses.php:171 admin/add-publication.php:208
+#: teachcourses.php:170 teachcourses.php:171 admin/add-publication.php:208
 #: admin/class-authors-page.php:337 admin/class-tags-page.php:236
 #: admin/import-publications.php:36 admin/settings.php:122
 #: admin/settings.php:123 core/shortcodes.php:458
@@ -1911,8 +1911,8 @@ msgid "Releated Page for &laquo;all books&raquo; link:"
 msgstr "Verlinkte Seite für  &laquo;Alle Bücher&raquo; Link:"
 
 #: admin/settings.php:417
-msgid "Remove teachCorses from database"
-msgstr "teachCorses aus der Datenbank löschen"
+msgid "Remove teachcourses from database"
+msgstr "teachcourses aus der Datenbank löschen"
 
 #: core/class-document-manager.php:311
 msgid "Removing failed"
@@ -2022,21 +2022,21 @@ msgstr "User auswählen"
 
 #: admin/settings.php:331
 msgid ""
-"Select which style sheet you will use. teachcorses_front.css is the "
-"teachCorses default style. If you have created your own style in the default "
+"Select which style sheet you will use. teachcourses_front.css is the "
+"teachcourses default style. If you have created your own style in the default "
 "style sheet of your theme, you can activate this here."
 msgstr ""
-"Wähle welches Design genutzt werden soll. teachCorses_front.css steht für das "
-"Standard-Design von teachCorses. Wenn du dein eigenes Design für "
+"Wähle welches Design genutzt werden soll. teachcourses_front.css steht für das "
+"Standard-Design von teachcourses. Wenn du dein eigenes Design für "
 "Publikationlisten etc. über die Standard-CSS-Datei deines Theme erstellt "
 "hast, dann kannst du dieses hier aktivieren und entsprechend das Standard-"
 "Design ausschalten."
 
 #: admin/settings.php:231
 msgid ""
-"Select which userrole your users must have to use the teachCorses backend."
+"Select which userrole your users must have to use the teachcourses backend."
 msgstr ""
-"Wähle, welche Nutzerrollen Zugriff auf den teachCorses Verwaltungsbereich "
+"Wähle, welche Nutzerrollen Zugriff auf den teachcourses Verwaltungsbereich "
 "haben."
 
 #: admin/add-publication.php:450
@@ -2189,10 +2189,10 @@ msgstr "Standard"
 
 #: admin/settings.php:381
 msgid ""
-"Standard - teachCorses has a separate registration. This is usefull if you "
+"Standard - teachcourses has a separate registration. This is usefull if you "
 "have an auto login for WordPress or most of your users are registered in "
 "your blog, for example in a network."
-msgstr "Standard - teachCorses nutzt eine eigene Registrierung."
+msgstr "Standard - teachcourses nutzt eine eigene Registrierung."
 
 #: admin/add-course.php:199 admin/show-single-course.php:929
 msgid "Start"
@@ -2226,7 +2226,7 @@ msgstr "Begrenztes Einschreiben"
 msgid "Student added"
 msgstr "Student hinzugefügt"
 
-#: teachcorses.php:142 teachcorses.php:143 admin/settings.php:119
+#: teachcourses.php:142 teachcourses.php:143 admin/settings.php:119
 #: admin/show-students.php:142
 msgid "Students"
 msgstr "Studenten"
@@ -2248,34 +2248,34 @@ msgid "Tag saved"
 msgstr "Tag gespeichert"
 
 #. Name of the plugin
-msgid "teachCorses"
-msgstr "teachCorses"
+msgid "teachcourses"
+msgstr "teachcourses"
 
 #: core/publications/class-books-widget.php:22
-msgid "teachCorses books"
-msgstr "teachCorses books"
+msgid "teachcourses books"
+msgstr "teachcourses books"
 
-#: teachcorses.php:228
-msgid "teachCorses Settings"
-msgstr "teachCorses Einstellungen"
+#: teachcourses.php:228
+msgid "teachcourses Settings"
+msgstr "teachcourses Einstellungen"
 
 #: admin/settings.php:103
-msgid "teachCorses settings"
-msgstr "teachCorses Einstellungen"
+msgid "teachcourses settings"
+msgstr "teachcourses Einstellungen"
 
 #: admin/settings.php:283
-msgid "teachCorses version"
-msgstr "teachCorses Version"
+msgid "teachcourses version"
+msgstr "teachcourses Version"
 
 #: admin/settings.php:964
-msgid "teachCorses wants to fill up the new database. This can take some time."
+msgid "teachcourses wants to fill up the new database. This can take some time."
 msgstr ""
-"teachCorses wird nun die neuen Datenbanken befüllen. Dies kann einige Zeit in "
+"teachcourses wird nun die neuen Datenbanken befüllen. Dies kann einige Zeit in "
 "Anspruch nehmen."
 
 #: admin/settings.php:322 admin/settings.php:326
-msgid "teachcorses_front.css"
-msgstr "teachcorses_front.css"
+msgid "teachcourses_front.css"
+msgstr "teachcourses_front.css"
 
 #: core/publications/default-publication-types.php:128
 msgid "Technical Manual"
@@ -2375,9 +2375,9 @@ msgid "The lecturer(s) of the course"
 msgstr "Dozent(en) der Veranstaltung"
 
 #: admin/add-students.php:44
-msgid "The Menu shows all your blog users who has no teachCorses account"
+msgid "The Menu shows all your blog users who has no teachcourses account"
 msgstr ""
-"Die Liste zeigt alle Nutzer, die noch keinen teachCorses account besitzen"
+"Die Liste zeigt alle Nutzer, die noch keinen teachcourses account besitzen"
 
 #: admin/add-publication.php:694
 msgid "The name of a series"
@@ -2446,10 +2446,10 @@ msgstr ""
 
 #: core/deprecated.php:19
 msgid ""
-"The shortcode [tpdate] is deprecated since teachcorses 5.0.0. Use "
+"The shortcode [tpdate] is deprecated since teachcourses 5.0.0. Use "
 "[tpcourseinfo] instead."
 msgstr ""
-"Der Shortcode [tpdate] ist veraltet seit teachcorses 5.0.0. Bitte nutze "
+"Der Shortcode [tpdate] ist veraltet seit teachcourses 5.0.0. Bitte nutze "
 "[tpcourseinfo]."
 
 #: admin/add-course.php:199
@@ -2597,10 +2597,10 @@ msgstr "Existierende Inhalte nutzen"
 #: admin/import-publications.php:18
 msgid ""
 "Use the file upload or add your BibTeX entries directly in the textfield. "
-"Restrictions: teachCorses can't convert not numeric month and day attributes."
+"Restrictions: teachcourses can't convert not numeric month and day attributes."
 msgstr ""
 "Nutze den Datei-Upload oder füge die BibTeX-Einträge in das Textfeld ein. "
-"Beachte: teachCorses kann keine nicht-numerischen Monats- oder Tagesangaben "
+"Beachte: teachcourses kann keine nicht-numerischen Monats- oder Tagesangaben "
 "konvertieren."
 
 #: admin/settings.php:472
@@ -2672,9 +2672,9 @@ msgstr "Warnung: Falsche Veranstaltungs-ID"
 
 #. Description of the plugin
 msgid ""
-"With teachCorses you can easy manage courses, enrollments and publications."
+"With teachcourses you can easy manage courses, enrollments and publications."
 msgstr ""
-"Mit teachCorses lassen sich auf einfache Weise Publikationen, Veranstaltungen "
+"Mit teachcourses lassen sich auf einfache Weise Publikationen, Veranstaltungen "
 "und Einschreibungen verwalten."
 
 #: admin/add-course.php:378
@@ -2814,7 +2814,7 @@ msgstr "Deine Daten"
 msgid "Your enrollments"
 msgstr "Deine Einschreibungen"
 
-#: teachcorses.php:179 teachcorses.php:180 admin/show-publications.php:427
+#: teachcourses.php:179 teachcourses.php:180 admin/show-publications.php:427
 msgid "Your publications"
 msgstr "Eigene Publikationen"
 

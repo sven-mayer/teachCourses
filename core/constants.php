@@ -7,45 +7,45 @@ global $wpdb;
 
 if ( !defined('TEACHCOURSES_ARTEFACTS') ) {
     /**
-     * This constant defines the table name for teachcorses_artefacts.
+     * This constant defines the table name for teachcourses_artefacts.
      * @since 5.0.0
     */
-    define('TEACHCOURSES_ARTEFACTS', $wpdb->prefix . 'teachcorses_artefacts');}
+    define('TEACHCOURSES_ARTEFACTS', $wpdb->prefix . 'teachcourses_artefacts');}
 
 if ( !defined('TEACHCOURSES_COURSES') ) {
     /**
-     * This constant defines the table name for teachcorses_courses.
+     * This constant defines the table name for teachcourses_courses.
      * @since 5.0.0
     */
-    define('TEACHCOURSES_COURSES', $wpdb->prefix . 'teachcorses_courses');}
+    define('TEACHCOURSES_COURSES', $wpdb->prefix . 'teachcourses_courses');}
 
 if ( !defined('TEACHCOURSES_COURSE_META') ) {
     /**
-     * This constant defines the table name for teachcorses_course_meta.
+     * This constant defines the table name for teachcourses_course_meta.
      * @since 5.0.0
     */
-    define('TEACHCOURSES_COURSE_META', $wpdb->prefix . 'teachcorses_course_meta');}
+    define('TEACHCOURSES_COURSE_META', $wpdb->prefix . 'teachcourses_course_meta');}
 
 if ( !defined('TEACHCOURSES_COURSE_DOCUMENTS') ) {
     /**
-     * This constant defines the table name for teachcorses_course_documents.
+     * This constant defines the table name for teachcourses_course_documents.
      * @since 5.0.0
     */
-    define('TEACHCOURSES_COURSE_DOCUMENTS', $wpdb->prefix . 'teachcorses_course_documents');}
+    define('TEACHCOURSES_COURSE_DOCUMENTS', $wpdb->prefix . 'teachcourses_course_documents');}
 
 if ( !defined('TEACHCOURSES_SETTINGS') ) {
     /**
-     * This constant defines the table name for teachcorses_settings.
+     * This constant defines the table name for teachcourses_settings.
      * @since 5.0.0
     */
-    define('TEACHCOURSES_SETTINGS', $wpdb->prefix . 'teachcorses_settings');}
+    define('TEACHCOURSES_SETTINGS', $wpdb->prefix . 'teachcourses_settings');}
 
 if ( !defined('TEACHCOURSES_AUTHORS') ) {
     /**
-     * This constant defines the table name for teachcorses_authors.
+     * This constant defines the table name for teachcourses_authors.
      * @since 5.0.0
     */
-    define('TEACHCOURSES_AUTHORS', $wpdb->prefix . 'teachcorses_authors');}
+    define('TEACHCOURSES_AUTHORS', $wpdb->prefix . 'teachcourses_authors');}
 
 if ( !defined('TEACHCOURSES_FILE_LINK_CSS_CLASS') ) {
     /**

@@ -2,7 +2,7 @@
 /**
  * This file contains all functions for displaying the show_courses page in admin menu
  * 
- * @package teachcorses\admin\courses
+ * @package teachcourses\admin\courses
  * @license http://www.gnu.org/licenses/gpl-2.0.html GPLv2 or later
  */
 
@@ -13,14 +13,14 @@ function tc_show_course_page_help () {
     $screen = get_current_screen();  
     $screen->add_help_tab( array(
         'id'        => 'tc_show_course_help',
-        'title'     => __('Display courses','teachcorses'),
+        'title'     => __('Display courses','teachcourses'),
         'content'   => '<p><strong>' . __('Shortcodes') . '</strong></p>
-                        <p>' . __('You can use courses in a page or article with the following shortcodes:','teachcorses') . '</p>
-                        <p>' . __('For course informations','teachcorses') . ': <strong>[tpcourseinfo id="x"]</strong> ' . __('x = Course-ID','teachcorses') . '</p>
-                        <p>' . __('For course documents','teachcorses') . ': <strong>[tpcoursedocs id="x"]</strong> ' . __('x = Course-ID','teachcorses') . '</p>
-                        <p>' . __('For the course list','teachcorses') . ': <strong>[tpcourselist]</strong></p>
-                        <p><strong>' . __('More information','teachcorses') . '</strong></p>
-                        <p><a href="https://github.com/winkm89/teachCorses/wiki#shortcodes" target="_blank" title="teachCorses Shortcode Reference (engl.)">teachCorses Shortcode Reference (engl.)</a></p>',
+                        <p>' . __('You can use courses in a page or article with the following shortcodes:','teachcourses') . '</p>
+                        <p>' . __('For course informations','teachcourses') . ': <strong>[tpcourseinfo id="x"]</strong> ' . __('x = Course-ID','teachcourses') . '</p>
+                        <p>' . __('For course documents','teachcourses') . ': <strong>[tpcoursedocs id="x"]</strong> ' . __('x = Course-ID','teachcourses') . '</p>
+                        <p>' . __('For the course list','teachcourses') . ': <strong>[tpcourselist]</strong></p>
+                        <p><strong>' . __('More information','teachcourses') . '</strong></p>
+                        <p><a href="https://github.com/winkm89/teachcourses/wiki#shortcodes" target="_blank" title="teachcourses Shortcode Reference (engl.)">teachcourses Shortcode Reference (engl.)</a></p>',
     ) );
 }
 
@@ -37,7 +37,7 @@ function tc_show_course_page_screen_options() {
     }
 
     $args = array(
-        'label' => __('Items per page', 'teachcorses'),
+        'label' => __('Items per page', 'teachcourses'),
         'default' => 50,
         'option' => 'tc_courses_per_page'
     );
@@ -84,7 +84,7 @@ class tc_Courses_Page {
         $sem = ( isset($_GET['sem']) ) ? htmlspecialchars($_GET['sem']) : get_tc_option('sem');
     
         echo '<div class="wrap">';?>
-            <h1><?php _e('Courses','teachcorses'); ?> <a href="admin.php?page=teachcorses/add_course.php" class="add-new-h2"><?php _e('Add new','teachcorses'); ?></a></h1>
+            <h1><?php _e('Courses','teachcourses'); ?> <a href="admin.php?page=teachcourses/add_course.php" class="add-new-h2"><?php _e('Add new','teachcourses'); ?></a></h1>
         <hr class="wp-header-end">
         <ul class="subsubsub">
             <li class="all"><a href="edit.php?post_type=post" class="current" aria-current="page">All <span class="count">(<?php echo tc_Courses_Page::get_count_courses(); ?>)</span></a></li>
@@ -95,27 +95,27 @@ class tc_Courses_Page {
         <div id="tc_searchbox"> 
             <p class="search-box">
             <?php if ($search != '') { ?>
-            <a href="admin.php?page=teachcorses.php" class="tc_search_cancel" title="<?php _e('Cancel the search','teachcorses'); ?>">X</a>
+            <a href="admin.php?page=teachcourses.php" class="tc_search_cancel" title="<?php _e('Cancel the search','teachcourses'); ?>">X</a>
             <?php } ?>
             <input type="search" name="search" id="pub_search_field" value="<?php echo stripslashes($search); ?>"/></td>
-            <input type="submit" name="pub_search_button" id="pub_search_button" value="<?php _e('Search','teachcorses'); ?>" class="button-secondary"/>
+            <input type="submit" name="pub_search_button" id="pub_search_button" value="<?php _e('Search','teachcourses'); ?>" class="button-secondary"/>
             </p>
         </div>
         
-        <input name="page" type="hidden" value="teachcorses.php" />
+        <input name="page" type="hidden" value="teachcourses.php" />
            <?php 	
            // delete a course, part 1
            if ( $bulk === 'delete' ) {
-                echo '<div class="teachcorses_message">
-                <p class="teachcorses_message_headline">' . __('Do you want to delete the selected items?','teachcorses') . '</p>
-                <p><input name="delete_ok" type="submit" class="button-primary" value="' . __('Delete','teachcorses') . '"/>
-                <a href="admin.php?page=teachcorses.php&sem=' . $sem . '&search=' . $search . '" class="button-secondary"> ' . __('Cancel','teachcorses') . '</a></p>
+                echo '<div class="teachcourses_message">
+                <p class="teachcourses_message_headline">' . __('Do you want to delete the selected items?','teachcourses') . '</p>
+                <p><input name="delete_ok" type="submit" class="button-primary" value="' . __('Delete','teachcourses') . '"/>
+                <a href="admin.php?page=teachcourses.php&sem=' . $sem . '&search=' . $search . '" class="button-secondary"> ' . __('Cancel','teachcourses') . '</a></p>
                 </div>';
            }
            // delete a course, part 2
            if ( isset($_GET['delete_ok']) ) {
                 tc_Courses::delete_courses($current_user->ID, $checkbox);
-                $message = __('Removing successful','teachcorses');
+                $message = __('Removing successful','teachcourses');
                 get_tc_message($message);
            }
            // copy a course, part 1
@@ -125,29 +125,29 @@ class tc_Courses_Page {
            // copy a course, part 2
            if ( isset($_GET['copy_ok']) ) {
                 tc_copy_course::init($checkbox, $copysem);
-                $message = __('Copying successful','teachcorses');
+                $message = __('Copying successful','teachcourses');
                 get_tc_message($message);
            }
            ?>
             <div class="tablenav top">
                 <div class="alignleft actions bulkactions">
                     <select name="bulk" id="bulk">
-                         <option>- <?php _e('Bulk actions','teachcorses'); ?> -</option>
-                         <option value="copy"><?php _e('copy','teachcorses'); ?></option>
-                         <option value="delete"><?php _e('Delete','teachcorses'); ?></option>
+                         <option>- <?php _e('Bulk actions','teachcourses'); ?> -</option>
+                         <option value="copy"><?php _e('copy','teachcourses'); ?></option>
+                         <option value="delete"><?php _e('Delete','teachcourses'); ?></option>
                     </select>
-                    <input type="submit" name="teachcorses_submit" id="doaction" value="<?php _e('apply','teachcorses'); ?>" class="button-secondary"/>
+                    <input type="submit" name="teachcourses_submit" id="doaction" value="<?php _e('apply','teachcourses'); ?>" class="button-secondary"/>
                 </div>
                 <div class="alignleft actions">
                     <select name="sem" id="sem">
-                         <option value=""><?php _e('All terms','teachcorses'); ?></option>
+                         <option value=""><?php _e('All terms','teachcourses'); ?></option>
                          <?php
                          foreach ($terms as $row) { 
                               $current = ( $row->value == $sem ) ? 'selected="selected"' : '';
                               echo '<option value="' . $row->value . '" ' . $current . '>' . stripslashes($row->value) . '</option>';
                          } ?> 
                     </select>
-                   <input type="submit" name="start" value="<?php _e('filter','teachcorses'); ?>" id="teachcorses_submit" class="button-secondary"/>
+                   <input type="submit" name="start" value="<?php _e('filter','teachcourses'); ?>" id="teachcourses_submit" class="button-secondary"/>
                 </div>
                 <div class="tablenav-pages one-page">
                     <span class="displaying-num"><?php echo tc_Courses_Page::get_count_courses(); ?> item</span>
@@ -156,13 +156,13 @@ class tc_Courses_Page {
             <table class="wp-list-table widefat fixed striped table-view-list">
                <thead>
                <tr>
-                   <td id="cb" class="manage-column column-cb check-column"><input name="tc_check_all" id="tc_check_all" type="checkbox" value="" onclick="teachcorses_checkboxes('checkbox[]','tc_check_all');" /></td>
-                   <th scope="col" id="name" class="manage-column column-name column-primary sortable desc"><a><span><?php _e('Name','teachcorses'); ?></span>
+                   <td id="cb" class="manage-column column-cb check-column"><input name="tc_check_all" id="tc_check_all" type="checkbox" value="" onclick="teachcourses_checkboxes('checkbox[]','tc_check_all');" /></td>
+                   <th scope="col" id="name" class="manage-column column-name column-primary sortable desc"><a><span><?php _e('Name','teachcourses'); ?></span>
                    <span class="sorting-indicators"><span class="sorting-indicator asc" aria-hidden="true"></span><span class="sorting-indicator desc" aria-hidden="true"></span></span></a></th>
                    <th scope="col" class="manage-column column-id"><?php _e('ID'); ?></th>
                    <th scope="col" class="manage-column column-type"><?php _e('Type'); ?></th>
-                   <th scope="col" class="manage-column column-lecturer"><?php _e('Lecturer','teachcorses'); ?></th>
-                   <th scope="col" class="manage-column column-term"><?php _e('Term','teachcorses'); ?></th>
+                   <th scope="col" class="manage-column column-lecturer"><?php _e('Lecturer','teachcourses'); ?></th>
+                   <th scope="col" class="manage-column column-term"><?php _e('Term','teachcourses'); ?></th>
                </tr>
                </thead>
                <tbody>
@@ -207,7 +207,7 @@ class tc_Courses_Page {
                 ) );
         // if the query is empty
         if ( count($row) === 0 ) { 
-            echo '<tr><td colspan="13"><strong>' . __('Sorry, no entries matched your criteria.','teachcorses') . '</strong></td></tr>';
+            echo '<tr><td colspan="13"><strong>' . __('Sorry, no entries matched your criteria.','teachcourses') . '</strong></td></tr>';
             return;
         }
            
@@ -280,16 +280,16 @@ class tc_Courses_Page {
         // row actions
         $delete_link = '';
         $edit_link = '';
-        $edit_link = '<span class="edit"> | <a href="admin.php?page=teachcorses.php&amp;course_id=' . $course['course_id'] . '&amp;sem=' . $static['sem'] . '&amp;search=' . $static['search'] . '&amp;action=edit&amp;ref=overview" title="' . __('Edit','teachcorses') . '">' . __('Edit','teachcorses') . '</a></span>';
-        $delete_link = '<span class="trash"> | <a class="tc_row_delete" href="admin.php?page=teachcorses.php&amp;sem=' . $static['sem'] . '&amp;search=' . $static['search'] . '&amp;checkbox%5B%5D=' . $course['course_id'] . '&amp;bulk=delete" title="' . __('Delete','teachcorses') . '">' . __('Delete','teachcorses') . '</a></span>';
+        $edit_link = '<span class="edit"> | <a href="admin.php?page=teachcourses.php&amp;course_id=' . $course['course_id'] . '&amp;sem=' . $static['sem'] . '&amp;search=' . $static['search'] . '&amp;action=edit&amp;ref=overview" title="' . __('Edit','teachcourses') . '">' . __('Edit','teachcourses') . '</a></span>';
+        $delete_link = '<span class="trash"> | <a class="tc_row_delete" href="admin.php?page=teachcourses.php&amp;sem=' . $static['sem'] . '&amp;search=' . $static['search'] . '&amp;checkbox%5B%5D=' . $course['course_id'] . '&amp;bulk=delete" title="' . __('Delete','teachcourses') . '">' . __('Delete','teachcourses') . '</a></span>';
         
         // complete the row
         $return = '<tr' . $static['tr_class'] . '>
             <th scope="row" class="check-column"><input name="checkbox[]" type="checkbox" value="' . $course['course_id'] . '"' . $check . '/></th>
             <td class="title column-title has-row-actions column-primary page-title">
-                <a href="admin.php?page=teachcorses.php&amp;course_id=' . $course['course_id'] . '&amp;sem=' . $static['sem'] . '&amp;search=' . $static['search'] . '&amp;action=show" class="teachcorses_link" title="' . __('Click to show','teachcorses') . '"><strong>' . $course['name'] . '</strong></a>
+                <a href="admin.php?page=teachcourses.php&amp;course_id=' . $course['course_id'] . '&amp;sem=' . $static['sem'] . '&amp;search=' . $static['search'] . '&amp;action=show" class="teachcourses_link" title="' . __('Click to show','teachcourses') . '"><strong>' . $course['name'] . '</strong></a>
                 <div class="row-actions">
-                    <a href="admin.php?page=teachcorses.php&amp;course_id=' . $course['course_id'] . '&amp;sem=' . $static['sem'] . '&amp;search=' . $static['search'] . '&amp;action=show" title="' . __('Show','teachcorses') . '">' . __('Show','teachcorses') . '</a> ' . $edit_link . $delete_link . '
+                    <a href="admin.php?page=teachcourses.php&amp;course_id=' . $course['course_id'] . '&amp;sem=' . $static['sem'] . '&amp;search=' . $static['search'] . '&amp;action=show" title="' . __('Show','teachcourses') . '">' . __('Show','teachcourses') . '</a> ' . $edit_link . $delete_link . '
                 </div>
             </td>
             <td>' . $course['course_id'] . '</td>
@@ -312,10 +312,10 @@ class tc_Courses_Page {
      */
     public static function get_copy_course_form($terms, $sem, $search) {
         ?>
-        <div class="teachcorses_message">
-            <p class="teachcorses_message_headline"><?php _e('Copy courses','teachcorses'); ?></p>
-            <p class="teachcorses_message_text"><?php _e('Select the term, in which you will copy the selected courses.','teachcorses'); ?></p>
-            <p class="teachcorses_message_text">
+        <div class="teachcourses_message">
+            <p class="teachcourses_message_headline"><?php _e('Copy courses','teachcourses'); ?></p>
+            <p class="teachcourses_message_text"><?php _e('Select the term, in which you will copy the selected courses.','teachcourses'); ?></p>
+            <p class="teachcourses_message_text">
             <select name="copysem" id="copysem">
                 <?php
                 foreach ($terms as $term) { 
@@ -323,8 +323,8 @@ class tc_Courses_Page {
                     echo '<option value="' . $term->value . '" ' . $current . '>' . stripslashes($term->value) . '</option>';
                 } ?> 
             </select>
-            <input name="copy_ok" type="submit" class="button-primary" value="<?php _e('copy','teachcorses'); ?>"/>
-            <a href="<?php echo 'admin.php?page=teachcorses.php&sem=' . $sem . '&search=' . $search . ''; ?>" class="button-secondary"> <?php _e('Cancel','teachcorses'); ?></a>
+            <input name="copy_ok" type="submit" class="button-primary" value="<?php _e('copy','teachcourses'); ?>"/>
+            <a href="<?php echo 'admin.php?page=teachcourses.php&sem=' . $sem . '&search=' . $search . ''; ?>" class="button-secondary"> <?php _e('Cancel','teachcourses'); ?></a>
             </p>
         </div>
         <?php

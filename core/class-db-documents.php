@@ -1,14 +1,14 @@
 <?php
 /**
  * This file contains the database access class for course documents
- * @package teachcorses
+ * @package teachcourses
  * @subpackage core
  * @license http://www.gnu.org/licenses/gpl-2.0.html GPLv2 or later
  */
 
 /**
  * Contains all functions for the access to course documents
- * @package teachcorses
+ * @package teachcourses
  * @subpackage database
  * @since 5.0.0
  */

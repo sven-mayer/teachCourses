@@ -89,18 +89,18 @@ function tc_add_menu() {
     // var_dump(__FILE__);
     // die("products_first_ends");
     $tc_admin_show_courses_page = add_menu_page(
-            __('Course','teachcorses'), 
-            __('Course','teachcorses'),
-            'use_teachcorses_courses', 
-            'teachcorses.php',
+            __('Course','teachcourses'), 
+            __('Course','teachcourses'),
+            'use_teachcourses_courses', 
+            'teachcourses.php',
             'tc_show_courses_page', 
             $logo, 
             $pos);
     $tc_admin_add_course_page = add_submenu_page(
-            'teachcorses.php',
-            __('Add new','teachcorses'), 
-            __('Add new', 'teachcorses'),
-            'use_teachcorses_courses',
+            'teachcourses.php',
+            __('Add new','teachcourses'), 
+            __('Add new', 'teachcourses'),
+            'use_teachcourses_courses',
             'add_course.php',
             'tc_add_course_page');
     add_action("load-$tc_admin_add_course_page", 'tc_add_course_page_help');
@@ -113,7 +113,7 @@ function tc_add_menu() {
  * @since 4.2.0
  */
 function tc_add_menu_settings() {
-    add_options_page(__('teachCorses Settings','teachcorses'),'teachCorses','administrator','teachcorses/settings.php', 'tc_show_admin_settings');
+    add_options_page(__('teachcourses Settings','teachcourses'),'teachcourses','administrator','teachcourses/settings.php', 'tc_show_admin_settings');
 }
 
 /**
@@ -142,7 +142,7 @@ function tc_show_screen_options($current, $screen) {
 /*****************/
 
 /**
- * Returns the current teachCorses version
+ * Returns the current teachcourses version
  * @return string
 */
 function get_tc_version() {
@@ -188,7 +188,7 @@ function tc_db_sync($table) {
 }
 
 /**
- * teachCorses plugin activation
+ * teachcourses plugin activation
  * @param boolean $network_wide
  * @since 4.0.0
  */
@@ -217,7 +217,7 @@ function tc_activation ( $network_wide ) {
  * @since 5.0.13
  */
 function tc_activation_error_reporting () {
-    file_put_contents(__DIR__.'/teachcorses_activation_errors.html', ob_get_contents());
+    file_put_contents(__DIR__.'/teachcourses_activation_errors.html', ob_get_contents());
 }
 
 /**
@@ -250,8 +250,8 @@ function tc_add_tinymce_button() {
         return;
     }
 
-    // the user need at least one of the teachcorses capabilities
-    if ( !current_user_can( 'use_teachcorses' ) || !current_user_can( 'use_teachcorses_courses' ) ) {
+    // the user need at least one of the teachcourses capabilities
+    if ( !current_user_can( 'use_teachcourses' ) || !current_user_can( 'use_teachcourses_courses' ) ) {
         return;
     }
 
@@ -260,24 +260,24 @@ function tc_add_tinymce_button() {
 }
 
 /**
- * Adds a tinyMCE button for teachCorses
+ * Adds a tinyMCE button for teachcourses
  * @param array $buttons
  * @return array
  * @since 5.0.0
  */
 function tc_register_tinymce_buttons ($buttons) {
-    array_push($buttons, 'teachcorses_tinymce');
+    array_push($buttons, 'teachcourses_tinymce');
     return $buttons;
 }
 
 /**
- * Adds a teachCorses plugin to tinyMCE
+ * Adds a teachcourses plugin to tinyMCE
  * @param array $plugins
  * @return array
  * @since 5.0.0
  */
 function tc_register_tinymce_js ($plugins) {
-    $plugins['teachcorses_tinymce'] = plugins_url( 'js/tinymce-plugin.js', __FILE__ );
+    $plugins['teachcourses_tinymce'] = plugins_url( 'js/tinymce-plugin.js', __FILE__ );
     return $plugins;
 }
 
@@ -292,14 +292,13 @@ function tc_backend_scripts() {
     $version = get_tc_version();
     $page = isset($_GET['page']) ? $_GET['page'] : '';
     
-    // Load scripts only, if it's a teachcorses page
-    if ( strpos($page, 'teachcorses') === false && strpos($page, 'publications') === false ) {
+    // Load scripts only, if it's a teachcourses page
+    if ( strpos($page, 'teachcourses') === false && strpos($page, 'publications') === false ) {
         return;
     }
-    
-    wp_enqueue_style('teachcorses-print-css', plugins_url( 'styles/print.css', __FILE__ ), false, $version, 'print');
-    wp_enqueue_script('teachcorses-standard', plugins_url( 'js/backend.js', __FILE__ ) );
-    wp_enqueue_style('teachcorses.css', plugins_url( 'styles/teachcorses.css', __FILE__ ), false, $version);
+    wp_enqueue_style('teachcourses-print-css', plugins_url( 'styles/print.css', __FILE__ ), false, $version, 'print');
+    wp_enqueue_script('teachcourses-standard', plugins_url( 'js/backend.js', __FILE__ ) );
+    wp_enqueue_style('teachcourses.css', plugins_url( 'styles/teachcourses.css', __FILE__ ), false, $version);
     wp_enqueue_script('media-upload');
     add_thickbox();
 
@@ -319,14 +318,14 @@ function tc_backend_scripts() {
     
     // Load jQuery + ui plugins + plupload
     wp_enqueue_script(array('jquery-ui-core', 'jquery-ui-datepicker', 'jquery-ui-resizable', 'jquery-ui-autocomplete', 'jquery-ui-sortable', 'jquery-ui-dialog', 'plupload'));
-    wp_enqueue_style('teachcorses-jquery-ui.css', plugins_url( 'styles/jquery.ui.css', __FILE__ ) );
-    wp_enqueue_style('teachcorses-jquery-ui-dialog.css', includes_url() . '/css/jquery-ui-dialog.min.css');
+    wp_enqueue_style('teachcourses-jquery-ui.css', plugins_url( 'styles/jquery.ui.css', __FILE__ ) );
+    wp_enqueue_style('teachcourses-jquery-ui-dialog.css', includes_url() . '/css/jquery-ui-dialog.min.css');
     
     // Languages for plugins
     $current_lang = ( version_compare( tc_get_wp_version() , '4.0', '>=') ) ? get_option('WPLANG') : WPLANG;
     $array_lang = array('de_DE','it_IT','es_ES', 'sk_SK');
     if ( in_array( $current_lang , $array_lang) ) {
-        wp_enqueue_script('teachcorses-datepicker-de', plugins_url( 'js/datepicker/jquery.ui.datepicker-' . $current_lang . '.js', __FILE__ ) );
+        wp_enqueue_script('teachcourses-datepicker-de', plugins_url( 'js/datepicker/jquery.ui.datepicker-' . $current_lang . '.js', __FILE__ ) );
     }
 }
 
@@ -338,7 +337,7 @@ function tc_frontend_scripts() {
     $version   = get_tc_version();
 
     /* start */
-    echo PHP_EOL . '<!-- teachCorses -->' . PHP_EOL;
+    echo PHP_EOL . '<!-- teachcourses -->' . PHP_EOL;
 
     /* tp-frontend script */
     echo '<script' . $type_attr . ' src="' . plugins_url( 'js/frontend.js?ver=' . $version, __FILE__ ) . '"></script>' . PHP_EOL;
@@ -346,7 +345,7 @@ function tc_frontend_scripts() {
     /* tp-frontend style */
     $value = get_tc_option('stylesheet');
     if ($value == '1') {
-        echo '<link type="text/css" href="' . plugins_url( 'styles/teachcorses_front.css?ver=' . $version, __FILE__ ) . '" rel="stylesheet" />' . PHP_EOL;
+        echo '<link type="text/css" href="' . plugins_url( 'styles/teachcourses_front.css?ver=' . $version, __FILE__ ) . '" rel="stylesheet" />' . PHP_EOL;
     }
 
     /* altmetric support */
@@ -365,7 +364,7 @@ function tc_frontend_scripts() {
     }
 
     /* END */
-    echo '<!-- END teachCorses -->' . PHP_EOL;
+    echo '<!-- END teachcourses -->' . PHP_EOL;
 }
 
 /**
@@ -373,7 +372,7 @@ function tc_frontend_scripts() {
  * @since 0.30
  */
 function tc_language_support() {
-    $domain = 'teachcorses';
+    $domain = 'teachcourses';
     $locale = apply_filters( 'plugin_locale', determine_locale(), $domain );
     $path = dirname( plugin_basename( __FILE__ ) ) . '/languages/';
     $mofile = WP_PLUGIN_DIR . '/' . $path . $domain . '-' . $locale . '.mo';
@@ -392,7 +391,7 @@ function tc_language_support() {
  */
 function tc_plugin_link($links, $file){
     if ($file == plugin_basename(__FILE__)) {
-        return array_merge($links, array( sprintf('<a href="options-general.php?page=teachcorses/settings.php">%s</a>', __('Settings') ) ));
+        return array_merge($links, array( sprintf('<a href="options-general.php?page=teachcourses/settings.php">%s</a>', __('Settings') ) ));
     }
     return $links;
 }
@@ -400,8 +399,8 @@ function tc_plugin_link($links, $file){
 // Register WordPress-Hooks
 register_activation_hook( __FILE__, 'tc_activation');
 add_action('init', 'tc_language_support');
-add_action('wp_ajax_teachcorses', 'tc_ajax_callback');
-add_action('wp_ajax_teachcorsesdocman', 'tc_ajax_doc_manager_callback');
+add_action('wp_ajax_teachcourses', 'tc_ajax_callback');
+add_action('wp_ajax_teachcoursesdocman', 'tc_ajax_doc_manager_callback');
 add_action('admin_menu', 'tc_add_menu_settings');
 add_action('wp_head', 'tc_frontend_scripts');
 add_action('admin_init','tc_backend_scripts');

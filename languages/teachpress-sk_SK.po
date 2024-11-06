@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: teachCorses v5.0.0beta\n"
+"Project-Id-Version: teachcourses v5.0.0beta\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-11-21 12:45+0000\n"
 "PO-Revision-Date: 2021-11-21 12:48+0000\n"
@@ -99,7 +99,7 @@ msgstr "Pridaj obrázok"
 msgid "Add image"
 msgstr ""
 
-#: teachcorses.php:134 teachcorses.php:135 teachcorses.php:185 teachcorses.php:186
+#: teachcourses.php:134 teachcourses.php:135 teachcourses.php:185 teachcourses.php:186
 #: admin/add-course.php:115 admin/add-publication.php:120
 #: admin/settings.php:583 admin/settings.php:583 admin/show-courses.php:112
 #: admin/show-publications.php:429 admin/show-single-course.php:852
@@ -196,7 +196,7 @@ msgstr ""
 
 #: admin/add-course.php:41
 msgid ""
-"All users, which have the minimum user role for using teachcorses, can see, "
+"All users, which have the minimum user role for using teachcourses, can see, "
 "edit or delete the course or course data."
 msgstr ""
 
@@ -277,7 +277,7 @@ msgstr "Autori"
 msgid "Author/Editor Format"
 msgstr "Autor/Editor Formát"
 
-#: teachcorses.php:199 teachcorses.php:200 admin/show-authors.php:134
+#: teachcourses.php:199 teachcourses.php:200 admin/show-authors.php:134
 msgid "Authors"
 msgstr ""
 
@@ -533,7 +533,7 @@ msgstr "Kopírovať kurzy"
 msgid "Copying successful"
 msgstr "Kopírovanie úspešné"
 
-#: teachcorses.php:125 teachcorses.php:126 admin/edit-student.php:47
+#: teachcourses.php:125 teachcourses.php:126 admin/edit-student.php:47
 #: admin/show-single-course.php:763
 msgid "Course"
 msgstr "Kurz"
@@ -745,7 +745,7 @@ msgid "Display publications"
 msgstr "Zobraziť publikácie"
 
 #: admin/settings.php:975
-msgid "Do you really want to delete all teachcorses database tables?"
+msgid "Do you really want to delete all teachcourses database tables?"
 msgstr ""
 
 #: admin/settings.php:887
@@ -1101,7 +1101,7 @@ msgid "http://mtrv.wordpress.com/"
 msgstr ""
 
 #. URI of the plugin
-msgid "http://mtrv.wordpress.com/teachcorses/"
+msgid "http://mtrv.wordpress.com/teachcourses/"
 msgstr ""
 
 #: admin/show-authors.php:185
@@ -1110,7 +1110,7 @@ msgstr ""
 
 #: admin/import-publications.php:200
 msgid ""
-"If the bibtex key is similar with a publication in the database, teachCorses "
+"If the bibtex key is similar with a publication in the database, teachcourses "
 "updates this publication with the import information."
 msgstr ""
 
@@ -1138,7 +1138,7 @@ msgstr ""
 #: admin/add-course.php:21
 msgid ""
 "If you have a course without enrollments, so add no dates in the fields "
-"start and end. teachCorses will be deactivate the enrollments automatically."
+"start and end. teachcourses will be deactivate the enrollments automatically."
 msgstr ""
 "Ak máte kurz bez registrácie, nepridávajte žiadne dátumy do koloniek štart a "
 "koniec. techPress deaktivuje registrácie automaticky."
@@ -1249,11 +1249,11 @@ msgstr "Integrovaný"
 
 #: admin/settings.php:381
 msgid ""
-"Integrated - teachCorses deactivates the own registration and uses all "
+"Integrated - teachcourses deactivates the own registration and uses all "
 "available data from WordPress. This is usefull, if most of your users has "
 "not an acount in your blog."
 msgstr ""
-"Integrovaný - teachCorses deaktivuje vlastnú registráciu a používa všetky "
+"Integrovaný - teachcourses deaktivuje vlastnú registráciu a používa všetky "
 "dostupné dáta z WordPress. Toto je vhodné ak väčšina vašich užívateľov nemá "
 "This is usefull, if most of your users has not an acount in your blog."
 
@@ -1794,7 +1794,7 @@ msgstr "Publikácia pridaná"
 msgid "Publication entry"
 msgstr ""
 
-#: teachcorses.php:169 teachcorses.php:170 admin/add-publication.php:207
+#: teachcourses.php:169 teachcourses.php:170 admin/add-publication.php:207
 #: admin/edit-tags.php:234 admin/import-publications.php:36
 #: admin/settings.php:122 admin/settings.php:123 admin/show-authors.php:350
 #: core/shortcodes.php:458
@@ -1882,7 +1882,7 @@ msgid "Releated Page for &laquo;all books&raquo; link:"
 msgstr "Príbuzná stránka pre &laquo;všetky knihy&raquo; link:"
 
 #: admin/settings.php:417
-msgid "Remove teachCorses from database"
+msgid "Remove teachcourses from database"
 msgstr ""
 
 #: core/class-document-manager.php:311
@@ -1991,19 +1991,19 @@ msgstr "Vybrať užívateľa"
 
 #: admin/settings.php:331
 msgid ""
-"Select which style sheet you will use. teachcorses_front.css is the "
-"teachCorses default style. If you have created your own style in the default "
+"Select which style sheet you will use. teachcourses_front.css is the "
+"teachcourses default style. If you have created your own style in the default "
 "style sheet of your theme, you can activate this here."
 msgstr ""
-"Vyberte, ktorý style sheet (CSS) chcete použiť. teachcorses_front.css je "
-"defaultný štýl pre teachCorses. Ak ste vytvorili svoj vlastný štýl v "
+"Vyberte, ktorý style sheet (CSS) chcete použiť. teachcourses_front.css je "
+"defaultný štýl pre teachcourses. Ak ste vytvorili svoj vlastný štýl v "
 "defaultnom štýle vašej témy, môžete ho aktivovať tu."
 
 #: admin/settings.php:231
 msgid ""
-"Select which userrole your users must have to use the teachCorses backend."
+"Select which userrole your users must have to use the teachcourses backend."
 msgstr ""
-"Vyberte aký typ privilégií musí užívateľ mať aby mal prístup na teachCorses "
+"Vyberte aký typ privilégií musí užívateľ mať aby mal prístup na teachcourses "
 "backend."
 
 #: admin/add-publication.php:449
@@ -2154,11 +2154,11 @@ msgstr "Štandardný"
 
 #: admin/settings.php:381
 msgid ""
-"Standard - teachCorses has a separate registration. This is usefull if you "
+"Standard - teachcourses has a separate registration. This is usefull if you "
 "have an auto login for WordPress or most of your users are registered in "
 "your blog, for example in a network."
 msgstr ""
-"Štandardný - teachCorses má separátnu registráciu. Táto je vhodná ak máte "
+"Štandardný - teachcourses má separátnu registráciu. Táto je vhodná ak máte "
 "auto prihlasovanie pre Wordpress alebo ak väčšina vašich užívateľov je "
 "registrovaná vo vašom blogu, napr. v sieti."
 
@@ -2194,7 +2194,7 @@ msgstr "Striktné prihlásenie"
 msgid "Student added"
 msgstr ""
 
-#: teachcorses.php:141 teachcorses.php:142 admin/settings.php:119
+#: teachcourses.php:141 teachcourses.php:142 admin/settings.php:119
 #: admin/show-students.php:142
 msgid "Students"
 msgstr "Študenti"
@@ -2216,32 +2216,32 @@ msgid "Tag saved"
 msgstr "Tag uložený"
 
 #. Name of the plugin
-msgid "teachCorses"
+msgid "teachcourses"
 msgstr ""
 
 #: core/publications/class-books-widget.php:22
-msgid "teachCorses books"
-msgstr "teachCorses knihy"
+msgid "teachcourses books"
+msgstr "teachcourses knihy"
 
-#: teachcorses.php:227
-msgid "teachCorses Settings"
-msgstr "teachCorses nastavenia"
+#: teachcourses.php:227
+msgid "teachcourses Settings"
+msgstr "teachcourses nastavenia"
 
 #: admin/settings.php:103
-msgid "teachCorses settings"
-msgstr "teachCorses nastavenia"
+msgid "teachcourses settings"
+msgstr "teachcourses nastavenia"
 
 #: admin/settings.php:283
-msgid "teachCorses version"
-msgstr "teachCorses verzia"
+msgid "teachcourses version"
+msgstr "teachcourses verzia"
 
 #: admin/settings.php:964
-msgid "teachCorses wants to fill up the new database. This can take some time."
+msgid "teachcourses wants to fill up the new database. This can take some time."
 msgstr ""
 
 #: admin/settings.php:322 admin/settings.php:326
-msgid "teachcorses_front.css"
-msgstr "teachcorses_front.css"
+msgid "teachcourses_front.css"
+msgstr "teachcourses_front.css"
 
 #: core/publications/default-publication-types.php:128
 msgid "Technical Manual"
@@ -2337,8 +2337,8 @@ msgid "The lecturer(s) of the course"
 msgstr "Učitelia kurzu"
 
 #: admin/add-students.php:44
-msgid "The Menu shows all your blog users who has no teachCorses account"
-msgstr "Menu ukazuje všetkých užívateľov blogu, ktorí nemajú teachCorses účet"
+msgid "The Menu shows all your blog users who has no teachcourses account"
+msgstr "Menu ukazuje všetkých užívateľov blogu, ktorí nemajú teachcourses účet"
 
 #: admin/add-publication.php:682
 msgid "The name of a series"
@@ -2404,7 +2404,7 @@ msgstr ""
 
 #: core/deprecated.php:19
 msgid ""
-"The shortcode [tpdate] is deprecated since teachcorses 5.0.0. Use "
+"The shortcode [tpdate] is deprecated since teachcourses 5.0.0. Use "
 "[tpcourseinfo] instead."
 msgstr ""
 
@@ -2550,7 +2550,7 @@ msgstr ""
 #: admin/import-publications.php:18
 msgid ""
 "Use the file upload or add your BibTeX entries directly in the textfield. "
-"Restrictions: teachCorses can't convert not numeric month and day attributes."
+"Restrictions: teachcourses can't convert not numeric month and day attributes."
 msgstr ""
 
 #: admin/settings.php:472
@@ -2616,7 +2616,7 @@ msgstr ""
 
 #. Description of the plugin
 msgid ""
-"With teachCorses you can easy manage courses, enrollments and publications."
+"With teachcourses you can easy manage courses, enrollments and publications."
 msgstr ""
 
 #: admin/add-course.php:378
@@ -2742,7 +2742,7 @@ msgstr "Vaše dáta"
 msgid "Your enrollments"
 msgstr "Vaše registrácie"
 
-#: teachcorses.php:178 teachcorses.php:179 admin/show-publications.php:428
+#: teachcourses.php:178 teachcourses.php:179 admin/show-publications.php:428
 msgid "Your publications"
 msgstr "Vaše publikácie"
 

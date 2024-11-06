@@ -13,13 +13,13 @@
 /********************************************************************************************/
 
 /* container */
-.teachcorses_publication_list {width:100%; border:none; border-spacing: 0;}
-.teachcorses_publication_list td, .teachcorses_course_list td {padding:5px;}
+.teachcourses_publication_list {width:100%; border:none; border-spacing: 0;}
+.teachcourses_publication_list td, .teachcourses_course_list td {padding:5px;}
 
 /* filter and search field */
-.teachcorses_filter {text-align:center; padding-top:5px;}
-.teachcorses_filter select.block {display: block; width: 100%; margin-bottom:8px; margin-top:5px;}
-.teachcorses_cloud {text-align:center;}
+.teachcourses_filter {text-align:center; padding-top:5px;}
+.teachcourses_filter select.block {display: block; width: 100%; margin-bottom:8px; margin-top:5px;}
+.teachcourses_cloud {text-align:center;}
 input.tc_search_button {border: 1px solid silver; padding:6px 6px; font-size:0.9em; font-weight: bold; border-radius: 3px; -moz-border-radius: 3px; -webkit-border-radius: 3px; background:transparent; margin:0 0 0 6px; cursor:pointer;  background: #008bd2; color: #FFFFFF;}
 input.tc_search_button:hover {background:#ECECEC; color:#333333;}
 a.tc_search_reset {background:transparent; cursor:pointer; border:none; font-weight: bold; padding:3px 6px; text-decoration: none; font-size:13px; color:#000;}
@@ -27,10 +27,10 @@ a.tc_search_reset:hover {color:red;}
 #tc_search_input_field {width: 60%;}
 
 /* active tags */
-.teachcorses_cloud a.teachcorses_cloud_active {color:#008bd2; font-weight:bold;}
-.teachcorses_cloud a.teachcorses_cloud_active:hover {color:#008bd2; font-weight:bold; text-decoration:underline;}
-.teachcorses_cloud a {color:#AAAAAA; text-decoration:none; box-shadow: none;}
-.teachcorses_cloud a:hover {color:#AAAAAA; text-decoration:underline;}
+.teachcourses_cloud a.teachcourses_cloud_active {color:#008bd2; font-weight:bold;}
+.teachcourses_cloud a.teachcourses_cloud_active:hover {color:#008bd2; font-weight:bold; text-decoration:underline;}
+.teachcourses_cloud a {color:#AAAAAA; text-decoration:none; box-shadow: none;}
+.teachcourses_cloud a:hover {color:#AAAAAA; text-decoration:underline;}
 
 /* table nav */
 .tablenav {padding-top:5px; margin:6px 0 4px; height:30px; vertical-align:middle; width:100%;}
@@ -74,7 +74,7 @@ li.tc_cite_entry {font-size:0.9rem;}
 /* course overview, shortcode: [tpcourselist] */
 /**********************************************/
 #tpcourselist h3 {}
-#tpcourselist table.teachcorses_course_list {border:none; width:100%;}
+#tpcourselist table.teachcourses_course_list {border:none; width:100%;}
 .tc_course_headline{font-weight: bold; font-size: 1.2em;}
 .tc_auswahl {margin:3px; padding:3px;}
 .tc_lvs_name {font-size:14px;}

@@ -1,7 +1,7 @@
 /**
- * This file contains js functions for the teachcorses tinyMCE plugin.
+ * This file contains js functions for the teachcourses tinyMCE plugin.
  * 
- * @package teachcorses
+ * @package teachcourses
  * @subpackage js
  * @license http://www.gnu.org/licenses/gpl-2.0.html GPLv2 or later
  */
@@ -58,16 +58,16 @@
         var d = new Date();
         d.setTime(d.getTime() + (exdays*24*60*60*1000));
         var expires = "expires="+d.toUTCString();
-        document.cookie = cname + "=" + cvalue + "; " + expires + "; path=" + teachcorses_cookie_path;
+        document.cookie = cname + "=" + cvalue + "; " + expires + "; path=" + teachcourses_cookie_path;
     }
     
     /**
-     * teachCorses tinyMCE Plugin
+     * teachcourses tinyMCE Plugin
      * @since 5.0.0
      */
-    tinymce.PluginManager.add('teachcorses_tinymce', function( editor, url ) {
-        editor.addButton( 'teachcorses_tinymce', {
-            text: 'teachCorses',
+    tinymce.PluginManager.add('teachcourses_tinymce', function( editor, url ) {
+        editor.addButton( 'teachcourses_tinymce', {
+            text: 'teachcourses',
             icon: false,
             type: 'menubutton',
             menu: [
@@ -76,8 +76,8 @@
                     onclick: function() {
                         
                         editor.windowManager.open( {
-                            url: teachcorses_editor_url,
-                            title: 'teachCorses Document Manager',
+                            url: teachcourses_editor_url,
+                            title: 'teachcourses Document Manager',
                             id: 'tc_document_manager',
                             inline: 1,
                             width: 950,
@@ -89,7 +89,7 @@
                                 onclick: function(){
                                     
                                     // read cookie
-                                    var data_store = tc_getCookie("teachcorses_data_store");
+                                    var data_store = tc_getCookie("teachcourses_data_store");
                                     
                                     // build insert string
                                     // alert(data_store);
@@ -118,7 +118,7 @@
                                             // console.log(data_inline[1]);
                                             
                                         }
-                                        insert = insert + '<a class="' + teachcorses_file_link_css_class + '" href="' + file_url + '">' + tc_stripslashes(file_name) + '</a> ';
+                                        insert = insert + '<a class="' + teachcourses_file_link_css_class + '" href="' + file_url + '">' + tc_stripslashes(file_name) + '</a> ';
                                         // console.log(insert);
                                     }
                                     
@@ -127,14 +127,14 @@
                                     editor.windowManager.close();
                                     
                                     // reset cookie
-                                    tc_setCookie("teachcorses_data_store", "", 1);
+                                    tc_setCookie("teachcourses_data_store", "", 1);
                                 }
                             },
                             {
                                 text: 'Close',
                                 onclick: function () {
                                     editor.windowManager.close();
-                                    tc_setCookie("teachcorses_data_store", "", 1);
+                                    tc_setCookie("teachcourses_data_store", "", 1);
                                 }
                             }
                                 
@@ -193,7 +193,7 @@
                                             type: 'listbox',
                                             name: 'tc_term',
                                             label: 'Term',
-                                            'values': teachcorses_semester // is written with tc_write_data_for_tinymce()
+                                            'values': teachcourses_semester // is written with tc_write_data_for_tinymce()
                                         }
                                     ],
                                     onsubmit: function( e ) {
@@ -228,13 +228,13 @@
                                             name: 'tc_coure_id',
                                             label: 'Select course',
                                             minWidth: 570,
-                                            'values': teachcorses_courses //  is written by tc_write_data_for_tinymce()
+                                            'values': teachcourses_courses //  is written by tc_write_data_for_tinymce()
                                         },
                                         {
                                             type: 'textbox',
                                             name: 'tc_link_class',
                                             label: 'CSS class for links',
-                                            value: teachcorses_file_link_css_class // is written by tc_write_data_for_tinymce()
+                                            value: teachcourses_file_link_css_class // is written by tc_write_data_for_tinymce()
                                         },
                                         {
                                             type: 'textbox',
@@ -279,7 +279,7 @@
                                         var headline = e.data.tc_headline;
                                         
                                         id = (id === '0') ? '' : 'id="' + id + '"';
-                                        link_class = (link_class === teachcorses_file_link_css_class) ? '' : 'link_class="' + link_class + '"';
+                                        link_class = (link_class === teachcourses_file_link_css_class) ? '' : 'link_class="' + link_class + '"';
                                         date_format = (date_format === 'd.m.Y') ? '' : 'date_format="' + date_format + '"';
                                         show_date = (show_date === '1') ? '' : 'show_date="' + show_date + '"';
                                         numbered = (numbered === '1') ? '' : 'numbered="' + numbered + '"';
@@ -304,7 +304,7 @@
                                             name: 'tc_coure_id',
                                             label: 'Select course',
                                             minWidth: 570,
-                                            'values': teachcorses_courses // is written by tc_write_data_for_tinymce()
+                                            'values': teachcourses_courses // is written by tc_write_data_for_tinymce()
                                         },
                                         {
                                             type: 'listbox',

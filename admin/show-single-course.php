@@ -2,7 +2,7 @@
 /**
  * This file contains all functions for displaying the show_single_course page in admin menu
  * 
- * @package teachcorses
+ * @package teachcourses
  * @subpackage admin
  * @license http://www.gnu.org/licenses/gpl-2.0.html GPLv2 or later
  */
@@ -61,7 +61,7 @@ function tc_show_single_course_page() {
     tc_Single_Course_Actions::do_actions($course_id, $_POST);
     
     echo '<form id="einzel" name="einzel" action="' . esc_url($_SERVER['REQUEST_URI']) . '" method="post">';
-    echo '<input name="page" type="hidden" value="teachcorses.php">';
+    echo '<input name="page" type="hidden" value="teachcourses.php">';
     echo '<input name="action" type="hidden" value="' . $action . '" />';
     echo '<input name="course_id" type="hidden" value="' . $course_id . '" />';
     echo '<input name="sem" type="hidden" value="' . $link_parameter['sem'] . '" />';
@@ -92,7 +92,7 @@ function tc_show_single_course_page() {
 
 /**
  * This class contains all functions for single course actions like add an artefact, add a capability...
- * @package teachcorses
+ * @package teachcourses
  * @subpackage courses
  * @since 5.0.0
  */
@@ -113,7 +113,7 @@ class tc_Single_Course_Actions {
                       'passed' => '', 
                       'max_value' => '');
         tc_Artefacts::add_artefact($data);
-        get_tc_message( __('Artefact added','teachcorses') );
+        get_tc_message( __('Artefact added','teachcourses') );
     }
     
     /**
@@ -124,11 +124,11 @@ class tc_Single_Course_Actions {
      */
     private static function delete_artefact($artefact_id) {
         if ( tc_Artefacts::has_assessments($artefact_id) === true ) {
-            get_tc_message( __('Removing not possible. Delete the assessments first.','teachcorses'), 'red' );
+            get_tc_message( __('Removing not possible. Delete the assessments first.','teachcourses'), 'red' );
             return;
         }
         tc_Artefacts::delete_artefact($artefact_id);
-        get_tc_message( __('Removing successful','teachcorses') );
+        get_tc_message( __('Removing successful','teachcourses') );
     }
     
     /**
@@ -182,15 +182,15 @@ class tc_Single_Course_Page {
      * @since 5.0.0
      */
     public static function get_artefact_form() {
-        echo '<div id="tc_add_artefact_form" class="teachcorses_message" style="display:none;">';
-        echo '<p class="teachcorses_message_headline">' . __('Add artefact','teachcorses') . '</p>';
+        echo '<div id="tc_add_artefact_form" class="teachcourses_message" style="display:none;">';
+        echo '<p class="teachcourses_message_headline">' . __('Add artefact','teachcourses') . '</p>';
 
-        echo '<p><label for="artefact_name">' . __('Title','teachcorses') . '</label></p>';
+        echo '<p><label for="artefact_name">' . __('Title','teachcourses') . '</label></p>';
         echo '<input name="artefact_name" id="artefact_name" type="text" style="width:50%;"/>';
         
         echo '<input name="artefact_parent" type="hidden" value="0"/>';
 
-        echo '<p><input name="add_artefact" type="submit" class="button-primary" value="' . __('Add','teachcorses') . '"/> <a onclick="teachcorses_showhide(' . "'tc_add_artefact_form'" . ');" class="button-secondary" style="cursor:pointer;">' . __('Cancel', 'teachcorses') . '</a></p>';
+        echo '<p><input name="add_artefact" type="submit" class="button-primary" value="' . __('Add','teachcourses') . '"/> <a onclick="teachcourses_showhide(' . "'tc_add_artefact_form'" . ');" class="button-secondary" style="cursor:pointer;">' . __('Cancel', 'teachcourses') . '</a></p>';
         echo '</div>';
     }
     
@@ -206,10 +206,10 @@ class tc_Single_Course_Page {
             return;
         }
         if ( $link_parameter['redirect'] != 0 ) {
-            return '<p><a href="admin.php?page=teachcorses.php&amp;course_id=' . $link_parameter['redirect'] . '&amp;sem=' . $link_parameter['sem'] . '&amp;search=' . $link_parameter['search'] . '&amp;action=show" class="button-secondary" title="' . __('Back','teachcorses') . '">&larr; ' . __('Back','teachcorses') . '</a></p>';
+            return '<p><a href="admin.php?page=teachcourses.php&amp;course_id=' . $link_parameter['redirect'] . '&amp;sem=' . $link_parameter['sem'] . '&amp;search=' . $link_parameter['search'] . '&amp;action=show" class="button-secondary" title="' . __('Back','teachcourses') . '">&larr; ' . __('Back','teachcourses') . '</a></p>';
         }
         else {
-             return '<p><a href="admin.php?page=teachcorses.php&amp;sem=' . $link_parameter['sem'] . '&amp;search=' . $link_parameter['search'] . '" class="button-secondary" title="' . __('Back','teachcorses') . '">&larr; ' . __('Back','teachcorses') . '</a></p>';
+             return '<p><a href="admin.php?page=teachcourses.php&amp;sem=' . $link_parameter['sem'] . '&amp;search=' . $link_parameter['search'] . '" class="button-secondary" title="' . __('Back','teachcourses') . '">&larr; ' . __('Back','teachcourses') . '</a></p>';
         }
         
     }
@@ -230,12 +230,12 @@ class tc_Single_Course_Page {
         
         if ($course_data["parent"] != 0) {
             if ($parent_data["course_id"] == $course_data["parent"]) {
-                $parent_name = '<a href="admin.php?page=teachcorses.php&amp;course_id=' . $parent_data["course_id"] . '&amp;sem=' . $link_parameter['sem'] . '&amp;search=' . $link_parameter['search'] . '&amp;action=show&amp;redirect=' . $course_id . '" title="' . stripslashes($parent_data["name"]) . '" style="color:#464646">' . stripslashes($parent_data["name"]) . '</a> &rarr; ';
+                $parent_name = '<a href="admin.php?page=teachcourses.php&amp;course_id=' . $parent_data["course_id"] . '&amp;sem=' . $link_parameter['sem'] . '&amp;search=' . $link_parameter['search'] . '&amp;action=show&amp;redirect=' . $course_id . '" title="' . stripslashes($parent_data["name"]) . '" style="color:#464646">' . stripslashes($parent_data["name"]) . '</a> &rarr; ';
             }
         }
         
         if ( $edit_link === true ) {
-            $link = '<small><a href="admin.php?page=teachcorses.php&amp;course_id=' . $course_id . '&amp;sem=' . $link_parameter['sem'] . '&amp;search=' . $link_parameter['search'] . '&amp;action=edit" class="teachcorses_link" style="cursor:pointer;">' . __('Edit','teachcorses') . '</a></small>';
+            $link = '<small><a href="admin.php?page=teachcourses.php&amp;course_id=' . $course_id . '&amp;sem=' . $link_parameter['sem'] . '&amp;search=' . $link_parameter['search'] . '&amp;action=edit" class="teachcourses_link" style="cursor:pointer;">' . __('Edit','teachcourses') . '</a></small>';
         }
 
         return '<h1 style="padding-top:5px;">' . $parent_name . stripslashes($course_data["name"]) . ' ' . $course_data["semester"] . ' <span class="tc_break">|</span> ' . $link . '</h1>';
@@ -254,11 +254,11 @@ class tc_Single_Course_Page {
         $documents_tab = '';
         
         $set_info_tab = ( $action === 'show' ) ? 'nav-tab nav-tab-active' : 'nav-tab';
-        $info_tab = '<a href="admin.php?page=teachcorses.php&amp;course_id=' . $course_id . '&amp;sem=' . $link_parameter['sem'] . '&amp;search=' . $link_parameter['search'] . '&amp;action=show" class="' . $set_info_tab . '">' . __('Info','teachcorses') . '</a> ';
+        $info_tab = '<a href="admin.php?page=teachcourses.php&amp;course_id=' . $course_id . '&amp;sem=' . $link_parameter['sem'] . '&amp;search=' . $link_parameter['search'] . '&amp;action=show" class="' . $set_info_tab . '">' . __('Info','teachcourses') . '</a> ';
         
         
         $set_documents_tab = ( $action === 'documents' ) ? 'nav-tab nav-tab-active' : 'nav-tab';
-        $documents_tab = '<a href="admin.php?page=teachcorses.php&amp;course_id=' . $course_id . '&amp;sem=' . $link_parameter['sem'] . '&amp;search=' . $link_parameter['search'] . '&amp;action=documents" class="' . $set_documents_tab . '">' . __('Documents','teachcorses') . '</a> ';
+        $documents_tab = '<a href="admin.php?page=teachcourses.php&amp;course_id=' . $course_id . '&amp;sem=' . $link_parameter['sem'] . '&amp;search=' . $link_parameter['search'] . '&amp;action=documents" class="' . $set_documents_tab . '">' . __('Documents','teachcourses') . '</a> ';
         
         
         return '<h3 class="nav-tab-wrapper">' . $info_tab . $documents_tab . $assessment_tab . '</h3>';
@@ -276,20 +276,20 @@ class tc_Single_Course_Page {
         $p = $cours_data['parent'] != 0 ? $cours_data['parent'] : $cours_data['course_id'];
         $related_courses = tc_Courses::get_courses( array('parent' => $p ) );
         if ( count($related_courses) === 0 ) {
-            get_tc_message(__('Error: There are no related courses.','teachcorses'));
+            get_tc_message(__('Error: There are no related courses.','teachcourses'));
             return;
         }
-        echo '<div class="teachcorses_message" id="tc_move_to_course">';
-        echo '<p class="teachcorses_message_headline">' . __('Move to a related course','teachcorses') . '</p>';
-        echo '<p>' . __('If you move a signup to an other course the signup status will be not changed. So a waitinglist will be a waitinglist entry.','teachcorses') . '</p>';
+        echo '<div class="teachcourses_message" id="tc_move_to_course">';
+        echo '<p class="teachcourses_message_headline">' . __('Move to a related course','teachcourses') . '</p>';
+        echo '<p>' . __('If you move a signup to an other course the signup status will be not changed. So a waitinglist will be a waitinglist entry.','teachcourses') . '</p>';
         echo '<select name="tc_rel_course" id="tc_rel_course">';
         foreach ( $related_courses as $rel ) {
             $selected = $rel->course_id == $cours_data['course_id'] ? ' selected="selected"' : '';
             echo '<option value="' . $rel->course_id . '"' . $selected . '>' . $rel->course_id . ' - ' . $rel->name . '</option>';
         }
         echo ' </select>';
-        echo '<p><input name="move_ok" type="submit" class="button-primary" value="' . __('Move','teachcorses') . '"/>
-                    <a href="admin.php?page=teachcorses.php&course_id=' . $course_id . '&amp;sem=' . $link_parameter['sem'] . '&amp;search=' . $link_parameter['search'] . '&amp;order=' . $link_parameter['order'] . '&amp;sort=' . $link_parameter['sort'] . '&amp;action=enrollments" class="button-secondary">' . __('Cancel','teachcorses') . '</a></p>';    
+        echo '<p><input name="move_ok" type="submit" class="button-primary" value="' . __('Move','teachcourses') . '"/>
+                    <a href="admin.php?page=teachcourses.php&course_id=' . $course_id . '&amp;sem=' . $link_parameter['sem'] . '&amp;search=' . $link_parameter['search'] . '&amp;order=' . $link_parameter['order'] . '&amp;sort=' . $link_parameter['sort'] . '&amp;action=enrollments" class="button-secondary">' . __('Cancel','teachcourses') . '</a></p>';    
         echo '</div>';
     }
     
@@ -301,12 +301,12 @@ class tc_Single_Course_Page {
      * @since 5.0.0
      */
     public static function get_info_tab ($course_id, $cours_data) {
-        $fields = get_tc_options('teachcorses_courses','`setting_id` ASC', ARRAY_A);
+        $fields = get_tc_options('teachcourses_courses','`setting_id` ASC', ARRAY_A);
         $course_meta = tc_Courses::get_course_meta($course_id);
         ?>
         <div style="width:100%">
            <div class="postbox">
-               <h3 style="padding: 7px 10px; cursor:default;"><span><?php _e('General','teachcorses'); ?></span></h3>
+               <h3 style="padding: 7px 10px; cursor:default;"><span><?php _e('General','teachcourses'); ?></span></h3>
                <div class="inside">
                     <table cellpadding="8">
                       <tr>
@@ -318,44 +318,44 @@ class tc_Single_Course_Page {
                         <td><?php echo stripslashes($cours_data["type"]); ?></td>
                       </tr>
                       <tr>
-                        <td><strong><?php _e('Visibility','teachcorses'); ?></strong></td>
+                        <td><strong><?php _e('Visibility','teachcourses'); ?></strong></td>
                         <td>
                          <?php 
                             if ( $cours_data["visible"] == 1 ) {
-                                 _e('normal','teachcorses');
+                                 _e('normal','teachcourses');
                             }
                             elseif ( $cours_data["visible"] == 2 ) {
-                                 _e('extend','teachcorses');
+                                 _e('extend','teachcourses');
                             }
                             else {
-                                 _e('invisible','teachcorses');
+                                 _e('invisible','teachcourses');
                             } 
                          ?></td> 
                       </tr>
                       <tr>
-                        <td><strong><?php _e('Date','teachcorses'); ?></strong></td>
+                        <td><strong><?php _e('Date','teachcourses'); ?></strong></td>
                         <td><?php echo stripslashes($cours_data["date"]); ?></td>
                       </tr>
                       <tr>
-                          <td><strong><?php _e('Room','teachcorses'); ?></strong></td>
+                          <td><strong><?php _e('Room','teachcourses'); ?></strong></td>
                         <td><?php echo stripslashes($cours_data["room"]); ?></td>
                       </tr>
                       <tr>
-                        <td><strong><?php _e('Lecturer','teachcorses'); ?></strong></td>
+                        <td><strong><?php _e('Lecturer','teachcourses'); ?></strong></td>
                         <td><?php echo stripslashes($cours_data["lecturer"]); ?></td>
                       </tr>
                       <tr>
-                        <td><strong><?php _e('Comment','teachcorses'); ?></strong></td>
+                        <td><strong><?php _e('Comment','teachcourses'); ?></strong></td>
                         <td><?php echo stripslashes($cours_data["comment"]); ?></td>
                       </tr>
                       <tr>
-                        <td><strong><?php _e('Related content','teachcorses'); ?></strong></td>
+                        <td><strong><?php _e('Related content','teachcourses'); ?></strong></td>
                         <td><?php 
                             if ( $cours_data["rel_page"] != 0) {
-                                echo '<a href="' . get_permalink( $cours_data["rel_page"] ) . '" target="_blank" class="teachcorses_link">' . get_permalink( $cours_data["rel_page"] ) . '</a>';
+                                echo '<a href="' . get_permalink( $cours_data["rel_page"] ) . '" target="_blank" class="teachcourses_link">' . get_permalink( $cours_data["rel_page"] ) . '</a>';
                             }
                             else { 
-                                _e('none','teachcorses');
+                                _e('none','teachcourses');
                             } ?></td>
                       </tr>
                 </table>
@@ -363,7 +363,7 @@ class tc_Single_Course_Page {
            </div>
            <?php if ( count($course_meta) > 0 ) { ?>
            <div class="postbox">
-               <h3 style="padding: 7px 10px; cursor:default;"><span><?php _e('Custom meta data','teachcorses'); ?></span></h3>
+               <h3 style="padding: 7px 10px; cursor:default;"><span><?php _e('Custom meta data','teachcourses'); ?></span></h3>
                <div class="inside">
                    <table cellpadding="8">
                     <?php

@@ -2,12 +2,12 @@
 /**
  * This file contains all functions for displaying the settings page in admin menu
  * 
- * @package teachcorses\admin\settings
+ * @package teachcourses\admin\settings
  * @license http://www.gnu.org/licenses/gpl-2.0.html GPLv2 or later
  */
 
 /**
- * teachCorses settings menu: controller
+ * teachcourses settings menu: controller
  * @since 5.0.0
  */
 function tc_show_admin_settings() {
@@ -15,7 +15,7 @@ function tc_show_admin_settings() {
 }
 
 /**
- * This class contains all functions for the teachcorses settings page
+ * This class contains all functions for the teachcourses settings page
  * @since 5.0.0
  */
 class tc_Settings_Page {
@@ -27,7 +27,7 @@ class tc_Settings_Page {
     public static function load_page (){
         echo '<div class="wrap">';
 
-        $site = 'options-general.php?page=teachcorses/settings.php';
+        $site = 'options-general.php?page=teachcourses/settings.php';
         $tab = isset( $_GET['tab'] ) ? $_GET['tab'] : 'general';
 
         // update dababase
@@ -70,7 +70,7 @@ class tc_Settings_Page {
         // delete settings
         if ( isset( $_GET['delete'] ) ) {
             tc_Options::delete_option($_GET['delete']);
-            get_tc_message(__('Deleted', 'teachcorses'));
+            get_tc_message(__('Deleted', 'teachcourses'));
         }
         
         // Delete data field
@@ -86,13 +86,13 @@ class tc_Settings_Page {
         // add meta field options
         if ( isset($_POST['add_field']) ) {
             if ( $tab === 'course_data' ) {
-                $table = 'teachcorses_courses';
+                $table = 'teachcourses_courses';
             }
             elseif ( $tab === 'publication_data' ) {
-                $table = 'teachcorses_pub';
+                $table = 'teachcourses_pub';
             }
             else {
-                $table = 'teachcorses_stud';
+                $table = 'teachcourses_stud';
             }
             tc_Settings_Page::add_meta_fields($table);
         }
@@ -100,7 +100,7 @@ class tc_Settings_Page {
         // test if database is installed
         tc_Admin::database_test();
 
-        echo '<h2 style="padding-bottom:0px;">' . __('teachCorses settings','teachcorses') . '</h2>';
+        echo '<h2 style="padding-bottom:0px;">' . __('teachcourses settings','teachcourses') . '</h2>';
 
         // Site menu
         $set_menu_1 = ( $tab === 'general' || $tab === '' ) ? 'nav-tab nav-tab-active' : 'nav-tab';
@@ -110,16 +110,16 @@ class tc_Settings_Page {
         $set_menu_99 = ( $tab === 'db_status' ) ? 'nav-tab nav-tab-active' : 'nav-tab';
 
         echo '<h3 class="nav-tab-wrapper">'; 
-        echo '<a href="' . $site . '&amp;tab=general" class="' . $set_menu_1 . '">' . __('General','teachcorses') . '</a>';
-        echo '<a href="' . $site . '&amp;tab=term" class="' . $set_menu_3 . '">' . __('Term','teachcorses') . '</a>';
-        echo '<a href="' . $site . '&amp;tab=type" class="' . $set_menu_4 . '">' . __('Type','teachcorses') . '</a>';
-        echo '<a href="' . $site . '&amp;tab=course_data" class="' . $set_menu_5 . '">' . __('Meta','teachcorses') .'</a>';
-        echo '<a href="' . $site . '&amp;tab=db_status" class="' . $set_menu_99 . '">' . __('Database','teachcorses') .' '. __('Index status','teachcorses') . '</a>';
+        echo '<a href="' . $site . '&amp;tab=general" class="' . $set_menu_1 . '">' . __('General','teachcourses') . '</a>';
+        echo '<a href="' . $site . '&amp;tab=term" class="' . $set_menu_3 . '">' . __('Term','teachcourses') . '</a>';
+        echo '<a href="' . $site . '&amp;tab=type" class="' . $set_menu_4 . '">' . __('Type','teachcourses') . '</a>';
+        echo '<a href="' . $site . '&amp;tab=course_data" class="' . $set_menu_5 . '">' . __('Meta','teachcourses') .'</a>';
+        echo '<a href="' . $site . '&amp;tab=db_status" class="' . $set_menu_99 . '">' . __('Database','teachcourses') .' '. __('Index status','teachcourses') . '</a>';
        
         echo '</h3>';
 
         echo '<form id="form1" name="form1" method="post" action="' . $site . '&amp;tab=' . $tab . '">';
-        echo '<input name="page" type="hidden" value="teachcorses/settings.php" />';
+        echo '<input name="page" type="hidden" value="teachcourses/settings.php" />';
         echo '<input name="tab" type="hidden" value="<?php echo $tab; ?>" />';
 
         /* General */
@@ -159,7 +159,7 @@ class tc_Settings_Page {
                 <p><img src="' . plugins_url( 'images/misc/about.jpg', dirname( __FILE__ ) ) . '" style="border-radius: 130px; width: 250px; height: 250px;" title="Photo by Ella Olsson on Unsplash" /></p>
                 <p><img src="' . plugins_url( 'images/full.png', dirname( __FILE__ ) ) . '" width="400" /></p>
                 <p style="font-size: 20px; font-weight: bold; color: #e6005c;">' . get_tc_option('db-version') . ' "Raspberry Brownie"</p>
-                <p><a href="http://mtrv.wordpress.com/teachcorses/">Website</a> | <a href="https://github.com/winkm89/teachCorses/">teachCorses on GitHub</a> | <a href="https://github.com/winkm89/teachCorses/wiki">Dokumentation</a> | <a href="https://github.com/winkm89/teachCorses/wiki/Changelog">Changelog</a></p>
+                <p><a href="http://mtrv.wordpress.com/teachcourses/">Website</a> | <a href="https://github.com/winkm89/teachcourses/">teachcourses on GitHub</a> | <a href="https://github.com/winkm89/teachcourses/wiki">Dokumentation</a> | <a href="https://github.com/winkm89/teachcourses/wiki/Changelog">Changelog</a></p>
                 <p>&copy;2008-2022 by Michael Winkler | License: GPLv2 or later<br/></p>
                 </div>
               </div>';
@@ -172,7 +172,7 @@ class tc_Settings_Page {
      * @since 5.0.0
      */
     private static function get_rel_page_form ($type) {
-        $title = ( $type === 'rel_page_publications' ) ? __('For publications','teachcorses') : __('For courses','teachcorses');
+        $title = ( $type === 'rel_page_publications' ) ? __('For publications','teachcourses') : __('For courses','teachcourses');
         $value = get_tc_option($type);
         echo '<p><select name="' . $type . '" id="' . $type . '" title="' . $title . '">';
         
@@ -200,8 +200,8 @@ class tc_Settings_Page {
      * @since 5.0.0
      */
     private static function get_user_role_form ($type){
-        $title = ( $type === 'userrole_publications' ) ? __('Backend access for publication module','teachcorses') : __('Backend access for course module','teachcorses');
-        $cap = ( $type === 'userrole_publications' ) ? 'use_teachcorses' : 'use_teachcorses_courses';
+        $title = ( $type === 'userrole_publications' ) ? __('Backend access for publication module','teachcourses') : __('Backend access for course module','teachcourses');
+        $cap = ( $type === 'userrole_publications' ) ? 'use_teachcourses' : 'use_teachcourses_courses';
         
         echo '<tr>';
         echo '<th><label for="' . $type . '">' . $title . '</label></th>';
@@ -217,7 +217,7 @@ class tc_Settings_Page {
         
         echo '</select>';
         echo '</td>';
-        echo '<td style="vertical-align: top;">' . __('Select which userrole your users must have to use the teachCorses backend.','teachcorses') . '<br />' . __('use &lt;Ctrl&gt; key to select multiple roles','teachcorses') . '</td>';        
+        echo '<td style="vertical-align: top;">' . __('Select which userrole your users must have to use the teachcourses backend.','teachcourses') . '<br />' . __('use &lt;Ctrl&gt; key to select multiple roles','teachcourses') . '</td>';        
         echo '</tr>';
     }
     
@@ -231,12 +231,12 @@ class tc_Settings_Page {
 
         $args3 = array ( 
             'element_title' => __('Type'),
-            'count_title' => __('Number of courses','teachcorses'),
-            'delete_title' => __('Delete type','teachcorses'),
-            'add_title' => __('Add type','teachcorses'),
+            'count_title' => __('Number of courses','teachcourses'),
+            'delete_title' => __('Delete type','teachcourses'),
+            'add_title' => __('Add type','teachcourses'),
             'tab' => 'type'
             );
-        tc_Admin::get_course_option_box(__('Types of courses','teachcorses'), 'type', $args3);
+        tc_Admin::get_course_option_box(__('Types of courses','teachcourses'), 'type', $args3);
 
         echo '</div>';
     }
@@ -250,13 +250,13 @@ class tc_Settings_Page {
         echo '<div style="width:100%;">';
 
         $args2 = array ( 
-            'element_title' => __('Term','teachcorses'),
-            'count_title' => __('Number of courses','teachcorses'),
-            'delete_title' => __('Delete term','teachcorses'),
-            'add_title' => __('Add term','teachcorses'),
+            'element_title' => __('Term','teachcourses'),
+            'count_title' => __('Number of courses','teachcourses'),
+            'delete_title' => __('Delete term','teachcourses'),
+            'add_title' => __('Add term','teachcourses'),
             'tab' => 'term'
             );
-        tc_Admin::get_course_option_box(__('Term','teachcorses'), 'term', $args2);
+        tc_Admin::get_course_option_box(__('Term','teachcourses'), 'term', $args2);
 
         echo '</div>';
     }
@@ -274,7 +274,7 @@ class tc_Settings_Page {
 
         // Version
         echo '<tr>';
-        echo '<th width="160">' . __('teachCorses version','teachcorses') . '</th>';
+        echo '<th width="160">' . __('teachcourses version','teachcourses') . '</th>';
         echo '<td width="250"><a id="tc_open_readme" class="tc_open_readme">' . get_tc_option('db-version') . '</a></td>';
         echo '<td></td>';
         echo '</td>';
@@ -282,51 +282,51 @@ class tc_Settings_Page {
 
         // Related content
         echo '<tr>';
-        echo '<th>' . __('Related content','teachcorses') . '</th>';
+        echo '<th>' . __('Related content','teachcourses') . '</th>';
         echo '<td>';
         tc_Settings_Page::get_rel_page_form('rel_page_courses');
         echo '</td>';
-        echo '<td style="vertical-align: top;">' . __('If you create a course you can define a link to related content. It is kind of a "more information link", which helps you to connect a course with a page. If you want to use custom post types instead of pages, so you can set it here.','teachcorses') . '</td>';
+        echo '<td style="vertical-align: top;">' . __('If you create a course you can define a link to related content. It is kind of a "more information link", which helps you to connect a course with a page. If you want to use custom post types instead of pages, so you can set it here.','teachcourses') . '</td>';
         echo '</tr>';
 
         // Frontend styles
         echo '<tr>';
-        echo '<th><label for="stylesheet">' . __('Frontend styles','teachcorses') . '</label></th>';
+        echo '<th><label for="stylesheet">' . __('Frontend styles','teachcourses') . '</label></th>';
         echo '<td style="vertical-align: top;">';
-        echo '<select name="stylesheet" id="stylesheet" title="' . __('Frontend styles','teachcorses') . '">';
+        echo '<select name="stylesheet" id="stylesheet" title="' . __('Frontend styles','teachcourses') . '">';
 
         $value = get_tc_option('stylesheet');
         if ($value == '1') {
-            echo '<option value="1" selected="selected">' . __('teachcorses_front.css','teachcorses') . '</option>';
-            echo '<option value="0">' . __('your theme.css','teachcorses') . '</option>';
+            echo '<option value="1" selected="selected">' . __('teachcourses_front.css','teachcourses') . '</option>';
+            echo '<option value="0">' . __('your theme.css','teachcourses') . '</option>';
         }
         else {
-            echo '<option value="1">' . __('teachcorses_front.css','teachcorses') . '</option>';
-            echo '<option value="0" selected="selected">' . __('your theme.css','teachcorses') . '</option>';
+            echo '<option value="1">' . __('teachcourses_front.css','teachcourses') . '</option>';
+            echo '<option value="0" selected="selected">' . __('your theme.css','teachcourses') . '</option>';
         }
         echo '</select>';
         echo '</td>';
-        echo '<td>' . __('Select which style sheet you will use. teachcorses_front.css is the teachCorses default style. If you have created your own style in the default style sheet of your theme, you can activate this here.','teachcorses') . '</td>';
+        echo '<td>' . __('Select which style sheet you will use. teachcourses_front.css is the teachcourses default style. If you have created your own style in the default style sheet of your theme, you can activate this here.','teachcourses') . '</td>';
         echo '</tr>';
 
         // User roles
         tc_Settings_Page::get_user_role_form('userrole_courses');
         
         echo '<tr>';
-        echo '<th colspan="3"><h3>' . __('Misc','teachcorses') . '</h3></th>';
+        echo '<th colspan="3"><h3>' . __('Misc','teachcourses') . '</h3></th>';
         echo '</tr>';
     
         echo '<tr>';
-        echo '<th>' . __('Uninstalling','teachcorses') . '</th>';
+        echo '<th>' . __('Uninstalling','teachcourses') . '</th>';
         echo '<td>';
-        echo '<a class="tc_row_delete" href="options-general.php?page=teachcorses/settings.php&amp;tab=general&amp;drop_tp=1">' . __('Remove teachCorses from database','teachcorses') . '</a>';
+        echo '<a class="tc_row_delete" href="options-general.php?page=teachcourses/settings.php&amp;tab=general&amp;drop_tp=1">' . __('Remove teachcourses from database','teachcourses') . '</a>';
         echo '</td>';
         echo '</tr>';
         
         echo '</thead>';
         echo '</table>';
         
-        echo '<p><input name="einstellungen" type="submit" id="teachcorses_settings" value="' . __('Save') . '" class="button-primary" /></p>';
+        echo '<p><input name="einstellungen" type="submit" id="teachcourses_settings" value="' . __('Save') . '" class="button-primary" /></p>';
         
         echo '<script type="text/javascript" src="' . plugins_url( 'js/admin_settings.js', dirname( __FILE__ ) ) . '"></script>';
         self::get_about_dialog();
@@ -340,20 +340,20 @@ class tc_Settings_Page {
      */
     private static function get_meta_tab($tab) {
         // Select right table name
-        $table = 'teachcorses_courses';
+        $table = 'teachcourses_courses';
 
         $select_fields = array();
 
         echo '<div style="width:100%;">';
-        echo '<h3>' . __('Meta data fields','teachcorses') . '</h3>';
+        echo '<h3>' . __('Meta data fields','teachcourses') . '</h3>';
 
         echo '<table class="widefat">';
         
         // Table Head
         echo '<thead>';
         echo '<tr>';
-        echo '<th>' . __('Field name','teachcorses') . '</th>';
-        echo '<th>' . __('Properties','teachcorses') . '</th>';
+        echo '<th>' . __('Field name','teachcourses') . '</th>';
+        echo '<th>' . __('Properties','teachcourses') . '</th>';
         echo '</tr>';
         echo '</thead>';
         
@@ -368,7 +368,7 @@ class tc_Settings_Page {
             if ( $data['type'] === 'SELECT' || $data['type'] === 'CHECKBOX' || $data['type'] === 'RADIO' ) {
                 array_push($select_fields, $field->variable);
                 // search for select options and add it
-                if ( isset( $_POST['add_' . $field->variable] ) && $_POST['new_' . $field->variable] != __('Add element','teachcorses') ) {
+                if ( isset( $_POST['add_' . $field->variable] ) && $_POST['new_' . $field->variable] != __('Add element','teachcourses') ) {
                     tc_Options::add_option($_POST['new_' . $field->variable], $_POST['new_' . $field->variable], $field->variable);
                 }
             }
@@ -383,7 +383,7 @@ class tc_Settings_Page {
             echo '<tr ' . $tr_class . '>
                 <td>' . $field->variable . '
                     <div class="tc_row_actions">
-                    <a class="tc_edit_meta_field" title="' . __('Click to edit','teachcorses') . '" href="' . admin_url( 'admin-ajax.php' ) . '?action=teachcorses&meta_field_id=' . $field->setting_id . '">' . __('Edit','teachcorses') . '</a> | <a class="tc_row_delete" title="' . __('Delete','teachcorses') . '" href="options-general.php?page=teachcorses/settings.php&amp;delete_field=' . $field->setting_id . '&amp;tab=' . $tab . '">' . __('Delete','teachcorses') . '</a>
+                    <a class="tc_edit_meta_field" title="' . __('Click to edit','teachcourses') . '" href="' . admin_url( 'admin-ajax.php' ) . '?action=teachcourses&meta_field_id=' . $field->setting_id . '">' . __('Edit','teachcourses') . '</a> | <a class="tc_row_delete" title="' . __('Delete','teachcourses') . '" href="options-general.php?page=teachcourses/settings.php&amp;delete_field=' . $field->setting_id . '&amp;tab=' . $tab . '">' . __('Delete','teachcourses') . '</a>
                     </div>
                 </td>
                 <td>';
@@ -409,7 +409,7 @@ class tc_Settings_Page {
         echo '<tfoot>';
         echo '<tr>';
         echo '<td colspan="2">';
-        echo '<a class="tc_edit_meta_field button-primary" title="' . __('Add new','teachcorses') . '" href="' . admin_url( 'admin-ajax.php' ) . '?action=teachcorses&meta_field_id=0">' . __('Add new','teachcorses') . '</a>';
+        echo '<a class="tc_edit_meta_field button-primary" title="' . __('Add new','teachcourses') . '" href="' . admin_url( 'admin-ajax.php' ) . '?action=teachcourses&meta_field_id=0">' . __('Add new','teachcourses') . '</a>';
         echo '</td>';
         echo '</tr>';
         echo '</tfoot>';
@@ -420,10 +420,10 @@ class tc_Settings_Page {
 
         foreach ( $select_fields as $elem ) {
             $args1 = array ( 
-                 'element_title' => __('Name','teachcorses'),
-                 'count_title' => __('Number of students','teachcorses'),
-                 'delete_title' => __('Delete elemtent','teachcorses'),
-                 'add_title' => __('Add element','teachcorses'),
+                 'element_title' => __('Name','teachcourses'),
+                 'count_title' => __('Number of students','teachcourses'),
+                 'delete_title' => __('Delete elemtent','teachcourses'),
+                 'add_title' => __('Add element','teachcourses'),
                  'tab' => $tab
                  );
              tc_Admin::get_course_option_box($elem, $elem, $args1);
@@ -438,7 +438,7 @@ class tc_Settings_Page {
                         .load($link.attr('href') + ' #content')
                         .dialog({
                                 autoOpen: false,
-                                title: '<?php _e('Meta Field Settings','teachcorses'); ?>',
+                                title: '<?php _e('Meta Field Settings','teachcourses'); ?>',
                                 width: 600
                         });
 
@@ -482,7 +482,7 @@ class tc_Settings_Page {
             $s .= '<td>' . esc_html($settings['name']) . '</td>';
             $s .= '<td>' . esc_html($key) . '</td>';
             $s .= '<td>' . esc_html($settings['description']) . '
-                       <p>' . __('Version', 'teachcorses') . ' ' . esc_html($settings['version']) . ' | ' . __('by', 'teachcorses') . ' ' . esc_html($settings['author']) . '</p>
+                       <p>' . __('Version', 'teachcourses') . ' ' . esc_html($settings['version']) . ' | ' . __('by', 'teachcourses') . ' ' . esc_html($settings['author']) . '</p>
                   </td>';
             $s .= '</tr>';
         }
@@ -516,15 +516,15 @@ class tc_Settings_Page {
         echo '<table class="widefat">';
         echo '<thead>';
         echo '<tr>';
-        echo '<th>' . __('Key_name','teachcorses') . '</th>';
-        echo '<th>' . __('Type','teachcorses') . '</th>';
-        echo '<th>' . __('Unique','teachcorses') . '</th>';
-        echo '<th>' . __('Packed','teachcorses') . '</th>';
-        echo '<th>' . __('Column','teachcorses') . '</th>';
-        echo '<th>' . __('Cardinality','teachcorses') . '</th>';
-        echo '<th>' . __('Collation','teachcorses') . '</th>';
+        echo '<th>' . __('Key_name','teachcourses') . '</th>';
+        echo '<th>' . __('Type','teachcourses') . '</th>';
+        echo '<th>' . __('Unique','teachcourses') . '</th>';
+        echo '<th>' . __('Packed','teachcourses') . '</th>';
+        echo '<th>' . __('Column','teachcourses') . '</th>';
+        echo '<th>' . __('Cardinality','teachcourses') . '</th>';
+        echo '<th>' . __('Collation','teachcourses') . '</th>';
         echo '<th>NULL</th>';
-        echo '<th>' . __('Seq index','teachcorses') . '</th>';
+        echo '<th>' . __('Seq index','teachcourses') . '</th>';
         echo '</tr>';
         echo '</thead>';
         
@@ -568,11 +568,11 @@ class tc_Settings_Page {
         $new_term = isset( $_POST['new_term'] ) ? htmlspecialchars($_POST['new_term']) : ''; 
         $new_type = isset( $_POST['new_type'] ) ? htmlspecialchars($_POST['new_type']) : '';
 
-        if (isset( $_POST['add_type'] ) && $new_type != __('Add type','teachcorses')) {
+        if (isset( $_POST['add_type'] ) && $new_type != __('Add type','teachcourses')) {
             tc_Options::add_option($new_type, $new_type, 'course_type');
             get_tc_message(__('Saved'));
         }
-        if (isset( $_POST['add_term'] ) && $new_term != __('Add term','teachcorses')) {
+        if (isset( $_POST['add_term'] ) && $new_term != __('Add term','teachcourses')) {
            tc_Options::add_option($new_term, $new_term, 'semester');
            get_tc_message(__('Saved'));
         }
@@ -580,7 +580,7 @@ class tc_Settings_Page {
     
     /**
      * Handles adding of new meta data fields
-     * @param string $table         The table name (teachcorses_stud, teachcorses_courses or teachcorses_pub)
+     * @param string $table         The table name (teachcourses_stud, teachcourses_courses or teachcourses_pub)
      * @access private
      * @since 5.0.0
      */
@@ -603,7 +603,7 @@ class tc_Settings_Page {
         $data['field_edit'] = isset( $_POST['field_edit'] ) ? intval($_POST['field_edit']) : 0 ;
         
         // Generate an array of forbidden field names
-        $forbidden_names = array('system', 'course_type', 'semester', __('Field name','teachcorses'));
+        $forbidden_names = array('system', 'course_type', 'semester', __('Field name','teachcourses'));
         $options = get_tc_options($table);
         foreach ( $options as $row) {
             if ( $data['field_edit'] !== intval($row->setting_id) ) {
@@ -611,7 +611,7 @@ class tc_Settings_Page {
             }
         }
         
-        if ( !in_array($field_name, $forbidden_names) && $data['title'] != __('Label', 'teachcorses') && preg_match("#^[_A-Za-z0-9]+$#", $field_name) ) {
+        if ( !in_array($field_name, $forbidden_names) && $data['title'] != __('Label', 'teachcourses') && preg_match("#^[_A-Za-z0-9]+$#", $field_name) ) {
             
             // Delete old settings if needed
             if ( $data['field_edit'] > 0 ) {
@@ -619,10 +619,10 @@ class tc_Settings_Page {
             }
             
             tc_DB_Helpers::register_column($table, $field_name, $data);
-            get_tc_message(  __('Field added','teachcorses') );
+            get_tc_message(  __('Field added','teachcourses') );
         }
         else {
-            get_tc_message(  __('Warning: This field name is not possible.','teachcorses'), 'red' );
+            get_tc_message(  __('Warning: This field name is not possible.','teachcourses'), 'red' );
         }
     }
     
@@ -636,13 +636,13 @@ class tc_Settings_Page {
     private static function generate_meta_field_name($fieldname, $table) {
         $name = str_replace( array("'", '"', ' '), array("", "", '_'), $fieldname);
         
-        if ( $table === 'teachcorses_courses' ) {
+        if ( $table === 'teachcourses_courses' ) {
             $prefix = 'tc_meta_courses_';
         }
-        elseif ( $table === 'teachcorses_pub' ) {
+        elseif ( $table === 'teachcourses_pub' ) {
             $prefix = 'tc_meta_pub_';
         }
-        elseif ( $table === 'teachcorses_stud' ) {
+        elseif ( $table === 'teachcourses_stud' ) {
             $prefix = 'tc_meta_stud_';
         }
         else {
@@ -665,7 +665,7 @@ class tc_Settings_Page {
      */
     private static function delete_meta_fields ($tab) {
         if ( isset($_GET['delete_field']) ) {
-            $message = '<p>' . __('Do you really want to delete the selected meta field?','teachcorses') . '</p>' . '<a class="button-primary" href="options-general.php?page=teachcorses/settings.php&amp;delete_field_ok=' . intval($_GET['delete_field']) . '&amp;tab=' . $tab . '">'. __('OK') . '</a> <a class="button-secondary" href="options-general.php?page=teachcorses/settings.php&amp;tab=student_data">'. __('Cancel') . '</a>';
+            $message = '<p>' . __('Do you really want to delete the selected meta field?','teachcourses') . '</p>' . '<a class="button-primary" href="options-general.php?page=teachcourses/settings.php&amp;delete_field_ok=' . intval($_GET['delete_field']) . '&amp;tab=' . $tab . '">'. __('OK') . '</a> <a class="button-secondary" href="options-general.php?page=teachcourses/settings.php&amp;tab=student_data">'. __('Cancel') . '</a>';
             get_tc_message($message,'orange');
         }
         if ( isset($_GET['delete_field_ok']) ) {
@@ -675,7 +675,7 @@ class tc_Settings_Page {
                 tc_Options::delete_option($row['setting_id']);
             }
             tc_Options::delete_option($_GET['delete_field_ok']);
-            get_tc_message( __('Field deleted','teachcorses') );
+            get_tc_message( __('Field deleted','teachcourses') );
         }
     }
 
@@ -700,10 +700,10 @@ class tc_Settings_Page {
         tc_Options::change_option('stylesheet', $option_stylesheet);
         tc_Options::change_option('sign_out', $option_sign_out);
         tc_Options::change_option('login', $option_login);
-        tc_update_userrole($option_userrole_courses, 'use_teachcorses_courses');
-        tc_update_userrole($option_userrole_publications, 'use_teachcorses');
+        tc_update_userrole($option_userrole_courses, 'use_teachcourses_courses');
+        tc_update_userrole($option_userrole_publications, 'use_teachcourses');
 
-        get_tc_message( __('Settings are changed. Please note that access changes are visible, until you have reloaded this page a second time.','teachcorses') );
+        get_tc_message( __('Settings are changed. Please note that access changes are visible, until you have reloaded this page a second time.','teachcourses') );
     }
 
     /**
@@ -741,8 +741,8 @@ class tc_Settings_Page {
             return;
         }
         $sync = ( $check_authors === true ) ? 1 : 2;
-        $table = ( $check_authors === true ) ? 'teachcorses_authors' : 'teachcorses_stud_meta';
-        $message = 'TABLE ' . $table . ': ' .  __('teachCorses wants to fill up the new database. This can take some time.','teachcorses') . ' <a href="' . $site . '&amp;sync=' . $sync . '" class="button-primary">' . __('Continue','teachcorses') . '</a>';
+        $table = ( $check_authors === true ) ? 'teachcourses_authors' : 'teachcourses_stud_meta';
+        $message = 'TABLE ' . $table . ': ' .  __('teachcourses wants to fill up the new database. This can take some time.','teachcourses') . ' <a href="' . $site . '&amp;sync=' . $sync . '" class="button-primary">' . __('Continue','teachcourses') . '</a>';
         get_tc_message($message, 'orange');
     }
     
@@ -753,12 +753,12 @@ class tc_Settings_Page {
      */
     private static function delete_database () {
         if ( isset($_GET['drop_tp']) ) {
-            $message = '<p>' . __('Do you really want to delete all teachcorses database tables?','teachcorses') . '</p>' . '<a class="button-primary" href="options-general.php?page=teachcorses/settings.php&amp;tab=general&amp;drop_tc_ok=1">'. __('OK') . '</a> <a class="button-secondary" href="options-general.php?page=teachcorses/settings.php&amp;tab=general">'. __('Cancel') . '</a>';
+            $message = '<p>' . __('Do you really want to delete all teachcourses database tables?','teachcourses') . '</p>' . '<a class="button-primary" href="options-general.php?page=teachcourses/settings.php&amp;tab=general&amp;drop_tc_ok=1">'. __('OK') . '</a> <a class="button-secondary" href="options-general.php?page=teachcourses/settings.php&amp;tab=general">'. __('Cancel') . '</a>';
             get_tc_message($message,'orange');
         }
         if ( isset($_GET['drop_tc_ok']) ) {
             tc_uninstall();
-            get_tc_message( __('Database uninstalled','teachcorses') );
+            get_tc_message( __('Database uninstalled','teachcourses') );
         }
     }
 }

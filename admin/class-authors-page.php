@@ -38,16 +38,16 @@ class tc_Authors_Page {
     private static function actions ($action, $checkbox, $page, $search, $curr_page) {
         // Delete tags - part 1
         if ( $action === 'delete' ) {
-            echo '<div class="teachcorses_message teachcorses_message_orange">
-                <p class="teachcorses_message_headline">' . __('Do you want to delete the selected items?','teachcorses') . '</p>
-                <p><input name="delete_ok" type="submit" class="button-secondary" value="' . __('Delete','teachcorses') . '"/>
-                <a href="admin.php?page=' . $page . '&search=' . $search . '&amp;limit=' . $curr_page . '"> ' . __('Cancel','teachcorses') . '</a></p>
+            echo '<div class="teachcourses_message teachcourses_message_orange">
+                <p class="teachcourses_message_headline">' . __('Do you want to delete the selected items?','teachcourses') . '</p>
+                <p><input name="delete_ok" type="submit" class="button-secondary" value="' . __('Delete','teachcourses') . '"/>
+                <a href="admin.php?page=' . $page . '&search=' . $search . '&amp;limit=' . $curr_page . '"> ' . __('Cancel','teachcourses') . '</a></p>
                 </div>';
         }
         // delete tags - part 2
         if ( isset( $_GET['delete_ok'] ) ) {
             tc_Authors::delete_authors($checkbox);
-            get_tc_message( __('Removing successful','teachcorses') );
+            get_tc_message( __('Removing successful','teachcourses') );
         }
     }
     
@@ -61,7 +61,7 @@ class tc_Authors_Page {
         $checkbox = isset( $_GET['checkbox'] ) ? $_GET['checkbox'] : array();
         $filter = isset( $_GET['filter'] ) ? htmlspecialchars($_GET['filter']) : '';
         $only_zero = ( $filter === 'only_zero' ) ? true : false;
-        $page = 'teachcorses/authors.php';
+        $page = 'teachcourses/authors.php';
         
         /** 
          * Screen options 
@@ -97,7 +97,7 @@ class tc_Authors_Page {
         }
         
         echo '<div class="wrap" style="max-width:900px;">';
-        echo '<h2>' . __('Authors','teachcorses') . '</h2>';
+        echo '<h2>' . __('Authors','teachcourses') . '</h2>';
         echo '<form id="form1" name="form1" method="get" action="' . esc_url($_SERVER['REQUEST_URI']) . '">';
         echo '<input name="page" type="hidden" value="' . $page . '" />';
 
@@ -107,10 +107,10 @@ class tc_Authors_Page {
         // Searchbox
         echo '<div id="tc_searchbox">';
         if ($search != "") {
-            echo '<a href="admin.php?page=teachcorses/authors.php" class="tc_search_cancel" title="' . __('Cancel the search','teachcorses') . '">X</a>';
+            echo '<a href="admin.php?page=teachcourses/authors.php" class="tc_search_cancel" title="' . __('Cancel the search','teachcourses') . '">X</a>';
         }
         echo '<input type="search" name="search" id="pub_search_field" value="' . stripslashes($search) . '"/>';
-        echo '<input type="submit" name="button" id="button" value="' . __('Search','teachcorses') . '" class="button-secondary"/>';
+        echo '<input type="submit" name="button" id="button" value="' . __('Search','teachcourses') . '" class="button-secondary"/>';
         echo '</div>';
         // END Searchbox
         
@@ -118,13 +118,13 @@ class tc_Authors_Page {
         echo '<div class="tablenav" style="padding-bottom:5px;">';
         echo '<div class="alignleft actions">';
         echo '<select name="action1">';
-        echo '<option value="">- ' . __('Bulk actions','teachcorses') . ' -</option>';
-        echo '<option value="delete">' . __('Delete','teachcorses') . '</option>';
+        echo '<option value="">- ' . __('Bulk actions','teachcourses') . ' -</option>';
+        echo '<option value="delete">' . __('Delete','teachcourses') . '</option>';
         echo '</select>';
         echo '<select name="filter">';
-        echo '<option>- ' . __('Select filter','teachcorses') . ' -</option>';
+        echo '<option>- ' . __('Select filter','teachcourses') . ' -</option>';
         $selected = ( $only_zero === true ) ? 'selected="selected"' : '';
-        echo '<option value="only_zero"' . $selected . '>' . __('Occurence = 0','teachcorses') . '</option>';
+        echo '<option value="only_zero"' . $selected . '>' . __('Occurence = 0','teachcourses') . '</option>';
         echo '</select>';
         echo '<input name="OK" value="OK" type="submit" class="button-secondary"/>';
         echo '</div>';
@@ -148,13 +148,13 @@ class tc_Authors_Page {
         echo '<table class="widefat">';
         echo '<thead id="tc_authors_table_header">';
         echo '<td class="check-column"><input name="tc_check_all" id="tc_check_all" type="checkbox" value="" /></td>';
-        echo '<th>' . __('Name','teachcorses') . '</th>';
-        echo '<th>' . __('ID','teachcorses') . '</th>';
-        echo '<th>' . __('Number publications','teachcorses') . '</th>';
+        echo '<th>' . __('Name','teachcourses') . '</th>';
+        echo '<th>' . __('ID','teachcourses') . '</th>';
+        echo '<th>' . __('Number publications','teachcourses') . '</th>';
         echo '</thead>';
         echo '<tbody id="tc_authors_table_content">';
         if ( intval($test) === 0 ) {
-            echo '<tr><td colspan="4"><strong>' . __('Sorry, no entries matched your criteria.','teachcorses') . '</strong></td></tr>';
+            echo '<tr><td colspan="4"><strong>' . __('Sorry, no entries matched your criteria.','teachcourses') . '</strong></td></tr>';
             }
         else {
             
@@ -187,10 +187,10 @@ class tc_Authors_Page {
         } 
         else {
            if ( $test === 1 ) {
-              echo $test . ' ' . __('entry','teachcorses');
+              echo $test . ' ' . __('entry','teachcourses');
            }
            else {
-              echo $test . ' ' . __('entries','teachcorses');
+              echo $test . ' ' . __('entries','teachcourses');
            }
         }
         echo '</div>';
@@ -232,11 +232,11 @@ class tc_Authors_Page {
             
             tc_HTML::line('<tr class="' . $tr_class . '" id="resultbox_' . $row['author_id'] . '">');
             tc_HTML::line('<th class="check-column"><input name="checkbox[]" class="tc_checkbox" type="checkbox" ' . $checked . ' value="' . $row['author_id'] . '"></th>');
-            tc_HTML::line('<td><a class="tc_show_pub_info" author_id="' . $row['author_id'] . '" title="' . __('Show publications','teachcorses') . '" style_class="' . $tr_class . '" style="cursor:pointer;"><b>' . tc_Bibtex::parse_author_simple($row['name']) . '</b></a>');
+            tc_HTML::line('<td><a class="tc_show_pub_info" author_id="' . $row['author_id'] . '" title="' . __('Show publications','teachcourses') . '" style_class="' . $tr_class . '" style="cursor:pointer;"><b>' . tc_Bibtex::parse_author_simple($row['name']) . '</b></a>');
             
             // Row actions
             tc_HTML::line('<div class="tc_row_actions">');
-            tc_HTML::line('<a class="tc_row_delete" href="' . $link . '&amp;checkbox%5B%5D=' . $row['author_id'] . '" title="' . __('Delete','teachcorses') . '">' . __('Delete', 'teachcorses') . '</a>');
+            tc_HTML::line('<a class="tc_row_delete" href="' . $link . '&amp;checkbox%5B%5D=' . $row['author_id'] . '" title="' . __('Delete','teachcourses') . '">' . __('Delete', 'teachcourses') . '</a>');
             tc_HTML::line('</div>');
             // END Row actions
             
@@ -261,7 +261,7 @@ class tc_Authors_Page {
         }
 
         $args = array(
-            'label' => __('Items per page', 'teachcorses'),
+            'label' => __('Items per page', 'teachcourses'),
             'default' => 50,
             'option' => 'tc_authors_per_page'
         );
@@ -286,14 +286,14 @@ class tc_Authors_Page {
         // Available options
         $options[] = array(
             'key'   => 'firstname',
-            'label' => __('First name', 'teachcorses')
+            'label' => __('First name', 'teachcourses')
         );
         $options[] = array(
             'key'   => 'lastname',
-            'label' => __('Last name', 'teachcorses')
+            'label' => __('Last name', 'teachcourses')
         );
         
-        $r = '<label for="tc_authors_sorting"><b>' . __('Sorting', 'teachcorses') . '</b></label><br/>';
+        $r = '<label for="tc_authors_sorting"><b>' . __('Sorting', 'teachcourses') . '</b></label><br/>';
         $r .= '<select name="tc_authors_sorting" id="tc_authors_sorting">';
         foreach ( $options as $row ) {
             $selected = ( $row['key'] == $value ) ? 'selected="selected"' : '';
@@ -328,15 +328,15 @@ class tc_Authors_Page {
                     var author_id = $(this).attr("author_id");
                     var tr_class = $(this).attr("style_class");
                     var tr = '#resultbox_' + author_id;
-                    $.get(ajaxurl + "?action=teachcorses&author_id=" + author_id, 
+                    $.get(ajaxurl + "?action=teachcourses&author_id=" + author_id, 
                     function(text){
                         var ret;
                         var current = $(tr).next();
                         current.attr('class', tr_class);
                         current.attr('id', 'pub_info_' + author_id);
-                        ret = ret + '<td id="pub_details_' + author_id + '" colspan="4" style="padding-left:40px;"><b><?php echo __('Publications','teachcorses') ;?></b><br />' + text + '</td>';
+                        ret = ret + '<td id="pub_details_' + author_id + '" colspan="4" style="padding-left:40px;"><b><?php echo __('Publications','teachcourses') ;?></b><br />' + text + '</td>';
                         current.html(ret);
-                        $('<a class="button-secondary" style="cursor:pointer;" onclick="javascript:teachcorses_del_node(' + "'#pub_info_" + author_id + "'" + ');">Close</a>').appendTo('#pub_details_' + author_id);
+                        $('<a class="button-secondary" style="cursor:pointer;" onclick="javascript:teachcourses_del_node(' + "'#pub_info_" + author_id + "'" + ');">Close</a>').appendTo('#pub_details_' + author_id);
 
                     });
                 });

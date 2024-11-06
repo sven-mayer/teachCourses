@@ -2,7 +2,7 @@
 /**
  * This file contains the ajax callback function
  * 
- * @package teachcorses\core
+ * @package teachcourses\core
  * @license http://www.gnu.org/licenses/gpl-2.0.html GPLv2 or later
  */
 
@@ -13,7 +13,7 @@
 function tc_ajax_callback () {
     
     // Check permissions
-    if ( is_user_logged_in() && current_user_can('use_teachcorses') ) {
+    if ( is_user_logged_in() && current_user_can('use_teachcourses') ) {
         
         /**
          * Getting artefact screen (for show_single_course.php)

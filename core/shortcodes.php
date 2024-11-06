@@ -2,14 +2,14 @@
 /**
  * This file contains the shortcode functions
  * 
- * @package teachcorses\core\shortcodes
+ * @package teachcourses\core\shortcodes
  * @license http://www.gnu.org/licenses/gpl-2.0.html GPLv2 or later
  */
 
 /**
  * This class contains all shortcode helper functions
  * @since 5.0.0
- * @package teachcorses\core\shortcodes
+ * @package teachcourses\core\shortcodes
  */
 class tc_Shortcodes {
     
@@ -54,7 +54,7 @@ class tc_Shortcodes {
         }
         
         if ( $show_date === 1 ) {
-            $return .= '<td><span title="' . __('Published on','teachcorses') . ' ' . $date . '">' . $date . '</span></td>';
+            $return .= '<td><span title="' . __('Published on','teachcourses') . ' ' . $date . '">' . $date . '</span></td>';
         }
         
         $return .= '<td><a href="' . $upload_dir['baseurl'] . $row['path'] . '" class="' . $link_class . '">' . stripcslashes($row['name']) . '</a></td>';
@@ -215,7 +215,7 @@ class tc_Shortcodes {
         $filter_parameter[$mode] = '';
         
         // return filter menu
-        return '<select class="' . $settings['filter_class'] . '" name="' . $id . '" id="' . $id . '" tabindex="' . $tabindex . '" onchange="teachcorses_jumpMenu(' . "'" . 'parent' . "'" . ',this, ' . "'" . stripslashes(urldecode($settings['permalink'])) . "'" . ')">
+        return '<select class="' . $settings['filter_class'] . '" name="' . $id . '" id="' . $id . '" tabindex="' . $tabindex . '" onchange="teachcourses_jumpMenu(' . "'" . 'parent' . "'" . ',this, ' . "'" . stripslashes(urldecode($settings['permalink'])) . "'" . ')">
                    <option value="tgid=' . $filter_parameter['tag'] . '&amp;yr=' . $filter_parameter['year'] . '&amp;type=' . $filter_parameter['type'] . '&amp;usr=' . $filter_parameter['user'] . '&amp;auth=' . $filter_parameter['author'] . '' . $settings['html_anchor'] . '">' . $title . '</option>
                    ' . $options . '
                 </select>';
@@ -592,19 +592,19 @@ function tc_courselist_shortcode($atts) {
    
     $rtn = '<div id="tpcourselist">';
     if ($headline === 1) {
-         $rtn .= '<h2>' . __('Courses for the','teachcorses') . ' ' . stripslashes($sem) . '</h2>';
+         $rtn .= '<h2>' . __('Courses for the','teachcourses') . ' ' . stripslashes($sem) . '</h2>';
     }
     $rtn .= '' . $text . '
                <form name="lvs" method="get" action="' . esc_url($_SERVER['REQUEST_URI']) . '">
                ' . $page . '		
-               <div class="tc_auswahl"><label for="semester">' . __('Select the term','teachcorses') . '</label> <select name="semester" id="semester" title="' . __('Select the term','teachcorses') . '">';
+               <div class="tc_auswahl"><label for="semester">' . __('Select the term','teachcourses') . '</label> <select name="semester" id="semester" title="' . __('Select the term','teachcourses') . '">';
     $rowsem = get_tc_options('semester');
     foreach( $rowsem as $rowsem ) { 
         $current = ($rowsem->value == $sem) ? 'selected="selected"' : '';
         $rtn .= '<option value="' . $rowsem->value . '" ' . $current . '>' . stripslashes($rowsem->value) . '</option>';
     }
     $rtn .= '</select>
-           <input type="submit" name="start" value="' . __('Show','teachcorses') . '" id="teachcorses_submit" class="button-secondary"/>
+           <input type="submit" name="start" value="' . __('Show','teachcourses') . '" id="teachcourses_submit" class="button-secondary"/>
     </div>';
     $rtn2 = '';
     $row = tc_Courses::get_courses( array('semester' => $sem, 'parent' => 0, 'visibility' => '1,2') );
@@ -614,9 +614,9 @@ function tc_courselist_shortcode($atts) {
         } 
     }
     else {
-        $rtn2 = '<tr><td class="teachcorses_message">' . __('Sorry, no entries matched your criteria.','teachcorses') . '</td></tr>';
+        $rtn2 = '<tr><td class="teachcourses_message">' . __('Sorry, no entries matched your criteria.','teachcourses') . '</td></tr>';
     }
-    $rtn2 = '<table class="teachcorses_course_list">' . $rtn2 . '</table>';
+    $rtn2 = '<table class="teachcourses_course_list">' . $rtn2 . '</table>';
     $rtn3 = '</form></div>';
     return $rtn . $rtn2 . $rtn3;
 }
@@ -653,7 +653,7 @@ function tc_coursedocs_shortcode($atts) {
     $documents = tc_Documents::get_documents($course_id);
     
     if ( $headline === 1 ) {
-        $a = '<div class="tc_course_headline">' . __('Documents','teachcorses') . '</div>';
+        $a = '<div class="tc_course_headline">' . __('Documents','teachcourses') . '</div>';
     }
     
     if ( count($documents) === 0 ) {
@@ -701,10 +701,10 @@ function tc_courseinfo_shortcode($atts) {
     }
     
     $course = tc_Courses::get_course($id);
-    $fields = get_tc_options('teachcorses_courses','`setting_id` ASC', ARRAY_A);
+    $fields = get_tc_options('teachcourses_courses','`setting_id` ASC', ARRAY_A);
     $v_test = $course->name;
     $body = '';
-    $head = '<div class="tc_course_headline">' . __('Date(s)','teachcorses') . '</div>';
+    $head = '<div class="tc_course_headline">' . __('Date(s)','teachcourses') . '</div>';
     $head .= '<table class="tc_courseinfo">';
     
     $head .= '<tr>';
@@ -778,7 +778,7 @@ function tc_ref_shortcode($atts) {
        'style'              => 'simple',
        'title_ref'          => 'links',
        'link_style'         => ($param['show_links'] == 1) ? 'direct' : 'none',
-       'meta_label_in'      => __('In','teachcorses') . ': ',
+       'meta_label_in'      => __('In','teachcourses') . ': ',
        'use_span'           => false
     );
     
@@ -790,7 +790,7 @@ function tc_ref_shortcode($atts) {
         return;
     }
     
-    $ret = '<h3 class="teachcorses_ref_headline">' . __('References','teachcorses') . '</h3>';
+    $ret = '<h3 class="teachcourses_ref_headline">' . __('References','teachcourses') . '</h3>';
     $ret .= '<ol>';
     foreach ( $references as $row ) {
         $ret .= '<li id="tc_cite_' . $row['pub_id'] . '" class="tc_cite_entry"><span class="tc_single_author">' . stripslashes($row['author']) . '</span><span class="tc_single_year"> (' . $row['year'] . ')</span>: <span class="tc_single_title">' . tc_HTML_Publication_Template::prepare_publication_title($row, $settings, 1) . '</span>. <span class="tc_single_additional">' . tc_HTML_Publication_Template::get_publication_meta_row($row, $settings) . '</span></li>';
@@ -1014,8 +1014,8 @@ function tc_publist_shortcode ($atts) {
             $searchbox .= '<input type="hidden" name="p" id="page_id" value="' . get_the_id() . '"/>';
         }
 
-        $searchbox .= '<input name="tsr" id="tc_search_input_field" type="search" placeholder="' . __('Enter search word','teachcorses') .'" value="' . stripslashes($filter_parameter['search']) . '" tabindex="1"/>';
-        $searchbox .= '<input name="tps_button" class="tc_search_button" type="submit" tabindex="7" value="' . __('Search', 'teachcorses') . '"/>';
+        $searchbox .= '<input name="tsr" id="tc_search_input_field" type="search" placeholder="' . __('Enter search word','teachcourses') .'" value="' . stripslashes($filter_parameter['search']) . '" tabindex="1"/>';
+        $searchbox .= '<input name="tps_button" class="tc_search_button" type="submit" tabindex="7" value="' . __('Search', 'teachcourses') . '"/>';
 
     }
     
@@ -1064,7 +1064,7 @@ function tc_publist_shortcode ($atts) {
         $showall = '';
     }
     else {
-        $showall = '<a rel="nofollow" href="' . $settings['permalink'] . $settings['html_anchor'] . '" title="' . __('Show all','teachcorses') . '">' . __('Show all','teachcorses') . '</a>';
+        $showall = '<a rel="nofollow" href="' . $settings['permalink'] . $settings['html_anchor'] . '" title="' . __('Show all','teachcourses') . '">' . __('Show all','teachcourses') . '</a>';
     }
     
     /***********************/ 
@@ -1078,7 +1078,7 @@ function tc_publist_shortcode ($atts) {
     
     // tag cloud
     if ( $tag_cloud !== '' ) {
-        $part1 .= '<div class="teachcorses_cloud">' . $tag_cloud . '</div>';
+        $part1 .= '<div class="teachcourses_cloud">' . $tag_cloud . '</div>';
     }
     
     // search
@@ -1088,7 +1088,7 @@ function tc_publist_shortcode ($atts) {
     
     // filter
     if ( $filter !== '' ) {
-        $part1 .= '<div class="teachcorses_filter">' . $filter . '</div>';
+        $part1 .= '<div class="teachcourses_filter">' . $filter . '</div>';
     }
     
     // show all button
@@ -1101,7 +1101,7 @@ function tc_publist_shortcode ($atts) {
     
     // Return if we don't want so display the publications fo default
     if ( intval($atts['use_as_filter']) === 0 && $showall === '' ) {
-        return '<div class="teachcorses_pub_list">' . $part1 . '</div>';
+        return '<div class="teachcourses_pub_list">' . $part1 . '</div>';
     }
     
     // For debugging only:
@@ -1110,7 +1110,7 @@ function tc_publist_shortcode ($atts) {
     // print_r($filter_parameter);
     
     // Return
-    return '<div class="teachcorses_pub_list">' . $part1 . $part2 . '</div>';
+    return '<div class="teachcourses_pub_list">' . $part1 . $part2 . '</div>';
 }
 
 /** 
