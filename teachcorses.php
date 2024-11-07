@@ -67,6 +67,7 @@ if ( is_admin() ) {
     
     include_once('admin/settings.php');
     include_once('admin/show-courses.php');
+    include_once('admin/add-course.php');
     include_once('admin/show-single-course.php');
 }
 
@@ -92,20 +93,20 @@ function tc_add_menu() {
             __('Course','teachcourses'), 
             __('Course','teachcourses'),
             'use_teachcourses_courses', 
-            'teachcourses.php',
-            'tc_show_courses_page', 
+            'teachcourses',
+            array('TC_Courses_Page','init'), 
             $logo, 
             $pos);
     $tc_admin_add_course_page = add_submenu_page(
-            'teachcourses.php',
+            'teachcourses',
             __('Add new','teachcourses'), 
             __('Add new', 'teachcourses'),
             'use_teachcourses_courses',
-            'add_course.php',
-            'tc_add_course_page');
-    add_action("load-$tc_admin_add_course_page", 'tc_add_course_page_help');
-    add_action("load-$tc_admin_show_courses_page", 'tc_show_course_page_help');
-    add_action("load-$tc_admin_show_courses_page", 'tc_show_course_page_screen_options');
+            'teachcourses-add',
+            array('TC_Add_Course_Page','init'));
+
+    add_action("load-$tc_admin_show_courses_page", array('TC_Courses_Page','tc_show_course_page_help'));
+    add_action("load-$tc_admin_show_courses_page", array('TC_Courses_Page','tc_show_course_page_screen_options'));
 }
 
 /**

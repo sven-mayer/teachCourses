@@ -6,73 +6,75 @@
  * @license http://www.gnu.org/licenses/gpl-2.0.html GPLv2 or later
  */
 
-/**
- * Add help tab for show courses page
- */
-function tc_show_course_page_help () {
-    $screen = get_current_screen();  
-    $screen->add_help_tab( array(
-        'id'        => 'tc_show_course_help',
-        'title'     => __('Display courses','teachcourses'),
-        'content'   => '<p><strong>' . __('Shortcodes') . '</strong></p>
-                        <p>' . __('You can use courses in a page or article with the following shortcodes:','teachcourses') . '</p>
-                        <p>' . __('For course informations','teachcourses') . ': <strong>[tpcourseinfo id="x"]</strong> ' . __('x = Course-ID','teachcourses') . '</p>
-                        <p>' . __('For course documents','teachcourses') . ': <strong>[tpcoursedocs id="x"]</strong> ' . __('x = Course-ID','teachcourses') . '</p>
-                        <p>' . __('For the course list','teachcourses') . ': <strong>[tpcourselist]</strong></p>
-                        <p><strong>' . __('More information','teachcourses') . '</strong></p>
-                        <p><a href="https://github.com/winkm89/teachcourses/wiki#shortcodes" target="_blank" title="teachcourses Shortcode Reference (engl.)">teachcourses Shortcode Reference (engl.)</a></p>',
-    ) );
-}
+ /**
+  * This class contains all function for the show courses page
+  * @since 5.0.0
+  */
+ class TC_Courses_Page {
 
-/**
- * Add screen options for show courses page
- * @since 5.0.0
- */
-function tc_show_course_page_screen_options() {
-    global $tc_admin_show_courses_page;
-    $screen = get_current_screen();
- 
-    if( !is_object($screen) || $screen->id != $tc_admin_show_courses_page ) {
-        return;
+    /**
+     * Main controller for the show courses page and all single course pages
+     * @since 5.0.0
+     */
+    public static function init() {
+        
+        tc_Admin::database_test('<div class="wrap">', '</div>');
+        
+        // Event Handler
+        $action = isset( $_GET['action'] ) ? htmlspecialchars($_GET['action']) : '';
+
+        if ( $action === 'edit' ) {
+            tc_add_course_page();
+        }
+        elseif ( $action === 'show' || $action === 'documents' ) {
+            tc_show_single_course_page();
+        } else {
+            TC_Courses_Page::get_tab();
+        }
+
+        // add_action("load-$tc_admin_show_courses_page", array(__CLASS__,'tc_show_course_page_help'));
+        // add_action("load-$tc_admin_show_courses_page", array(__CLASS__,'tc_show_course_page_screen_options'));
+        
     }
 
-    $args = array(
-        'label' => __('Items per page', 'teachcourses'),
-        'default' => 50,
-        'option' => 'tc_courses_per_page'
-    );
-    add_screen_option( 'per_page', $args );
-}
-
-/**
- * Main controller for the show courses page and all single course pages
- * @since 5.0.0
- */
-function tc_show_courses_page() {
-    
-    tc_Admin::database_test('<div class="wrap">', '</div>');
-     
-    // Event Handler
-    $action = isset( $_GET['action'] ) ? htmlspecialchars($_GET['action']) : '';
-
-    if ( $action === 'edit' ) {
-        tc_add_course_page();
-    }
-    elseif ( $action === 'show' || $action === 'documents' ) {
-        tc_show_single_course_page();
-    } else {
-        tc_Courses_Page::get_tab();
+    /**
+     * Add help tab for show courses page
+     */
+    public static function tc_show_course_page_help () {
+        $screen = get_current_screen();  
+        $screen->add_help_tab( array(
+            'id'        => 'tc_show_course_help',
+            'title'     => __('Display courses','teachcourses'),
+            'content'   => '<p><strong>' . __('Shortcodes') . '</strong></p>
+                            <p>' . __('You can use courses in a page or article with the following shortcodes:','teachcourses') . '</p>
+                            <p>' . __('For course informations','teachcourses') . ': <strong>[tpcourseinfo id="x"]</strong> ' . __('x = Course-ID','teachcourses') . '</p>
+                            <p>' . __('For course documents','teachcourses') . ': <strong>[tpcoursedocs id="x"]</strong> ' . __('x = Course-ID','teachcourses') . '</p>
+                            <p>' . __('For the course list','teachcourses') . ': <strong>[tpcourselist]</strong></p>
+                            <p><strong>' . __('More information','teachcourses') . '</strong></p>
+                            <p><a href="https://github.com/winkm89/teachcourses/wiki#shortcodes" target="_blank" title="teachcourses Shortcode Reference (engl.)">teachcourses Shortcode Reference (engl.)</a></p>',
+        ) );
     }
 
+    /**
+     * Add screen options for show courses page
+     * @since 5.0.0
+     */
+    public static function tc_show_course_page_screen_options() {
+        global $tc_admin_show_courses_page;
+        $screen = get_current_screen();
     
-}
+        if( !is_object($screen) || $screen->id != $tc_admin_show_courses_page ) {
+            return;
+        }
 
-/**
- * This class contains all function for the show courses page
- * @since 5.0.0
- */
-class tc_Courses_Page {
-    
+        $args = array(
+            'label' => __('Items per page', 'teachcourses'),
+            'default' => 50,
+            'option' => 'tc_courses_per_page'
+        );
+        add_screen_option( 'per_page', $args );
+    }
+        
     /**
      * Gets the show courses main page
      * @since 5.0.0
@@ -91,7 +93,7 @@ class tc_Courses_Page {
         echo '<h1 class="wp-heading-inline">'.esc_html__('Courses','teachcourses').'</h1><a href="admin.php?page=add_course.php" class="add-new-h2">'.esc_html__('Add new','teachcourses').'</a>';
         echo '<hr class="wp-header-end">
         <ul class="subsubsub">
-            <li class="all"><a href="edit.php?post_type=post" class="current" aria-current="page">All <span class="count">('.tc_Courses_Page::get_count_courses().')</span></a></li>
+            <li class="all"><a href="edit.php?post_type=post" class="current" aria-current="page">All <span class="count">('.TC_Courses_Page::get_count_courses().')</span></a></li>
             <!-- <li class="publish"><a href="edit.php?post_status=publish&amp;post_type=post">Published <span class="count">(1)</span></a></li> -->
         </ul>';
         echo '<form id="showcourse" name="showcourse" method="get" action="'.esc_url($_SERVER['REQUEST_URI']).'">
@@ -107,75 +109,75 @@ class tc_Courses_Page {
         </div>';
         
         echo '<input name="page" type="hidden" value="teachcourses.php" />';
-           // delete a course, part 1
-           if ( $bulk === 'delete' ) {
+        // delete a course, part 1
+        if ( $bulk === 'delete' ) {
                 echo '<div class="teachcourses_message">
                 <p class="teachcourses_message_headline">' . __('Do you want to delete the selected items?','teachcourses') . '</p>
                 <p><input name="delete_ok" type="submit" class="button-primary" value="' . __('Delete','teachcourses') . '"/>
                 <a href="admin.php?page=teachcourses.php&sem=' . $sem . '&search=' . $search . '" class="button-secondary"> ' . __('Cancel','teachcourses') . '</a></p>
                 </div>';
-           }
-           // delete a course, part 2
-           if ( isset($_GET['delete_ok']) ) {
+        }
+        // delete a course, part 2
+        if ( isset($_GET['delete_ok']) ) {
                 tc_Courses::delete_courses($current_user->ID, $checkbox);
                 $message = __('Removing successful','teachcourses');
                 get_tc_message($message);
-           }
-           // copy a course, part 1
-           if ( $bulk === "copy" ) { 
-                tc_Courses_Page::get_copy_course_form($terms, $sem, $search);
-           }
-           // copy a course, part 2
-           if ( isset($_GET['copy_ok']) ) {
+        }
+        // copy a course, part 1
+        if ( $bulk === "copy" ) { 
+                TC_Courses_Page::get_copy_course_form($terms, $sem, $search);
+        }
+        // copy a course, part 2
+        if ( isset($_GET['copy_ok']) ) {
                 tc_copy_course::init($checkbox, $copysem);
                 $message = __('Copying successful','teachcourses');
                 get_tc_message($message);
-           }
-           ?>
+        }
+        ?>
             <div class="tablenav top">
                 <div class="alignleft actions bulkactions">
                     <select name="bulk" id="bulk">
-                         <option>- <?php _e('Bulk actions','teachcourses'); ?> -</option>
-                         <option value="copy"><?php _e('copy','teachcourses'); ?></option>
-                         <option value="delete"><?php _e('Delete','teachcourses'); ?></option>
+                        <option>- <?php _e('Bulk actions','teachcourses'); ?> -</option>
+                        <option value="copy"><?php _e('copy','teachcourses'); ?></option>
+                        <option value="delete"><?php _e('Delete','teachcourses'); ?></option>
                     </select>
                     <input type="submit" name="teachcourses_submit" id="doaction" value="<?php _e('apply','teachcourses'); ?>" class="button-secondary"/>
                 </div>
                 <div class="alignleft actions">
                     <select name="sem" id="sem">
-                         <option value=""><?php _e('All terms','teachcourses'); ?></option>
-                         <?php
-                         foreach ($terms as $row) { 
-                              $current = ( $row->value == $sem ) ? 'selected="selected"' : '';
-                              echo '<option value="' . $row->value . '" ' . $current . '>' . stripslashes($row->value) . '</option>';
-                         } ?> 
+                        <option value=""><?php _e('All terms','teachcourses'); ?></option>
+                        <?php
+                        foreach ($terms as $row) { 
+                            $current = ( $row->value == $sem ) ? 'selected="selected"' : '';
+                            echo '<option value="' . $row->value . '" ' . $current . '>' . stripslashes($row->value) . '</option>';
+                        } ?> 
                     </select>
-                   <input type="submit" name="start" value="<?php _e('filter','teachcourses'); ?>" id="teachcourses_submit" class="button-secondary"/>
+                <input type="submit" name="start" value="<?php _e('filter','teachcourses'); ?>" id="teachcourses_submit" class="button-secondary"/>
                 </div>
                 <div class="tablenav-pages one-page">
-                    <span class="displaying-num"><?php echo tc_Courses_Page::get_count_courses(); ?> item</span>
+                    <span class="displaying-num"><?php echo TC_Courses_Page::get_count_courses(); ?> item</span>
                 </div>
-             </div>
+            </div>
             <table class="wp-list-table widefat fixed striped table-view-list">
-               <thead>
-               <tr>
-                   <td id="cb" class="manage-column column-cb check-column"><input name="tc_check_all" id="tc_check_all" type="checkbox" value="" onclick="teachcourses_checkboxes('checkbox[]','tc_check_all');" /></td>
-                   <th scope="col" id="name" class="manage-column column-name column-primary sortable desc"><a><span><?php _e('Name','teachcourses'); ?></span>
-                   <span class="sorting-indicators"><span class="sorting-indicator asc" aria-hidden="true"></span><span class="sorting-indicator desc" aria-hidden="true"></span></span></a></th>
-                   <th scope="col" class="manage-column column-id"><?php _e('ID'); ?></th>
-                   <th scope="col" class="manage-column column-type"><?php _e('Type'); ?></th>
-                   <th scope="col" class="manage-column column-lecturer"><?php _e('Lecturer','teachcourses'); ?></th>
-                   <th scope="col" class="manage-column column-term"><?php _e('Term','teachcourses'); ?></th>
-               </tr>
-               </thead>
-               <tbody>
+            <thead>
+            <tr>
+                <td id="cb" class="manage-column column-cb check-column"><input name="tc_check_all" id="tc_check_all" type="checkbox" value="" onclick="teachcourses_checkboxes('checkbox[]','tc_check_all');" /></td>
+                <th scope="col" id="name" class="manage-column column-name column-primary sortable desc"><a><span><?php _e('Name','teachcourses'); ?></span>
+                <span class="sorting-indicators"><span class="sorting-indicator asc" aria-hidden="true"></span><span class="sorting-indicator desc" aria-hidden="true"></span></span></a></th>
+                <th scope="col" class="manage-column column-id"><?php _e('ID'); ?></th>
+                <th scope="col" class="manage-column column-type"><?php _e('Type'); ?></th>
+                <th scope="col" class="manage-column column-lecturer"><?php _e('Lecturer','teachcourses'); ?></th>
+                <th scope="col" class="manage-column column-term"><?php _e('Term','teachcourses'); ?></th>
+            </tr>
+            </thead>
+            <tbody>
             <?php
-               $order = 'name, course_id';
-               if ($search != '') {
-                   $order = 'semester DESC, name';	
-               }
-               tc_Courses_Page::get_courses($search, $sem, $bulk, $checkbox);
-  
+            $order = 'name, course_id';
+            if ($search != '') {
+                $order = 'semester DESC, name';	
+            }
+            TC_Courses_Page::get_courses($search, $sem, $bulk, $checkbox);
+
             ?>
             </tbody>
             </table>
@@ -213,7 +215,7 @@ class tc_Courses_Page {
             echo '<tr><td colspan="13"><strong>' . __('Sorry, no entries matched your criteria.','teachcourses') . '</strong></td></tr>';
             return;
         }
-           
+        
 
         $static['bulk'] = $bulk;
         $static['sem'] = $sem;
@@ -243,17 +245,17 @@ class tc_Courses_Page {
                 // alternate table rows
                 $static['tr_class'] = ( $class_alternate === true ) ? ' class="alternate"' : '';
                 $class_alternate = ( $class_alternate === true ) ? false : true;
-                echo tc_Courses_Page::get_single_table_row($courses[$i], $checkbox, $static);
-               	
+                echo TC_Courses_Page::get_single_table_row($courses[$i], $checkbox, $static);
+                
             }
             // table design for searches
             else {
                 $static['tr_class'] = '';
                 $parent_name = ( $courses[$i]['parent'] != 0 ) ? tc_Courses::get_course_data($courses[$i]['parent'], 'name') : '';
-                echo tc_Courses_Page::get_single_table_row($courses[$i], $checkbox, $static);
+                echo TC_Courses_Page::get_single_table_row($courses[$i], $checkbox, $static);
             }
         }	
-             
+            
     }
     
     /** 
@@ -261,12 +263,12 @@ class tc_Courses_Page {
      * @param array $course                     course data
      * @param array $checkbox
      * @param array $static
-           $static['bulk']                      copy or delete
-           $static['sem']                       semester
-           $static['search']                    input from search field
-     * @return string
-     * @since 5.0.0
-     * @access private
+         $static['bulk']                      copy or delete
+        $static['sem']                       semester
+        $static['search']                    input from search field
+    * @return string
+    * @since 5.0.0
+    * @access private
     */ 
     private static function get_single_table_row ($course, $checkbox, $static) {
         $check = '';
@@ -331,4 +333,4 @@ class tc_Courses_Page {
         </div>
         <?php
     }
-}
+ }
