@@ -293,7 +293,7 @@ function tc_backend_scripts() {
     $page = isset($_GET['page']) ? $_GET['page'] : '';
     
     // Load scripts only, if it's a teachcourses page
-    if ( strpos($page, 'teachcourses') === false ) {
+    if (( strpos($page, 'teachcourses') === false ) && (strpos($page, 'add_course') === false )) {
         return;
     }
     wp_enqueue_style('teachcourses-print-css', plugins_url( 'styles/print.css', __FILE__ ), false, $version, 'print');
