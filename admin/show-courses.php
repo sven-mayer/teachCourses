@@ -93,7 +93,6 @@ class tc_Courses_Page {
         <ul class="subsubsub">
             <li class="all"><a href="edit.php?post_type=post" class="current" aria-current="page">All <span class="count">('.tc_Courses_Page::get_count_courses().')</span></a></li>
             <!-- <li class="publish"><a href="edit.php?post_status=publish&amp;post_type=post">Published <span class="count">(1)</span></a></li> -->
-        <form id="showcourse" name="showcourse" method="get" action="<?php echo esc_url($_SERVER['REQUEST_URI']); ?>">
         </ul>';
         echo '<form id="showcourse" name="showcourse" method="get" action="'.esc_url($_SERVER['REQUEST_URI']).'">
         <div id="tc_searchbox"> 
