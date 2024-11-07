@@ -102,7 +102,7 @@ class tc_Shortcodes {
         // handle childs
         if ( $row->visible == 2 ) {
             $div_cl_com = "_c";
-            $row2 = tc_Courses::get_courses( array('semester' => $sem, 'parent' => $row->course_id, 'visibility' => '1,2') );
+            $row2 = TC_Courses::get_courses( array('semester' => $sem, 'parent' => $row->course_id, 'visibility' => '1,2') );
             foreach ( $row2 as $row2 ) {
                 $childs .= '<p><a href="' . get_permalink($row2->rel_page) . '" title="' . $row2->name . '">' . $row2->name . '</a></p>'; 
             }
@@ -141,7 +141,7 @@ class tc_Shortcodes {
      */
     public static function get_coursemeta_line ($course_id, $fields) {
         $return = '';
-        $course_meta = tc_Courses::get_course_meta($course_id);
+        $course_meta = TC_Courses::get_course_meta($course_id);
         foreach ($fields as $row) {
             $col_data = tc_DB_Helpers::extract_column_data($row['value']);
             if ( $col_data['visibility'] !== 'normal' ) {
@@ -607,7 +607,7 @@ function tc_courselist_shortcode($atts) {
            <input type="submit" name="start" value="' . __('Show','teachcourses') . '" id="teachcourses_submit" class="button-secondary"/>
     </div>';
     $rtn2 = '';
-    $row = tc_Courses::get_courses( array('semester' => $sem, 'parent' => 0, 'visibility' => '1,2') );
+    $row = TC_Courses::get_courses( array('semester' => $sem, 'parent' => 0, 'visibility' => '1,2') );
     if ( count($row) != 0 ){
         foreach($row as $row) {
             $rtn2 .= tc_Shortcodes::get_courselist_line ($row, $image, $image_size, $sem);
@@ -700,7 +700,7 @@ function tc_courseinfo_shortcode($atts) {
         return;
     }
     
-    $course = tc_Courses::get_course($id);
+    $course = TC_Courses::get_course($id);
     $fields = get_tc_options('teachcourses_courses','`setting_id` ASC', ARRAY_A);
     $v_test = $course->name;
     $body = '';
@@ -720,7 +720,7 @@ function tc_courseinfo_shortcode($atts) {
     $head .= '</tr>';
     
     // Search the child courses
-    $row = tc_Courses::get_courses( array('parent' => $id, 'visible' => '1,2', 'order' => 'name, course_id') );
+    $row = TC_Courses::get_courses( array('parent' => $id, 'visible' => '1,2', 'order' => 'name, course_id') );
     foreach($row as $row) {
         // if parent name = child name
         if ($v_test == $row->name) {

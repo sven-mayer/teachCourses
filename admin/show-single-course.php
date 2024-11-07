@@ -54,8 +54,8 @@ function tc_show_single_course_page() {
     }
     
     // course data
-    $course_data = tc_Courses::get_course($course_id, ARRAY_A);
-    $parent = tc_Courses::get_course($course_data["parent"], ARRAY_A);
+    $course_data = TC_Courses::get_course($course_id, ARRAY_A);
+    $parent = TC_Courses::get_course($course_data["parent"], ARRAY_A);
 
     echo '<div class="wrap">';
     tc_Single_Course_Actions::do_actions($course_id, $_POST);
@@ -274,7 +274,7 @@ class tc_Single_Course_Page {
      */
     private static function get_move_to_a_course_form($course_id, $cours_data, $link_parameter) {
         $p = $cours_data['parent'] != 0 ? $cours_data['parent'] : $cours_data['course_id'];
-        $related_courses = tc_Courses::get_courses( array('parent' => $p ) );
+        $related_courses = TC_Courses::get_courses( array('parent' => $p ) );
         if ( count($related_courses) === 0 ) {
             get_tc_message(__('Error: There are no related courses.','teachcourses'));
             return;
@@ -302,7 +302,7 @@ class tc_Single_Course_Page {
      */
     public static function get_info_tab ($course_id, $cours_data) {
         $fields = get_tc_options('teachcourses_courses','`setting_id` ASC', ARRAY_A);
-        $course_meta = tc_Courses::get_course_meta($course_id);
+        $course_meta = TC_Courses::get_course($course_id);
         ?>
         <div style="width:100%">
            <div class="postbox">

@@ -15,18 +15,6 @@
 class tc_Courses {
 
    /**
-    * Checks if there is an owner of the selected course. If not, the function returns false, if yes, the user_id is returned.
-    * @param int $course_id     The course ID
-    * @return boolean|int
-    * @since 5.0.0
-    */
-   public static function is_owner ($course_id) {
-       
-       return false;
-       
-   }
-   
-   /**
     * Checks if a post is used as related content for a course. If is true, the course ID will be returned otherwise it's false. 
     * @param int $post_id
     * @return int|boolean   Returns the course_id or false
@@ -89,15 +77,13 @@ class tc_Courses {
         global $wpdb;
 
         // Define basics
-        $sql = "SELECT course_id, name, type, lecturer, date, room, places, start, end, semester, parent, visible, rel_page, comment, image_url, strict_signup, use_capabilities, parent_name
-                FROM ( SELECT t.course_id AS course_id, t.name AS name, t.type AS type, t.lecturer AS lecturer, t.date AS date, t.room As room, t.places AS places, t.start AS start, t.end As end, t.semester AS semester, t.parent As parent, t.visible AS visible, t.rel_page AS rel_page, t.comment AS comment, t.image_url AS image_url, t.strict_signup AS strict_signup, t.use_capabilities AS use_capabilities, p.name AS parent_name 
-                FROM " . TEACHCOURSES_COURSES . " t 
-                LEFT JOIN " . TEACHCOURSES_COURSES . " p ON t.parent = p.course_id ) AS temp";
+        $sql = "SELECT course_id, name, type, lecturer, date, room, places, start, end, semester, parent, visible, rel_page, comment, image_url, strict_signup, use_capabilities
+                FROM " . TEACHCOURSES_COURSES; //( SELECT t.course_id AS course_id, t.name AS name, t.type AS type, t.lecturer AS lecturer, t.date AS date, t.room As room, t.places AS places, t.start AS start, t.end As end, t.semester AS semester, t.parent As parent, t.visible AS visible, t.rel_page AS rel_page, t.comment AS comment, t.image_url AS image_url, t.strict_signup AS strict_signup, t.use_capabilities AS use_capabilities, p.name AS parent_name FROM " . TEACHCOURSES_COURSES . " t LEFT JOIN " . TEACHCOURSES_COURSES . " p ON t.parent = p.course_id ) AS temp";
         
         // define global search
         $search = esc_sql(htmlspecialchars(stripslashes($atts['search'])));
         if ( $search != '' ) {
-            $search = "`name` like '%$search%' OR `parent_name` like '%$search%' OR `lecturer` like '%$search%' OR `date` like '%$search%' OR `room` like '%$search%' OR `course_id` = '$search'";
+            $search = "`name` like '%$search%' OR `lecturer` like '%$search%' OR `date` like '%$search%' OR `room` like '%$search%' OR `course_id` = '$search'";
         }
         
         // WHERE clause
@@ -118,6 +104,9 @@ class tc_Courses {
         if ( $order != '' ) {
             $order = " ORDER BY $order";
         }
+        $where = "";
+         $order = "";
+         $limit = "";
         $result = $wpdb->get_results($sql . $where . $order . $limit, $atts['output_type']);
         return $result;
     }
@@ -145,54 +134,10 @@ class tc_Courses {
         global $wpdb;
         $row = $wpdb->get_row("SELECT `name`, `parent` FROM " . TEACHCOURSES_COURSES . " WHERE `course_id` = '" . intval($course_id) . "'");
         if ($row->parent != '0') {
-            $parent = tc_Courses::get_course_data($row->parent, 'name');
+            $parent = TC_Courses::get_course_data($row->parent, 'name');
             $row->name = ( $row->name != $parent ) ? $parent . ' ' . $row->name : $row->name;
         }
         return $row->name;
-    }
-    
-    /**
-     * Returns course meta data
-     * @param int $course_id        The course ID
-     * @param string $meta_key      The name of the meta field (optional)
-     * @return array
-     * @since 5.0.0
-     */
-    public static function get_course_meta($course_id, $meta_key = ''){
-        global $wpdb;
-        $where = '';
-        if ( $meta_key !== '' ) {
-            $where = "AND `meta_key` = '" . esc_sql($meta_key) . "'";
-        }
-        $sql = "SELECT * FROM " . TEACHCOURSES_COURSE_META . " WHERE `course_id` = '" . intval($course_id) . "' $where";
-        return $wpdb->get_results($sql, ARRAY_A);
-    }
-    
-    /**
-     * Add course meta
-     * @param int $course_id        The course ID
-     * @param string $meta_key      The name of the meta field
-     * @param string $meta_value    The value of the meta field
-     * @since 5.0.0
-     */
-    public static function add_course_meta ($course_id, $meta_key, $meta_value) {
-        global $wpdb;
-        $wpdb->insert( TEACHCOURSES_COURSE_META, array( 'course_id' => $course_id, 'meta_key' => $meta_key, 'meta_value' => $meta_value ), array( '%d', '%s', '%s' ) );
-    }
-    
-    /**
-     * Deletes curse meta
-     * @param int $course_id    The course ID
-     * @param string $meta_key  The name of the meta field
-     * @since 5.0.0
-     */
-    public static function delete_course_meta ($course_id, $meta_key = '') {
-        global $wpdb;
-        $where = '';
-        if ( $meta_key !== '' ) {
-            $where = "AND `meta_key` = '" . esc_sql($meta_key) . "'";
-        }
-        $wpdb->query("DELETE FROM " . TEACHCOURSES_COURSE_META . " WHERE `course_id` = '" . intval($course_id) . "' $where");
     }
     
     /** 
@@ -238,7 +183,7 @@ class tc_Courses {
         $course_id = $wpdb->insert_id;
         // create rel_page
         if ($data['rel_page_alter'] !== 0 ) {
-            $data['rel_page'] = tc_Courses::add_rel_page($course_id, $data);
+            $data['rel_page'] = TC_Courses::add_rel_page($course_id, $data);
             // Update rel_page
             $wpdb->update( 
                     TEACHCOURSES_COURSES, 
@@ -253,7 +198,7 @@ class tc_Courses {
         }
         // create sub courses
         if ( $sub['number'] !== 0 ) {
-            tc_Courses::add_sub_courses($course_id, $data, $sub);
+            TC_Courses::add_sub_courses($course_id, $data, $sub);
         }
         return $course_id;
     }
@@ -297,7 +242,7 @@ class tc_Courses {
         $options = array('number' => 0);
         for ( $i = 1; $i <= $sub['number']; $i++ ) {
             $sub_data['name'] = $sub['type'] . ' ' . $i;
-            tc_Courses::add_course($sub_data, $options);
+            TC_Courses::add_course($sub_data, $options);
         }
     }
     
@@ -312,7 +257,7 @@ class tc_Courses {
         global $wpdb;
         $course_id = intval($course_id);
         global $current_user;
-        $old_places = tc_Courses::get_course_data ($course_id, 'places');
+        $old_places = TC_Courses::get_course_data ($course_id, 'places');
         
         // prevent possible double escapes
         $data['name'] = stripslashes($data['name']);
@@ -361,7 +306,6 @@ class tc_Courses {
             $checkbox[$i] = intval($checkbox[$i]);
             
             $wpdb->query( "DELETE FROM " . TEACHCOURSES_COURSES . " WHERE `course_id` = $checkbox[$i]" );
-            $wpdb->query( "DELETE FROM " . TEACHCOURSES_COURSE_META . " WHERE `course_id` = $checkbox[$i]" );
             $wpdb->query( "DELETE FROM " . TEACHCOURSES_COURSE_DOCUMENTS . " WHERE `course_id` = $checkbox[$i]" );
             $wpdb->query( "DELETE FROM " . TEACHCOURSES_ARTEFACTS . " WHERE `course_id` = $checkbox[$i]" );
             // Check if there are parent courses, which are not selected for erasing, and set there parent to default

@@ -364,7 +364,7 @@ class tc_Document_Manager {
         // List of courses
         $semester = get_tc_options('semester', '`setting_id` DESC');
         foreach ( $semester as $row ) {
-            $courses = tc_Courses::get_courses( array('parent' => 0, 'semester' => $row->value) );
+            $courses = TC_Courses::get_courses( array('parent' => 0, 'semester' => $row->value) );
             if ( count($courses) !== 0 ) {
                 echo '<optgroup label="' . $row->value . '">';
             }
@@ -414,11 +414,11 @@ class tc_Document_Manager {
 
             // default
             if ( $post_id !== 0 && $course_id === 0 ) {
-                $course_id = intval (tc_Courses::is_used_as_related_content($post_id) );
+                $course_id = intval (TC_Courses::is_used_as_related_content($post_id) );
             }
             // For user's selection
             else if ( $course_id !== 0 ) {
-                $post_id = tc_Courses::get_course_data($course_id, 'rel_page');
+                $post_id = TC_Courses::get_course_data($course_id, 'rel_page');
             }
             
             echo '<body>';

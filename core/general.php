@@ -376,7 +376,7 @@ function tc_write_data_for_tinymce () {
     $course_list[] = array( 'text' => '=== SELECT ===' , 'value' => 0 );
     $semester = get_tc_options('semester', '`setting_id` DESC');
     foreach ( $semester as $row ) {
-        $courses = tc_Courses::get_courses( array('parent' => 0, 'semester' => $row->value) );
+        $courses = TC_Courses::get_courses( array('parent' => 0, 'semester' => $row->value) );
         foreach ($courses as $course) {
             $course_list[] = array( 'text' => $course->name . ' (' . $course->semester . ')' , 'value' => $course->course_id );
         }

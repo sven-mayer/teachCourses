@@ -119,7 +119,7 @@
         }
         // delete a course, part 2
         if ( isset($_GET['delete_ok']) ) {
-                tc_Courses::delete_courses($current_user->ID, $checkbox);
+                TC_Courses::delete_courses($current_user->ID, $checkbox);
                 $message = __('Removing successful','teachcourses');
                 get_tc_message($message);
         }
@@ -188,7 +188,7 @@
     }
 
     private static function get_count_courses () {
-        $row = tc_Courses::get_courses( array('order'     => 'name, course_id'));
+        $row = TC_Courses::get_courses( array('order'     => 'name, course_id'));
         return count($row);
     }
     
@@ -204,7 +204,7 @@
      */
     private static function get_courses ($search, $sem, $bulk, $checkbox) {
 
-        $row = tc_Courses::get_courses( 
+        $row = TC_Courses::get_courses( 
                 array(
                     'search'    => $search, 
                     'semester'  => $sem, 
@@ -251,7 +251,7 @@
             // table design for searches
             else {
                 $static['tr_class'] = '';
-                $parent_name = ( $courses[$i]['parent'] != 0 ) ? tc_Courses::get_course_data($courses[$i]['parent'], 'name') : '';
+                $parent_name = ( $courses[$i]['parent'] != 0 ) ? TC_Courses::get_course_data($courses[$i]['parent'], 'name') : '';
                 echo TC_Courses_Page::get_single_table_row($courses[$i], $checkbox, $static);
             }
         }	

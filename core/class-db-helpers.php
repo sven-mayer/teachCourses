@@ -133,12 +133,7 @@ class tc_DB_Helpers {
             }
             
             // Add to database
-            if ( $table === 'students' ){
-                tc_Students::add_student_meta( $id, $row['variable'], htmlspecialchars($value) );
-            }
-            else if ( $table === 'courses' ) {
-                tc_Courses::add_course_meta($id, $row['variable'], $value);
-            }
+            TC_Courses::add_course_meta($id, $row['variable'], $value);
         }
     }
     

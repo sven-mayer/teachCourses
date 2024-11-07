@@ -463,8 +463,8 @@ class tc_copy_course {
             $original_course_id = intval($checkbox[$i]);
             $new_courses[$i]['orig_id'] = $original_course_id;
             $new_courses[$i]['new_id'] = 0;
-            $new_courses[$i]['data'] = tc_Courses::get_course($original_course_id, ARRAY_A);
-            $new_courses[$i]['meta'] = tc_Courses::get_course_meta($original_course_id);
+            $new_courses[$i]['data'] = TC_Courses::get_course($original_course_id, ARRAY_A);
+            $new_courses[$i]['meta'] = TC_Courses::get_course_meta($original_course_id);
             $new_courses[$i]['orig_semester'] = $new_courses[$i]['data']['semester'];
             $new_courses[$i]['data']['semester'] = $copysem;
 
@@ -515,10 +515,10 @@ class tc_copy_course {
         $data['end'] = '00';
         
         // add data
-        $new_id = tc_Courses::add_course($data, array('number' => 0));
-        foreach ( $meta_data as $meta_row ) {
-            tc_Courses::add_course_meta($new_id, $meta_row['meta_key'], $meta_row['meta_value']);
-        }
+        // $new_id = TC_Courses::add_course($data, array('number' => 0));
+        // foreach ( $meta_data as $meta_row ) {
+        //     TC_Courses::add_course_meta($new_id, $meta_row['meta_key'], $meta_row['meta_value']); // Re
+        // }
         return $new_id;
     }
 

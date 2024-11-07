@@ -24,10 +24,10 @@ class tc_Export {
         $parent = '';
         
         // load course data
-        $data = tc_Courses::get_course($course_id, ARRAY_A);
+        $data = TC_Courses::get_course($course_id, ARRAY_A);
         $course_name = $data['name'];
         if ($data['parent'] != '0') {
-            $parent = tc_Courses::get_course($data['parent'], ARRAY_A);
+            $parent = TC_Courses::get_course($data['parent'], ARRAY_A);
             $course_name = $parent['name'] . ' ' . $data['name'];
         }
 

@@ -55,7 +55,6 @@ class tc_Tables {
                                 `" . TEACHCOURSES_AUTHORS . "`, 
                                 `" . TEACHCOURSES_COURSES . "`, 
                                 `" . TEACHCOURSES_COURSE_DOCUMENTS . "`, 
-                                `" . TEACHCOURSES_COURSE_META . "`, 
                                 `" . TEACHCOURSES_RELATION ."`,
                                 `" . TEACHCOURSES_REL_PUB_AUTH . "`, 
                                 `" . TEACHCOURSES_SETTINGS ."`,  
