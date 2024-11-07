@@ -60,7 +60,11 @@ function tc_show_courses_page() {
     }
     elseif ( $action === 'show' || $action === 'documents' ) {
         tc_show_single_course_page();
+    } else {
+        tc_Courses_Page::get_tab();
     }
+
+    
 }
 
 /**
@@ -83,27 +87,27 @@ class tc_Courses_Page {
         $copysem = isset( $_GET['copysem'] ) ? $_GET['copysem'] : '';
         $sem = ( isset($_GET['sem']) ) ? htmlspecialchars($_GET['sem']) : get_tc_option('sem');
     
-        echo '<div class="wrap">';?>
-            <h1><?php _e('Courses','teachcourses'); ?> <a href="admin.php?page=teachcourses/add_course.php" class="add-new-h2"><?php _e('Add new','teachcourses'); ?></a></h1>
-        <hr class="wp-header-end">
+        echo '<div class="wrap">';
+        echo '<h1 class="wp-heading-inline">'.esc_html__('Courses','teachcourses').'</h1><a href="admin.php?page=add_course.php" class="add-new-h2">'.esc_html__('Add new','teachcourses').'</a>';
+        echo '<hr class="wp-header-end">
         <ul class="subsubsub">
-            <li class="all"><a href="edit.php?post_type=post" class="current" aria-current="page">All <span class="count">(<?php echo tc_Courses_Page::get_count_courses(); ?>)</span></a></li>
+            <li class="all"><a href="edit.php?post_type=post" class="current" aria-current="page">All <span class="count">('.tc_Courses_Page::get_count_courses().')</span></a></li>
             <!-- <li class="publish"><a href="edit.php?post_status=publish&amp;post_type=post">Published <span class="count">(1)</span></a></li> -->
-        </ul>
         <form id="showcourse" name="showcourse" method="get" action="<?php echo esc_url($_SERVER['REQUEST_URI']); ?>">
-        
+        </ul>';
+        echo '<form id="showcourse" name="showcourse" method="get" action="'.esc_url($_SERVER['REQUEST_URI']).'">
         <div id="tc_searchbox"> 
-            <p class="search-box">
-            <?php if ($search != '') { ?>
-            <a href="admin.php?page=teachcourses.php" class="tc_search_cancel" title="<?php _e('Cancel the search','teachcourses'); ?>">X</a>
-            <?php } ?>
-            <input type="search" name="search" id="pub_search_field" value="<?php echo stripslashes($search); ?>"/></td>
-            <input type="submit" name="pub_search_button" id="pub_search_button" value="<?php _e('Search','teachcourses'); ?>" class="button-secondary"/>
+            <p class="search-box">';
+
+        if ($search != '') {
+            echo '<a href="admin.php?page=teachcourses.php" class="tc_search_cancel" title="'.esc_html__('Cancel the search','teachcourses').'">X</a>';
+        }
+        echo '<input type="search" name="search" id="pub_search_field" value="'.stripslashes($search).'"/></td>
+            <input type="submit" name="pub_search_button" id="pub_search_button" value="'.esc_html__('Search','teachcourses').'" class="button-secondary"/>
             </p>
-        </div>
+        </div>';
         
-        <input name="page" type="hidden" value="teachcourses.php" />
-           <?php 	
+        echo '<input name="page" type="hidden" value="teachcourses.php" />';
            // delete a course, part 1
            if ( $bulk === 'delete' ) {
                 echo '<div class="teachcourses_message">
@@ -171,7 +175,7 @@ class tc_Courses_Page {
                if ($search != '') {
                    $order = 'semester DESC, name';	
                }
-               tc_Courses_Page::get_courses($current_user->ID, $search, $sem, $bulk, $checkbox);
+               tc_Courses_Page::get_courses($search, $sem, $bulk, $checkbox);
   
             ?>
             </tbody>
@@ -189,7 +193,6 @@ class tc_Courses_Page {
     
     /**
      * Returns the content for the course table
-     * @param int $user_ID      The ID of the current user
      * @param string $search    The search string
      * @param string $sem       The semester you want to show
      * @param array $bulk       The bulk checkbox
@@ -198,7 +201,8 @@ class tc_Courses_Page {
      * @since 5.0.0
      * @access private
      */
-    private static function get_courses ($user_ID, $search, $sem, $bulk, $checkbox) {
+    private static function get_courses ($search, $sem, $bulk, $checkbox) {
+
         $row = tc_Courses::get_courses( 
                 array(
                     'search'    => $search, 
@@ -240,14 +244,14 @@ class tc_Courses_Page {
                 // alternate table rows
                 $static['tr_class'] = ( $class_alternate === true ) ? ' class="alternate"' : '';
                 $class_alternate = ( $class_alternate === true ) ? false : true;
-                echo tc_Courses_Page::get_single_table_row($courses[$i], $user_ID, $checkbox, $static);
+                echo tc_Courses_Page::get_single_table_row($courses[$i], $checkbox, $static);
                	
             }
             // table design for searches
             else {
                 $static['tr_class'] = '';
                 $parent_name = ( $courses[$i]['parent'] != 0 ) ? tc_Courses::get_course_data($courses[$i]['parent'], 'name') : '';
-                echo tc_Courses_Page::get_single_table_row($courses[$i], $user_ID, $checkbox, $static);
+                echo tc_Courses_Page::get_single_table_row($courses[$i], $checkbox, $static);
             }
         }	
              
@@ -256,7 +260,6 @@ class tc_Courses_Page {
     /** 
      * Returns a single table row for show_courses.php
      * @param array $course                     course data
-     * @param array $user_ID                    The ID of the user
      * @param array $checkbox
      * @param array $static
            $static['bulk']                      copy or delete
@@ -266,7 +269,7 @@ class tc_Courses_Page {
      * @since 5.0.0
      * @access private
     */ 
-    private static function get_single_table_row ($course, $user_ID, $checkbox, $static) {
+    private static function get_single_table_row ($course, $checkbox, $static) {
         $check = '';
         
         // Check if checkbox must be activated or not
