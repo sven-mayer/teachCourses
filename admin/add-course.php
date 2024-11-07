@@ -7,6 +7,11 @@
  * @license http://www.gnu.org/licenses/gpl-2.0.html GPLv2 or later
  */
 
+
+ /**
+ * This class contains all funcitons for the add_course_page
+ * @since 5.0.0
+ */
 class TC_Add_Course_Page {
 
     public static function init() {
@@ -144,11 +149,8 @@ class TC_Add_Course_Page {
         echo '<label class="hide-if-no-js" style="display:none;" id="title-prompt-text" for="title">'._e('Course name','teachcourses').'</label>';
         echo '<input type="text" name="post_title" title="'._e('Course name','teachcourses').'" size="30" tabindex="1" placeholder="'._e('Course name','teachcourses').'" value="'.stripslashes($course_data["name"]).'" id="title" autocomplete="off" />';
         echo '</div></div>';
-        tc_Add_Course::get_general_box ($course_id, $course_types, $course_data);
+        TC_Add_Course_Page::get_general_box ($course_id, $course_types, $course_data);
 
-        if ( $course_id === 0 ) { 
-        tc_Add_Course::get_subcourses_box($course_types, $course_data);
-        }
         if ( count($fields) !== 0 ) { 
         tc_Admin::display_meta_data($fields, $course_meta);       
         } 
@@ -164,7 +166,7 @@ class TC_Add_Course_Page {
         echo '</div>';
         echo '</div>';
         echo '</div>';
-        tc_Add_Course::get_meta_box ($course_id, $course_data);
+        TC_Add_Course_Page::get_meta_box ($course_id, $course_data);
 
         echo '</div>';
 
@@ -172,13 +174,7 @@ class TC_Add_Course_Page {
         echo '<script type="text/javascript" charset="utf-8" src="'. plugins_url( 'js/admin_add_course.js', dirname( __FILE__ ) ).'"></script>';
         echo '</div>';
     }
-}
 
-/**
- * This class contains all funcitons for the add_course_page
- * @since 5.0.0
- */
-class tc_Add_Course {
      
     /**
      * Gets the general box
@@ -256,7 +252,7 @@ class tc_Add_Course {
                     'display' => 'block', 
                     'style' => 'width:95%;') );
             
-            tc_Add_Course::get_parent_select_field($course_id, $course_data);
+            TC_Add_Course_Page::get_parent_select_field($course_id, $course_data);
             ?>
             
             <p><label for="comment" title="<?php _e('For parent courses the comment is showing in the overview and for child courses in the enrollments system.','teachcourses'); ?>"><strong><?php _e('Description','teachcourses'); ?></strong></label></p>
@@ -363,52 +359,4 @@ class tc_Add_Course {
         <?php
     }
 
-    /**
-     * Gets the subcourses box
-     * @param int $course_types
-     * @param array $course_data
-     * @since 5.0.0
-     */
-    public static function get_subcourses_box ($course_types, $course_data) {
-        ?>
-        <div class="postbox">
-            <h3 class="tc_postbox"><span><?php _e('Sub courses','teachcourses'); ?></span></h3>
-            <div class="inside">
-                <p><label for="sub_course_type" title="<?php _e('The course type','teachcourses'); ?>"><strong><?php _e('Type'); ?></strong></label></p>
-                 <select name="sub_course_type" id="sub_course_type" title="<?php _e('The course type','teachcourses'); ?>" tabindex="17">
-                 <?php 
-                     foreach ($course_types as $row) {
-                         $check = $course_data["type"] == $row->value ? ' selected="selected"' : '';
-                         echo '<option value="' . stripslashes($row->value) . '"' . $check . '>' . stripslashes($row->value) . '</option>';
-                     } ?>
-                 </select>
-                 <?php
-                // number of subcourses
-                echo tc_Admin::get_form_field(
-                    array(
-                        'name' => 'sub_number',
-                        'title' => __('Number of sub courses','teachcourses'),
-                        'label' => __('Number of sub courses','teachcourses'),
-                        'type' => 'input',
-                        'value' => '0',
-                        'tabindex' => 18,
-                        'display' => 'block', 
-                        'style' => 'width:70px;') );
-              
-                // places
-                echo tc_Admin::get_form_field(
-                    array(
-                        'name' => 'sub_places',
-                        'title' => __('Number of places per course','teachcourses'), 
-                        'label' => __('Number of places per course','teachcourses'),
-                        'type' => 'input',
-                        'value' => '0',
-                        'tabindex' => 19,
-                        'display' => 'block', 
-                        'style' => 'width:70px;') );
-             ?>
-            </div>
-         </div>
-        <?php
-    }
 }
