@@ -293,7 +293,7 @@ function tc_backend_scripts() {
     $page = isset($_GET['page']) ? $_GET['page'] : '';
     
     // Load scripts only, if it's a teachcourses page
-    if ( strpos($page, 'teachcourses') === false && strpos($page, 'publications') === false ) {
+    if ( strpos($page, 'teachcourses') === false ) {
         return;
     }
     wp_enqueue_style('teachcourses-print-css', plugins_url( 'styles/print.css', __FILE__ ), false, $version, 'print');
@@ -301,16 +301,6 @@ function tc_backend_scripts() {
     wp_enqueue_style('teachcourses.css', plugins_url( 'styles/teachcourses.css', __FILE__ ), false, $version);
     wp_enqueue_script('media-upload');
     add_thickbox();
-
-    /* academicons v1.8.6 */
-    if ( TEACHCOURSES_LOAD_ACADEMICONS === true ) {
-        wp_enqueue_style('academicons', plugins_url( 'includes/academicons/css/academicons.min.css', __FILE__ ) );
-    }
-
-    /* Font Awesome Free v5.10.1 */
-    if (TEACHCOURSES_LOAD_FONT_AWESOME === true) {
-        wp_enqueue_style('font-awesome', plugins_url( 'includes/fontawesome/css/all.min.css', __FILE__ ) );
-    }
     
     /* SlimSelect v1.27 */
     wp_enqueue_script('slim-select', plugins_url( 'includes/slim-select/slimselect.min.js', __FILE__ ) );
@@ -351,16 +341,6 @@ function tc_frontend_scripts() {
     /* altmetric support */
     if ( TEACHCOURSES_ALTMETRIC_SUPPORT === true ) {
         echo '<script' . $type_attr . ' src="https://d1bxh8uas1mnw7.cloudfront.net/assets/embed.js"></script>' . PHP_EOL;
-    }
-
-    /* academicons v1.8.6 */
-    if ( TEACHCOURSES_LOAD_ACADEMICONS === true ) {
-        wp_enqueue_style('academicons', plugins_url( 'includes/academicons/css/academicons.min.css', __FILE__ ) );
-    }
-
-    /* Font Awesome Free 5.10.1 */
-    if (TEACHCOURSES_LOAD_FONT_AWESOME === true) {
-        wp_enqueue_style('font-awesome', plugins_url( 'includes/fontawesome/css/all.min.css', __FILE__ ) );
     }
 
     /* END */
@@ -406,7 +386,7 @@ add_action('wp_head', 'tc_frontend_scripts');
 add_action('admin_init','tc_backend_scripts');
 add_filter('plugin_action_links','tc_plugin_link', 10, 2);
 add_action('wp_ajax_tc_document_upload', 'tc_handle_document_uploads' );
-add_filter( 'screen_settings', 'tc_show_screen_options', 10, 2 );
+add_filter('screen_settings', 'tc_show_screen_options', 10, 2 );
 
 // Register tinyMCE Plugin
 if ( version_compare( tc_get_wp_version() , '3.9', '>=') ) {

@@ -96,20 +96,6 @@ if ( !defined('TEACHCOURSES_DOI_RESOLVER') ) {
     */
     define('TEACHCOURSES_DOI_RESOLVER', 'https://dx.doi.org/');}
     
-if ( !defined('TEACHCOURSES_LOAD_ACADEMICONS') ) {
-    /**
-     * This value defines if the URL for the DOI resolve service
-     * @since 7.0
-    */
-    define('TEACHCOURSES_LOAD_ACADEMICONS', true);}
-    
-if ( !defined('TEACHCOURSES_LOAD_FONT_AWESOME') ) {
-    /**
-     * This value defines if the URL for the DOI resolve service
-     * @since 7.0
-    */
-    define('TEACHCOURSES_LOAD_FONT_AWESOME', true);}
-    
 if ( !defined('TEACHCOURSES_MENU_POSITION') ) {
     /**
      * This value defines the position in the admin menu. 
