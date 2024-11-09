@@ -34,7 +34,6 @@ class tc_Tables {
         
         // Courses
         self::add_table_courses($charset_collate);
-        self::add_table_course_meta($charset_collate);
         self::add_table_course_documents($charset_collate);
         self::add_table_artefacts($charset_collate);
         
@@ -156,33 +155,6 @@ class tc_Tables {
          
         // test engine
         self::change_engine(TEACHCOURSES_COURSE_DOCUMENTS);
-    }
-    
-    /**
-     * Create table teachcourses_course_meta
-     * @param string $charset_collate
-     * @since 5.0.0
-     */
-    public static function add_table_course_meta($charset_collate) {
-        global $wpdb;
-        
-        if( $wpdb->get_var("SHOW TABLES LIKE '" . TEACHCOURSES_COURSE_META . "'") == TEACHCOURSES_COURSE_META ) {
-            return;
-        }
-        
-        require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
-    
-        dbDelta("CREATE TABLE " . TEACHCOURSES_COURSE_META . " (
-                    `meta_id` INT UNSIGNED AUTO_INCREMENT,
-                    `course_id` INT UNSIGNED,
-                    `meta_key` VARCHAR(255),
-                    `meta_value` TEXT,
-                    PRIMARY KEY (meta_id),
-                    KEY `ind_course_id` (`course_id`)
-                ) $charset_collate;");
-        
-        // test engine
-        self::change_engine(TEACHCOURSES_COURSE_META);
     }
     
     /**

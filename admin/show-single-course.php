@@ -206,10 +206,10 @@ class tc_Single_Course_Page {
             return;
         }
         if ( $link_parameter['redirect'] != 0 ) {
-            return '<p><a href="admin.php?page=teachcourses.php&amp;course_id=' . $link_parameter['redirect'] . '&amp;sem=' . $link_parameter['sem'] . '&amp;search=' . $link_parameter['search'] . '&amp;action=show" class="button-secondary" title="' . __('Back','teachcourses') . '">&larr; ' . __('Back','teachcourses') . '</a></p>';
+            return '<p><a href="admin.php?page=teachcourses&amp;course_id=' . $link_parameter['redirect'] . '&amp;sem=' . $link_parameter['sem'] . '&amp;search=' . $link_parameter['search'] . '&amp;action=show" class="button-secondary" title="' . __('Back','teachcourses') . '">&larr; ' . __('Back','teachcourses') . '</a></p>';
         }
         else {
-             return '<p><a href="admin.php?page=teachcourses.php&amp;sem=' . $link_parameter['sem'] . '&amp;search=' . $link_parameter['search'] . '" class="button-secondary" title="' . __('Back','teachcourses') . '">&larr; ' . __('Back','teachcourses') . '</a></p>';
+             return '<p><a href="admin.php?page=teachcourses&amp;sem=' . $link_parameter['sem'] . '&amp;search=' . $link_parameter['search'] . '" class="button-secondary" title="' . __('Back','teachcourses') . '">&larr; ' . __('Back','teachcourses') . '</a></p>';
         }
         
     }
@@ -230,12 +230,12 @@ class tc_Single_Course_Page {
         
         if ($course_data["parent"] != 0) {
             if ($parent_data["course_id"] == $course_data["parent"]) {
-                $parent_name = '<a href="admin.php?page=teachcourses.php&amp;course_id=' . $parent_data["course_id"] . '&amp;sem=' . $link_parameter['sem'] . '&amp;search=' . $link_parameter['search'] . '&amp;action=show&amp;redirect=' . $course_id . '" title="' . stripslashes($parent_data["name"]) . '" style="color:#464646">' . stripslashes($parent_data["name"]) . '</a> &rarr; ';
+                $parent_name = '<a href="admin.php?page=teachcourses&amp;course_id=' . $parent_data["course_id"] . '&amp;sem=' . $link_parameter['sem'] . '&amp;search=' . $link_parameter['search'] . '&amp;action=show&amp;redirect=' . $course_id . '" title="' . stripslashes($parent_data["name"]) . '" style="color:#464646">' . stripslashes($parent_data["name"]) . '</a> &rarr; ';
             }
         }
         
         if ( $edit_link === true ) {
-            $link = '<small><a href="admin.php?page=teachcourses.php&amp;course_id=' . $course_id . '&amp;sem=' . $link_parameter['sem'] . '&amp;search=' . $link_parameter['search'] . '&amp;action=edit" class="teachcourses_link" style="cursor:pointer;">' . __('Edit','teachcourses') . '</a></small>';
+            $link = '<small><a href="admin.php?page=teachcourses&amp;course_id=' . $course_id . '&amp;sem=' . $link_parameter['sem'] . '&amp;search=' . $link_parameter['search'] . '&amp;action=edit" class="teachcourses_link" style="cursor:pointer;">' . __('Edit','teachcourses') . '</a></small>';
         }
 
         return '<h1 style="padding-top:5px;">' . $parent_name . stripslashes($course_data["name"]) . ' ' . $course_data["semester"] . ' <span class="tc_break">|</span> ' . $link . '</h1>';
@@ -254,11 +254,11 @@ class tc_Single_Course_Page {
         $documents_tab = '';
         
         $set_info_tab = ( $action === 'show' ) ? 'nav-tab nav-tab-active' : 'nav-tab';
-        $info_tab = '<a href="admin.php?page=teachcourses.php&amp;course_id=' . $course_id . '&amp;sem=' . $link_parameter['sem'] . '&amp;search=' . $link_parameter['search'] . '&amp;action=show" class="' . $set_info_tab . '">' . __('Info','teachcourses') . '</a> ';
+        $info_tab = '<a href="admin.php?page=teachcourses&amp;course_id=' . $course_id . '&amp;sem=' . $link_parameter['sem'] . '&amp;search=' . $link_parameter['search'] . '&amp;action=show" class="' . $set_info_tab . '">' . __('Info','teachcourses') . '</a> ';
         
         
         $set_documents_tab = ( $action === 'documents' ) ? 'nav-tab nav-tab-active' : 'nav-tab';
-        $documents_tab = '<a href="admin.php?page=teachcourses.php&amp;course_id=' . $course_id . '&amp;sem=' . $link_parameter['sem'] . '&amp;search=' . $link_parameter['search'] . '&amp;action=documents" class="' . $set_documents_tab . '">' . __('Documents','teachcourses') . '</a> ';
+        $documents_tab = '<a href="admin.php?page=teachcourses&amp;course_id=' . $course_id . '&amp;sem=' . $link_parameter['sem'] . '&amp;search=' . $link_parameter['search'] . '&amp;action=documents" class="' . $set_documents_tab . '">' . __('Documents','teachcourses') . '</a> ';
         
         
         return '<h3 class="nav-tab-wrapper">' . $info_tab . $documents_tab . $assessment_tab . '</h3>';
@@ -289,7 +289,7 @@ class tc_Single_Course_Page {
         }
         echo ' </select>';
         echo '<p><input name="move_ok" type="submit" class="button-primary" value="' . __('Move','teachcourses') . '"/>
-                    <a href="admin.php?page=teachcourses.php&course_id=' . $course_id . '&amp;sem=' . $link_parameter['sem'] . '&amp;search=' . $link_parameter['search'] . '&amp;order=' . $link_parameter['order'] . '&amp;sort=' . $link_parameter['sort'] . '&amp;action=enrollments" class="button-secondary">' . __('Cancel','teachcourses') . '</a></p>';    
+                    <a href="admin.php?page=teachcourses&course_id=' . $course_id . '&amp;sem=' . $link_parameter['sem'] . '&amp;search=' . $link_parameter['search'] . '&amp;order=' . $link_parameter['order'] . '&amp;sort=' . $link_parameter['sort'] . '&amp;action=enrollments" class="button-secondary">' . __('Cancel','teachcourses') . '</a></p>';    
         echo '</div>';
     }
     

@@ -390,57 +390,6 @@ class tc_Admin {
         echo '</tbody>';
         echo '</table>';     
     }
-    
-    /**
-     * Displays the meta data section of publications / courses in admin menus
-     * @param array $fields
-     * @param array $meta_input
-     * @since 5.0.0
-     */
-    public static function display_meta_data($fields, $meta_input) {
-    
-        echo '<div class="postbox">';
-        echo '<h3 class="tc_postbox"><span>' . __('Custom meta data','teachcourses') . '</span></h3>';
-    
-        echo '<div class="inside">';   
-        foreach ($fields as $row) {
-            $col_data = tc_DB_Helpers::extract_column_data($row['value']);
-            $required = ( $col_data['required'] === 'true' ) ? true : false;
-            $value = '';
-            foreach ( $meta_input as $row_meta ) {
-                if ( $row['variable'] === $row_meta['meta_key'] ) {
-                    $value = $row_meta['meta_value'];
-                    break;
-                }
-            }
-            if ( $col_data['type'] === 'SELECT' ) {
-                echo tc_Admin::get_select_field($row['variable'], $col_data['title'], $value);
-            }
-            elseif ( $col_data['type'] === 'DATE' ) {
-                echo tc_Admin::get_date_field($row['variable'], $col_data['title'], $value);
-            }
-            elseif ( $col_data['type'] === 'RADIO' ) {
-                echo tc_Admin::get_radio_field($row['variable'], $col_data['title'], $value, false, $required);
-            }
-            elseif ( $col_data['type'] === 'CHECKBOX' ) {
-                echo tc_Admin::get_checkbox_field($row['variable'], $col_data['title'], $value, false, $required);
-            }
-            elseif ( $col_data['type'] === 'TEXTAREA' ) {
-                echo tc_Admin::get_textarea_field($row['variable'], $col_data['title'], $value);
-            }
-            elseif ( $col_data['type'] === 'INT' ) {
-                $col_data['min'] = ( $col_data['min'] !== 'false' ) ? intval($col_data['min']) : 0;
-                $col_data['max'] = ( $col_data['max'] !== 'false' ) ? intval($col_data['max']) : 999;
-                $col_data['step'] = ( $col_data['step'] !== 'false' ) ? intval($col_data['step']) : 1;
-                echo tc_Admin::get_int_field($row['variable'], $col_data['title'], $value, $col_data['min'], $col_data['max'], $col_data['step'], false, $required);
-            }
-            else {
-                echo tc_Admin::get_text_field($row['variable'], $col_data['title'], $value);
-            }
-        }
-        echo '</div>';
-        echo '</div>'; 
-    }
 }
 
 /**

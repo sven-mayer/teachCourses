@@ -35,7 +35,7 @@ class TC_Add_Course_Page {
         // Event Handler
         $action = isset( $_GET['action'] ) ? htmlspecialchars($_GET['action']) : '';
 
-        $aved = "";
+        $saved = "";
         if ( $action === 'save' ) {
             $saved = TC_Add_Course_Page::tc_save($data);
         }
@@ -48,7 +48,7 @@ class TC_Add_Course_Page {
         if ( isset($_POST['create']) ) {
             $course_id = TC_Courses::add_course($data, $sub);
             tc_DB_Helpers::prepare_meta_data($course_id, $fields, $_POST, 'courses');
-            $message = __('Course created successful.','teachcourses') . ' <a href="admin.php?page=teachcourses.php&amp;course_id=' . $course_id . '&amp;action=show&amp;search=&amp;sem=' . get_tc_option('sem') . '">' . __('Show course','teachcourses') . '</a> | <a href="admin.php?page=teachcourses/add_course.php">' . __('Add new','teachcourses') . '</a>';
+            $message = __('Course created successful.','teachcourses') . ' <a href="admin.php?page=teachcourses&amp;course_id=' . $course_id . '&amp;action=show&amp;search=&amp;sem=' . get_tc_option('sem') . '">' . __('Show course','teachcourses') . '</a> | <a href="admin.php?page=teachcourses/add_course.php">' . __('Add new','teachcourses') . '</a>';
             get_tc_message($message);
             return true;
         }
@@ -130,11 +130,9 @@ class TC_Add_Course_Page {
         // Default vaulues
         if ( $course_id != 0 ) {
             $course_data = TC_Courses::get_course($course_id, ARRAY_A);
-            $course_meta = TC_Courses::get_course_meta($course_id);
         }
         else {
             $course_data = get_tc_var_types('course_array');
-            $course_meta = array ( array('meta_key' => '', 'meta_value' => '') );
         }
         
         echo '<form id="add_course" name="form1" method="post" action="'. esc_url($_SERVER['REQUEST_URI']) .'&action=save">';
@@ -162,9 +160,6 @@ class TC_Add_Course_Page {
         echo '</div></div>';
         TC_Add_Course_Page::get_general_box ($course_id, $course_types, $course_data);
 
-        if ( count($fields) !== 0 ) { 
-        tc_Admin::display_meta_data($fields, $course_meta);       
-        } 
         echo '</div></div></div>';
 
         echo '</div>';

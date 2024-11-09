@@ -24,7 +24,7 @@
         $action = isset( $_GET['action'] ) ? htmlspecialchars($_GET['action']) : '';
 
         if ( $action === 'edit' ) {
-            tc_add_course_page();
+            TC_Add_Course_Page::tc_add_course_page();
         }
         elseif ( $action === 'show' || $action === 'documents' ) {
             tc_show_single_course_page();
@@ -101,7 +101,7 @@
             <p class="search-box">';
 
         if ($search != '') {
-            echo '<a href="admin.php?page=teachcourses.php" class="tc_search_cancel" title="'.esc_html__('Cancel the search','teachcourses').'">X</a>';
+            echo '<a href="admin.php?page=teachcourses" class="tc_search_cancel" title="'.esc_html__('Cancel the search','teachcourses').'">X</a>';
         }
         echo '<input type="search" name="search" id="pub_search_field" value="'.stripslashes($search).'"/></td>
             <input type="submit" name="pub_search_button" id="pub_search_button" value="'.esc_html__('Search','teachcourses').'" class="button-secondary"/>
@@ -114,7 +114,7 @@
                 echo '<div class="teachcourses_message">
                 <p class="teachcourses_message_headline">' . __('Do you want to delete the selected items?','teachcourses') . '</p>
                 <p><input name="delete_ok" type="submit" class="button-primary" value="' . __('Delete','teachcourses') . '"/>
-                <a href="admin.php?page=teachcourses.php&sem=' . $sem . '&search=' . $search . '" class="button-secondary"> ' . __('Cancel','teachcourses') . '</a></p>
+                <a href="admin.php?page=teachcourses&sem=' . $sem . '&search=' . $search . '" class="button-secondary"> ' . __('Cancel','teachcourses') . '</a></p>
                 </div>';
         }
         // delete a course, part 2
@@ -284,16 +284,16 @@
         // row actions
         $delete_link = '';
         $edit_link = '';
-        $edit_link = '<span class="edit"> | <a href="admin.php?page=teachcourses.php&amp;course_id=' . $course['course_id'] . '&amp;sem=' . $static['sem'] . '&amp;search=' . $static['search'] . '&amp;action=edit&amp;ref=overview" title="' . __('Edit','teachcourses') . '">' . __('Edit','teachcourses') . '</a></span>';
-        $delete_link = '<span class="trash"> | <a class="tc_row_delete" href="admin.php?page=teachcourses.php&amp;sem=' . $static['sem'] . '&amp;search=' . $static['search'] . '&amp;checkbox%5B%5D=' . $course['course_id'] . '&amp;bulk=delete" title="' . __('Delete','teachcourses') . '">' . __('Delete','teachcourses') . '</a></span>';
+        $edit_link = '<span class="edit"> | <a href="admin.php?page=teachcourses-add&amp;course_id=' . $course['course_id'] . '&amp;sem=' . $static['sem'] . '&amp;search=' . $static['search'] . '&amp;action=edit&amp;ref=overview" title="' . __('Edit','teachcourses') . '">' . __('Edit','teachcourses') . '</a></span>';
+        $delete_link = '<span class="trash"> | <a class="tc_row_delete" href="admin.php?page=teachcourses&amp;sem=' . $static['sem'] . '&amp;search=' . $static['search'] . '&amp;checkbox%5B%5D=' . $course['course_id'] . '&amp;bulk=delete" title="' . __('Delete','teachcourses') . '">' . __('Delete','teachcourses') . '</a></span>';
         
         // complete the row
         $return = '<tr' . $static['tr_class'] . '>
             <th scope="row" class="check-column"><input name="checkbox[]" type="checkbox" value="' . $course['course_id'] . '"' . $check . '/></th>
             <td class="title column-title has-row-actions column-primary page-title">
-                <a href="admin.php?page=teachcourses.php&amp;course_id=' . $course['course_id'] . '&amp;sem=' . $static['sem'] . '&amp;search=' . $static['search'] . '&amp;action=show" class="teachcourses_link" title="' . __('Click to show','teachcourses') . '"><strong>' . $course['name'] . '</strong></a>
+                <a href="admin.php?page=teachcourses&amp;course_id=' . $course['course_id'] . '&amp;sem=' . $static['sem'] . '&amp;search=' . $static['search'] . '&amp;action=show" class="teachcourses_link" title="' . __('Click to show','teachcourses') . '"><strong>' . $course['name'] . '</strong></a>
                 <div class="row-actions">
-                    <a href="admin.php?page=teachcourses.php&amp;course_id=' . $course['course_id'] . '&amp;sem=' . $static['sem'] . '&amp;search=' . $static['search'] . '&amp;action=show" title="' . __('Show','teachcourses') . '">' . __('Show','teachcourses') . '</a> ' . $edit_link . $delete_link . '
+                    <a href="admin.php?page=teachcourses&amp;course_id=' . $course['course_id'] . '&amp;sem=' . $static['sem'] . '&amp;search=' . $static['search'] . '&amp;action=show" title="' . __('Show','teachcourses') . '">' . __('Show','teachcourses') . '</a> ' . $edit_link . $delete_link . '
                 </div>
             </td>
             <td>' . $course['course_id'] . '</td>
@@ -328,7 +328,7 @@
                 } ?> 
             </select>
             <input name="copy_ok" type="submit" class="button-primary" value="<?php _e('copy','teachcourses'); ?>"/>
-            <a href="<?php echo 'admin.php?page=teachcourses.php&sem=' . $sem . '&search=' . $search . ''; ?>" class="button-secondary"> <?php _e('Cancel','teachcourses'); ?></a>
+            <a href="<?php echo 'admin.php?page=teachcourses&sem=' . $sem . '&search=' . $search . ''; ?>" class="button-secondary"> <?php _e('Cancel','teachcourses'); ?></a>
             </p>
         </div>
         <?php
