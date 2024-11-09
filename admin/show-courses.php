@@ -284,7 +284,7 @@
         // row actions
         $delete_link = '';
         $edit_link = '';
-        $edit_link = '<span class="edit"> | <a href="admin.php?page=teachcourses-add&amp;course_id=' . $course['course_id'] . '&amp;sem=' . $static['sem'] . '&amp;search=' . $static['search'] . '&amp;action=edit&amp;ref=overview" title="' . __('Edit','teachcourses') . '">' . __('Edit','teachcourses') . '</a></span>';
+        $edit_link = '<span class="edit"> | <a href="admin.php?page=teachcourses-add&action=edit&amp;course_id=' . $course['course_id'] . '">' . __('Edit','teachcourses') . '</a></span>';
         $delete_link = '<span class="trash"> | <a class="tc_row_delete" href="admin.php?page=teachcourses&amp;sem=' . $static['sem'] . '&amp;search=' . $static['search'] . '&amp;checkbox%5B%5D=' . $course['course_id'] . '&amp;bulk=delete" title="' . __('Delete','teachcourses') . '">' . __('Delete','teachcourses') . '</a></span>';
         
         // complete the row

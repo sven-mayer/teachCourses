@@ -179,77 +179,27 @@ function sort_tc_publication_type_options ($a, $b) {
 
 /**
  * Get the array structure for a parameter
- * @param string $type  --> values: course_array, publication_array
  * @return array 
  */
-function get_tc_var_types($type) {
-    if ( $type == 'course_array' ) {
-        $ret = array( 
-            'course_id'         => '',
-            'name'              => '',
-            'type'              => '',
-            'room'              => '',
-            'lecturer'          => '',
-            'date'              => '',
-            'places'            => '',
-            'start'             => '',
-            'end'               => '',
-            'semester'          => '',
-            'comment'           => '',
-            'rel_page'          => '',
-            'parent'            => '',
-            'visible'           => '',
-            'image_url'         => '',
-            'strict_signup'     => '',
-            'use_capabilities'   => '');
-    }
-    if ( $type == 'publication_array' ) {
-        $ret = array( 
-            'pub_id'            => '',
-            'title'             => '',
-            'type'              => '',
-            'bibtex'            => '',
-            'author'            => '',
-            'editor'            => '',
-            'isbn'              => '',
-            'url'               => '',
-            'date'              => '',
-            'urldate'           => '',
-            'booktitle'         => '',
-            'issuetitle'        => '',
-            'journal'           => '',
-            'issue'             => '',
-            'volume'            => '',
-            'number'            => '',
-            'pages'             => '',
-            'publisher'         => '',
-            'address'           => '',
-            'edition'           => '',
-            'chapter'           => '',
-            'institution'       => '',
-            'organization'      => '',
-            'school'            => '',
-            'series'            => '',
-            'crossref'          => '',
-            'abstract'          => '',
-            'howpublished'      => '',
-            'key'               => '',
-            'techtype'          => '',
-            'comment'           => '',
-            'note'              => '',
-            'image_url'         => '',
-            'image_target'      => '',
-            'image_ext'         => '',
-            'doi'               => '',
-            'is_isbn'           => '',
-            'rel_page'          => '',
-            'status'            => '',
-            'added'             => '',
-            'modified'          => '',
-            'use_capabilities'  => '',
-            'import_id'         => 0);
-    }
-    return $ret;
+function get_tc_var_types() {
+    return array( 
+        'course_id'         => '',
+        'name'              => '',
+        'type'              => '',
+        'room'              => '',
+        'lecturer'          => '',
+        'date'              => '',
+        'places'            => '',
+        'start'             => '',
+        'end'               => '',
+        'semester'          => '',
+        'comment'           => '',
+        'rel_page'          => '',
+        'parent'            => '',
+        'visible'           => '',
+        'image_url'         => '',
+        'strict_signup'     => '',
+        'use_capabilities'   => '');
 }
 
 /** 

@@ -143,11 +143,10 @@ class tc_Courses {
     /** 
      * Add a new course
      * @param array $data       An associative array with data of the course
-     * @param array $sub        An associative array with data for the sub courses (type, places, number)
      * @return int              ID of the new course
      * @since 5.0.0
     */
-   public static function add_course($data, $sub) {
+   public static function add_course($data) {
         global $wpdb;
         
         // prevent possible double escapes
@@ -157,9 +156,7 @@ class tc_Courses {
         $data['lecturer'] = stripslashes($data['lecturer']);
         $data['comment'] = stripslashes($data['comment']);
         $data['semester'] = stripslashes($data['semester']);
-        
-        $data['start'] = $data['start'] . ' ' . $data['start_hour'] . ':' . $data['start_minute'] . ':00';
-        $data['end'] = $data['end'] . ' ' . $data['end_hour'] . ':' . $data['end_minute'] . ':00';
+    
         $wpdb->insert( 
                 TEACHCOURSES_COURSES, 
                 array( 
@@ -173,32 +170,14 @@ class tc_Courses {
                     'end'               => $data['end'], 
                     'semester'          => $data['semester'], 
                     'comment'           => $data['comment'], 
-                    'rel_page'          => $data['rel_page'], 
-                    'parent'            => $data['parent'], 
                     'visible'           => $data['visible'], 
-                    'image_url'         => $data['image_url'], 
-                    'strict_signup'     => $data['strict_signup'], 
-                    'use_capabilities'  => $data['use_capabilities'] ), 
+                    'image_url'         => $data['image_url']), 
                 array( '%s', '%s', '%s', '%s', '%s', '%d', '%s', '%s', '%s', '%s', '%d', '%d', '%d', '%d', '%s', '%d', '%d' ) );
         $course_id = $wpdb->insert_id;
-        // create rel_page
-        if ($data['rel_page_alter'] !== 0 ) {
-            $data['rel_page'] = TC_Courses::add_rel_page($course_id, $data);
-            // Update rel_page
-            $wpdb->update( 
-                    TEACHCOURSES_COURSES, 
-                    array( 'rel_page' => $data['rel_page'] ), 
-                    array( 'course_id' => $course_id ), 
-                    array( '%d', ), 
-                    array( '%d' ) );
-        }
+
         // test if creation was successful
         if ( $data['rel_page'] === false ) {
             get_tc_message(__('Error while adding new related content.','teachcourses'), 'red');
-        }
-        // create sub courses
-        if ( $sub['number'] !== 0 ) {
-            TC_Courses::add_sub_courses($course_id, $data, $sub);
         }
         return $course_id;
     }
@@ -224,28 +203,6 @@ class tc_Courses {
         return wp_insert_post($postarr);
     }
     
-    /**
-     * Adds sub courses to a course
-     * @param int $course_id    The ID of the parent course
-     * @param array $data       An associative array with data of the parent course
-     * @param array $sub        An associative array with data for the sub courses (type, places, number)
-     * @since 5.0.0
-     * @access private
-     */
-    private static function add_sub_courses($course_id, $data, $sub) {
-        $sub_data = $data;
-        $sub_data['parent'] = $course_id;
-        $sub_data['places'] = $sub['places'];
-        $sub_data['type'] = $sub['type'];
-        $sub_data['rel_page'] = 0;
-        $sub_data['rel_page_alter'] = 0;
-        $options = array('number' => 0);
-        for ( $i = 1; $i <= $sub['number']; $i++ ) {
-            $sub_data['name'] = $sub['type'] . ' ' . $i;
-            TC_Courses::add_course($sub_data, $options);
-        }
-    }
-    
     /** 
      * Changes course data. Returns false if errors, or the number of rows affected if successful.
      * @param int $course_id    course ID
@@ -267,8 +224,6 @@ class tc_Courses {
         $data['comment'] = stripslashes($data['comment']);
         $data['semester'] = stripslashes($data['semester']);
 
-        $data['start'] = $data['start'] . ' ' . $data['start_hour'] . ':' . $data['start_minute'] . ':00';
-        $data['end'] = $data['end'] . ' ' . $data['end_hour'] . ':' . $data['end_minute'] . ':00';
         return $wpdb->update( 
                 TEACHCOURSES_COURSES, 
                 array( 
@@ -278,16 +233,10 @@ class tc_Courses {
                     'lecturer'          => $data['lecturer'], 
                     'date'              => $data['date'], 
                     'places'            => $data['places'], 
-                    'start'             => $data['start'], 
-                    'end'               => $data['end'], 
                     'semester'          => $data['semester'], 
                     'comment'           => $data['comment'], 
-                    'rel_page'          => $data['rel_page'], 
-                    'parent'            => $data['parent'], 
                     'visible'           => $data['visible'], 
-                    'image_url'         => $data['image_url'], 
-                    'strict_signup'     => $data['strict_signup'], 
-                    'use_capabilities'  => $data['use_capabilities'] ), 
+                    'image_url'         => $data['image_url'],  ), 
                 array( 'course_id' => $course_id ), 
                 array( '%s', '%s', '%s', '%s', '%s', '%d', '%s', '%s', '%s', '%s', '%d', '%d', '%d', '%d', '%s', '%d', '%d' ), 
                 array( '%d' ) );

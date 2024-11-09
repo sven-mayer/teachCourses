@@ -98,46 +98,6 @@ class tc_DB_Helpers {
     }
     
     /**
-     * Prepares and adds meta data
-     * @param int $id               An user ID, publication ID or course ID
-     * @param array $fields         An associative array of field data (keys: variable, value)
-     * @param array $post           The $_POST array
-     * @param string $table         students, courses or publications
-     * @since 5.0.0
-     */
-    public static function prepare_meta_data ($id, $fields, $post, $table) {
-        foreach ($fields as $row) {
-            if ( !isset( $post[$row['variable']] ) && !isset( $post[$row['variable'] . '_day'] ) ) {
-                continue;
-            }
-            
-            $column_info = tc_DB_Helpers::extract_column_data($row['value']);
-            // For DATE fields
-            if ( $column_info['type'] === 'DATE' ) {
-                $day = intval( $post[$row['variable'] . '_day'] );
-                $day2 = ( $day < 10 ) ? '0' . $day : $day;
-                $value = $post[$row['variable'] . '_year'] . '-' . $post[$row['variable'] . '_month'] . '-' . $day2;
-            }
-            // For CHECKBOX fields
-            else if ( $column_info['type'] === 'CHECKBOX' ) {
-                $max = count($post[$row['variable']]);
-                $val = '';
-                for ( $i = 0; $i < $max; $i++ ) {
-                    $val = ( $val === '' ) ? '{' . $post[$row['variable']][$i] . '}' : $val . ',{' . $post[$row['variable']][$i] . '}';
-                }
-                $value = $val;
-            }
-            // For all other fields
-            else {
-                $value = $post[$row['variable']];
-            }
-            
-            // Add to database
-            TC_Courses::add_course_meta($id, $row['variable'], $value);
-        }
-    }
-    
-    /**
      * Register a new table column in teachcourses
      * @param string $table
      * @param string $column

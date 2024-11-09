@@ -18,6 +18,8 @@ class TC_Add_Course_Page {
         // add_action('admin_menu', array(__CLASS__, 'tc_add_course_page_menu'));
         add_action('admin_head', array(__CLASS__, 'tc_add_course_page_help'));
 
+        $data = get_tc_var_types();
+        $data['action'] = isset( $_POST['action'] ) ? htmlspecialchars($_POST['action']) : '';
         $data['type'] = isset( $_POST['course_type'] ) ? htmlspecialchars($_POST['course_type']) : '';
         $data['name'] = isset( $_POST['post_title'] ) ? htmlspecialchars($_POST['post_title']) : '';
         $data['room'] = isset( $_POST['room'] ) ? htmlspecialchars($_POST['room']) : '';
@@ -34,35 +36,39 @@ class TC_Add_Course_Page {
 
         // Event Handler
         $action = isset( $_GET['action'] ) ? htmlspecialchars($_GET['action']) : '';
+        $course_id = isset( $_GET['course_id'] ) ? htmlspecialchars($_GET['course_id']) : 0;
 
-        $saved = "";
-        if ( $action === 'save' ) {
-            $saved = TC_Add_Course_Page::tc_save($data);
+        var_dump($data);
+        if ($data["action"] === 'create' ) {
+            $course_id = TC_Add_Course_Page::tc_save($data);
+        } else if ($data["action"] === 'edit' ) {
+            $course_id = TC_Add_Course_Page::tc_edit($course_id, $data);
+        } 
+
+        // Default vaulues
+        if ( $course_id != 0 ) {
+            $data = TC_Courses::get_course($course_id, ARRAY_A);
         }
 
-        TC_Add_Course_Page::tc_add_course_page($data, $saved);
+        TC_Add_Course_Page::tc_add_course_page($data, $course_id);
     }
+
 
     static function tc_save($data){
         // Add new course
-        if ( isset($_POST['create']) ) {
-            $course_id = TC_Courses::add_course($data, $sub);
-            tc_DB_Helpers::prepare_meta_data($course_id, $fields, $_POST, 'courses');
-            $message = __('Course created successful.','teachcourses') . ' <a href="admin.php?page=teachcourses&amp;course_id=' . $course_id . '&amp;action=show&amp;search=&amp;sem=' . get_tc_option('sem') . '">' . __('Show course','teachcourses') . '</a> | <a href="admin.php?page=teachcourses/add_course.php">' . __('Add new','teachcourses') . '</a>';
-            get_tc_message($message);
-            return true;
-        }
+        $course_id = TC_Courses::add_course($data);
+        $message = __('Course created successful.','teachcourses') . ' <a href="admin.php?page=teachcourses&amp;course_id=' . $course_id . '&amp;action=show&amp;search=&amp;sem=' . get_tc_option('sem') . '">' . __('Show course','teachcourses') . '</a> | <a href="admin.php?page=teachcourses/add_course.php">' . __('Add new','teachcourses') . '</a>';
+        get_tc_message($message);
+        var_dump($course_id);
+        return $course_id;
+    }
 
+    static function tc_edit($course_id, $data){
         // Saves changes
-        if ( isset($_POST['save']) ) {
-            var_dump($_POST['save']);
-            TC_Courses::change_course($course_id, $data);
-            tc_DB_Helpers::prepare_meta_data($course_id, $fields, $_POST, 'courses');
-            $message = __('Saved');
-            get_tc_message($message);
-            return true;
-        }
-        return false;
+        TC_Courses::change_course($course_id, $data);
+        $message = __('Saved');
+        get_tc_message($message);
+        return $course_id;
     }
 
     /**
@@ -100,22 +106,12 @@ class TC_Add_Course_Page {
      * @param int $course_id
      * @param string $search
      * @param string $sem
-     * @param string $ref
     */
-    public static function tc_add_course_page($data, $saved) {
-
+    public static function tc_add_course_page($data, $course_id = 0) {
         $current_user = wp_get_current_user();
         $fields = get_tc_options('teachcourses_courses','`setting_id` ASC', ARRAY_A);
-        $course_types = get_tc_options('course_type', '`value` ASC');
+        $course_types = get_tc_options('course_type', '`value` ASC');    
 
-        
-        $sub['number'] = isset( $_POST['sub_number'] ) ? intval($_POST['sub_number']) : 0;
-
-        $course_id = isset( $_REQUEST['course_id'] ) ? intval($_REQUEST['course_id']) : 0;
-        $search = isset( $_GET['search'] ) ? htmlspecialchars($_GET['search']) : '';
-        $sem = isset( $_GET['sem'] ) ? htmlspecialchars($_GET['sem']) : '';
-        $ref = isset( $_GET['ref'] ) ? htmlspecialchars($_GET['ref']) : '';
-    
         echo '<div class="wrap">';
         echo '<h2>';
         if ($course_id == 0) {
@@ -124,30 +120,17 @@ class TC_Add_Course_Page {
             _e('Edit Course','teachcourses');
         }
         echo '</h2>';
-    
-        
-
-        // Default vaulues
-        if ( $course_id != 0 ) {
-            $course_data = TC_Courses::get_course($course_id, ARRAY_A);
-        }
-        else {
-            $course_data = get_tc_var_types('course_array');
-        }
         
         echo '<form id="add_course" name="form1" method="post" action="'. esc_url($_SERVER['REQUEST_URI']) .'&action=save">';
-        echo '<input name="page" type="hidden" value="';
-        if ($course_id != 0) {
-            echo 'teachcourses.php';
+        echo '<input name="page" type="hidden" value="teachcourses-add" />';
+        echo '<input name="action" type="hidden" value="';
+        if ($course_id == 0) {
+            echo 'create';
         } else {
-            echo 'teachcourses/add_course.php';
+            echo 'edit';
         }
         echo '" />';
-        echo '<input name="action" type="hidden" value="edit" />';
         echo '<input name="course_id" type="hidden" value="'. $course_id.'" />';
-        echo '<input name="sem" type="hidden" value="'. $sem.'" />';
-        echo '<input name="search" type="hidden" value="'. $search.'" />';
-        echo '<input name="ref" type="hidden" value="'.$ref.'" />';
         echo '<input name="upload_mode" id="upload_mode" type="hidden" value="" />';
         echo '<div class="tc_postbody">';
         echo '<div class="tc_postcontent">';
@@ -156,9 +139,9 @@ class TC_Add_Course_Page {
         echo '<div id="titlediv" style="padding-bottom: 15px;">';
         echo '<div id="titlewrap">';
         echo '<label class="hide-if-no-js" style="display:none;" id="title-prompt-text" for="title">'.__('Course name','teachcourses').'</label>';
-        echo '<input type="text" name="post_title" title="'.__('Course name','teachcourses').'" size="30" tabindex="1" placeholder="'.__('Course name','teachcourses').'" value="'.stripslashes($course_data["name"]).'" id="title" autocomplete="off" />';
+        echo '<input type="text" name="post_title" title="'.__('Course name','teachcourses').'" size="30" tabindex="1" placeholder="'.__('Course name','teachcourses').'" value="'.stripslashes($data["name"]).'" id="title" autocomplete="off" />';
         echo '</div></div>';
-        TC_Add_Course_Page::get_general_box ($course_id, $course_types, $course_data);
+        TC_Add_Course_Page::get_general_box ($course_id, $course_types, $data);
 
         echo '</div></div></div>';
 
@@ -172,7 +155,7 @@ class TC_Add_Course_Page {
         echo '</div>';
         echo '</div>';
         echo '</div>';
-        TC_Add_Course_Page::get_meta_box ($course_id, $course_data);
+        TC_Add_Course_Page::get_meta_box ($course_id, $data);
 
         echo '</div>';
 
