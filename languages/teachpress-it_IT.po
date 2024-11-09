@@ -103,7 +103,7 @@ msgstr ""
 #: admin/add-course.php:115 admin/add-publication.php:120
 #: admin/settings.php:583 admin/settings.php:583 admin/show-courses.php:112
 #: admin/show-publications.php:429 admin/show-single-course.php:852
-msgid "Add new"
+msgid "Add New Course"
 msgstr ""
 
 #: admin/add-course.php:25

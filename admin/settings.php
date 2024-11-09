@@ -409,7 +409,7 @@ class tc_Settings_Page {
         echo '<tfoot>';
         echo '<tr>';
         echo '<td colspan="2">';
-        echo '<a class="tc_edit_meta_field button-primary" title="' . __('Add new','teachcourses') . '" href="' . admin_url( 'admin-ajax.php' ) . '?action=teachcourses&meta_field_id=0">' . __('Add new','teachcourses') . '</a>';
+        echo '<a class="tc_edit_meta_field button-primary" title="' . __('Add New Course','teachcourses') . '" href="' . admin_url( 'admin-ajax.php' ) . '?action=teachcourses&meta_field_id=0">' . __('Add New Course','teachcourses') . '</a>';
         echo '</td>';
         echo '</tr>';
         echo '</tfoot>';
