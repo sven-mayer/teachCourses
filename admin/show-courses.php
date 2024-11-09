@@ -82,7 +82,7 @@
      */
     public static function get_tab() {
         global $current_user;
-        $terms = get_tc_options('semester');
+        $terms = TC_Terms::get_terms();
         $search = isset( $_GET['search'] ) ? htmlspecialchars($_GET['search']) : '';
         $checkbox = isset( $_GET['checkbox'] ) ? $_GET['checkbox'] : '';
         $bulk = isset( $_GET['bulk'] ) ? $_GET['bulk'] : '';
@@ -148,8 +148,8 @@
                         <option value=""><?php _e('All terms','teachcourses'); ?></option>
                         <?php
                         foreach ($terms as $row) { 
-                            $current = ( $row->value == $sem ) ? 'selected="selected"' : '';
-                            echo '<option value="' . $row->value . '" ' . $current . '>' . stripslashes($row->value) . '</option>';
+                            $current = ( $row->term_id == $sem ) ? 'selected="selected"' : '';
+                            echo '<option value="' . $row->term_id . '" ' . $current . '>' . stripslashes($row->name) . '</option>';
                         } ?> 
                     </select>
                 <input type="submit" name="start" value="<?php _e('filter','teachcourses'); ?>" id="teachcourses_submit" class="button-secondary"/>
@@ -222,19 +222,13 @@
         $static['search'] = $search;
         $z = 0;
         foreach ($row as $row){
-            $date1 = tc_datesplit($row->start);
-            $date2 = tc_datesplit($row->end);
             $courses[$z]['course_id'] = $row->course_id;
             $courses[$z]['name'] = stripslashes($row->name);
             $courses[$z]['type'] = stripslashes($row->type);
-            // $courses[$z]['room'] = stripslashes($row->room);
             $courses[$z]['lecturer'] = stripslashes($row->lecturer);
-            // $courses[$z]['date'] = stripslashes($row->date);
-            // $courses[$z]['start'] = '' . $date1[0][0] . '-' . $date1[0][1] . '-' . $date1[0][2] . '';
-            // $courses[$z]['end'] = '' . $date2[0][0] . '-' . $date2[0][1] . '-' . $date2[0][2] . '';
-            $courses[$z]['semester'] = stripslashes($row->semester);
+            $courses[$z]['term_id'] = $row->term_id;
+            $courses[$z]['term'] = stripslashes($row->term);
             $courses[$z]['visible'] = $row->visible;
-            // $courses[$z]['use_capabilities'] = $row->use_capabilities;
             $z++;
         }
         // display courses
@@ -251,7 +245,6 @@
             // table design for searches
             else {
                 $static['tr_class'] = '';
-                $parent_name = ( $courses[$i]['parent'] != 0 ) ? TC_Courses::get_course_data($courses[$i]['parent'], 'name') : '';
                 echo TC_Courses_Page::get_single_table_row($courses[$i], $checkbox, $static);
             }
         }	
@@ -263,12 +256,9 @@
      * @param array $course                     course data
      * @param array $checkbox
      * @param array $static
-         $static['bulk']                      copy or delete
-        $static['sem']                       semester
-        $static['search']                    input from search field
-    * @return string
-    * @since 5.0.0
-    * @access private
+     * @return string
+     * @since 5.0.0
+     * @access private
     */ 
     private static function get_single_table_row ($course, $checkbox, $static) {
         $check = '';
@@ -299,7 +289,7 @@
             <td>' . $course['course_id'] . '</td>
             <td>' . $course['type'] . '</td>
             <td>' . $course['lecturer'] . '</td>
-            <td>' . $course['semester'] . '</td></tr>';
+            <td>' . $course['term'] . '</td></tr>';
 
         // Return
         return $return;

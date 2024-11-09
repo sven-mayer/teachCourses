@@ -77,8 +77,7 @@ class tc_Courses {
         global $wpdb;
 
         // Define basics
-        $sql = "SELECT course_id, name, type, lecturer, date, room, places, start, end, semester, parent, visible, rel_page, comment, image_url, strict_signup, use_capabilities
-                FROM " . TEACHCOURSES_COURSES; //( SELECT t.course_id AS course_id, t.name AS name, t.type AS type, t.lecturer AS lecturer, t.date AS date, t.room As room, t.places AS places, t.start AS start, t.end As end, t.semester AS semester, t.parent As parent, t.visible AS visible, t.rel_page AS rel_page, t.comment AS comment, t.image_url AS image_url, t.strict_signup AS strict_signup, t.use_capabilities AS use_capabilities, p.name AS parent_name FROM " . TEACHCOURSES_COURSES . " t LEFT JOIN " . TEACHCOURSES_COURSES . " p ON t.parent = p.course_id ) AS temp";
+        $sql = "SELECT c.course_id AS course_id, c.name AS name, c.type AS type, c.lecturer AS lecturer, c.term_id AS term_id, c.visible AS visible, t.name AS term FROM " . TEACHCOURSES_COURSES.  " c LEFT JOIN " . TEACHCOURSES_TERMS .  " t ON c.term_id = t.term_id "; //( SELECT t.course_id AS course_id, t.name AS name, t.type AS type, t.lecturer AS lecturer, t.date AS date, t.room As room, t.places AS places, t.start AS start, t.end As end, t.semester AS semester, t.parent As parent, t.visible AS visible, t.rel_page AS rel_page, t.comment AS comment, t.image_url AS image_url, t.strict_signup AS strict_signup, t.use_capabilities AS use_capabilities, p.name AS parent_name FROM " . TEACHCOURSES_COURSES . " t LEFT JOIN " . TEACHCOURSES_COURSES . " p ON t.parent = p.course_id ) AS temp";
         
         // define global search
         $search = esc_sql(htmlspecialchars(stripslashes($atts['search'])));
@@ -152,10 +151,8 @@ class tc_Courses {
         // prevent possible double escapes
         $data['name'] = stripslashes($data['name']);
         $data['type'] = stripslashes($data['type']);
-        $data['room'] = stripslashes($data['room']);
         $data['lecturer'] = stripslashes($data['lecturer']);
         $data['comment'] = stripslashes($data['comment']);
-        $data['semester'] = stripslashes($data['semester']);
     
         $wpdb->insert( 
                 TEACHCOURSES_COURSES, 
@@ -164,15 +161,10 @@ class tc_Courses {
                     'type'              => $data['type'], 
                     'room'              => $data['room'], 
                     'lecturer'          => $data['lecturer'], 
-                    'date'              => $data['date'], 
-                    'places'            => $data['places'], 
-                    'start'             => $data['start'], 
-                    'end'               => $data['end'], 
-                    'semester'          => $data['semester'], 
                     'comment'           => $data['comment'], 
                     'visible'           => $data['visible'], 
                     'image_url'         => $data['image_url']), 
-                array( '%s', '%s', '%s', '%s', '%s', '%d', '%s', '%s', '%s', '%s', '%d', '%d', '%d', '%d', '%s', '%d', '%d' ) );
+                array( '%s', '%s', '%s', '%s', '%d',  '%s', '%d', '%d' ) );
         $course_id = $wpdb->insert_id;
 
         // test if creation was successful
@@ -214,7 +206,6 @@ class tc_Courses {
         global $wpdb;
         $course_id = intval($course_id);
         global $current_user;
-        $old_places = TC_Courses::get_course_data ($course_id, 'places');
         
         // prevent possible double escapes
         $data['name'] = stripslashes($data['name']);
@@ -222,7 +213,7 @@ class tc_Courses {
         $data['room'] = stripslashes($data['room']);
         $data['lecturer'] = stripslashes($data['lecturer']);
         $data['comment'] = stripslashes($data['comment']);
-        $data['semester'] = stripslashes($data['semester']);
+        $data['term_id'] = stripslashes($data['term_id']);
 
         return $wpdb->update( 
                 TEACHCOURSES_COURSES, 
@@ -231,14 +222,12 @@ class tc_Courses {
                     'type'              => $data['type'], 
                     'room'              => $data['room'], 
                     'lecturer'          => $data['lecturer'], 
-                    'date'              => $data['date'], 
-                    'places'            => $data['places'], 
-                    'semester'          => $data['semester'], 
+                    'term_id'          => $data['term_id'], 
                     'comment'           => $data['comment'], 
                     'visible'           => $data['visible'], 
                     'image_url'         => $data['image_url'],  ), 
                 array( 'course_id' => $course_id ), 
-                array( '%s', '%s', '%s', '%s', '%s', '%d', '%s', '%s', '%s', '%s', '%d', '%d', '%d', '%d', '%s', '%d', '%d' ), 
+                array( '%s', '%s', '%s', '%s', '%d', '%s', '%d', '%s'), 
                 array( '%d' ) );
     }
     
@@ -256,7 +245,6 @@ class tc_Courses {
             
             $wpdb->query( "DELETE FROM " . TEACHCOURSES_COURSES . " WHERE `course_id` = $checkbox[$i]" );
             $wpdb->query( "DELETE FROM " . TEACHCOURSES_COURSE_DOCUMENTS . " WHERE `course_id` = $checkbox[$i]" );
-            $wpdb->query( "DELETE FROM " . TEACHCOURSES_ARTEFACTS . " WHERE `course_id` = $checkbox[$i]" );
             // Check if there are parent courses, which are not selected for erasing, and set there parent to default
             $sql = "SELECT `course_id` FROM " . TEACHCOURSES_COURSES . " WHERE `parent` = $checkbox[$i]";
             $test = $wpdb->query($sql);

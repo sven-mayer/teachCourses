@@ -35,7 +35,9 @@ class tc_Tables {
         // Courses
         self::add_table_courses($charset_collate);
         self::add_table_course_documents($charset_collate);
-        self::add_table_artefacts($charset_collate);
+
+        // Terms
+        self::add_table_terms($charset_collate);
         
         // Enable foreign key checks
         if ( TEACHCOURSES_FOREIGN_KEY_CHECKS === false ) {
@@ -50,12 +52,8 @@ class tc_Tables {
     public static function remove() {
         global $wpdb;
         $wpdb->query("SET FOREIGN_KEY_CHECKS=0");
-        $wpdb->query("DROP TABLE `" . TEACHCOURSES_ARTEFACTS . "`, 
-                                `" . TEACHCOURSES_AUTHORS . "`, 
-                                `" . TEACHCOURSES_COURSES . "`, 
+        $wpdb->query("DROP TABLE `" . TEACHCOURSES_COURSES . "`, 
                                 `" . TEACHCOURSES_COURSE_DOCUMENTS . "`, 
-                                `" . TEACHCOURSES_RELATION ."`,
-                                `" . TEACHCOURSES_REL_PUB_AUTH . "`, 
                                 `" . TEACHCOURSES_SETTINGS ."`,  
                                 `" . TEACHCOURSES_TAGS . "`, 
                                 `" . TEACHCOURSES_USER . "`");
@@ -156,39 +154,32 @@ class tc_Tables {
         // test engine
         self::change_engine(TEACHCOURSES_COURSE_DOCUMENTS);
     }
-    
+
     /**
-     * Create table teachcourses_artefacts
+     * Create table teachcourses_terms
      * @param string $charset_collate
      * @since 5.0.0
      */
-    
-
-
-    
-    public static function add_table_artefacts($charset_collate) {
+    public static function add_table_terms($charset_collate) {
         global $wpdb;
         
-        if( $wpdb->get_var("SHOW TABLES LIKE '" . TEACHCOURSES_ARTEFACTS . "'") == TEACHCOURSES_ARTEFACTS ) {
+        if( $wpdb->get_var("SHOW TABLES LIKE '" . TEACHCOURSES_TERMS . "'") == TEACHCOURSES_TERMS ) {
             return;
         }
         
         require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
-    
-        dbDelta("CREATE TABLE " . TEACHCOURSES_ARTEFACTS . " (
-                    `artefact_id` INT UNSIGNED AUTO_INCREMENT,
-                    `parent_id` INT UNSIGNED,
-                    `course_id` INT UNSIGNED,
-                    `title` VARCHAR(500),
-                    `scale` TEXT,
-                    `passed` INT(1),
-                    `max_value` VARCHAR(50),
-                    PRIMARY KEY (artefact_id),
-                    KEY `ind_course_id` (`course_id`)
+        
+        dbDelta("CREATE TABLE " . TEACHCOURSES_TERMS . " (
+                    `term_id` INT UNSIGNED AUTO_INCREMENT,
+                    `name` VARCHAR(500),
+                    `slug` VARCHAR(500),
+                    `order` INT,
+                    `visible` INT(1),
+                    PRIMARY KEY (term_id)
                 ) $charset_collate;");
         
         // test engine
-        self::change_engine(TEACHCOURSES_ARTEFACTS);
+        self::change_engine(TEACHCOURSES_TERMS);
     }
     
     /**
@@ -240,8 +231,8 @@ class tc_Tables {
         $wpdb->query("INSERT INTO " . TEACHCOURSES_SETTINGS . " (`variable`, `value`, `category`) VALUES ('rel_content_category', '', 'system')");
         $wpdb->query("INSERT INTO " . TEACHCOURSES_SETTINGS . " (`variable`, `value`, `category`) VALUES ('import_overwrite', '1', 'system')");
         $wpdb->query("INSERT INTO " . TEACHCOURSES_SETTINGS . " (`variable`, `value`, `category`) VALUES ('convert_bibtex', '0', 'system')");
+        
         // Example values
-        $wpdb->query("INSERT INTO " . TEACHCOURSES_SETTINGS . " (`variable`, `value`, `category`) VALUES ('Example term', 'Example term', 'semester')");
         $wpdb->query("INSERT INTO " . TEACHCOURSES_SETTINGS . " (`variable`, `value`, `category`) VALUES ('Example', 'Example', 'course_of_studies')");	
         $wpdb->query("INSERT INTO " . TEACHCOURSES_SETTINGS . "(`variable`, `value`, `category`) VALUES ('Lecture', 'Lecture', 'course_type')");
         $wpdb->query("INSERT INTO " . TEACHCOURSES_SETTINGS . "(`variable`, `value`, `category`) VALUES ('Practical', 'Practical', 'course_type')");

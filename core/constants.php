@@ -5,13 +5,6 @@
 
 global $wpdb;
 
-if ( !defined('TEACHCOURSES_ARTEFACTS') ) {
-    /**
-     * This constant defines the table name for teachcourses_artefacts.
-     * @since 5.0.0
-    */
-    define('TEACHCOURSES_ARTEFACTS', $wpdb->prefix . 'teachcourses_artefacts');}
-
 if ( !defined('TEACHCOURSES_COURSES') ) {
     /**
      * This constant defines the table name for teachcourses_courses.
@@ -25,6 +18,16 @@ if ( !defined('TEACHCOURSES_COURSE_DOCUMENTS') ) {
      * @since 5.0.0
     */
     define('TEACHCOURSES_COURSE_DOCUMENTS', $wpdb->prefix . 'teachcourses_course_documents');}
+
+
+if ( !defined('TEACHCOURSES_TERMS') ) {
+    /**
+     * This constant defines the table name for teachcourses_course_documents.
+     * @since 5.0.0
+    */
+    define('TEACHCOURSES_TERMS', $wpdb->prefix . 'teachcourses_terms');}
+
+    
 
 if ( !defined('TEACHCOURSES_SETTINGS') ) {
     /**

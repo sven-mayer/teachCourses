@@ -55,9 +55,9 @@ include_once('core/class-db-options.php');
 include_once('core/deprecated.php');
 include_once('core/general.php');
 include_once('core/shortcodes.php');
-include_once('core/class-db-artefacts.php');
 include_once('core/class-db-courses.php');
 include_once('core/class-db-documents.php');
+include_once('core/class-db-terms.php');
 
 
 // Admin menus
@@ -109,13 +109,13 @@ function tc_add_menu() {
             array('TC_Add_Course_Page','init'));
 
 
-    add_submenu_page(
+        $tc_admin_add_course_page = add_submenu_page(
         'teachcourses',
-        __('Semester','teachcourses'), 
-        __('Semester', 'teachcourses'),
+        __('Term','teachcourses'), 
+        __('Term', 'teachcourses'),
         'use_teachcourses_courses',
-        'teachcourses-add',
-        array('TC_Semester_Page','init'));
+        'teachcourses-term',
+        array('TC_Term_Page','init'));
 
     add_action("load-$tc_admin_show_courses_page", array('TC_Courses_Page','tc_show_course_page_help'));
     add_action("load-$tc_admin_show_courses_page", array('TC_Courses_Page','tc_show_course_page_screen_options'));

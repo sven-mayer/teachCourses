@@ -29,7 +29,7 @@ class TC_Add_Course_Page {
         $data['start_hour'] = isset( $_POST['start_hour'] ) ? htmlspecialchars($_POST['start_hour']) : '';
         $data['start_minute'] = isset( $_POST['start_minute'] ) ? htmlspecialchars($_POST['start_minute']) : '';
         $data['end'] = isset( $_POST['end'] ) ? htmlspecialchars($_POST['end']) : '';
-        $data['semester'] = isset( $_POST['semester'] ) ? htmlspecialchars($_POST['semester']) : '';
+        $data['term_id'] = isset( $_POST['term_id'] ) ? htmlspecialchars($_POST['term_id']) : '';
         $data['comment'] = isset( $_POST['comment'] ) ? htmlspecialchars($_POST['comment']) : '';
         $data['visible'] = isset( $_POST['visible'] ) ? intval($_POST['visible']) : 1;
         $data['image_url'] = isset( $_POST['image_url'] ) ? htmlspecialchars($_POST['image_url']) : '';
@@ -144,14 +144,25 @@ class TC_Add_Course_Page {
         echo '</div></div></div>';
 
         echo '</div>';
-        echo '<div class="tc_postcontent_right">';
-        echo '<div class="postbox">';
-        echo '<h3 class="tc_postbox"><span>Publications</span></h3>';
-        echo '<div id="major-publishing-actions">';
-        echo '<div style="text-align: center;"> ';
-        echo '<input type="submit" name="speichern" id="save_publication_submit" value="Save" class="button-primary" title="Save">';
+        echo '<div class="tc_postcontent_right postbox-container">';
+        echo '<div id="submitdiv" class="stuffbox">';
+        echo '<h3>'.__('Save', 'teachcourses').'</h3>';
+        echo '<div class="inside">';
+        echo '<div class="misc-pub-section misc-pub-comment-status">';
+        echo '<p><label for="visible" title="'.__('Here you can edit the visibility of a course in the enrollments.','teachcourses').'"><strong>'.__('Visibility','teachcourses').'</strong></label></p>';
+        echo '<select name="visible" id="visible" tabindex="13">';
+        echo '<option value="1" ';
+        if ( $course_data["visible"] == 1 && $term_id != 0 ) {echo ' selected="selected"';}
+        echo '>'.__('normal','teachcourses').'</option>';
+        echo '<option value="2" ';
+        if ( $course_data["visible"] == 2 && $term_id != 0 ) {echo ' selected="selected"';}
+        echo '>'.__('extend','teachcourses').'</option>';
+        echo '<option value="0" ';
+        if ( $course_data["visible"] == 0 && $term_id != 0 ) {echo ' selected="selected"';;}
+        echo '>'.__('invisible','teachcourses').'</option>';
+        echo '</select></div>';
         echo '</div>';
-        echo '</div>';
+        echo '<div id="major-publishing-actions"><div id="publishing-action"><input type="submit" name="speichern" id="save_publication_submit" value="Save" class="button-primary" title="'.__('Save', 'teachcourses').'"></div><div class="clear"></div></div>';
         echo '</div>';
         TC_Add_Course_Page::get_meta_box ($course_id, $data);
 
@@ -173,10 +184,10 @@ class TC_Add_Course_Page {
     public static function get_general_box ($course_id, $course_types, $course_data) {
         $post_type = get_tc_option('rel_page_courses');
         $selected_sem = ( $course_id === 0 ) ? get_tc_option('sem') : 0;
-        $semester = get_tc_options('semester', '`setting_id` DESC');
+        $semester = TC_Terms::get_terms();
         ?>
         <div class="postbox">
-        <h3 class="tc_postbox"><span><?php _e('General','teachcourses'); ?></span></h3>
+        <h2 class="tc_postbox"><?php _e('General','teachcourses'); ?></h2>
         <div class="inside">
             <p><label for="course_type" title="<?php _e('The course type','teachcourses'); ?>"><strong><?php _e('Type'); ?></strong></label></p>
             <select name="course_type" id="course_type" title="<?php _e('The course type','teachcourses'); ?>" tabindex="2">
@@ -190,16 +201,16 @@ class TC_Add_Course_Page {
             <select name="semester" id="semester" title="<?php _e('The term where the course will be happening','teachcourses'); ?>" tabindex="3">
             <?php
             foreach ($semester as $sem) { 
-                if ($sem->value == $selected_sem && $course_id === 0) {
+                if ($sem->term_id == $selected_sem && $course_id === 0) {
                     $current = 'selected="selected"' ;
                 }
-                elseif ($sem->value == $course_data["semester"] && $course_id != 0) {
+                elseif ($sem->term_id == $course_data["term_id"] && $course_id != 0) {
                     $current = 'selected="selected"' ;
                 }
                 else {
                     $current = '' ;
                 }
-                echo '<option value="' . stripslashes($sem->value) . '" ' . $current . '>' . stripslashes($sem->value) . '</option>';
+                echo '<option value="' . stripslashes($sem->term_id) . '" ' . $current . '>' . stripslashes($sem->name) . '</option>';
             }?> 
             </select>
             <?php
@@ -214,56 +225,12 @@ class TC_Add_Course_Page {
                     'tabindex' => 4,
                     'display' => 'block', 
                     'style' => 'width:95%;') );
+        
             
-            // date
-            echo tc_Admin::get_form_field(
-                array(
-                    'name' => 'date',
-                    'title' => __('The date(s) for the course','teachcourses'),
-                    'label' => __('Date','teachcourses'),
-                    'type' => 'input',
-                    'value' => $course_data['date'],
-                    'tabindex' => 5,
-                    'display' => 'block', 
-                    'style' => 'width:95%;') );
-            
-            // room
-            echo tc_Admin::get_form_field(
-                array(
-                    'name' => 'room',
-                    'title' => __('The room or place for the course','teachcourses'),
-                    'label' => __('Room','teachcourses'),
-                    'type' => 'input',
-                    'value' => $course_data['room'],
-                    'tabindex' => 6,
-                    'display' => 'block', 
-                    'style' => 'width:95%;') );
-            
-            TC_Add_Course_Page::get_parent_select_field($course_id, $course_data);
             ?>
             
             <p><label for="comment" title="<?php _e('For parent courses the comment is showing in the overview and for child courses in the enrollments system.','teachcourses'); ?>"><strong><?php _e('Description','teachcourses'); ?></strong></label></p>
-            <textarea name="comment" rows="3" id="comment" title="<?php _e('For parent courses the comment is showing in the overview and for child courses in the enrollments system.','teachcourses'); ?>" tabindex="9" style="width:95%;"><?php echo stripslashes($course_data["comment"]); ?></textarea>
-            <p><label for="rel_page" title="<?php _e('If you will connect a course with a page (it is used as link in the courses overview) so you can do this here','teachcourses'); ?>"><strong><?php _e('Related content','teachcourses'); ?></strong></label></p>
-
-            <div id="rel_page_alternative" style="display:none;">
-                <?php _e('Select draft','teachcourses');?>: 
-                <select name="rel_page_alter" id="rel_page_alter" title="<?php _e('If you will connect a course with a post or page (it is used as link in the courses overview) so you can do this here','teachcourses'); ?>" tabindex="10">
-                    <?php
-                    get_tc_wp_drafts($post_type, 'draft', 'post_date', 'DESC');
-                    ?>
-                </select>
-                <a onclick="javascript:teachcourses_switch_rel_page_container();" style="cursor:pointer;"><?php _e('Use existing content','teachcourses');?></a>
-            </div>
-            <div id="rel_page_original" style="display:block;">
-                <?php _e('Select related content','teachcourses');?>: 
-                <select name="rel_page" id="rel_page" title="<?php _e('If you will connect a course with a post or page (it is used as link in the courses overview) so you can do this here','teachcourses'); ?>" tabindex="10">
-                    <?php 
-                    get_tc_wp_pages("menu_order","ASC",$course_data["rel_page"],$post_type,0,0); 
-                    ?>
-                </select>
-                <a onclick="javascript:teachcourses_switch_rel_page_container();" style="cursor:pointer;"><?php _e('Create from draft','teachcourses');?></a>
-            </div>
+            <textarea name="comment" rows="50" id="comment" title="<?php _e('For parent courses the comment is showing in the overview and for child courses in the enrollments system.','teachcourses'); ?>" tabindex="9" style="width:95%;"><?php echo stripslashes($course_data["comment"]); ?></textarea>
         </div>
     <?php
     }
@@ -285,17 +252,6 @@ class TC_Add_Course_Page {
                 <p><label for="image_url" title="<?php _e('With the image field you can add an image to a course.','teachcourses'); ?>"><strong><?php _e('Image URL','teachcourses'); ?></strong></label></p>
                 <input name="image_url" id="image_url" class="upload" type="text" title="<?php _e('Image URL','teachcourses'); ?>" style="width:90%;" tabindex="12" value="<?php echo $course_data["image_url"]; ?>"/>
         <a class="upload_button_image" title="<?php _e('Add image','teachcourses'); ?>" style="cursor:pointer;"><img src="images/media-button-image.gif" alt="<?php _e('Add Image','teachcourses'); ?>" /></a>
-                <p><label for="visible" title="<?php _e('Here you can edit the visibility of a course in the enrollments.','teachcourses'); ?>"><strong><?php _e('Visibility','teachcourses'); ?></strong></label></p>
-                <select name="visible" id="visible" title="<?php _e('Here you can edit the visibility of a course in the enrollments.','teachcourses'); ?>" tabindex="13">
-                    <option value="1"<?php if ( $course_data["visible"] == 1 && $course_id != 0 ) {echo ' selected="selected"'; } ?>><?php _e('normal','teachcourses'); ?></option>
-                    <option value="2"<?php if ( $course_data["visible"] == 2 && $course_id != 0 ) {echo ' selected="selected"'; } ?>><?php _e('extend','teachcourses'); ?></option>
-                    <option value="0"<?php if ( $course_data["visible"] == 0 && $course_id != 0 ) {echo ' selected="selected"'; } ?>><?php _e('invisible','teachcourses'); ?></option>
-                </select>
-                <!-- <p><label for="use_capabilities"><strong><?php _e('Capabilities','teachcourses'); ?></strong></label></p>
-                <select name="use_capabilities" >
-                    <option value="0"<?php if ( $course_data["use_capabilities"] == 0 && $course_id != 0 ) {echo ' selected="selected"'; } ?>><?php _e('global','teachcourses'); ?></option>
-                    <option value="1"<?php if ( $course_data["use_capabilities"] == 1 && $course_id != 0 ) {echo ' selected="selected"'; } ?>><?php _e('local','teachcourses'); ?></option>
-                </select> -->
              </div>
              <div id="major-publishing-actions">
                  <div style="text-align: center;">
@@ -308,41 +264,6 @@ class TC_Add_Course_Page {
                  </div>
              </div>
          </div>
-        <?php
-    }
-    
-    /**
-     * Gets a select field for the parent course
-     * @param int $course_id
-     * @param array $course_data
-     * @since 5.0.0
-     */
-    private static function get_parent_select_field ($course_id, $course_data) {
-        $semester = get_tc_options('semester', '`setting_id` DESC');
-        ?>
-        <p><label for="parent2" title="<?php _e('Here you can connect a course with a parent one. With this function you can create courses with an hierarchical order.','teachcourses'); ?>"><strong><?php _e('Parent course','teachcourses'); ?></strong></label></p>
-            <select name="parent2" id="parent2" title="<?php _e('Here you can connect a course with a parent one. With this function you can create courses with an hierarchical order.','teachcourses'); ?>" onchange="teachcourses_courseFields();" tabindex="8">
-                <option value="0"><?php _e('none','teachcourses'); ?></option>
-                <?php
-                foreach ( $semester as $row ) {
-                    $courses = TC_Courses::get_courses( array('parent' => 0, 'semester' => $row->value) );
-                    if ( count($courses) !== 0 ) {
-                        echo '<optgroup label="' . $row->value . '">';
-                    }
-                    foreach ( $courses as $course ) {
-                        if ( $course->course_id == $course_id ) {
-                            continue;
-                        }
-                        $current = ( $course->course_id == $course_data["parent"] ) ? 'selected="selected"' : '';
-                        echo '<option value="' . $course->course_id . '" ' . $current . '>' . $course->course_id . ' - ' . stripslashes($course->name) . '</option>';
-                    }
-                    if ( count($courses) !== 0 ) {
-                        echo '</optgroup>';
-                    }
-                }
-                ?>
-                
-            </select>
         <?php
     }
 

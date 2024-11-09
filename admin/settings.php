@@ -78,11 +78,6 @@ class tc_Settings_Page {
             tc_Settings_Page::delete_meta_fields($tab);
         }
 
-        // add course options
-        if ( isset( $_POST['add_term'] ) || isset( $_POST['add_type'] ) ) {
-            tc_Settings_Page::add_course_options();
-        }
-
         // add meta field options
         if ( isset($_POST['add_field']) ) {
             if ( $tab === 'course_data' ) {
@@ -104,14 +99,12 @@ class tc_Settings_Page {
 
         // Site menu
         $set_menu_1 = ( $tab === 'general' || $tab === '' ) ? 'nav-tab nav-tab-active' : 'nav-tab';
-        $set_menu_3 = ( $tab === 'term' ) ? 'nav-tab nav-tab-active' : 'nav-tab';
         $set_menu_4 = ( $tab === 'type' ) ? 'nav-tab nav-tab-active' : 'nav-tab';
         $set_menu_5 = ( $tab === 'course_data' ) ? 'nav-tab nav-tab-active' : 'nav-tab';
         $set_menu_99 = ( $tab === 'db_status' ) ? 'nav-tab nav-tab-active' : 'nav-tab';
 
         echo '<h3 class="nav-tab-wrapper">'; 
         echo '<a href="' . $site . '&amp;tab=general" class="' . $set_menu_1 . '">' . __('General','teachcourses') . '</a>';
-        echo '<a href="' . $site . '&amp;tab=term" class="' . $set_menu_3 . '">' . __('Term','teachcourses') . '</a>';
         echo '<a href="' . $site . '&amp;tab=type" class="' . $set_menu_4 . '">' . __('Type','teachcourses') . '</a>';
         echo '<a href="' . $site . '&amp;tab=course_data" class="' . $set_menu_5 . '">' . __('Meta','teachcourses') .'</a>';
         echo '<a href="' . $site . '&amp;tab=db_status" class="' . $set_menu_99 . '">' . __('Database','teachcourses') .' '. __('Index status','teachcourses') . '</a>';
@@ -125,10 +118,6 @@ class tc_Settings_Page {
         /* General */
         if ($tab === '' || $tab === 'general') {
             self::get_general_tab($site);
-        }
-        /* Term */
-        if ( $tab === 'term' ) { 
-            self::get_term_tab();
         }
         /* Type */
         if ( $tab === 'type' ) { 
@@ -240,27 +229,7 @@ class tc_Settings_Page {
 
         echo '</div>';
     }
-
-    /**
-     * Shows the term settings tab
-     * @access private
-     * @since 1.0.0
-     */
-    private static function get_term_tab() {
-        echo '<div style="width:100%;">';
-
-        $args2 = array ( 
-            'element_title' => __('Term','teachcourses'),
-            'count_title' => __('Number of courses','teachcourses'),
-            'delete_title' => __('Delete term','teachcourses'),
-            'add_title' => __('Add term','teachcourses'),
-            'tab' => 'term'
-            );
-        tc_Admin::get_course_option_box(__('Term','teachcourses'), 'term', $args2);
-
-        echo '</div>';
-    }
-
+    
     /**
      * Shows the tab for general options
      * @param sting $site
@@ -409,7 +378,7 @@ class tc_Settings_Page {
         echo '<tfoot>';
         echo '<tr>';
         echo '<td colspan="2">';
-        echo '<a class="tc_edit_meta_field button-primary" title="' . __('Add New Course','teachcourses') . '" href="' . admin_url( 'admin-ajax.php' ) . '?action=teachcourses&meta_field_id=0">' . __('Add New Course','teachcourses') . '</a>';
+        echo '<a class="tc_edit_meta_field button-primary" title="' . __('Add new','teachcourses') . '" href="' . admin_url( 'admin-ajax.php' ) . '?action=teachcourses&meta_field_id=0">' . __('Add new','teachcourses') . '</a>';
         echo '</td>';
         echo '</tr>';
         echo '</tfoot>';
@@ -497,9 +466,9 @@ class tc_Settings_Page {
      * @since 7.0.0 
      */
     private static function get_db_status_tab () {
-        self::list_db_table_index(TEACHCOURSES_ARTEFACTS);
         self::list_db_table_index(TEACHCOURSES_COURSES);
         self::list_db_table_index(TEACHCOURSES_COURSE_DOCUMENTS);
+        self::list_db_table_index(TEACHCOURSES_TERMS);
         self::list_db_table_index(TEACHCOURSES_SETTINGS);
     }
     
@@ -556,25 +525,6 @@ class tc_Settings_Page {
             echo '</tr>';
         }
         echo '</table>';
-    }
-    
-    /**
-     * Adds new term and new types for courses
-     * @access private
-     * @since 5.0.0
-     */
-    private static function add_course_options () {
-        $new_term = isset( $_POST['new_term'] ) ? htmlspecialchars($_POST['new_term']) : ''; 
-        $new_type = isset( $_POST['new_type'] ) ? htmlspecialchars($_POST['new_type']) : '';
-
-        if (isset( $_POST['add_type'] ) && $new_type != __('Add type','teachcourses')) {
-            tc_Options::add_option($new_type, $new_type, 'course_type');
-            get_tc_message(__('Saved'));
-        }
-        if (isset( $_POST['add_term'] ) && $new_term != __('Add term','teachcourses')) {
-           tc_Options::add_option($new_term, $new_term, 'semester');
-           get_tc_message(__('Saved'));
-        }
     }
     
     /**
@@ -731,18 +681,7 @@ class tc_Settings_Page {
      * @since 5.0.0
      */
     private static function update_database ($site, $with_structure_change = true) {
-        if ( $with_structure_change === true ) {
-            tc_db_update();
-        }
-        $check_stud_meta = tc_Update::check_table_stud_meta();
-        $check_authors = tc_Update::check_table_authors();
-        if ( $check_authors === false && $check_stud_meta === false ) {
-            return;
-        }
-        $sync = ( $check_authors === true ) ? 1 : 2;
-        $table = ( $check_authors === true ) ? 'teachcourses_authors' : 'teachcourses_stud_meta';
-        $message = 'TABLE ' . $table . ': ' .  __('teachcourses wants to fill up the new database. This can take some time.','teachcourses') . ' <a href="' . $site . '&amp;sync=' . $sync . '" class="button-primary">' . __('Continue','teachcourses') . '</a>';
-        get_tc_message($message, 'orange');
+        
     }
     
     /**
