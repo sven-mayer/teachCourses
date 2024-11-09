@@ -70,8 +70,7 @@ function tc_show_single_course_page() {
     echo '<input name="sort" type="hidden" value="' . $link_parameter['sort'] . '" />';
     echo '<input name="order" type="hidden" value="' . $link_parameter['order'] . '" />';
     
-    echo tc_Single_Course_Page::get_back_button($link_parameter);
-    echo tc_Single_Course_Page::get_course_headline($course_id, $course_data, $parent, $link_parameter, true);
+    echo tc_Single_Course_Page::get_course_headline($course_id, $course_data, $link_parameter);
     echo tc_Single_Course_Page::get_menu($course_id, $link_parameter, $action);
     
     echo '<div style="width:100%; float:left; margin-top: 12px;">';
@@ -195,26 +194,6 @@ class tc_Single_Course_Page {
     }
     
     /**
-     * Return the back_to button
-     * @param array $link_parameter
-     * @return string
-     * @since 5.0.0
-     */
-    public static function get_back_button ($link_parameter){
-        $save = isset( $_POST['save'] ) ?  $_POST['save'] : '';
-        if ( $save == __('Save') ) {
-            return;
-        }
-        if ( $link_parameter['redirect'] != 0 ) {
-            return '<p><a href="admin.php?page=teachcourses&amp;course_id=' . $link_parameter['redirect'] . '&amp;sem=' . $link_parameter['sem'] . '&amp;search=' . $link_parameter['search'] . '&amp;action=show" class="button-secondary" title="' . __('Back','teachcourses') . '">&larr; ' . __('Back','teachcourses') . '</a></p>';
-        }
-        else {
-             return '<p><a href="admin.php?page=teachcourses&amp;sem=' . $link_parameter['sem'] . '&amp;search=' . $link_parameter['search'] . '" class="button-secondary" title="' . __('Back','teachcourses') . '">&larr; ' . __('Back','teachcourses') . '</a></p>';
-        }
-        
-    }
-
-    /**
      * Returns the page headline
      * @param int $course_id
      * @param array $course_data
@@ -224,21 +203,10 @@ class tc_Single_Course_Page {
      * @return string
      * @since 5.0.0
      */
-    public static function get_course_headline($course_id, $course_data, $parent_data, $link_parameter, $edit_link = true) {
-        $link = '';
-        $parent_name = '';
-        
-        if ($course_data["parent"] != 0) {
-            if ($parent_data["course_id"] == $course_data["parent"]) {
-                $parent_name = '<a href="admin.php?page=teachcourses&amp;course_id=' . $parent_data["course_id"] . '&amp;sem=' . $link_parameter['sem'] . '&amp;search=' . $link_parameter['search'] . '&amp;action=show&amp;redirect=' . $course_id . '" title="' . stripslashes($parent_data["name"]) . '" style="color:#464646">' . stripslashes($parent_data["name"]) . '</a> &rarr; ';
-            }
-        }
-        
-        if ( $edit_link === true ) {
-            $link = '<small><a href="admin.php?page=teachcourses&amp;course_id=' . $course_id . '&amp;sem=' . $link_parameter['sem'] . '&amp;search=' . $link_parameter['search'] . '&amp;action=edit" class="teachcourses_link" style="cursor:pointer;">' . __('Edit','teachcourses') . '</a></small>';
-        }
+    public static function get_course_headline($course_id, $course_data, $link_parameter) {
+        $link = '<a class="add-new-h2" href="admin.php?page=teachcourses-add&amp;action=edit&amp;course_id=' . $course_id . '&amp;sem=' . $link_parameter['sem'] . '&amp;search=' . $link_parameter['search'] . '" class="teachcourses_link" style="cursor:pointer;">' . __('Edit','teachcourses') . '</a>';
 
-        return '<h1 style="padding-top:5px;">' . $parent_name . stripslashes($course_data["name"]) . ' ' . $course_data["semester"] . ' <span class="tc_break">|</span> ' . $link . '</h1>';
+        return '<h1 class="wp-heading-inline">' . stripslashes($course_data["name"]) . ' ' . $link . '</h1>';
     }
     
     /**

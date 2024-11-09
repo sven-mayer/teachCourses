@@ -113,13 +113,13 @@ class TC_Add_Course_Page {
         $course_types = get_tc_options('course_type', '`value` ASC');    
 
         echo '<div class="wrap">';
-        echo '<h2>';
+        echo '<h1 class="wp-heading-inline">';
         if ($course_id == 0) {
             _e('Create a new course','teachcourses');
         } else {
             _e('Edit Course','teachcourses');
         }
-        echo '</h2>';
+        echo '</h1>';
         
         echo '<form id="add_course" name="form1" method="post" action="'. esc_url($_SERVER['REQUEST_URI']) .'&action=save">';
         echo '<input name="page" type="hidden" value="teachcourses-add" />';
