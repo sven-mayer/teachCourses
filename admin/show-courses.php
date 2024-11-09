@@ -90,7 +90,7 @@
         $sem = ( isset($_GET['sem']) ) ? htmlspecialchars($_GET['sem']) : get_tc_option('sem');
     
         echo '<div class="wrap">';
-        echo '<h1 class="wp-heading-inline">'.esc_html__('Courses','teachcourses').'</h1><a href="admin.php?page=add_course.php" class="add-new-h2">'.esc_html__('Add new','teachcourses').'</a>';
+        echo '<h1 class="wp-heading-inline">'.esc_html__('Courses','teachcourses').'</h1><a href="admin.php?page=add_course.php" class="page-title-action">'.esc_html__('Add new','teachcourses').'</a>';
         echo '<hr class="wp-header-end">
         <ul class="subsubsub">
             <li class="all"><a href="edit.php?post_type=post" class="current" aria-current="page">All <span class="count">('.TC_Courses_Page::get_count_courses().')</span></a></li>

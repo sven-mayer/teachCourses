@@ -87,7 +87,6 @@ function tc_add_menu() {
     $pos = TEACHCOURSES_MENU_POSITION;
 
     $logo = (version_compare($wp_version, '3.8', '>=')) ? plugins_url( 'images/logo_small.png', __FILE__ ) : plugins_url( 'images/logo_small_black.png', __FILE__ );
-    // var_dump(__FILE__);
     // die("products_first_ends");
     $tc_admin_show_courses_page = add_menu_page(
             __('Course','teachcourses'), 

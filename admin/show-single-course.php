@@ -197,14 +197,13 @@ class tc_Single_Course_Page {
      * Returns the page headline
      * @param int $course_id
      * @param array $course_data
-     * @param array $parent_data
      * @param array $link_parameter
      * @param string $edit_link
      * @return string
      * @since 5.0.0
      */
     public static function get_course_headline($course_id, $course_data, $link_parameter) {
-        $link = '<a class="add-new-h2" href="admin.php?page=teachcourses-add&amp;action=edit&amp;course_id=' . $course_id . '&amp;sem=' . $link_parameter['sem'] . '&amp;search=' . $link_parameter['search'] . '" class="teachcourses_link" style="cursor:pointer;">' . __('Edit','teachcourses') . '</a>';
+        $link = '<a class="page-title-action" href="admin.php?page=teachcourses-add&amp;action=edit&amp;course_id=' . $course_id . '&amp;sem=' . $link_parameter['sem'] . '&amp;search=' . $link_parameter['search'] . '" class="teachcourses_link" style="cursor:pointer;">' . __('Edit','teachcourses') . '</a>';
 
         return '<h1 class="wp-heading-inline">' . stripslashes($course_data["name"]) . ' ' . $link . '</h1>';
     }
@@ -231,36 +230,6 @@ class tc_Single_Course_Page {
         
         return '<h3 class="nav-tab-wrapper">' . $info_tab . $documents_tab . $assessment_tab . '</h3>';
     }
-    
-    /**
-     * Gets the move_to_a_course_form for the enrollments tab
-     * @param int $course_id            The ID of the course
-     * @param array $cours_data         An associative array of the course_data
-     * @param array $link_parameter     An associative array of link parameters
-     * @since 5.0.0
-     * @access private
-     */
-    private static function get_move_to_a_course_form($course_id, $cours_data, $link_parameter) {
-        $p = $cours_data['parent'] != 0 ? $cours_data['parent'] : $cours_data['course_id'];
-        $related_courses = TC_Courses::get_courses( array('parent' => $p ) );
-        if ( count($related_courses) === 0 ) {
-            get_tc_message(__('Error: There are no related courses.','teachcourses'));
-            return;
-        }
-        echo '<div class="teachcourses_message" id="tc_move_to_course">';
-        echo '<p class="teachcourses_message_headline">' . __('Move to a related course','teachcourses') . '</p>';
-        echo '<p>' . __('If you move a signup to an other course the signup status will be not changed. So a waitinglist will be a waitinglist entry.','teachcourses') . '</p>';
-        echo '<select name="tc_rel_course" id="tc_rel_course">';
-        foreach ( $related_courses as $rel ) {
-            $selected = $rel->course_id == $cours_data['course_id'] ? ' selected="selected"' : '';
-            echo '<option value="' . $rel->course_id . '"' . $selected . '>' . $rel->course_id . ' - ' . $rel->name . '</option>';
-        }
-        echo ' </select>';
-        echo '<p><input name="move_ok" type="submit" class="button-primary" value="' . __('Move','teachcourses') . '"/>
-                    <a href="admin.php?page=teachcourses&course_id=' . $course_id . '&amp;sem=' . $link_parameter['sem'] . '&amp;search=' . $link_parameter['search'] . '&amp;order=' . $link_parameter['order'] . '&amp;sort=' . $link_parameter['sort'] . '&amp;action=enrollments" class="button-secondary">' . __('Cancel','teachcourses') . '</a></p>';    
-        echo '</div>';
-    }
-    
     
     /**
      * Shows the info tab for show_single_course page
@@ -329,33 +298,6 @@ class tc_Single_Course_Page {
                 </table>
                </div>
            </div>
-           <?php if ( count($course_meta) > 0 ) { ?>
-           <div class="postbox">
-               <h3 style="padding: 7px 10px; cursor:default;"><span><?php _e('Custom meta data','teachcourses'); ?></span></h3>
-               <div class="inside">
-                   <table cellpadding="8">
-                    <?php
-                    foreach ($fields as $row) {
-                        $col_data = tc_DB_Helpers::extract_column_data($row['value']);
-                        $value = '';
-                        foreach ( $course_meta as $row_meta ) {
-                            if ( $row['variable'] === $row_meta['meta_key'] ) {
-                                $value = $row_meta['meta_value'];
-                                break;
-                            }
-                        }
-                        echo '<tr>
-                               <td width="230"><strong>' . stripslashes($col_data['title']) . '</strong></td>
-                               <td> ' . stripslashes($value) . '</td>
-                             </tr>';
-                     }
-                    ?>
-                   </table>
-               </div>
-           </div>
-           <?php
-           }
-           ?>
        </div>
     <?php
     }

@@ -38,7 +38,6 @@ class TC_Add_Course_Page {
         $action = isset( $_GET['action'] ) ? htmlspecialchars($_GET['action']) : '';
         $course_id = isset( $_GET['course_id'] ) ? htmlspecialchars($_GET['course_id']) : 0;
 
-        var_dump($data);
         if ($data["action"] === 'create' ) {
             $course_id = TC_Add_Course_Page::tc_save($data);
         } else if ($data["action"] === 'edit' ) {
@@ -59,7 +58,6 @@ class TC_Add_Course_Page {
         $course_id = TC_Courses::add_course($data);
         $message = __('Course created successful.','teachcourses') . ' <a href="admin.php?page=teachcourses&amp;course_id=' . $course_id . '&amp;action=show&amp;search=&amp;sem=' . get_tc_option('sem') . '">' . __('Show course','teachcourses') . '</a> | <a href="admin.php?page=teachcourses/add_course.php">' . __('Add new','teachcourses') . '</a>';
         get_tc_message($message);
-        var_dump($course_id);
         return $course_id;
     }
 
