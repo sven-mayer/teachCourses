@@ -389,9 +389,20 @@ function tc_plugin_link($links, $file){
     return $links;
 }
 
+function tc_register_custom_rewrite_rule() {
+    add_rewrite_rule('^teaching/([^/]*)/([^/]*)/?$','index.php?page_id=techcourses&term_id=$matches[1]&course=$matches[2]','top');
+}
+
+function tc_register_query_vars($vars) {
+    $vars[] = 'term_id';
+    $vars[] = 'course';
+    return $vars;
+}
+
 // Register WordPress-Hooks
 register_activation_hook( __FILE__, 'tc_activation');
 add_action('init', 'tc_language_support');
+
 add_action('wp_ajax_teachcourses', 'tc_ajax_callback');
 add_action('wp_ajax_teachcoursesdocman', 'tc_ajax_doc_manager_callback');
 add_action('admin_menu', 'tc_add_menu_settings');
@@ -419,3 +430,28 @@ add_shortcode('tccoursedocs', 'tc_coursedocs_shortcode');
 add_shortcode('tccourselist', 'tc_courselist_shortcode');
 add_shortcode('tcpost','tc_post_shortcode');
 add_shortcode('tclist','tc_course_list_shortcode');
+
+// Register custom rewrite rules
+function tp_template_redirect() {
+    $term_id = get_query_var('term_id');
+    $course = get_query_var('course');
+    var_dump($term_id);
+    var_dump($course);
+    if ($term_id && $course) {
+        // Load a custom template file
+        //include locate_template('template-teaching.php'); // Adjust path to your custom template
+        //exit;
+        echo "term_id: $term_id, course: $course";
+    }
+}
+
+
+add_action('init', 'tc_register_custom_rewrite_rule');
+add_filter('query_vars', 'tc_register_query_vars');
+// function tc_plugin_activate() {
+//     add_action('init', 'tc_register_custom_rewrite_rule');
+//     add_filter('query_vars', 'tc_register_query_vars');
+// }
+// register_activation_hook( __FILE__, 'tc_plugin_activate' );
+
+add_action('template_redirect', 'tp_template_redirect');
