@@ -411,15 +411,6 @@ class tc_Document_Manager {
             // Define post_id and course_id
             $post_id = ( isset($_GET['post_id']) ) ? intval($_GET['post_id']) : 0;
             $course_id = ( isset($_POST['sel_course_id']) ) ? intval($_POST['sel_course_id']) : 0;
-
-            // default
-            if ( $post_id !== 0 && $course_id === 0 ) {
-                $course_id = intval (TC_Courses::is_used_as_related_content($post_id) );
-            }
-            // For user's selection
-            else if ( $course_id !== 0 ) {
-                $post_id = TC_Courses::get_course_data($course_id, 'rel_page');
-            }
             
             echo '<body>';
             echo '<div class="wrap">';

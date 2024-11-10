@@ -87,7 +87,7 @@
         $checkbox = isset( $_GET['checkbox'] ) ? $_GET['checkbox'] : '';
         $bulk = isset( $_GET['bulk'] ) ? $_GET['bulk'] : '';
         $copysem = isset( $_GET['copysem'] ) ? $_GET['copysem'] : '';
-        $term_id = ( isset($_GET['term_id']) ) ? htmlspecialchars($_GET['term_id']) : get_tc_option('active_term');
+        $term_id = ( isset($_GET['term_id']) ) ? htmlspecialchars($_GET['term_id']) : 0;
     
         echo '<div class="wrap">';
         echo '<h1 class="wp-heading-inline">'.esc_html__('Courses','teachcourses').'</h1><a href="admin.php?page=teachcourses-add" class="page-title-action">'.esc_html__('Add New Course','teachcourses').'</a>';
@@ -176,7 +176,7 @@
             if ($search != '') {
                 $order = 'semester DESC, name';	
             }
-            TC_Courses_Page::get_courses($search, $term_id, $bulk, $checkbox);
+            TC_Courses_Page::get_courses_list($search, $term_id, $bulk, $checkbox);
 
             ?>
             </tbody>
@@ -202,13 +202,13 @@
      * @since 5.0.0
      * @access private
      */
-    private static function get_courses ($search, $term_id, $bulk, $checkbox) {
+    private static function get_courses_list ($search, $term_id, $bulk, $checkbox) {
 
         $row = TC_Courses::get_courses( 
                 array(
                     'search'    => $search, 
                     'term_id'  => $term_id, 
-                    'order'     => 'sequence, name'
+                    'order'     => 'sequence DESC, name'
                 ) );
         // if the query is empty
         if ( count($row) === 0 ) { 

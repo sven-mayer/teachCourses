@@ -185,21 +185,20 @@ function get_tc_var_types() {
     return array( 
         'course_id'         => '',
         'name'              => '',
+        'slug'              => '',
         'type'              => '',
-        'room'              => '',
+        'term_id'           => '',
         'lecturer'          => '',
-        'date'              => '',
-        'places'            => '',
-        'start'             => '',
-        'end'               => '',
-        'semester'          => '',
-        'comment'           => '',
-        'rel_page'          => '',
-        'parent'            => '',
+        'assistant'         => '',
+        'credits'           => '',
+        'hours'             => '',
+        'module'            => '',
+        'links'             => '',
+        'language'          => '',
+        'description'       => '',
         'visible'           => '',
         'image_url'         => '',
-        'strict_signup'     => '',
-        'use_capabilities'   => '');
+    );
 }
 
 /** 

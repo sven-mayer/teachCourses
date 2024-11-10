@@ -103,7 +103,6 @@ class tc_Courses {
             $order = ' ORDER BY ' . $order;
         }
         
-        var_dump($sql . $where . $order . $limit);  
         $result = $wpdb->get_results($sql . $where . $order . $limit, $atts['output_type']);
         return $result;
     }
@@ -149,26 +148,38 @@ class tc_Courses {
         // prevent possible double escapes
         $data['name'] = stripslashes($data['name']);
         $data['slug'] = stripslashes($data['slug']);
-        $data['term_id'] = stripslashes($data['term_id']);
         $data['type'] = stripslashes($data['type']);
+        $data['term_id'] = stripslashes($data['term_id']);
         $data['lecturer'] = stripslashes($data['lecturer']);
-        $data['lecturer'] = stripslashes($data['lecturer']);
-        $data['comment'] = stripslashes($data['comment']);
+        $data['assistant'] = stripslashes($data['assistant']);
+        $data['credits'] = stripslashes($data['credits']);
+        $data['hours'] = stripslashes($data['hours']);
+        $data['module'] = stripslashes($data['module']);
+        $data['language'] = stripslashes($data['language']);
+        $data['links'] = stripslashes($data['links']);
+        $data['description'] = stripslashes($data['description']);
         $data['visible'] = stripslashes($data['visible']);
-        $data['comment'] = stripslashes($data['image_url']);
+        $data['image_url'] = stripslashes($data['image_url']);
     
         $wpdb->insert( 
                 TEACHCOURSES_COURSES, 
                 array( 
                     'name'              => $data['name'], 
                     'slug'              => $data['slug'], 
-                    'term_id'           => $data['term_id'], 
                     'type'              => $data['type'], 
+                    'term_id'           => $data['term_id'], 
                     'lecturer'          => $data['lecturer'], 
-                    'comment'           => $data['comment'], 
-                    'visible'           => $data['visible'], 
-                    'image_url'         => $data['image_url']), 
-                array( '%s', '%s', '%d','%s', '%s', '%s', '%d', '%s') );
+                    'assistant'        => $data['assistant'],
+                    'credits'           => $data['credits'],
+                    'hours'             => $data['hours'],
+                    'module'            => $data['module'],
+                    'language'          => $data['language'],
+                    'links'             => $data['links'],
+                    'description'       => $data['description'],
+                    'visible'           => $data['visible'],
+                    'image_url'         => $data['image_url'],
+                ),
+                array( '%s', '%s', '%s', '%d', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%d', '%s' ) );
         $course_id = $wpdb->insert_id;
 
         // test if creation was successful
@@ -213,25 +224,39 @@ class tc_Courses {
         
         // prevent possible double escapes
         $data['name'] = stripslashes($data['name']);
-        $data['type'] = stripslashes($data['type']);
         $data['slug'] = stripslashes($data['slug']);
+        $data['type'] = stripslashes($data['type']);
+        // $data['term_id'] = stripslashes($data['term_id']);
         $data['lecturer'] = stripslashes($data['lecturer']);
-        $data['comment'] = stripslashes($data['comment']);
-        $data['term_id'] = $data['term_id'];
+        $data['assistant'] = stripslashes($data['assistant']);
+        $data['credits'] = stripslashes($data['credits']);
+        $data['hours'] = stripslashes($data['hours']);
+        $data['module'] = stripslashes($data['module']);
+        $data['language'] = stripslashes($data['language']);
+        $data['links'] = stripslashes($data['links']);
+        $data['description'] = stripslashes($data['description']);
+        $data['visible'] = stripslashes($data['visible']);
 
         return $wpdb->update( 
                 TEACHCOURSES_COURSES, 
                 array(
-                    'visible'           => $data['visible'], 
+                    'name'              => $data['name'],
+                    'slug'              => $data['slug'],
+                    'type'              => $data['type'],
                     'term_id'           => $data['term_id'],  
-                    'name'              => $data['name'], 
-                    'type'              => $data['type'], 
-                    'slug'              => $data['slug'], 
-                    'lecturer'          => $data['lecturer'], 
-                    'comment'           => $data['comment'], 
-                    'image_url'         => $data['image_url'],  ), 
+                    'lecturer'          => $data['lecturer'],
+                    'assistant'        => $data['assistant'],
+                    'credits'           => $data['credits'],
+                    'hours'             => $data['hours'],
+                    'module'            => $data['module'],
+                    'language'          => $data['language'],
+                    'links'             => $data['links'],
+                    'description'       => $data['description'],
+                    'visible'           => $data['visible'],
+                    'image_url'         => $data['image_url'],
+                ), 
                 array( 'course_id' => $course_id ), 
-                array( '%d', '%d', '%s', '%s', '%s', '%s', '%s', '%s'), 
+                array( '%s', '%s', '%s', '%d', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%d', '%s' ), 
                 array( '%d' ) );
     }
     

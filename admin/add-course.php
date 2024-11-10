@@ -20,12 +20,18 @@ class TC_Add_Course_Page {
 
         $data = get_tc_var_types();
         $data['action'] = isset( $_POST['action'] ) ? htmlspecialchars($_POST['action']) : '';
-        $data['type'] = isset( $_POST['course_type'] ) ? htmlspecialchars($_POST['course_type']) : '';
         $data['name'] = isset( $_POST['post_title'] ) ? htmlspecialchars($_POST['post_title']) : '';
         $data['slug'] = isset( $_POST['slug'] ) ? htmlspecialchars($_POST['slug']) : '';
-        $data['lecturer'] = isset( $_POST['lecturer'] ) ? htmlspecialchars($_POST['lecturer']) : '';
+        $data['type'] = isset( $_POST['course_type'] ) ? htmlspecialchars($_POST['course_type']) : '';
         $data['term_id'] = isset( $_POST['term_id'] ) ? htmlspecialchars($_POST['term_id']) : '';
-        $data['comment'] = isset( $_POST['comment'] ) ? htmlspecialchars($_POST['comment']) : '';
+        $data['lecturer'] = isset( $_POST['lecturer'] ) ? htmlspecialchars($_POST['lecturer']) : '';
+        $data['assistant'] = isset( $_POST['assistant'] ) ? htmlspecialchars($_POST['assistant']) : '';
+        $data['credits'] = isset( $_POST['credits'] ) ? htmlspecialchars($_POST['credits']) : '';
+        $data['hours'] = isset( $_POST['hours'] ) ? htmlspecialchars($_POST['hours']) : '';
+        $data['module'] = isset( $_POST['module'] ) ? htmlspecialchars($_POST['module']) : '';
+        $data['language'] = isset( $_POST['language'] ) ? htmlspecialchars($_POST['language']) : '';
+        $data['links'] = isset( $_POST['links'] ) ? htmlspecialchars($_POST['links']) : '';
+        $data['description'] = isset( $_POST['description'] ) ? htmlspecialchars($_POST['description']) : '';
         $data['visible'] = isset( $_POST['visible'] ) ? intval($_POST['visible']) : 1;
         $data['image_url'] = isset( $_POST['image_url'] ) ? htmlspecialchars($_POST['image_url']) : '';
 
@@ -64,13 +70,13 @@ class TC_Add_Course_Page {
     }
 
     /**
-     * Adds a help tab for add new courses page
+     * Adds a help tab for add new courses pagef
      */
     public static function tc_add_course_page_help () {
         $screen = get_current_screen();  
         $screen->add_help_tab( array(
             'id'        => 'tc_add_course_help',
-            'title'     => __('Create a new course','teachcourses'),
+            'title'     => __('Create a New Course','teachcourses'),
             'content'   => '<p><strong>' . __('Course name','teachcourses') . '</strong></p>
                             <p>' . __('For child courses: The name of the parent course will be add automatically.','teachcourses') . '</p>
                             <p><strong>' . __('Enrollments','teachcourses') . '</strong></p>
@@ -107,7 +113,7 @@ class TC_Add_Course_Page {
         echo '<div class="wrap">';
         echo '<h1 class="wp-heading-inline">';
         if ($course_id == 0) {
-            _e('Create a new course','teachcourses');
+            _e('Create a New Course','teachcourses');
         } else {
             _e('Edit Course','teachcourses');
         }
@@ -183,8 +189,22 @@ class TC_Add_Course_Page {
         <div class="postbox">
         <h2 class="tc_postbox"><?php _e('General','teachcourses'); ?></h2>
         <div class="inside">
+            <?php
+            // slug
+            echo tc_Admin::get_form_field(
+                array(
+                    'name' => 'slug',
+                    'title' => __('The slug of the course','teachcourses'),
+                    'label' => __('Slug','teachcourses'),
+                    'type' => 'input',
+                    'value' => $course_data['slug'],
+                    'tabindex' => 2,
+                    'display' => 'block', 
+                    'style' => 'width:100%;') );
+
+            ?>
             <p><label for="course_type" title="<?php _e('The course type','teachcourses'); ?>"><strong><?php _e('Type'); ?></strong></label></p>
-            <select name="course_type" id="course_type" title="<?php _e('The course type','teachcourses'); ?>" tabindex="2">
+            <select name="course_type" id="course_type" title="<?php _e('The course type','teachcourses'); ?>" tabindex="3">
             <?php 
                 foreach ($course_types as $row) {
                     $check = $course_data["type"] == $row->value ? ' selected="selected"' : '';
@@ -192,7 +212,7 @@ class TC_Add_Course_Page {
                 } ?>
             </select>
             <p><label for="term_id" title="<?php _e('The term where the course will be happening','teachcourses'); ?>"><strong><?php _e('Term','teachcourses'); ?></strong></label></p>
-            <select name="term_id" id="term_id" title="<?php _e('The term where the course will be happening','teachcourses'); ?>" tabindex="3">
+            <select name="term_id" id="term_id" title="<?php _e('The term where the course will be happening','teachcourses'); ?>" tabindex="4">
             <?php
             foreach ($terms as $term) { 
                 if ($term->term_id == $selected_sem && $course_id === 0) {
@@ -207,18 +227,9 @@ class TC_Add_Course_Page {
                 echo '<option value="' . stripslashes($term->term_id) . '" ' . $current . '>' . stripslashes($term->name) . '</option>';
             }?> 
             </select>
+
+            
             <?php
-            // slug
-            echo tc_Admin::get_form_field(
-                array(
-                    'name' => 'slug',
-                    'title' => __('The slug of the course','teachcourses'),
-                    'label' => __('Slug','teachcourses'),
-                    'type' => 'input',
-                    'value' => $course_data['slug'],
-                    'tabindex' => 4,
-                    'display' => 'block', 
-                    'style' => 'width:95%;') );
 
 
             // lecturer
@@ -231,12 +242,81 @@ class TC_Add_Course_Page {
                     'value' => $course_data['lecturer'],
                     'tabindex' => 5,
                     'display' => 'block', 
-                    'style' => 'width:95%;') );
+                    'style' => 'width:100%;') );
+            // Assistant
+            echo tc_Admin::get_form_field(
+                array(
+                    'name' => 'assistant',
+                    'title' => __('The assistant(s) of the course','teachcourses'),
+                    'label' => __('Assistant','teachcourses'),
+                    'type' => 'input',
+                    'value' => $course_data['assistant'],
+                    'tabindex' => 6,
+                    'display' => 'block', 
+                    'style' => 'width:100%;') );
+
+            // credits
+            echo tc_Admin::get_form_field(
+                array(
+                    'name' => 'credits',
+                    'title' => __('The credits of the course','teachcourses'),
+                    'label' => __('Credits','teachcourses'),
+                    'type' => 'input',
+                    'value' => $course_data['credits'],
+                    'tabindex' => 7,
+                    'display' => 'block', 
+                    'style' => 'width:100%;') );
+            // hours
+            echo tc_Admin::get_form_field(
+                array(
+                    'name' => 'hours',
+                    'title' => __('The hours of the course','teachcourses'),
+                    'label' => __('Hours','teachcourses'),
+                    'type' => 'input',
+                    'value' => $course_data['hours'],
+                    'tabindex' => 8,
+                    'display' => 'block', 
+                    'style' => 'width:100%;') );
             
+            // module
+            echo tc_Admin::get_form_field(
+                array(
+                    'name' => 'module',
+                    'title' => __('The modul of the course','teachcourses'),
+                    'label' => __('Module','teachcourses'),
+                    'type' => 'input',
+                    'value' => $course_data['module'],
+                    'tabindex' => 9,
+                    'display' => 'block', 
+                    'style' => 'width:100%;') );
+
+            // language
+            echo tc_Admin::get_form_field(
+                array(
+                    'name' => 'language',
+                    'title' => __('The language of the course','teachcourses'),
+                    'label' => __('Language','teachcourses'),
+                    'type' => 'input',
+                    'value' => $course_data['language'],
+                    'tabindex' => 10,
+                    'display' => 'block', 
+                    'style' => 'width:100%;') );
+
+            // links
+            echo tc_Admin::get_form_field(
+                array(
+                    'name' => 'links',
+                    'title' => __('The links of the course','teachcourses'),
+                    'label' => __('Links','teachcourses'),
+                    'type' => 'input',
+                    'value' => $course_data['links'],
+                    'tabindex' => 11,
+                    'display' => 'block', 
+                    'style' => 'width:100%;') );
             ?>
             
-            <p><label for="comment" title="<?php _e('For parent courses the comment is showing in the overview and for child courses in the enrollments system.','teachcourses'); ?>"><strong><?php _e('Description','teachcourses'); ?></strong></label></p>
-            <textarea name="comment" rows="50" id="comment" title="<?php _e('For parent courses the comment is showing in the overview and for child courses in the enrollments system.','teachcourses'); ?>" tabindex="9" style="width:95%;"><?php echo stripslashes($course_data["comment"]); ?></textarea>
+            <p><label for="description" title="<?php _e('For parent courses the description is showing in the overview and for child courses in the enrollments system.','teachcourses'); ?>"><strong><?php _e('Description','teachcourses'); ?></strong></label></p>
+            <textarea name="description" rows="50" id="description" title="<?php _e('For parent courses the description is showing in the overview and for child courses in the enrollments system.','teachcourses'); ?>" tabindex="12" style="width:100%;"><?php echo stripslashes($course_data["description"]); ?></textarea>
         </div>
     <?php
     }
