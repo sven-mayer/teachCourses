@@ -14,23 +14,6 @@
  */
 class tc_Courses {
 
-   /**
-    * Checks if a post is used as related content for a course. If is true, the course ID will be returned otherwise it's false. 
-    * @param int $post_id
-    * @return int|boolean   Returns the course_id or false
-    * @since 5.0.0
-    */
-   public static function is_used_as_related_content($post_id) {
-       global $wpdb;
-       $post_id = intval($post_id);
-       
-       if ( $post_id === 0 ) {
-           return false;
-       }
-       
-       return $wpdb->get_var("SELECT `course_id` FROM `" . TEACHCOURSES_COURSES . "` WHERE `rel_page` = '$post_id' ");
-   }
-
     /**
      * Returns all data of a single course
      * @param int $course_id            The course ID
@@ -182,34 +165,9 @@ class tc_Courses {
                 array( '%s', '%s', '%s', '%d', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%d', '%s' ) );
         $course_id = $wpdb->insert_id;
 
-        // test if creation was successful
-        if ( $data['rel_page'] === false ) {
-            get_tc_message(__('Error while adding new related content.','teachcourses'), 'red');
-        }
         return $course_id;
     }
-    
-    /**
-     * Adds a new related content to WordPress
-     * @param int $course_id    The ID of the course
-     * @param array $data       An associative array of the course data
-     * @return int or false
-     * @since 5.0.0
-     * @access private
-     */
-    private static function add_rel_page($course_id, $data) {
-        $post = get_post($data['rel_page_alter']);
-        $content = str_replace('[course_id]', 'id="' . $course_id . '"', $post->post_content );
-        $postarr = array ( 
-            'post_title'    => $data['name'],
-            'post_content'  => $content,
-            'post_type'     => $post->post_type,
-            'post_author'   => $post->post_author,
-            'post_status'   => 'publish'
-        );
-        return wp_insert_post($postarr);
-    }
-    
+
     /** 
      * Changes course data. Returns false if errors, or the number of rows affected if successful.
      * @param int $course_id    course ID
