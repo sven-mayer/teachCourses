@@ -12,7 +12,55 @@
  * @package teachcourses\core\shortcodes
  */
 class tc_Shortcodes {
-    
+
+    /** 
+     * Show all courses of the latest visbile term grouped by type
+     */
+    public static function tc_courselist_shortcode($atts) {
+        
+        $param = shortcode_atts(array(
+            "headline"     => 1,
+            'term_id'      => get_tc_option('active_term')
+        ), $atts);
+        $headline = intval($param['headline']);
+        $term_id = intval($param['term_id']);
+        $rtn = '<div id="tpcourselist">';
+        if ($headline === 1) {
+             $rtn .= '<h2>' . __('Courses for the','teachcourses') . ' ' . stripslashes(TC_Terms::get_term(array("term_id"=>$term_id))->name) . '</h2>';
+        }
+
+        $types = get_tc_options('course_type', '`value` ASC');  
+
+        foreach ( $types as $type ) {
+            $courses = TC_Courses::get_courses( array('term_id' => $term_id, 'type' => $type->value, 'visibility' => '1') );
+
+            $rtn .= '<h3>' . $type->value . '</h3>';
+            $rtn .= '<ul>';
+            foreach ( $courses as $row ) {
+                $rtn .= '<li><a href="./'.$row->term_slug.'/'.$row->slug.'">' . $row->name . '</a></li>';
+            }
+            $rtn .= '</ul>';
+        }
+        $rtn .= '</div>';
+
+        $rtn .= '<h3>' . __('All available terms','teachcourses') . '</h3>';
+        $rtn .= tc_Shortcodes::get_list_of_terms();
+        return $rtn;
+    }
+
+    /** 
+     * Get List of all available and visbile terms
+     */
+    static function get_list_of_terms() {
+        $terms = TC_Terms::get_terms();
+        $rtn = '<ul>';
+        foreach ( $terms as $term ) {
+            $rtn .= '<li><a href="./'.$term->slug.'">' . $term->name . '</a></li>';
+        }
+        $rtn .= '</ul>';
+        return $rtn;
+    }
+
     /**
      * Returns a table headline for a course document list
      * @param array $row        An associative array of document data (i.e. name)
@@ -60,105 +108,6 @@ class tc_Shortcodes {
         $return .= '<td><a href="' . $upload_dir['baseurl'] . $row['path'] . '" class="' . $link_class . '">' . stripcslashes($row['name']) . '</a></td>';
         return $return;
     }
-
-    /**
-     * Returns a single table line for the function tc_courselist()
-     * @param object $row       The course object
-     * @param string $image     The image position (left, right, bottom)
-     * @param int image_size    The image size in px
-     * @param string $sem       The semester you want to show
-     * @return string
-     * @since 5.0.0
-     * @access public
-     */
-    public static function get_courselist_line ($row, $image, $image_size, $sem) {
-        $row->name = stripslashes($row->name);
-        $row->comment = stripslashes($row->comment);
-        $childs = '';
-        $div_cl_com = '';
-        // handle images	
-        $td_left = '';
-        $td_right = '';
-        if ( $image == 'left' || $image == 'right' ) {
-            $pad_size = $image_size + 5;
-        }
-        $image_marginally = '';
-        $image_bottom = '';
-        if ( $image == 'left' || $image == 'right' ) {
-            if ( $row->image_url != '' ) {
-                $image_marginally = '<img name="' . $row->name . '" src="' . $row->image_url . '" width="' . $image_size .'" alt="' . $row->name . '" />';
-           }
-        }
-        if ( $image == 'left' ) {
-            $td_left = '<td width="' . $pad_size . '">' . $image_marginally . '</td>';
-        }
-        if ( $image == 'right' ) {
-            $td_right = '<td width="' . $pad_size . '">' . $image_marginally . '</td>';
-        }
-        if ( $image == 'bottom' && $row->image_url != '' ) {
-                $image_bottom = '<div class="tc_pub_image_bottom"><img name="' . $row->name . '" src="' . $row->image_url . '" style="max-width:' . $image_size .'px;" alt="' . $row->name . '" /></div>';
-        }
-
-        // handle childs
-        if ( $row->visible == 2 ) {
-            $div_cl_com = "_c";
-            $row2 = TC_Courses::get_courses( array('semester' => $sem, 'parent' => $row->course_id, 'visibility' => '1,2') );
-            foreach ( $row2 as $row2 ) {
-                $childs .= '<p><a href="' . get_permalink($row2->rel_page) . '" title="' . $row2->name . '">' . $row2->name . '</a></p>'; 
-            }
-            if ( $childs != '') {
-                $childs = '<div class="tc_lvs_childs" style="padding-left:10px;">' . $childs . '</div>';
-            }
-        }
-
-        // handle page link
-        if ( $row->rel_page == 0 ) {
-            $direct_to = '<strong>' . $row->name . '</strong>';
-        }
-        else {
-            $direct_to = '<a href="' . get_permalink($row->rel_page) . '" title ="' . $row->name . '"><strong>' . $row->name . '</strong></a>';
-        }
-        
-        $return = '<tr>
-                   ' . $td_left . '
-                   <td class="tc_lvs_container">
-                       <div class="tc_lvs_name">' . $direct_to . '</div>
-                       <div class="tc_lvs_comments' . $div_cl_com . '">' . nl2br($row->comment) . '</div>
-                       ' . $childs . '
-                       ' . $image_bottom . '
-                   </td>
-                   ' . $td_right . '  
-                 </tr>';
-        return $return;
-    }
-    
-    /**
-     * Returns html lines with course meta data. This function is used for tc_courseinfo_shortcode().
-     * @param int $course_id        The course ID
-     * @param array $fields         An associative array with informations about the meta data fields (variable, value)
-     * @return string
-     * @since 5.0.0
-     */
-    public static function get_coursemeta_line ($course_id, $fields) {
-        $return = '';
-        $course_meta = TC_Courses::get_course_meta($course_id);
-        foreach ($fields as $row) {
-            $col_data = tc_DB_Helpers::extract_column_data($row['value']);
-            if ( $col_data['visibility'] !== 'normal' ) {
-                continue;
-            }
-            $value = '';
-            foreach ( $course_meta as $row_meta ) {
-                if ( $row['variable'] === $row_meta['meta_key'] ) {
-                    $value = $row_meta['meta_value'];
-                    break;
-                }
-            }
-            $return .= '<p><span class="tc_course_meta_label_' . $row['variable'] . '">' . stripslashes($col_data['title']) . ': </span>' . stripslashes(nl2br($value)) . '</p>';
-        }
-        return $return;
-    }
-
     
     /**
      * Generates and returns filter for the shortcodes (jumpmenus)
@@ -554,16 +503,11 @@ class tc_Shortcodes {
 */
 function tc_courselist_shortcode($atts) {	
     $param = shortcode_atts(array(
-       'image'      => 'none',
-       'image_size' => 0,
        'headline'   => 1,
        'text'       => '',
        'term'       => ''
     ), $atts);
-    $image = htmlspecialchars($param['image']);
-    $text = htmlspecialchars($param['text']);
     $term = htmlspecialchars($param['term']);
-    $image_size = intval($param['image_size']);
     $headline = intval($param['headline']);
 
     $url = array(
@@ -587,7 +531,7 @@ function tc_courselist_shortcode($atts) {
         $sem = $term;
     }
     else {
-        $sem = get_tc_option('sem');
+        $sem = get_tc_option('active_term');
     }
    
     $rtn = '<div id="tpcourselist">';
@@ -712,9 +656,6 @@ function tc_courseinfo_shortcode($atts) {
     $head .= '<td class="tc_courseinfo_main">';
     $head .= '<p>' . stripslashes($course->date) . ' ' . stripslashes($course->room) . '</p>';
     $head .= '<p>' . stripslashes(nl2br($course->comment)) . '</p>';
-    if ( $show_meta === 1 ) {
-        $head .= tc_Shortcodes::get_coursemeta_line($id, $fields);
-    }
     $head .= '</td>';
     $head .= '<td clas="tc_courseinfo_lecturer">' . stripslashes($course->lecturer) . '</td>';
     $head .= '</tr>';
@@ -800,7 +741,7 @@ function tc_ref_shortcode($atts) {
 }
 
 /**
- * General interface for [tpcloud], [tplist] and [tpsearch]
+ * General interface for [tccloud], [tclist] and [tcsearch]
  * 
  * Parameters from $_GET: 
  *      $yr (INT)               Year 
@@ -1083,7 +1024,7 @@ function tc_publist_shortcode ($atts) {
     
     // search
     if ( $searchbox !== '' ) {
-        $part1 .= '<div class="tc_search_input">' . $searchbox . '</div>';
+        $part1 .= '<div class="teachcourses_search_input">' . $searchbox . '</div>';
     }
     
     // filter
@@ -1310,4 +1251,25 @@ function tc_post_shortcode ($atts, $content) {
     $param = shortcode_atts(array('id' => 0), $atts);
     $id = intval($param['id']);
     return $content;
+}
+
+
+/**
+ * Shortcode for displaying a publication list with tag cloud
+ * This is just a preset for tc_publist_shortcode()
+ * 
+ * Parameters from $_GET: 
+ *      $yr (INT)              Year 
+ *      $type (STRING)         Publication type 
+ *      $auth (INT)            Author ID
+ *      $tgid (INT)            Tag ID
+ *      $usr (INT)             User ID
+ * 
+ * @param array $atts
+ * @return string
+ * @since 0.0.1
+*/
+function tc_course_list_shortcode ($atts) {
+    
+    return tc_Shortcodes::tc_courselist_shortcode($atts);
 }

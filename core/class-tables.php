@@ -102,6 +102,7 @@ class tc_Tables {
         dbDelta("CREATE TABLE " . TEACHCOURSES_COURSES . " (
                     `course_id` INT UNSIGNED AUTO_INCREMENT,
                     `name` VARCHAR(100),
+                    `slug` VARCHAR(100),
                     `type` VARCHAR (100),
                     `room` VARCHAR(100),
                     `lecturer` VARCHAR (100),
@@ -220,7 +221,7 @@ class tc_Tables {
         $value = '[tpsingle [key]]<!--more-->' . "\n\n[tpabstract]\n\n[tplinks]\n\n[tpbibtex]";
         $version = get_tc_version();
         
-        $wpdb->query("INSERT INTO " . TEACHCOURSES_SETTINGS . " (`variable`, `value`, `category`) VALUES ('sem', 'Example term', 'system')");
+        $wpdb->query("INSERT INTO " . TEACHCOURSES_SETTINGS . " (`variable`, `value`, `category`) VALUES ('active_term', '1', 'system')");
         $wpdb->query("INSERT INTO " . TEACHCOURSES_SETTINGS . " (`variable`, `value`, `category`) VALUES ('db-version', '$version', 'system')");
         $wpdb->query("INSERT INTO " . TEACHCOURSES_SETTINGS . " (`variable`, `value`, `category`) VALUES ('sign_out', '0', 'system')");
         $wpdb->query("INSERT INTO " . TEACHCOURSES_SETTINGS . " (`variable`, `value`, `category`) VALUES ('login', 'std', 'system')");

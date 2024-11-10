@@ -56,8 +56,7 @@ class TC_Add_Course_Page {
     static function tc_save($data){
         // Add new course
         $course_id = TC_Courses::add_course($data);
-        $message = __('Course created successful.','teachcourses') . ' <a href="admin.php?page=teachcourses&amp;course_id=' . $course_id . '&amp;action=show&amp;search=&amp;sem=' . get_tc_option('sem') . '">' . __('Show course','teachcourses') . '</a> | <a href="admin.php?page=teachcourses/add_course.php">' . __('Add New Course','teachcourses') . '</a>';
-        get_tc_message($message);
+        get_tc_message(__('Course created successful.','teachcourses'));
         return $course_id;
     }
 
@@ -183,7 +182,7 @@ class TC_Add_Course_Page {
      */
     public static function get_general_box ($course_id, $course_types, $course_data) {
         $post_type = get_tc_option('rel_page_courses');
-        $selected_sem = ( $course_id === 0 ) ? get_tc_option('sem') : 0;
+        $selected_sem = ( $course_id === 0 ) ? get_tc_option('active_term') : 0;
         $semester = TC_Terms::get_terms();
         ?>
         <div class="postbox">

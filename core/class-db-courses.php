@@ -65,7 +65,7 @@ class tc_Courses {
         $defaults = array(
             'term_id'       => '',
             'visibility'    => '',
-            'parent'        => '',
+            'type'        => '',
             'search'        => '',
             'exclude'       => '',
             'order'         => 'term_id DESC, name',
@@ -77,7 +77,7 @@ class tc_Courses {
         global $wpdb;
 
         // Define basics
-        $sql = "SELECT c.course_id AS course_id, c.name AS name, c.type AS type, c.lecturer AS lecturer, c.term_id AS term_id, c.visible AS visible, t.name AS term FROM " . TEACHCOURSES_COURSES.  " c LEFT JOIN " . TEACHCOURSES_TERMS .  " t ON c.term_id = t.term_id "; //( SELECT t.course_id AS course_id, t.name AS name, t.type AS type, t.lecturer AS lecturer, t.date AS date, t.room As room, t.places AS places, t.start AS start, t.end As end, t.semester AS semester, t.parent As parent, t.visible AS visible, t.rel_page AS rel_page, t.comment AS comment, t.image_url AS image_url, t.strict_signup AS strict_signup, t.use_capabilities AS use_capabilities, p.name AS parent_name FROM " . TEACHCOURSES_COURSES . " t LEFT JOIN " . TEACHCOURSES_COURSES . " p ON t.parent = p.course_id ) AS temp";
+        $sql = "SELECT c.course_id AS course_id, c.slug AS slug, c.name AS name, c.type AS type, c.lecturer AS lecturer, c.term_id AS term_id, c.visible AS visible, t.name AS term, t.slug AS term_slug FROM " . TEACHCOURSES_COURSES.  " c LEFT JOIN " . TEACHCOURSES_TERMS .  " t ON c.term_id = t.term_id "; //( SELECT t.course_id AS course_id, t.name AS name, t.type AS type, t.lecturer AS lecturer, t.date AS date, t.room As room, t.places AS places, t.start AS start, t.end As end, t.semester AS semester, t.parent As parent, t.visible AS visible, t.rel_page AS rel_page, t.comment AS comment, t.image_url AS image_url, t.strict_signup AS strict_signup, t.use_capabilities AS use_capabilities, p.name AS parent_name FROM " . TEACHCOURSES_COURSES . " t LEFT JOIN " . TEACHCOURSES_COURSES . " p ON t.parent = p.course_id ) AS temp";
         
         // define global search
         $search = esc_sql(htmlspecialchars(stripslashes($atts['search'])));
@@ -87,10 +87,9 @@ class tc_Courses {
         
         // WHERE clause
         $nwhere = array();
-        $nwhere[] = tc_DB_Helpers::generate_where_clause($atts['exclude'], "p.pub_id", "AND", "!=");
-        $nwhere[] = tc_DB_Helpers::generate_where_clause($atts['term_id'], "t.term_id", "OR", "=");
-        $nwhere[] = tc_DB_Helpers::generate_where_clause($atts['visibility'], "visible", "OR", "=");
-        $nwhere[] = tc_DB_Helpers::generate_where_clause($atts['parent'], "parent", "OR", "=");
+        $nwhere[] = tc_DB_Helpers::generate_where_clause($atts['term_id'], "t.term_id", "AND", "=");
+        $nwhere[] = tc_DB_Helpers::generate_where_clause($atts['type'], "c.type", "AND", "=");
+        $nwhere[] = tc_DB_Helpers::generate_where_clause($atts['visibility'], "c.visible", "OR", "=");
         $nwhere[] = ( $search != '') ? $search : null;
         
         $where = tc_DB_Helpers::compose_clause($nwhere);
@@ -148,21 +147,27 @@ class tc_Courses {
         
         // prevent possible double escapes
         $data['name'] = stripslashes($data['name']);
+        $data['slug'] = stripslashes($data['slug']);
+        $data['term_id'] = stripslashes($data['term_id']);
         $data['type'] = stripslashes($data['type']);
         $data['lecturer'] = stripslashes($data['lecturer']);
+        $data['lecturer'] = stripslashes($data['lecturer']);
         $data['comment'] = stripslashes($data['comment']);
+        $data['visible'] = stripslashes($data['visible']);
+        $data['comment'] = stripslashes($data['image_url']);
     
         $wpdb->insert( 
                 TEACHCOURSES_COURSES, 
                 array( 
                     'name'              => $data['name'], 
+                    'slug'              => $data['slug'], 
+                    'term_id'           => $data['term_id'], 
                     'type'              => $data['type'], 
-                    'room'              => $data['room'], 
                     'lecturer'          => $data['lecturer'], 
                     'comment'           => $data['comment'], 
                     'visible'           => $data['visible'], 
                     'image_url'         => $data['image_url']), 
-                array( '%s', '%s', '%s', '%s', '%d',  '%s', '%d', '%d' ) );
+                array( '%s', '%s', '%d','%s', '%s', '%s', '%d', '%s') );
         $course_id = $wpdb->insert_id;
 
         // test if creation was successful
@@ -212,7 +217,7 @@ class tc_Courses {
         $data['lecturer'] = stripslashes($data['lecturer']);
         $data['comment'] = stripslashes($data['comment']);
         $data['term_id'] = $data['term_id'];
-        var_dump($data);
+
         return $wpdb->update( 
                 TEACHCOURSES_COURSES, 
                 array(

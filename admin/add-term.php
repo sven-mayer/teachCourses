@@ -142,7 +142,7 @@ class TC_Add_Term_Page {
      */
     public static function get_general_box ($term_id, $course_data) {
         $post_type = get_tc_option('rel_page_courses');
-        $selected_sem = ( $term_id === 0 ) ? get_tc_option('sem') : 0;
+        $selected_sem = ( $term_id === 0 ) ? get_tc_option('active_term') : 0;
         $semester = get_tc_options('semester', '`setting_id` DESC');
         ?>
         <div class="postbox">

@@ -414,7 +414,8 @@ if ( TEACHCOURSES_ERROR_REPORTING === true ) {
 
 // Register course module
 add_action('admin_menu', 'tc_add_menu');
-add_shortcode('tpcourseinfo', 'tc_courseinfo_shortcode');
-add_shortcode('tpcoursedocs', 'tc_coursedocs_shortcode');
-add_shortcode('tpcourselist', 'tc_courselist_shortcode');
-add_shortcode('tppost','tc_post_shortcode');
+add_shortcode('tccourseinfo', 'tc_courseinfo_shortcode');
+add_shortcode('tccoursedocs', 'tc_coursedocs_shortcode');
+add_shortcode('tccourselist', 'tc_courselist_shortcode');
+add_shortcode('tcpost','tc_post_shortcode');
+add_shortcode('tclist','tc_course_list_shortcode');

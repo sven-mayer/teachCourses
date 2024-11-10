@@ -87,7 +87,7 @@
         $checkbox = isset( $_GET['checkbox'] ) ? $_GET['checkbox'] : '';
         $bulk = isset( $_GET['bulk'] ) ? $_GET['bulk'] : '';
         $copysem = isset( $_GET['copysem'] ) ? $_GET['copysem'] : '';
-        $term_id = ( isset($_GET['term_id']) ) ? htmlspecialchars($_GET['term_id']) : 0; //get_tc_option('sem');
+        $term_id = ( isset($_GET['term_id']) ) ? htmlspecialchars($_GET['term_id']) : 0; //get_tc_option('active_term');
     
         echo '<div class="wrap">';
         echo '<h1 class="wp-heading-inline">'.esc_html__('Courses','teachcourses').'</h1><a href="admin.php?page=add_course.php" class="page-title-action">'.esc_html__('Add New Course','teachcourses').'</a>';

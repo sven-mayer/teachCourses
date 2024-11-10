@@ -73,7 +73,7 @@ class TC_Term_Page {
         $checkbox = isset( $_GET['checkbox'] ) ? $_GET['checkbox'] : '';
         $bulk = isset( $_GET['bulk'] ) ? $_GET['bulk'] : '';
         $copysem = isset( $_GET['copysem'] ) ? $_GET['copysem'] : '';
-        $sem = ( isset($_GET['sem']) ) ? htmlspecialchars($_GET['sem']) : get_tc_option('sem');
+        $sem = ( isset($_GET['sem']) ) ? htmlspecialchars($_GET['sem']) : get_tc_option('active_term');
     
         echo '<div class="wrap">';
         echo '<h1 class="wp-heading-inline">'.esc_html__('Term','teachcourses').'</h1><a href="admin.php?page=teachcourses-term&action=edit" class="page-title-action">'.esc_html__('Add New Term','teachcourses').'</a>';
