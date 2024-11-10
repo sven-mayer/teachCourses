@@ -115,15 +115,13 @@ class tc_Terms {
         global $wpdb;
         
         // prevent possible double escapes
-        $data['term_id'] = stripslashes($data['term_id']);
         $data['name'] = stripslashes($data['name']);
         $data['slug'] = stripslashes($data['slug']);
         $data['sequence'] = stripslashes($data['sequence']);
     
         $wpdb->insert( 
                 TEACHCOURSES_TERMS, 
-                array( 
-                    'term_id'              => $data['term_id'], 
+                array(
                     'name'              => $data['name'],
                     'slug'              => $data['slug'],
                     'sequence'              => $data['sequence']), 

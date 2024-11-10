@@ -87,7 +87,7 @@
         $checkbox = isset( $_GET['checkbox'] ) ? $_GET['checkbox'] : '';
         $bulk = isset( $_GET['bulk'] ) ? $_GET['bulk'] : '';
         $copysem = isset( $_GET['copysem'] ) ? $_GET['copysem'] : '';
-        $sem = ( isset($_GET['sem']) ) ? htmlspecialchars($_GET['sem']) : get_tc_option('sem');
+        $term_id = ( isset($_GET['term_id']) ) ? htmlspecialchars($_GET['term_id']) : 0; //get_tc_option('sem');
     
         echo '<div class="wrap">';
         echo '<h1 class="wp-heading-inline">'.esc_html__('Courses','teachcourses').'</h1><a href="admin.php?page=add_course.php" class="page-title-action">'.esc_html__('Add New Course','teachcourses').'</a>';
@@ -108,7 +108,7 @@
             </p>
         </div>';
         
-        echo '<input name="page" type="hidden" value="teachcourses.php" />';
+        echo '<input name="page" type="hidden" value="teachcourses" />';
         // delete a course, part 1
         if ( $bulk === 'delete' ) {
                 echo '<div class="teachcourses_message">
@@ -125,7 +125,7 @@
         }
         // copy a course, part 1
         if ( $bulk === "copy" ) { 
-                TC_Courses_Page::get_copy_course_form($terms, $sem, $search);
+                TC_Courses_Page::get_copy_course_form($terms, $term_id, $search);
         }
         // copy a course, part 2
         if ( isset($_GET['copy_ok']) ) {
@@ -144,11 +144,11 @@
                     <input type="submit" name="teachcourses_submit" id="doaction" value="<?php _e('apply','teachcourses'); ?>" class="button-secondary"/>
                 </div>
                 <div class="alignleft actions">
-                    <select name="sem" id="sem">
+                    <select name="term_id" id="term_id">
                         <option value=""><?php _e('All terms','teachcourses'); ?></option>
                         <?php
                         foreach ($terms as $row) { 
-                            $current = ( $row->term_id == $sem ) ? 'selected="selected"' : '';
+                            $current = ( $row->term_id == $term_id) ? 'selected="selected"' : '';
                             echo '<option value="' . $row->term_id . '" ' . $current . '>' . stripslashes($row->name) . '</option>';
                         } ?> 
                     </select>
@@ -176,7 +176,7 @@
             if ($search != '') {
                 $order = 'semester DESC, name';	
             }
-            TC_Courses_Page::get_courses($search, $sem, $bulk, $checkbox);
+            TC_Courses_Page::get_courses($search, $term_id, $bulk, $checkbox);
 
             ?>
             </tbody>

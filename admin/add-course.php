@@ -197,8 +197,8 @@ class TC_Add_Course_Page {
                     echo '<option value="' . stripslashes($row->value) . '"' . $check . '>' . stripslashes($row->value) . '</option>';
                 } ?>
             </select>
-            <p><label for="semester" title="<?php _e('The term where the course will be happening','teachcourses'); ?>"><strong><?php _e('Term','teachcourses'); ?></strong></label></p>
-            <select name="semester" id="semester" title="<?php _e('The term where the course will be happening','teachcourses'); ?>" tabindex="3">
+            <p><label for="term_id" title="<?php _e('The term where the course will be happening','teachcourses'); ?>"><strong><?php _e('Term','teachcourses'); ?></strong></label></p>
+            <select name="term_id" id="term_id" title="<?php _e('The term where the course will be happening','teachcourses'); ?>" tabindex="3">
             <?php
             foreach ($semester as $sem) { 
                 if ($sem->term_id == $selected_sem && $course_id === 0) {

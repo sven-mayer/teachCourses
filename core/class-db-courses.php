@@ -63,12 +63,12 @@ class tc_Courses {
      */
     public static function get_courses ( $args = array() ) {
         $defaults = array(
-            'semester'      => '',
+            'term_id'       => '',
             'visibility'    => '',
             'parent'        => '',
             'search'        => '',
             'exclude'       => '',
-            'order'         => 'semester DESC, name',
+            'order'         => 'term_id DESC, name',
             'limit'         => '',
             'output_type'   => OBJECT
         ); 
@@ -88,7 +88,7 @@ class tc_Courses {
         // WHERE clause
         $nwhere = array();
         $nwhere[] = tc_DB_Helpers::generate_where_clause($atts['exclude'], "p.pub_id", "AND", "!=");
-        $nwhere[] = tc_DB_Helpers::generate_where_clause($atts['semester'], "semester", "OR", "=");
+        $nwhere[] = tc_DB_Helpers::generate_where_clause($atts['term_id'], "t.term_id", "OR", "=");
         $nwhere[] = tc_DB_Helpers::generate_where_clause($atts['visibility'], "visible", "OR", "=");
         $nwhere[] = tc_DB_Helpers::generate_where_clause($atts['parent'], "parent", "OR", "=");
         $nwhere[] = ( $search != '') ? $search : null;
@@ -103,9 +103,7 @@ class tc_Courses {
         if ( $order != '' ) {
             $order = " ORDER BY $order";
         }
-        $where = "";
-         $order = "";
-         $limit = "";
+        
         $result = $wpdb->get_results($sql . $where . $order . $limit, $atts['output_type']);
         return $result;
     }
@@ -213,21 +211,21 @@ class tc_Courses {
         $data['room'] = stripslashes($data['room']);
         $data['lecturer'] = stripslashes($data['lecturer']);
         $data['comment'] = stripslashes($data['comment']);
-        $data['term_id'] = stripslashes($data['term_id']);
-
+        $data['term_id'] = $data['term_id'];
+        var_dump($data);
         return $wpdb->update( 
                 TEACHCOURSES_COURSES, 
-                array( 
+                array(
+                    'visible'           => $data['visible'], 
+                    'term_id'           => $data['term_id'],  
                     'name'              => $data['name'], 
                     'type'              => $data['type'], 
                     'room'              => $data['room'], 
                     'lecturer'          => $data['lecturer'], 
-                    'term_id'          => $data['term_id'], 
                     'comment'           => $data['comment'], 
-                    'visible'           => $data['visible'], 
                     'image_url'         => $data['image_url'],  ), 
                 array( 'course_id' => $course_id ), 
-                array( '%s', '%s', '%s', '%s', '%d', '%s', '%d', '%s'), 
+                array( '%d', '%d', '%s', '%s', '%s', '%s', '%s', '%s'), 
                 array( '%d' ) );
     }
     

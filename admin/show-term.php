@@ -248,7 +248,7 @@ class TC_Term_Page {
         $delete_link = '';
         $edit_link = '';
 
-        $courses_in_term = TC_Courses::get_courses(array('semester' => $course['term_id']));
+        $courses_in_term = TC_Courses::get_courses(array('term_id' => $course['term_id']));
 
         if (count($courses_in_term) == 0) {
             $delete_link = '<span class="trash"> | <a class="tc_row_delete" href="admin.php?page=teachcourses&amp;sem=' . $static['sem'] . '&amp;search=' . $static['search'] . '&amp;checkbox%5B%5D=' . $course['term_id'] . '&amp;bulk=delete" title="' . __('Delete','teachcourses') . '">' . __('Delete','teachcourses') . '</a></span>';
@@ -259,7 +259,7 @@ class TC_Term_Page {
         $return = '<tr' . $static['tr_class'] . '>
             <th scope="row" class="check-column"><input name="checkbox[]" type="checkbox" value="' . $course['term_id'] . '"' . $check . '/></th>
             <td class="title column-title has-row-actions column-primary page-title">
-                <a href="admin.php?page=teachcourses&amp;term_id=' . $course['term_id'] . '&amp;sem=' . $static['sem'] . '&amp;search=' . $static['search'] . '&amp;action=show" class="teachcourses_link" title="' . __('Click to show','teachcourses') . '"><strong>' . $course['name'] . '</strong></a>
+                <a href="admin.php?page=teachcourses-term&action=edit&amp;term_id=' . $course['term_id'] . '" class="teachcourses_link" title="' . __('Click to show','teachcourses') . '"><strong>' . $course['name'] . '</strong></a>
                 <div class="row-actions">
                     <span class="edit"><a href="admin.php?page=teachcourses-term&action=edit&amp;term_id=' . $course['term_id'] . '">' . __('Edit','teachcourses') . '</a></span>' . $delete_link . '
                 </div>
