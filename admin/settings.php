@@ -643,7 +643,7 @@ class tc_Settings_Page {
         $option_userrole_publications = isset( $_POST['userrole_publications'] ) ? $_POST['userrole_publications'] : '';
         $option_userrole_courses = isset( $_POST['userrole_courses'] ) ? $_POST['userrole_courses'] : '';
     
-        tc_Options::change_option('sem', $option_semester);
+        tc_Options::change_option('term_id', $option_semester);
         tc_Options::change_option('rel_page_courses', $option_rel_page_courses);
         tc_Options::change_option('rel_page_publications', $option_rel_page_publications);
         tc_Options::change_option('stylesheet', $option_stylesheet);

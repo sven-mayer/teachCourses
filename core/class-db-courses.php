@@ -68,7 +68,7 @@ class tc_Courses {
             'type'        => '',
             'search'        => '',
             'exclude'       => '',
-            'order'         => 'term_id DESC, name',
+            'order'         => 'sequence, name',
             'limit'         => '',
             'output_type'   => OBJECT
         ); 
@@ -77,7 +77,7 @@ class tc_Courses {
         global $wpdb;
 
         // Define basics
-        $sql = "SELECT c.course_id AS course_id, c.slug AS slug, c.name AS name, c.type AS type, c.lecturer AS lecturer, c.term_id AS term_id, c.visible AS visible, t.name AS term, t.slug AS term_slug FROM " . TEACHCOURSES_COURSES.  " c LEFT JOIN " . TEACHCOURSES_TERMS .  " t ON c.term_id = t.term_id "; //( SELECT t.course_id AS course_id, t.name AS name, t.type AS type, t.lecturer AS lecturer, t.date AS date, t.room As room, t.places AS places, t.start AS start, t.end As end, t.semester AS semester, t.parent As parent, t.visible AS visible, t.rel_page AS rel_page, t.comment AS comment, t.image_url AS image_url, t.strict_signup AS strict_signup, t.use_capabilities AS use_capabilities, p.name AS parent_name FROM " . TEACHCOURSES_COURSES . " t LEFT JOIN " . TEACHCOURSES_COURSES . " p ON t.parent = p.course_id ) AS temp";
+        $sql = "SELECT c.course_id AS course_id, c.slug AS slug, c.name AS name, c.type AS type, c.lecturer AS lecturer, c.term_id AS term_id, c.visible AS visible, t.name AS term, t.slug AS term_slug, t.sequence AS sequence FROM " . TEACHCOURSES_COURSES.  " c LEFT JOIN " . TEACHCOURSES_TERMS .  " t ON c.term_id = t.term_id "; //( SELECT t.course_id AS course_id, t.name AS name, t.type AS type, t.lecturer AS lecturer, t.date AS date, t.room As room, t.places AS places, t.start AS start, t.end As end, t.semester AS semester, t.parent As parent, t.visible AS visible, t.rel_page AS rel_page, t.comment AS comment, t.image_url AS image_url, t.strict_signup AS strict_signup, t.use_capabilities AS use_capabilities, p.name AS parent_name FROM " . TEACHCOURSES_COURSES . " t LEFT JOIN " . TEACHCOURSES_COURSES . " p ON t.parent = p.course_id ) AS temp";
         
         // define global search
         $search = esc_sql(htmlspecialchars(stripslashes($atts['search'])));
@@ -100,9 +100,10 @@ class tc_Courses {
         // define order
         $order = esc_sql($atts['order']);
         if ( $order != '' ) {
-            $order = " ORDER BY $order";
+            $order = ' ORDER BY ' . $order;
         }
         
+        var_dump($sql . $where . $order . $limit);  
         $result = $wpdb->get_results($sql . $where . $order . $limit, $atts['output_type']);
         return $result;
     }
@@ -213,7 +214,7 @@ class tc_Courses {
         // prevent possible double escapes
         $data['name'] = stripslashes($data['name']);
         $data['type'] = stripslashes($data['type']);
-        $data['room'] = stripslashes($data['room']);
+        $data['slug'] = stripslashes($data['slug']);
         $data['lecturer'] = stripslashes($data['lecturer']);
         $data['comment'] = stripslashes($data['comment']);
         $data['term_id'] = $data['term_id'];
@@ -225,7 +226,7 @@ class tc_Courses {
                     'term_id'           => $data['term_id'],  
                     'name'              => $data['name'], 
                     'type'              => $data['type'], 
-                    'room'              => $data['room'], 
+                    'slug'              => $data['slug'], 
                     'lecturer'          => $data['lecturer'], 
                     'comment'           => $data['comment'], 
                     'image_url'         => $data['image_url'],  ), 

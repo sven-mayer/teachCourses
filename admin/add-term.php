@@ -65,7 +65,7 @@ class TC_Add_Term_Page {
      * GET parameters:
      * @param int $term_id
      * @param string $search
-     * @param string $sem
+     * @param string $term_id
     */
     public static function TC_Add_Term_Page($data, $term_id = 0) {
         $current_user = wp_get_current_user();
@@ -143,7 +143,6 @@ class TC_Add_Term_Page {
     public static function get_general_box ($term_id, $course_data) {
         $post_type = get_tc_option('rel_page_courses');
         $selected_sem = ( $term_id === 0 ) ? get_tc_option('active_term') : 0;
-        $semester = get_tc_options('semester', '`setting_id` DESC');
         ?>
         <div class="postbox">
         <h2 class="tc_postbox"><?php _e('General','teachcourses'); ?></h2>

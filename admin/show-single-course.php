@@ -12,7 +12,7 @@
  * 
  * $_GET parameters:
  * @param int $course_id    course ID
- * @param string $sem       semester, from show_courses.php
+ * @param string $term_id       semester, from show_courses.php
  * @param string $search    search string, from show_courses.php
 */
 function tc_show_single_course_page() {
@@ -25,7 +25,7 @@ function tc_show_single_course_page() {
     $reg_action = isset( $_POST['reg_action'] ) ?  $_POST['reg_action'] : '';
     $course_id = intval($_GET['course_id']);
     
-    $link_parameter['sem'] = htmlspecialchars($_GET['sem']);
+    $link_parameter['term_id'] = htmlspecialchars($_GET['term_id']);
     $link_parameter['redirect'] = isset( $_GET['redirect'] ) ?  intval($_GET['redirect']) : 0;
     $link_parameter['sort'] = isset ( $_GET['sort'] ) ? $_GET['sort'] : 'asc';
     $link_parameter['search'] = htmlspecialchars($_GET['search']);
@@ -55,7 +55,6 @@ function tc_show_single_course_page() {
     
     // course data
     $course_data = TC_Courses::get_course($course_id, ARRAY_A);
-    $parent = TC_Courses::get_course($course_data["parent"], ARRAY_A);
 
     echo '<div class="wrap">';
     tc_Single_Course_Actions::do_actions($course_id, $_POST);
@@ -64,7 +63,7 @@ function tc_show_single_course_page() {
     echo '<input name="page" type="hidden" value="teachcourses.php">';
     echo '<input name="action" type="hidden" value="' . $action . '" />';
     echo '<input name="course_id" type="hidden" value="' . $course_id . '" />';
-    echo '<input name="sem" type="hidden" value="' . $link_parameter['sem'] . '" />';
+    echo '<input name="sem" type="hidden" value="' . $link_parameter['term_id'] . '" />';
     echo '<input name="search" type="hidden" value="' . $link_parameter['search'] . '" />';
     echo '<input name="redirect" type="hidden" value="' . $link_parameter['redirect'] . '" />';
     echo '<input name="sort" type="hidden" value="' . $link_parameter['sort'] . '" />';
@@ -105,8 +104,7 @@ class tc_Single_Course_Actions {
      * @access private
      */
     private static function add_artefact($course_id, $post) {
-        $data = array('parent_id' => intval($post['artefact_parent']), 
-                      'course_id' => $course_id, 
+        $data = array('course_id' => $course_id, 
                       'title' => htmlspecialchars($post['artefact_name']), 
                       'scale' => '', 
                       'passed' => '', 
@@ -187,7 +185,6 @@ class tc_Single_Course_Page {
         echo '<p><label for="artefact_name">' . __('Title','teachcourses') . '</label></p>';
         echo '<input name="artefact_name" id="artefact_name" type="text" style="width:50%;"/>';
         
-        echo '<input name="artefact_parent" type="hidden" value="0"/>';
 
         echo '<p><input name="add_artefact" type="submit" class="button-primary" value="' . __('Add','teachcourses') . '"/> <a onclick="teachcourses_showhide(' . "'tc_add_artefact_form'" . ');" class="button-secondary" style="cursor:pointer;">' . __('Cancel', 'teachcourses') . '</a></p>';
         echo '</div>';
@@ -203,7 +200,7 @@ class tc_Single_Course_Page {
      * @since 5.0.0
      */
     public static function get_course_headline($course_id, $course_data, $link_parameter) {
-        $link = '<a class="page-title-action" href="admin.php?page=teachcourses-add&amp;action=edit&amp;course_id=' . $course_id . '&amp;sem=' . $link_parameter['sem'] . '&amp;search=' . $link_parameter['search'] . '" class="teachcourses_link" style="cursor:pointer;">' . __('Edit','teachcourses') . '</a>';
+        $link = '<a class="page-title-action" href="admin.php?page=teachcourses-add&amp;action=edit&amp;course_id=' . $course_id . '&amp;term_id=' . $link_parameter['term_id'] . '&amp;search=' . $link_parameter['search'] . '" class="teachcourses_link" style="cursor:pointer;">' . __('Edit','teachcourses') . '</a>';
 
         return '<h1 class="wp-heading-inline">' . stripslashes($course_data["name"]) . ' ' . $link . '</h1>';
     }
@@ -221,11 +218,11 @@ class tc_Single_Course_Page {
         $documents_tab = '';
         
         $set_info_tab = ( $action === 'show' ) ? 'nav-tab nav-tab-active' : 'nav-tab';
-        $info_tab = '<a href="admin.php?page=teachcourses&amp;course_id=' . $course_id . '&amp;sem=' . $link_parameter['sem'] . '&amp;search=' . $link_parameter['search'] . '&amp;action=show" class="' . $set_info_tab . '">' . __('Info','teachcourses') . '</a> ';
+        $info_tab = '<a href="admin.php?page=teachcourses&amp;course_id=' . $course_id . '&amp;term_id=' . $link_parameter['term_id'] . '&amp;search=' . $link_parameter['search'] . '&amp;action=show" class="' . $set_info_tab . '">' . __('Info','teachcourses') . '</a> ';
         
         
         $set_documents_tab = ( $action === 'documents' ) ? 'nav-tab nav-tab-active' : 'nav-tab';
-        $documents_tab = '<a href="admin.php?page=teachcourses&amp;course_id=' . $course_id . '&amp;sem=' . $link_parameter['sem'] . '&amp;search=' . $link_parameter['search'] . '&amp;action=documents" class="' . $set_documents_tab . '">' . __('Documents','teachcourses') . '</a> ';
+        $documents_tab = '<a href="admin.php?page=teachcourses&amp;course_id=' . $course_id . '&amp;term_id=' . $link_parameter['term_id'] . '&amp;search=' . $link_parameter['search'] . '&amp;action=documents" class="' . $set_documents_tab . '">' . __('Documents','teachcourses') . '</a> ';
         
         
         return '<h3 class="nav-tab-wrapper">' . $info_tab . $documents_tab . $assessment_tab . '</h3>';
@@ -284,16 +281,6 @@ class tc_Single_Course_Page {
                       <tr>
                         <td><strong><?php _e('Comment','teachcourses'); ?></strong></td>
                         <td><?php echo stripslashes($cours_data["comment"]); ?></td>
-                      </tr>
-                      <tr>
-                        <td><strong><?php _e('Related content','teachcourses'); ?></strong></td>
-                        <td><?php 
-                            if ( $cours_data["rel_page"] != 0) {
-                                echo '<a href="' . get_permalink( $cours_data["rel_page"] ) . '" target="_blank" class="teachcourses_link">' . get_permalink( $cours_data["rel_page"] ) . '</a>';
-                            }
-                            else { 
-                                _e('none','teachcourses');
-                            } ?></td>
                       </tr>
                 </table>
                </div>

@@ -73,7 +73,7 @@ class TC_Term_Page {
         $checkbox = isset( $_GET['checkbox'] ) ? $_GET['checkbox'] : '';
         $bulk = isset( $_GET['bulk'] ) ? $_GET['bulk'] : '';
         $copysem = isset( $_GET['copysem'] ) ? $_GET['copysem'] : '';
-        $sem = ( isset($_GET['sem']) ) ? htmlspecialchars($_GET['sem']) : get_tc_option('active_term');
+        $term_id = ( isset($_GET['term_id']) ) ? htmlspecialchars($_GET['term_id']) : get_tc_option('active_term');
     
         echo '<div class="wrap">';
         echo '<h1 class="wp-heading-inline">'.esc_html__('Term','teachcourses').'</h1><a href="admin.php?page=teachcourses-term&action=edit" class="page-title-action">'.esc_html__('Add New Term','teachcourses').'</a>';
@@ -100,7 +100,7 @@ class TC_Term_Page {
                 echo '<div class="teachcourses_message">
                 <p class="teachcourses_message_headline">' . __('Do you want to delete the selected items?','teachcourses') . '</p>
                 <p><input name="delete_ok" type="submit" class="button-primary" value="' . __('Delete','teachcourses') . '"/>
-                <a href="admin.php?page=teachcourses&sem=' . $sem . '&search=' . $search . '" class="button-secondary"> ' . __('Cancel','teachcourses') . '</a></p>
+                <a href="admin.php?page=teachcourses&term_id=' . $term_id . '&search=' . $search . '" class="button-secondary"> ' . __('Cancel','teachcourses') . '</a></p>
                 </div>';
         }
         // delete a course, part 2
@@ -111,7 +111,7 @@ class TC_Term_Page {
         }
         // copy a course, part 1
         if ( $bulk === "copy" ) { 
-                TC_Term_Page::get_copy_term_form($terms, $sem, $search);
+                TC_Term_Page::get_copy_term_form($terms, $term_id, $search);
         }
         // copy a course, part 2
         if ( isset($_GET['copy_ok']) ) {
@@ -151,7 +151,7 @@ class TC_Term_Page {
             if ($search != '') {
                 $order = 'semester DESC, name';	
             }
-            TC_Term_Page::get_terms($search, $sem, $bulk, $checkbox);
+            TC_Term_Page::get_terms($search, $term_id, $bulk, $checkbox);
 
             ?>
             </tbody>
@@ -170,14 +170,14 @@ class TC_Term_Page {
     /**
      * Returns the content for the course table
      * @param string $search    The search string
-     * @param string $sem       The semester you want to show
+     * @param string term_id       The semester you want to show
      * @param array $bulk       The bulk checkbox
      * @param array $checkbox   The checkbox
      * @return type
       * @since 0.0.1
      * @access private
      */
-    private static function get_terms ($search, $sem, $bulk, $checkbox) {
+    private static function get_terms ($search, $term_id, $bulk, $checkbox) {
 
         $row = TC_Terms::get_terms( 
                 array(
@@ -192,7 +192,7 @@ class TC_Term_Page {
         
 
         $static['bulk'] = $bulk;
-        $static['sem'] = $sem;
+        $static['term_id'] = $term_id;
         $static['search'] = $search;
         $z = 0;
         foreach ($row as $row){
@@ -251,7 +251,7 @@ class TC_Term_Page {
         $courses_in_term = TC_Courses::get_courses(array('term_id' => $course['term_id']));
 
         if (count($courses_in_term) == 0) {
-            $delete_link = '<span class="trash"> | <a class="tc_row_delete" href="admin.php?page=teachcourses&amp;sem=' . $static['sem'] . '&amp;search=' . $static['search'] . '&amp;checkbox%5B%5D=' . $course['term_id'] . '&amp;bulk=delete" title="' . __('Delete','teachcourses') . '">' . __('Delete','teachcourses') . '</a></span>';
+            $delete_link = '<span class="trash"> | <a class="tc_row_delete" href="admin.php?page=teachcourses&amp;term_id=' . $static['term_id'] . '&amp;search=' . $static['search'] . '&amp;checkbox%5B%5D=' . $course['term_id'] . '&amp;bulk=delete" title="' . __('Delete','teachcourses') . '">' . __('Delete','teachcourses') . '</a></span>';
         } else {
             $delete_link = '';
         }

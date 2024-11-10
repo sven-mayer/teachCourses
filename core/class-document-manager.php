@@ -362,8 +362,8 @@ class tc_Document_Manager {
         echo '<option value="">- ' . __('Select Course','teachcourses') . ' -</option>';
         
         // List of courses
-        $semester = get_tc_options('semester', '`setting_id` DESC');
-        foreach ( $semester as $row ) {
+        $terms = TC_Terms::get_terms(); # get_tc_options('semester', '`setting_id` DESC');
+        foreach ( $terms as $row ) {
             $courses = TC_Courses::get_courses( array('parent' => 0, 'semester' => $row->value) );
             if ( count($courses) !== 0 ) {
                 echo '<optgroup label="' . $row->value . '">';

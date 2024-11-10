@@ -22,13 +22,8 @@ class TC_Add_Course_Page {
         $data['action'] = isset( $_POST['action'] ) ? htmlspecialchars($_POST['action']) : '';
         $data['type'] = isset( $_POST['course_type'] ) ? htmlspecialchars($_POST['course_type']) : '';
         $data['name'] = isset( $_POST['post_title'] ) ? htmlspecialchars($_POST['post_title']) : '';
-        $data['room'] = isset( $_POST['room'] ) ? htmlspecialchars($_POST['room']) : '';
+        $data['slug'] = isset( $_POST['slug'] ) ? htmlspecialchars($_POST['slug']) : '';
         $data['lecturer'] = isset( $_POST['lecturer'] ) ? htmlspecialchars($_POST['lecturer']) : '';
-        $data['date'] = isset( $_POST['date'] ) ? htmlspecialchars($_POST['date']) : '';
-        $data['start'] = isset( $_POST['start'] ) ? htmlspecialchars($_POST['start']) : ''; 
-        $data['start_hour'] = isset( $_POST['start_hour'] ) ? htmlspecialchars($_POST['start_hour']) : '';
-        $data['start_minute'] = isset( $_POST['start_minute'] ) ? htmlspecialchars($_POST['start_minute']) : '';
-        $data['end'] = isset( $_POST['end'] ) ? htmlspecialchars($_POST['end']) : '';
         $data['term_id'] = isset( $_POST['term_id'] ) ? htmlspecialchars($_POST['term_id']) : '';
         $data['comment'] = isset( $_POST['comment'] ) ? htmlspecialchars($_POST['comment']) : '';
         $data['visible'] = isset( $_POST['visible'] ) ? intval($_POST['visible']) : 1;
@@ -102,7 +97,7 @@ class TC_Add_Course_Page {
      * GET parameters:
      * @param int $course_id
      * @param string $search
-     * @param string $sem
+     * @param string $course_id
     */
     public static function tc_add_course_page($data, $course_id = 0) {
         $current_user = wp_get_current_user();
@@ -183,7 +178,7 @@ class TC_Add_Course_Page {
     public static function get_general_box ($course_id, $course_types, $course_data) {
         $post_type = get_tc_option('rel_page_courses');
         $selected_sem = ( $course_id === 0 ) ? get_tc_option('active_term') : 0;
-        $semester = TC_Terms::get_terms();
+        $terms = TC_Terms::get_terms();
         ?>
         <div class="postbox">
         <h2 class="tc_postbox"><?php _e('General','teachcourses'); ?></h2>
@@ -199,20 +194,33 @@ class TC_Add_Course_Page {
             <p><label for="term_id" title="<?php _e('The term where the course will be happening','teachcourses'); ?>"><strong><?php _e('Term','teachcourses'); ?></strong></label></p>
             <select name="term_id" id="term_id" title="<?php _e('The term where the course will be happening','teachcourses'); ?>" tabindex="3">
             <?php
-            foreach ($semester as $sem) { 
-                if ($sem->term_id == $selected_sem && $course_id === 0) {
+            foreach ($terms as $term) { 
+                if ($term->term_id == $selected_sem && $course_id === 0) {
                     $current = 'selected="selected"' ;
                 }
-                elseif ($sem->term_id == $course_data["term_id"] && $course_id != 0) {
+                elseif ($term->term_id == $course_data["term_id"] && $course_id != 0) {
                     $current = 'selected="selected"' ;
                 }
                 else {
                     $current = '' ;
                 }
-                echo '<option value="' . stripslashes($sem->term_id) . '" ' . $current . '>' . stripslashes($sem->name) . '</option>';
+                echo '<option value="' . stripslashes($term->term_id) . '" ' . $current . '>' . stripslashes($term->name) . '</option>';
             }?> 
             </select>
             <?php
+            // slug
+            echo tc_Admin::get_form_field(
+                array(
+                    'name' => 'slug',
+                    'title' => __('The slug of the course','teachcourses'),
+                    'label' => __('Slug','teachcourses'),
+                    'type' => 'input',
+                    'value' => $course_data['slug'],
+                    'tabindex' => 4,
+                    'display' => 'block', 
+                    'style' => 'width:95%;') );
+
+
             // lecturer
             echo tc_Admin::get_form_field(
                 array(
@@ -221,10 +229,9 @@ class TC_Add_Course_Page {
                     'label' => __('Lecturer','teachcourses'),
                     'type' => 'input',
                     'value' => $course_data['lecturer'],
-                    'tabindex' => 4,
+                    'tabindex' => 5,
                     'display' => 'block', 
                     'style' => 'width:95%;') );
-        
             
             ?>
             
