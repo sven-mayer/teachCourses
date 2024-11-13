@@ -323,24 +323,25 @@ function tc_write_data_for_tinymce () {
     // List of courses
     $course_list = array();
     $course_list[] = array( 'text' => '=== SELECT ===' , 'value' => 0 );
+
+
+    // List of semester/term
+    $term_list = array();
+    $term_list[] = array( 'text' => __('Default','teachcourses') , 'value' => '' );
+
     $terms = TC_Terms::get_terms(); // get_tc_options('semester', '`setting_id` DESC');
-    foreach ( $terms as $row ) {
-        $courses = TC_Courses::get_courses( array('parent' => 0, 'semester' => $row->value) );
+    foreach ( $terms as $term ) {
+        $courses = TC_Courses::get_courses( array('term_id' => $term->term_id) );
+        $term_list[] = array( 'text' => $term->slug , 'value' => $term->term_id );
+
         foreach ($courses as $course) {
-            $course_list[] = array( 'text' => $course->name . ' (' . $course->semester . ')' , 'value' => $course->course_id );
+            $course_list[] = array( 'text' => $course->name . ' (' . $term->slug . ')' , 'value' => $course->course_id );
         }
         if ( count($courses) > 0 ) {
             $course_list[] = array( 'text' => '====================' , 'value' => 0 );
         }
     }
-    
-    // List of semester/term
-    $semester_list = array();
-    $semester_list[] = array( 'text' => __('Default','teachcourses') , 'value' => '' );
-    foreach ($semester as $sem) { 
-        $semester_list[] = array( 'text' => stripslashes($sem->value) , 'value' => stripslashes($sem->value) );
-    }
-    
+
     // Current post id
     $post_id = ( isset ($_GET['post']) ) ? intval($_GET['post']) : 0;
     
@@ -348,11 +349,7 @@ function tc_write_data_for_tinymce () {
     ?>
     <script type="text/javascript">
         var teachcourses_courses = <?php echo json_encode($course_list); ?>;
-        var teachcourses_semester = <?php echo json_encode($semester_list); ?>;
-        var teachcourses_pub_user = <?php echo json_encode($pub_user_list); ?>;
-        var teachcourses_pub_types = <?php echo json_encode($pub_type_list); ?>;
-        var teachcourses_pub_tags = <?php echo json_encode($pub_tag_list) ?>;
-        var teachcourses_pub_templates = <?php echo json_encode($pub_templates_list); ?>;
+        var teachcourses_semester = <?php echo json_encode($term_list); ?>;
         var teachcourses_editor_url = '<?php echo admin_url( 'admin-ajax.php' ) . '?action=teachcoursesdocman&post_id=' . $post_id; ?>';
         var teachcourses_cookie_path = '<?php echo SITECOOKIEPATH; ?>';
         var teachcourses_file_link_css_class = '<?php echo TEACHCOURSES_FILE_LINK_CSS_CLASS; ?>';
