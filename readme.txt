@@ -89,7 +89,6 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 = Licence information of external resources =
-* Wikindx bibtex import classes (bibtexParse) by Mark Grimshaw-Aagaard & Stéphane Aulery (Licence: ISC License)
 * Font Awesome Free 5.10.1 by fontawesome (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
 * Academicons 1.8.6 by James Walsh (Font: SIL OFL 1.1, CSS: MIT License)
 * jquery-ui-icons.png by The jQuery Foundation (License: MIT)
