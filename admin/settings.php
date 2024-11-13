@@ -297,7 +297,7 @@ class tc_Settings_Page {
         
         echo '<p><input name="einstellungen" type="submit" id="teachcourses_settings" value="' . __('Save') . '" class="button-primary" /></p>';
         
-        echo '<script type="text/javascript" src="' . plugins_url( 'js/admin_settings.js', dirname( __FILE__ ) ) . '"></script>';
+        echo '<script type="text/javascript" src="' . plugins_url( 'public/js/admin_settings.js', dirname( __FILE__ ) ) . '"></script>';
         self::get_about_dialog();
     }
     

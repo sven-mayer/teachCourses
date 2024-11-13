@@ -41,8 +41,8 @@ class tc_Document_Manager {
           'multiple_queues'     => true,
           'max_file_size'       => wp_max_upload_size().'b',
           'url'                 => admin_url('admin-ajax.php'),
-          'flash_swf_url'       => includes_url('js/plupload/plupload.flash.swf'),
-          'silverlight_xap_url' => includes_url('js/plupload/plupload.silverlight.xap'),
+          'flash_swf_url'       => includes_url('public/js/plupload/plupload.flash.swf'),
+          'silverlight_xap_url' => includes_url('public/js/plupload/plupload.silverlight.xap'),
           'filters'             => array(array('title' => __('Allowed Files'), 'extensions' => '*')),
           'multipart'           => true,
           'urlstream_upload'    => true,
@@ -345,7 +345,7 @@ class tc_Document_Manager {
                 decimalPoint = ',',
                 isRtl = 0;
             </script>
-            <link rel="stylesheet" id="teachcourses-document-manager-css"  href="<?php echo plugins_url( 'styles/teachcourses_document_manager.css', dirname( __FILE__ ) ) . '?ver=' . get_tc_version(); ?>" type="text/css" media="all" />
+            <link rel="stylesheet" id="teachcourses-document-manager-css"  href="<?php echo plugins_url( 'public/styles/teachcourses_document_manager.css', dirname( __FILE__ ) ) . '?ver=' . get_tc_version(); ?>" type="text/css" media="all" />
         </head>
         <?php
     }
@@ -397,10 +397,10 @@ class tc_Document_Manager {
             wp_enqueue_script('media-upload');
             add_thickbox();
     
-            wp_enqueue_script('teachcourses-standard', plugins_url( 'js/backend.js', dirname( __FILE__ ) ) );
+            wp_enqueue_script('teachcourses-standard', plugins_url( 'public/js/backend.js', dirname( __FILE__ ) ) );
 
-            wp_enqueue_style('teachcourses.css', plugins_url( 'styles/teachcourses.css', dirname( __FILE__ ) ) );
-            wp_enqueue_style('teachcourses-jquery-ui.css', plugins_url( 'styles/jquery.ui.css', dirname( __FILE__ ) ) );
+            wp_enqueue_style('teachcourses.css', plugins_url( 'public/styles/teachcourses.css', dirname( __FILE__ ) ) );
+            wp_enqueue_style('teachcourses-jquery-ui.css', plugins_url( 'public/styles/jquery.ui.css', dirname( __FILE__ ) ) );
             wp_enqueue_style('teachcourses-jquery-ui-dialog.css', includes_url() . '/css/jquery-ui-dialog.min.css');
 
             do_action( 'admin_print_scripts' );

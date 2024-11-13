@@ -306,7 +306,7 @@ function tc_register_tinymce_buttons ($buttons) {
  * @since 5.0.0
  */
 function tc_register_tinymce_js ($plugins) {
-    $plugins['teachcourses_tinymce'] = plugins_url( 'js/tinymce-plugin.js', __FILE__ );
+    $plugins['teachcourses_tinymce'] = plugins_url( 'public/js/tinymce-plugin.js', __FILE__ );
     return $plugins;
 }
 
@@ -325,9 +325,9 @@ function tc_backend_scripts() {
     if (( strpos($page, 'teachcourses') === false ) && (strpos($page, 'add_course') === false )) {
         return;
     }
-    wp_enqueue_style('teachcourses-print-css', plugins_url( 'styles/print.css', __FILE__ ), false, $version, 'print');
-    wp_enqueue_script('teachcourses-standard', plugins_url( 'js/backend.js', __FILE__ ) );
-    wp_enqueue_style('teachcourses.css', plugins_url( 'styles/teachcourses.css', __FILE__ ), false, $version);
+    wp_enqueue_style('teachcourses-print-css', plugins_url( 'public/styles/print.css', __FILE__ ), false, $version, 'print');
+    wp_enqueue_script('teachcourses-standard', plugins_url( 'public/js/backend.js', __FILE__ ) );
+    wp_enqueue_style('teachcourses.css', plugins_url( 'public/styles/teachcourses.css', __FILE__ ), false, $version);
     wp_enqueue_script('media-upload');
     add_thickbox();
     
@@ -337,14 +337,14 @@ function tc_backend_scripts() {
     
     // Load jQuery + ui plugins + plupload
     wp_enqueue_script(array('jquery-ui-core', 'jquery-ui-datepicker', 'jquery-ui-resizable', 'jquery-ui-autocomplete', 'jquery-ui-sortable', 'jquery-ui-dialog', 'plupload'));
-    wp_enqueue_style('teachcourses-jquery-ui.css', plugins_url( 'styles/jquery.ui.css', __FILE__ ) );
+    wp_enqueue_style('teachcourses-jquery-ui.css', plugins_url( 'public/styles/jquery.ui.css', __FILE__ ) );
     wp_enqueue_style('teachcourses-jquery-ui-dialog.css', includes_url() . '/css/jquery-ui-dialog.min.css');
     
     // Languages for plugins
     $current_lang = ( version_compare( tc_get_wp_version() , '4.0', '>=') ) ? get_option('WPLANG') : WPLANG;
     $array_lang = array('de_DE','it_IT','es_ES', 'sk_SK');
     if ( in_array( $current_lang , $array_lang) ) {
-        wp_enqueue_script('teachcourses-datepicker-de', plugins_url( 'js/datepicker/jquery.ui.datepicker-' . $current_lang . '.js', __FILE__ ) );
+        wp_enqueue_script('teachcourses-datepicker-de', plugins_url( 'public/js/datepicker/jquery.ui.datepicker-' . $current_lang . '.js', __FILE__ ) );
     }
 }
 
@@ -359,12 +359,12 @@ function tc_frontend_scripts() {
     echo PHP_EOL . '<!-- teachcourses -->' . PHP_EOL;
 
     /* tp-frontend script */
-    echo '<script' . $type_attr . ' src="' . plugins_url( 'js/frontend.js?ver=' . $version, __FILE__ ) . '"></script>' . PHP_EOL;
+    echo '<script' . $type_attr . ' src="' . plugins_url( 'public/js/frontend.js?ver=' . $version, __FILE__ ) . '"></script>' . PHP_EOL;
 
     /* tp-frontend style */
     $value = get_tc_option('stylesheet');
     if ($value == '1') {
-        echo '<link type="text/css" href="' . plugins_url( 'styles/teachcourses_front.css?ver=' . $version, __FILE__ ) . '" rel="stylesheet" />' . PHP_EOL;
+        echo '<link type="text/css" href="' . plugins_url( 'public/styles/teachcourses_front.css?ver=' . $version, __FILE__ ) . '" rel="stylesheet" />' . PHP_EOL;
     }
 
     /* altmetric support */

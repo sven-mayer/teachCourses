@@ -169,7 +169,7 @@ class TC_Add_Course_Page {
         echo '</div>';
 
         echo '</form>';    
-        echo '<script type="text/javascript" charset="utf-8" src="'. plugins_url( 'js/admin_add_course.js', dirname( __FILE__ ) ).'"></script>';
+        echo '<script type="text/javascript" charset="utf-8" src="'. plugins_url( 'public/js/admin_add_course.js', dirname( __FILE__ ) ).'"></script>';
         echo '</div>';
     }
 
