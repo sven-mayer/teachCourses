@@ -117,6 +117,22 @@ function tc_add_menu() {
         'teachcourses-term',
         array('TC_Term_Page','init'));
 
+        // Note: An alternative in case we will stwich to a custom post type
+        // $tc_admin_add_course_page = add_submenu_page(
+        //     'teachcourses',
+        //     __('All Course','teachcourses'), 
+        //     __('All Course', 'teachcourses'),
+        //     'use_teachcourses_courses',
+        //     'edit.php?post_type=course');
+        
+        // Note: An alternative in case we will stwich to a custom post type
+        // $tc_admin_add_course_page = add_submenu_page(
+        //     'teachcourses',
+        //     __('Add New Course','teachcourses'), 
+        //     __('Add New Course','teachcourses'), 
+        //     'use_teachcourses_courses',
+        //     'post-new.php?post_type=course');
+
     add_action("load-$tc_admin_show_courses_page", array('TC_Courses_Page','tc_show_course_page_help'));
     add_action("load-$tc_admin_show_courses_page", array('TC_Courses_Page','tc_show_course_page_screen_options'));
 }
@@ -390,10 +406,11 @@ function tc_plugin_link($links, $file){
 }
 
 function tc_register_custom_rewrite_rule() {
-    add_rewrite_rule('^teaching/([^/]*)/([^/]*)/?$','index.php?page_id=techcourses&term_id=$matches[1]&course=$matches[2]','top');
+    add_rewrite_rule('^teaching/([^/]*)/([^/]*)/?$','index.php?pagename=techcourses&term_id=$matches[1]&course=$matches[2]','top');
 }
 
 function tc_register_query_vars($vars) {
+    $vars[] = 'pagename';
     $vars[] = 'term_id';
     $vars[] = 'course';
     return $vars;
@@ -435,13 +452,13 @@ add_shortcode('tclist','tc_course_list_shortcode');
 function tp_template_redirect() {
     $term_id = get_query_var('term_id');
     $course = get_query_var('course');
-    var_dump($term_id);
-    var_dump($course);
-    if ($term_id && $course) {
+    $pagename = get_query_var('pagename');
+    if ($term_id && $course && ($pagename == 'techcourses')) {
+        // var_dump($term_id . " " . $course . " " . $pagename);
+
         // Load a custom template file
-        //include locate_template('template-teaching.php'); // Adjust path to your custom template
-        //exit;
-        echo "term_id: $term_id, course: $course";
+        include plugin_dir_path(__FILE__) . 'public/single-course.php';//locate_template('public/single-course.php'); // Adjust path to your custom template
+        exit;
     }
 }
 
@@ -455,3 +472,25 @@ add_filter('query_vars', 'tc_register_query_vars');
 // register_activation_hook( __FILE__, 'tc_plugin_activate' );
 
 add_action('template_redirect', 'tp_template_redirect');
+
+// Hook into template_include to override the template for the 'Courses' page
+function myplugin_courses_template($template) {
+    // Check if this is the 'Courses' page by its slug
+    // var_dump(is_page('teaching'));
+    var_dump(get_query_var("term_id"));
+    // var_dump($template);
+    // if (isset($vars['pagename']) && $vars['pagename'] === 'projects') {
+
+
+    if (is_page('teaching')) {
+        // Use the custom template function instead of loading a file
+        return myplugin_virtual_courses_template();
+    }
+    return $template;
+}
+add_filter('template_include', 'myplugin_courses_template');
+
+
+
+// Note: This could be a future alternative to the to implement the course as content type
+// include_once(plugin_dir_path(__FILE__) . 'includes/register-post-type.php');
