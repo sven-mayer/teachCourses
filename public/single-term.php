@@ -11,7 +11,6 @@ if( wp_is_block_theme() ) {
 $term = get_query_var('term');
 $pagename = get_query_var('pagename');
 
-$courses_list = TC_Courses::get_courses(array('term' => $term));
 // var_dump($courses);
 $terms = TC_Terms::get_terms(array('slug' => $term, 'visibility' => 1));
 
@@ -30,17 +29,30 @@ if (empty($terms)) {
     echo '</div>';
 } else {
 
+
+    $course_types = get_tc_options('course_type', '`value` ASC');    
+
     foreach ($terms as $term) {
 
         echo '<div id="loop-container" class="loop-container">';
         echo '<div class="post-2 page type-page status-publish hentry entry"><article><div class="post-header"><h1 class="post-title">' . $term->name. the_title() . '</h1></div>';
         echo '<div class="post-content">';
 
-        echo '<ul>';
-        foreach($courses_list as $course) {
-            echo '<li><a href="' . get_site_url() . '/teaching/' . $course->term_slug . '/' .$course->slug . '">' . $course->name . '</a></<li>';
+        foreach($course_types as $type){
+
+            $courses_list = TC_Courses::get_courses(array('term_id' => $term->term_id, 'type' => $type->value, 'visibility' => 1));
+            
+            if(count($courses_list) == 0) {
+            
+            } else {
+                echo '<h2>' . $type->value . '</h2>';
+                echo '<ul>';
+                foreach($courses_list as $course) {
+                    echo '<li><a href="' . get_site_url() . '/teaching/' . $course->term_slug . '/' .$course->slug . '">' . $course->name . '</a></<li>';
+                }
+                echo '</ul>';
+            }
         }
-        echo '</ul>';
         echo '<div>';
         echo '</article></div>';
         echo '</div>';
