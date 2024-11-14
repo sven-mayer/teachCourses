@@ -7,32 +7,100 @@ if( wp_is_block_theme() ) {
     get_header();    
 }
 
-// if (have_posts()) : while (have_posts()) : the_post();
-?>
-    <div class="property-content">
-        <h1><?php the_title(); ?></h1>
+$term = get_query_var('term');
+$course = get_query_var('course');
+$pagename = get_query_var('pagename');
+
+$courses = TC_Courses::get_courses(array('term' => $term, 'slug' => $course));
+
+if (count($courses) > 1) {
+    echo '<div id="loop-container" class="loop-container">';
+    echo '<div class="post-2 page type-page status-publish hentry entry"><article><div class="post-header"><h1 class="post-title">' . __('Wanring Multiple Entries', 'teachcourses') . '</h1></div>';
+	echo '<div class="post-content"></article></div>';
+    echo '</div>';
+
+} 
+
+if (empty($courses)) {
+    // echo course not found in div container 
+    echo '<div id="loop-container" class="loop-container">';
+    echo '<div class="post-2 page type-page status-publish hentry entry"><article><div class="post-header"><h1 class="post-title">' . __('Course not found', 'teachcourses') . '</h1></div>';
+	echo '<div class="post-content"></article></div>';
+    echo '</div>';
+} else {
+    foreach ($courses as $course) {
+
+        echo '<div id="loop-container" class="loop-container">';
+        echo '<div class="post-2 page type-page status-publish hentry entry"><article><div class="post-header"><h1 class="post-title">' . $course->name. the_title() . '</h1></div>';
+        echo '<div class="post-content">';
+        if (has_post_thumbnail()){
+            echo '<div class="property-thumbnail">' . the_post_thumbnail('large') .'</div>';
+        }
+        echo '</div>';
+        if (!empty($course->action)) {
+            echo '<p><strong>' . __('Action', 'teachcourses') . ':</strong> ' . esc_html($course->action) . '</p>';
+        }
         
-        <?php if (has_post_thumbnail()) : ?>
-            <div class="property-thumbnail">
-                <?php the_post_thumbnail('large'); ?>
-            </div>
-        <?php endif; ?>
+        if (!empty($course->name)) {
+            echo '<p><strong>' . __('Name', 'teachcourses') . ':</strong> ' . esc_html($course->name) . '</p>';
+        }
+        
+        if (!empty($course->type)) {
+            echo '<p><strong>' . __('Type', 'teachcourses') . ':</strong> ' . esc_html($course->type) . '</p>';
+        }
+        
+        if (!empty($course->lecturer)) {
+            echo '<p><strong>' . __('Lecturer', 'teachcourses') . ':</strong> ' . esc_html($course->lecturer) . '</p>';
+        }
+        
+        if (!empty($course->assistant)) {
+            echo '<p><strong>' . __('Assistant', 'teachcourses') . ':</strong> ' . esc_html($course->assistant) . '</p>';
+        }
+        
+        if (!empty($course->credits)) {
+            echo '<p><strong>' . __('Credits', 'teachcourses') . ':</strong> ' . esc_html($course->credits) . '</p>';
+        }
+        
+        if (!empty($course->hours)) {
+            echo '<p><strong>' . __('Hours', 'teachcourses') . ':</strong> ' . esc_html($course->hours) . '</p>';
+        }
+        
+        if (!empty($course->module)) {
+            echo '<p><strong>' . __('Module', 'teachcourses') . ':</strong> ' . esc_html($course->module) . '</p>';
+        }
+        
+        if (!empty($course->language)) {
+            echo '<p><strong>' . __('Language', 'teachcourses') . ':</strong> ' . esc_html($course->language) . '</p>';
+        }
+        
+        if (!empty($course->links)) {
+            echo '<p><strong>' . __('Links', 'teachcourses') . ':</strong> ' . esc_html($course->links) . '</p>';
+        }
+        
+        if (!empty($course->image_url)) {
+            echo '<p><strong>' . __('Image URL', 'teachcourses') . ':</strong> ' . esc_html($course->image_url) . '</p>';
+        }
 
-        <div class="property-meta">
-            <p><strong>Type:</strong> <?php echo esc_html(get_post_meta(get_the_ID(), 'type', true)); ?></p>
-            <p><strong>Lecturer:</strong> <?php echo esc_html(get_post_meta(get_the_ID(), 'lecturer', true)); ?></p>
-            <p><strong>Semester:</strong> <?php echo esc_html(get_post_meta(get_the_ID(), 'semester', true)); ?></p>
-            <p><strong>Credits:</strong> <?php echo esc_html(get_post_meta(get_the_ID(), 'credits', true)); ?></p>
-            <p><strong>Hours:</strong> <?php echo esc_html(get_post_meta(get_the_ID(), 'hours', true)); ?></p>
-        </div>
+        if (!empty($course->description)) {
+            echo html_entity_decode($course->description);
+        }
 
-        <div class="property-description">
-            <?php the_content(); ?>
-        </div>
-    </div>
 
-<?php 
-// endwhile; endif;
+        // if (!empty($course->term_id)) {
+        //     echo '<p><strong>' . __('Term ID', 'teachcourses') . ':</strong> ' . esc_html($course->term_id) . '</p>';
+        // }
+        // if (isset($course->visible) && $course->visible !== '') {
+        //     echo '<p><strong>' . __('Visible', 'teachcourses') . ':</strong> ' . esc_html($course->visible) . '</p>';
+        // }
+        // if (!empty($course->slug)) {
+        //     echo '<p><strong>' . __('Slug', 'teachcourses') . ':</strong> ' . esc_html($course->slug) . '</p>';
+        // }
+        
+        echo '</article></div>';
+        echo '</div>';
+    }
+
+}
 
 if( wp_is_block_theme() ) {
     block_template_part('footer');

@@ -113,7 +113,7 @@ class tc_Tables {
                     `module` VARCHAR(500),
                     `language` VARCHAR(500),
                     `links` VARCHAR(1000),
-                    `description` VARCHAR(10000),
+                    `description` TEXT,
                     `visible` INT UNSIGNED,
                     `image_url` VARCHAR(400),
                     PRIMARY KEY (`course_id`),

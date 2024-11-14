@@ -406,7 +406,7 @@ function tc_plugin_link($links, $file){
 }
 
 function tc_register_custom_rewrite_rule() {
-    add_rewrite_rule('^teaching/([^/]*)/([^/]*)/?$','index.php?pagename=techcourses&term_id=$matches[1]&course=$matches[2]','top');
+    add_rewrite_rule('^teaching/([^/]*)/([^/]*)/?$','index.php?pagename=techcourses&term=$matches[1]&course=$matches[2]','top');
 }
 
 function tc_register_query_vars($vars) {
@@ -450,10 +450,10 @@ add_shortcode('tclist','tc_course_list_shortcode');
 
 // Register custom rewrite rules
 function tp_template_redirect() {
-    $term_id = get_query_var('term_id');
+    $term = get_query_var('term');
     $course = get_query_var('course');
     $pagename = get_query_var('pagename');
-    if ($term_id && $course && ($pagename == 'techcourses')) {
+    if ($term && $course && ($pagename == 'techcourses')) {
         // var_dump($term_id . " " . $course . " " . $pagename);
 
         // Load a custom template file
@@ -477,7 +477,7 @@ add_action('template_redirect', 'tp_template_redirect');
 function myplugin_courses_template($template) {
     // Check if this is the 'Courses' page by its slug
     // var_dump(is_page('teaching'));
-    var_dump(get_query_var("term_id"));
+    // var_dump(get_query_var("term"));
     // var_dump($template);
     // if (isset($vars['pagename']) && $vars['pagename'] === 'projects') {
 
