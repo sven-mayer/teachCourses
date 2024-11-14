@@ -47,9 +47,9 @@ class tc_Terms {
     public static function get_terms ( $args = array() ) {
         $defaults = array(
             'visibility'    => '',
-            'search'        => '',
+            'slug'          => '',
             'exclude'       => '',
-            'order'         => 'semester DESC, name',
+            'order'         => 'sequence DESC, name',
             'limit'         => '',
             'output_type'   => OBJECT
         ); 
@@ -59,18 +59,12 @@ class tc_Terms {
 
         // Define basics
         $sql = "SELECT term_id, name, slug, sequence, visible FROM " . TEACHCOURSES_TERMS;
-
-        // define global search
-        $search = esc_sql(htmlspecialchars(stripslashes($atts['search'])));
-        if ( $search != '' ) {
-            $search = "`name` like '%$search%' OR `lecturer` like '%$search%' OR `date` like '%$search%' OR `room` like '%$search%' OR `term_id` = '$search'";
-        }
         
         // WHERE clause
         $nwhere = array();
         $nwhere[] = tc_DB_Helpers::generate_where_clause($atts['exclude'], "p.pub_id", "AND", "!=");
         $nwhere[] = tc_DB_Helpers::generate_where_clause($atts['visibility'], "visible", "OR", "=");
-        $nwhere[] = ( $search != '') ? $search : null;
+        $nwhere[] = tc_DB_Helpers::generate_where_clause($atts['slug'], "slug", "AND", "=");
         
         $where = tc_DB_Helpers::compose_clause($nwhere);
         
@@ -82,9 +76,9 @@ class tc_Terms {
         if ( $order != '' ) {
             $order = " ORDER BY $order";
         }
-        $where = "";
-         $order = "";
-         $limit = "";
+
+        // var_dump($sql . $where . $order . $limit)  ;
+
         $result = $wpdb->get_results($sql . $where . $order . $limit, $atts['output_type']);
         return $result;
     }

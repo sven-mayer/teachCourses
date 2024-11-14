@@ -407,6 +407,7 @@ function tc_plugin_link($links, $file){
 
 function tc_register_custom_rewrite_rule() {
     add_rewrite_rule('^teaching/([^/]*)/([^/]*)/?$','index.php?pagename=techcourses&term=$matches[1]&course=$matches[2]','top');
+    add_rewrite_rule('^teaching/([^/]*)/?$','index.php?pagename=techcourses&term=$matches[1]','top');
 }
 
 function tc_register_query_vars($vars) {
@@ -458,6 +459,9 @@ function tp_template_redirect() {
 
         // Load a custom template file
         include plugin_dir_path(__FILE__) . 'public/single-course.php';//locate_template('public/single-course.php'); // Adjust path to your custom template
+        exit;
+    } else if ($term && ($pagename == 'techcourses')) {
+        include plugin_dir_path(__FILE__) . 'public/single-term.php';//locate_template('public/single-course.php'); // Adjust path to your custom template
         exit;
     }
 }

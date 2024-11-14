@@ -15,7 +15,7 @@ $courses = TC_Courses::get_courses(array('term' => $term, 'slug' => $course));
 
 if (count($courses) > 1) {
     echo '<div id="loop-container" class="loop-container">';
-    echo '<div class="post-2 page type-page status-publish hentry entry"><article><div class="post-header"><h1 class="post-title">' . __('Wanring Multiple Entries', 'teachcourses') . '</h1></div>';
+    echo '<div class="post-2 page type-page status-publish hentry entry"><article><div class="post-header"><h1 class="post-title warning">' . __('Wanring Multiple Entries', 'teachcourses') . '</h1></div>';
 	echo '<div class="post-content"></article></div>';
     echo '</div>';
 
@@ -28,11 +28,24 @@ if (empty($courses)) {
 	echo '<div class="post-content"></article></div>';
     echo '</div>';
 } else {
+
+    $ret_coures_list = "";
+    $courses_list = TC_Courses::get_courses(array('slug' => $course));
+    if (count($courses_list) > 1) {
+        $ret_coures_list .= '<div id="teachcourses_cours_term_overview"><span>'.__('Course in other Semester', 'teachcourses').':</span> ';
+        foreach($courses_list as $course) {
+            $ret_coures_list .= '<a href="' . get_site_url() . '/teaching/' . $course->term_slug . '/' .$course->slug . '">' . strtoupper($course->term_slug) . '</a> ';
+        }
+        $ret_coures_list .= '</div>';
+    }
+
     foreach ($courses as $course) {
 
         echo '<div id="loop-container" class="loop-container">';
         echo '<div class="post-2 page type-page status-publish hentry entry"><article><div class="post-header"><h1 class="post-title">' . $course->name. the_title() . '</h1></div>';
         echo '<div class="post-content">';
+
+        echo $ret_coures_list;
         if (has_post_thumbnail()){
             echo '<div class="property-thumbnail">' . the_post_thumbnail('large') .'</div>';
         }
