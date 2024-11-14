@@ -48,6 +48,7 @@ class tc_Courses {
         $defaults = array(
             'slug' => '',
             'term_id'       => '',
+            'term'       => '',
             'visibility'    => '',
             'type'        => '',
             'search'        => '',
@@ -78,6 +79,7 @@ class tc_Courses {
         $nwhere[] = tc_DB_Helpers::generate_where_clause($atts['type'], "c.type", "AND", "=");
         $nwhere[] = tc_DB_Helpers::generate_where_clause($atts['visibility'], "c.visible", "OR", "=");
         $nwhere[] = tc_DB_Helpers::generate_where_clause($atts['slug'], "c.slug", "AND", "=");
+        $nwhere[] = tc_DB_Helpers::generate_where_clause($atts['term'], "t.slug", "AND", "=");
         $nwhere[] = ( $search != '') ? $search : null;
         
         $where = tc_DB_Helpers::compose_clause($nwhere);
