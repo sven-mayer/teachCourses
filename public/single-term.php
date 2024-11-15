@@ -8,28 +8,25 @@ if( wp_is_block_theme() ) {
     get_header();    
 }
 
-$term = get_query_var('term');
+$term_slug = get_query_var('term');
 $pagename = get_query_var('pagename');
+if (empty($term_slug)) {
+    // get current trum from settings
+    $term_id = get_tc_option('active_term');
+    $term = TC_Terms::get_term($term_id);
 
-// var_dump($courses);
-$terms = TC_Terms::get_terms(array('slug' => $term, 'visibility' => 1));
-
-if (isset($terms) && count($terms) > 1) {
-    echo '<div id="loop-container" class="loop-container">';
-    echo '<div class="post-2 page type-page status-publish hentry entry"><article><div class="post-header"><h1 class="post-title warning">' . __('Wanring Multiple Entries', 'teachcourses') . '</h1></div>';
-	echo '<div class="post-content"></article></div>';
-    echo '</div>';
-} 
-
-if (empty($terms)) {
-    // echo course not found in div container 
-    echo '<div id="loop-container" class="loop-container">';
-    echo '<div class="post-2 page type-page status-publish hentry entry"><article><div class="post-header"><h1 class="post-title">' . __('Term not found', 'teachcourses') . '</h1></div>';
-	echo '<div class="post-content"></article></div>';
-    echo '</div>';
 } else {
+    $terms = TC_Terms::get_terms(array('slug' => $term_slug, 'visibility' => 1));
+    if (empty($terms)) {
+        $term = null;
+        $term_id = null;
+    } else {
+        $term = $terms[0];
+        $term_id = $term->term_id;
+    }
+}
 
-
+function get_tc_courses_lits($terms){
     $course_types = get_tc_options('course_type', '`value` ASC');    
 
     foreach ($terms as $term) {
@@ -58,6 +55,36 @@ if (empty($terms)) {
         echo '</div>';
     }
 }
+
+echo '<div id="loop-container" class="loop-container">';
+
+if (empty($term)) {
+    // echo course not found in div container 
+    echo '<div class="post-2 page type-page status-publish hentry entry"><article><div class="post-header"><h1 class="post-title">' . __('No Active Term Available', 'teachcourses') . '</h1></div>';
+    echo '<div class="post-content"></article></div>';
+    
+} else {
+    get_tc_courses_lits(array($term));
+}
+
+$terms = TC_Terms::get_terms(array('term_id' => $term_id, 'visibility' => 1));
+
+if (empty($terms)) {
+    // echo course not found in div container 
+    echo '<div class="post-2 page type-page status-publish hentry entry"><article><div class="post-header"><h1 class="post-title">' . __('No Terms Available', 'teachcourses') . '</h1></div>';
+    echo '<div class="post-content"></article></div>';
+    
+} else {
+    echo '<div class="post-2 page type-page status-publish hentry entry"><article><div class="post-header"><h1 class="post-title">' . __('Other Semesters', 'teachcourses') . '</h1></div>';
+    echo '<div class="post-content"></article></div>';
+    echo '<ul>';
+    foreach($terms as $t) {
+        echo '<li><a href="' . get_site_url() . '/teaching/' . $t->slug .'">' . $t->name . '</a></<li>';
+    }
+    echo '</ul>';
+
+}
+echo '</div>'; 
 
 
 if( wp_is_block_theme() ) {

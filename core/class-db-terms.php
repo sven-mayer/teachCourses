@@ -23,7 +23,7 @@ class tc_Terms {
      */
     public static function get_term ($term_id, $output_type = OBJECT) {
         global $wpdb;
-        $result = $wpdb->get_row("SELECT * FROM `" . TEACHCOURSES_TERMS . "` WHERE `term_id` = '" . intval($term_id) . "'", $output_type);
+        $result = $wpdb->get_row("SELECT * FROM `" . TEACHCOURSES_TERMS . "` WHERE `term_id` = " . $term_id . "", $output_type);
         return $result;
     }
     

@@ -408,6 +408,7 @@ function tc_plugin_link($links, $file){
 function tc_register_custom_rewrite_rule() {
     add_rewrite_rule('^teaching/([^/]*)/([^/]*)/?$','index.php?pagename=techcourses&term=$matches[1]&course=$matches[2]','top');
     add_rewrite_rule('^teaching/([^/]*)/?$','index.php?pagename=techcourses&term=$matches[1]','top');
+    add_rewrite_rule('^teaching/?$','index.php?pagename=techcourses','top');
 }
 
 function tc_register_query_vars($vars) {
@@ -463,6 +464,9 @@ function tp_template_redirect() {
     } else if ($term && ($pagename == 'techcourses')) {
         include plugin_dir_path(__FILE__) . 'public/single-term.php';//locate_template('public/single-course.php'); // Adjust path to your custom template
         exit;
+    } else if ($pagename == 'techcourses') {
+        include plugin_dir_path(__FILE__) . 'public/single-term.php';//locate_template('public/single-course.php'); // Adjust path to your custom template
+        exit;
     }
 }
 
@@ -477,22 +481,22 @@ add_filter('query_vars', 'tc_register_query_vars');
 
 add_action('template_redirect', 'tp_template_redirect');
 
-// Hook into template_include to override the template for the 'Courses' page
-function myplugin_courses_template($template) {
-    // Check if this is the 'Courses' page by its slug
-    // var_dump(is_page('teaching'));
-    // var_dump(get_query_var("term"));
-    // var_dump($template);
-    // if (isset($vars['pagename']) && $vars['pagename'] === 'projects') {
+// // Hook into template_include to override the template for the 'Courses' page
+// function myplugin_courses_template($template) {
+//     // Check if this is the 'Courses' page by its slug
+//     // var_dump(is_page('teaching'));
+//     // var_dump(get_query_var("term"));
+//     // var_dump($template);
+//     // if (isset($vars['pagename']) && $vars['pagename'] === 'projects') {
 
 
-    if (is_page('teaching')) {
-        // Use the custom template function instead of loading a file
-        return myplugin_virtual_courses_template();
-    }
-    return $template;
-}
-add_filter('template_include', 'myplugin_courses_template');
+//     if (is_page('teaching')) {
+//         // Use the custom template function instead of loading a file
+//         return myplugin_virtual_courses_template();
+//     }
+//     return $template;
+// }
+// add_filter('template_include', 'myplugin_courses_template');
 
 
 
