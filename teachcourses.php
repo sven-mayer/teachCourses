@@ -455,18 +455,31 @@ function tp_template_redirect() {
     $term = get_query_var('term');
     $course = get_query_var('course');
     $pagename = get_query_var('pagename');
+    
     if ($term && $course && ($pagename == 'techcourses')) {
         // var_dump($term_id . " " . $course . " " . $pagename);
 
-        // Load a custom template file
-        include plugin_dir_path(__FILE__) . 'public/single-course.php';//locate_template('public/single-course.php'); // Adjust path to your custom template
-        exit;
-    } else if ($term && ($pagename == 'techcourses')) {
-        include plugin_dir_path(__FILE__) . 'public/single-term.php';//locate_template('public/single-course.php'); // Adjust path to your custom template
-        exit;
+        $template = locate_template('single-course.php');
+        if ($template) {
+            // Load template file from theme if it exists
+            include $template;
+            exit;
+        } else {
+            // Load template file from plugin by default
+            include plugin_dir_path(__FILE__) . 'public/single-course.php';
+            exit;
+        }
     } else if ($pagename == 'techcourses') {
-        include plugin_dir_path(__FILE__) . 'public/single-term.php';//locate_template('public/single-course.php'); // Adjust path to your custom template
-        exit;
+        $template = locate_template('single-term.php');
+        if ($template) {
+            // Load template file from theme if it exists
+            include $template;
+            exit;
+        } else {
+            // Load template file from plugin by default
+            include plugin_dir_path(__FILE__) . 'public/single-term.php';
+            exit;
+        }
     }
 }
 
