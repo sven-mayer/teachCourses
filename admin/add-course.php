@@ -308,8 +308,8 @@ class TC_Add_Course_Page {
                     'name' => 'links',
                     'title' => __('The links of the course','teachcourses'),
                     'label' => __('Links','teachcourses'),
-                    'type' => 'input',
-                    'value' => $course_data['links'],
+                    'type' => 'textarea',
+                    'value' => stripslashes($course_data['links']),
                     'tabindex' => 11,
                     'display' => 'block', 
                     'style' => 'width:100%;') );
