@@ -46,23 +46,18 @@ class tc_Courses {
      */
     public static function get_courses ( $args = array() ) {
         $defaults = array(
-            'slug' => '',
+            'slug'          => '',
             'term_id'       => '',
-            'term'       => '',
-            'visibility'    => '',
-            'type'        => '',
+            'term'          => '',
+            'visibility'    => '1', // default: only visible courses
+            'type'          => '',
             'search'        => '',
             'exclude'       => '',
-            'order'         => 'sequence, name',
+            'order'         => 'sequence DESC, name',  // by default order by sequence and name, with with latest semester first
             'limit'         => '',
             'output_type'   => OBJECT
         ); 
         $atts = wp_parse_args( $args, $defaults );
-
-        // var_dump($atts);
-        // var_dump('<br><br>');
-
-        global $wpdb;
 
         // Define basics
         $sql = "SELECT c.course_id AS course_id, c.slug AS slug, c.name AS name, c.type AS type, c.lecturer AS lecturer, c.assistant AS assistant, c.credits AS credits, c.hours AS hours, c.module AS module, c.language AS language, c.term_id AS term_id, c.visible AS visible, c.description AS description, t.name AS term, t.slug AS term_slug, t.sequence AS sequence FROM " . TEACHCOURSES_COURSES.  " c LEFT JOIN " . TEACHCOURSES_TERMS .  " t ON c.term_id = t.term_id "; //( SELECT t.course_id AS course_id, t.name AS name, t.type AS type, t.lecturer AS lecturer, t.date AS date, t.room As room, t.places AS places, t.start AS start, t.end As end, t.semester AS semester, t.parent As parent, t.visible AS visible, t.rel_page AS rel_page, t.comment AS comment, t.image_url AS image_url, t.strict_signup AS strict_signup, t.use_capabilities AS use_capabilities, p.name AS parent_name FROM " . TEACHCOURSES_COURSES . " t LEFT JOIN " . TEACHCOURSES_COURSES . " p ON t.parent = p.course_id ) AS temp";
@@ -93,7 +88,7 @@ class tc_Courses {
             $order = ' ORDER BY ' . $order;
         }
         
-        // var_dump($sql . $where . $order . $limit . '<br><br>');
+        global $wpdb;
         $result = $wpdb->get_results($sql . $where . $order . $limit, $atts['output_type']);
         return $result;
     }
