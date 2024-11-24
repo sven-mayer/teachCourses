@@ -459,6 +459,23 @@ function tp_template_redirect() {
     if ($term && $course && ($pagename == 'techcourses')) {
         // var_dump($term_id . " " . $course . " " . $pagename);
 
+        $courses = TC_Courses::get_courses(array('term' => $term, 'slug' => $course));
+
+
+        if (count($courses) > 0) {
+
+            $custom_title = $courses[0]->name;
+            
+            add_filter('pre_get_document_title', function ($title) use ($custom_title) {
+                return $custom_title . ' - ' . get_bloginfo('name'); // Set dynamic title based on parameter
+            });
+
+            add_filter('wp_title', function ($title, $sep) use ($custom_title) {
+                return $custom_title . ' - ' . get_bloginfo('name');
+            }, 10, 2);
+        }
+
+
         $template = locate_template('single-course.php');
         if ($template) {
             // Load template file from theme if it exists
@@ -470,6 +487,23 @@ function tp_template_redirect() {
             exit;
         }
     } else if ($pagename == 'techcourses') {
+
+
+        $terms = TC_Terms::get_terms(array('slug' => $course));
+        if (count($terms) > 0) {
+
+            $custom_title = $terms[0]->name;
+            
+            add_filter('pre_get_document_title', function ($title) use ($custom_title) {
+                return $custom_title . ' - ' . get_bloginfo('name'); // Set dynamic title based on parameter
+            });
+
+            add_filter('wp_title', function ($title, $sep) use ($custom_title) {
+                return $custom_title . ' - ' . get_bloginfo('name');
+            }, 10, 2);
+        }
+
+
         $template = locate_template('single-term.php');
         if ($template) {
             // Load template file from theme if it exists
